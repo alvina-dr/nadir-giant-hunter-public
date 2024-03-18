@@ -106,15 +106,16 @@ public class PlayerSwinging : MonoBehaviour
             for (int i = 0; i < swingConeRaycast.contactPointList.Count; i++)
             {
                 float _currentDistance = Vector3.Distance(swingConeRaycast.perfectPoint.position, swingConeRaycast.contactPointList[i]);
-                if (_currentDistance < _distance)
+                if (_currentDistance < _distance && _currentDistance > player.data.minSwingDistance)
                 {
                     _point = swingConeRaycast.contactPointList[i];
                     _distance = _currentDistance;
                 }
             }
-            Vector3 _direction = _point - GPCtrl.Instance.player.mesh.transform.position;
+            if (_point == Vector3.zero) return;
+            Vector3 _direction = _point - player.mesh.position;
             RaycastHit hit;
-            if (Physics.Raycast(GPCtrl.Instance.player.mesh.transform.position, _direction, out hit, player.data.maxSwingDistance))
+            if (Physics.Raycast(player.mesh.position, _direction, out hit, player.data.maxSwingDistance))
             {
                 isSwinging = true;
                 endSwingLinePoint.SetParent(hit.transform);
@@ -122,8 +123,9 @@ public class PlayerSwinging : MonoBehaviour
                 springJoint = gameObject.AddComponent<SpringJoint>();
                 springJoint.autoConfigureConnectedAnchor = false;
                 springJoint.connectedAnchor = endSwingLinePoint.position;
-
-                float _distanceFromPoint = Vector3.Distance(transform.position, endSwingLinePoint.position) + 10;
+                springJoint.enableCollision = true;
+                float _distanceFromPoint = Vector3.Distance(startSwingLinePoint.position, endSwingLinePoint.position) + 10;
+                if (_distanceFromPoint < player.data.minLineDistance) _distanceFromPoint = player.data.minLineDistance;
 
                 springJoint.maxDistance = _distanceFromPoint * 0.8f;
                 springJoint.minDistance = _distanceFromPoint * 0.25f;
@@ -132,6 +134,7 @@ public class PlayerSwinging : MonoBehaviour
                 springJoint.damper = 5f;
                 springJoint.massScale = 4.5f;
                 swingLineRenderer.positionCount = 2;
+                swingLineRenderer.SetPosition(1, startSwingLinePoint.position); //to shoot from the hand of the player
             }
         }
     }

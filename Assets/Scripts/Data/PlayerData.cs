@@ -16,7 +16,9 @@ public class PlayerData : ScriptableObject
     public float swingSpeed;
     public float swingMaxSpeed;
     public float swingAcceleration;
+    public float minSwingDistance;
     public float maxSwingDistance;
     public float endCurveSpeedBoost;
     public float radiusDetectionIncreaseSpeed;
+    public float minLineDistance;
 }
