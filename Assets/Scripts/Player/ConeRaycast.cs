@@ -43,7 +43,7 @@ public class ConeRaycast : MonoBehaviour
             }
             Debug.DrawRay(transform.position, _direction, Color.red);
             RaycastHit hit;
-            if (Physics.Raycast(GPCtrl.Instance.player.playerMesh.position, _direction, out hit, height, layerMask))
+            if (Physics.Raycast(GPCtrl.Instance.player.mesh.position, _direction, out hit, height, layerMask))
             {
                 contactPointList.Add(hit.point);
             }
