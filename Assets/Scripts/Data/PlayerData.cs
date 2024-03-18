@@ -10,6 +10,7 @@ public class PlayerData : ScriptableObject
     public float jumpForce;
     public float jumpCooldown;
     public float airMultiplier;
+    public float groundDrag;
 
     [Header("Swing")]
     public float swingSpeed;

@@ -9,7 +9,8 @@ public class Player : MonoBehaviour
 
     [Header("Player Scripts")]
     public PlayerMovement playerMovement;
-    public PlayerSwinging playerSwinging;
+    public PlayerSwinging playerSwingingRight;
+    public PlayerSwinging playerSwingingLeft;
 
     [Header("Components")]
     public Transform mesh;
@@ -26,8 +27,10 @@ public class Player : MonoBehaviour
     private void OnEnable()
     {
         inputManager.Enable();
-        inputManager.Gameplay.SwingRight.started += function => { playerSwinging.trySwing = true; };
-        inputManager.Gameplay.SwingRight.canceled += function => { playerSwinging.trySwing = false; };
+        inputManager.Gameplay.SwingRight.started += function => { playerSwingingRight.trySwing = true; };
+        inputManager.Gameplay.SwingRight.canceled += function => { playerSwingingRight.trySwing = false; };
+        inputManager.Gameplay.SwingLeft.started += function => { playerSwingingLeft.trySwing = true; };
+        inputManager.Gameplay.SwingLeft.canceled += function => { playerSwingingLeft.trySwing = false; };
         //inputManager.Gameplay.LeftShoulder.started += function => { leftShoulder = true; };
         //inputManager.Gameplay.LeftShoulder.canceled += function => { leftShoulder = false; };
         //inputManager.Gameplay.RightShoulder.started += function => { rightShoulder = true; };

@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 054f681d922a5d942a9e02d64328c744, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
-  walkSpeed: 5
+  walkSpeed: 7
   jumpForce: 25
   jumpCooldown: 0.25
   airMultiplier: 0.4
-  swingSpeed: 8.5
-  swingMaxSpeed: 15
-  swingAcceleration: 4
+  groundDrag: 5
+  swingSpeed: 15
+  swingMaxSpeed: 25
+  swingAcceleration: 1.5
   maxSwingDistance: 30
   endCurveSpeedBoost: 20
   radiusDetectionIncreaseSpeed: 3

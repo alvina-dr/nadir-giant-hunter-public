@@ -8,7 +8,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Player player;
     [Header("Movement")]
     public float currentMoveSpeed;
-    public float groundDrag;
 
     bool readyToJump;
 
@@ -25,9 +24,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
-
         player.rigibody.freezeRotation = true;
-
         readyToJump = true;
     }
 
@@ -36,15 +33,22 @@ public class PlayerMovement : MonoBehaviour
         // ground check
         //if (player.playerGrappling.isGrappling) return;
         grounded = Physics.Raycast(transform.position + new Vector3(0, 1, 0), Vector3.down, playerHeight * 0.5f + 0.3f, whatIsGround);
-        ReadInput();
-        //SpeedControl();
+        horizontalInput = player.inputManager.Gameplay.Move.ReadValue<Vector2>().x;
+        verticalInput = player.inputManager.Gameplay.Move.ReadValue<Vector2>().y;
+        SpeedControl();
 
-        if (grounded) currentMoveSpeed = player.data.walkSpeed;
-        // handle drag
-        //if (grounded && !player.playerGrappling.isGrappling)
-        //    rb.drag = groundDrag;
-        //else
-        //    rb.drag = 0;
+        if (player.playerSwingingLeft.isSwinging || player.playerSwingingRight.isSwinging)
+        {
+            if (currentMoveSpeed < player.data.swingSpeed) currentMoveSpeed = player.data.swingSpeed;
+            currentMoveSpeed += player.data.swingAcceleration * Time.deltaTime;
+            if (currentMoveSpeed >= player.data.swingMaxSpeed) currentMoveSpeed = player.data.swingMaxSpeed;
+        }
+        else if (grounded) currentMoveSpeed = player.data.walkSpeed;
+
+        if (grounded)
+            player.rigibody.drag = player.data.groundDrag;
+        else
+            player.rigibody.drag = 0;
 
         //if (player.playerGrappling.isSwinging)
         //{
@@ -58,12 +62,6 @@ public class PlayerMovement : MonoBehaviour
     {
         //if (player.playerGrappling.isGrappling) return;
         MovePlayer();
-    }
-
-    private void ReadInput()
-    {
-        horizontalInput = player.inputManager.Gameplay.Move.ReadValue<Vector2>().x;
-        verticalInput = player.inputManager.Gameplay.Move.ReadValue<Vector2>().y;
     }
 
     private void MovePlayer()
@@ -94,5 +92,17 @@ public class PlayerMovement : MonoBehaviour
     private void ResetJump()
     {
         readyToJump = true;
+    }
+
+    private void SpeedControl()
+    {
+        Vector3 flatVel = new Vector3(player.rigibody.velocity.x, 0f, player.rigibody.velocity.z);
+
+        // limit velocity if needed
+        if (flatVel.magnitude > currentMoveSpeed)
+        {
+            Vector3 limitedVel = flatVel.normalized * currentMoveSpeed;
+            player.rigibody.velocity = new Vector3(limitedVel.x, player.rigibody.velocity.y, limitedVel.z);
+        }
     }
 }

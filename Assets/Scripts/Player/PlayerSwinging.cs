@@ -60,12 +60,6 @@ public class PlayerSwinging : MonoBehaviour
         if (trySwing) StartSwing();
         else StopSwing();
 
-        if (player.playerSwinging.isSwinging)
-        {
-            if (player.playerMovement.currentMoveSpeed < player.data.swingSpeed) player.playerMovement.currentMoveSpeed = player.data.swingSpeed;
-            player.playerMovement.currentMoveSpeed += player.data.swingAcceleration * Time.deltaTime;
-            if (player.playerMovement.currentMoveSpeed >= player.data.swingMaxSpeed) player.playerMovement.currentMoveSpeed = player.data.swingMaxSpeed;
-        }
         //if (grappleFreeze)
         //{
         //    player.rigibody.velocity = Vector3.zero;
@@ -151,10 +145,8 @@ public class PlayerSwinging : MonoBehaviour
         swingLineRenderer.positionCount = 0;
         isSwinging = false;
         endSwingLinePoint.parent = null;
-        Debug.Log("SCALAR : " + Vector3.Dot(player.rigibody.velocity, player.orientation.transform.forward));
         if (Vector3.Dot(player.rigibody.velocity, player.orientation.transform.forward) > .5f)
         {
-            Debug.Log("add acceleration");
             player.rigibody.AddForce(player.rigibody.velocity.normalized * player.data.endCurveSpeedBoost, ForceMode.Impulse);
         }
     }
