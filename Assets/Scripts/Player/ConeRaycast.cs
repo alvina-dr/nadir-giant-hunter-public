@@ -17,6 +17,7 @@ public class ConeRaycast : MonoBehaviour
     public LayerMask layerMask;
 
     [Header("RAYCAST METHOD")]
+    public bool searchPoint = false;
     public float minRadius;
     public float maxRadius;
     public float radius;
@@ -26,6 +27,7 @@ public class ConeRaycast : MonoBehaviour
     private void Update()
     {
         contactPointList.Clear();
+        if (!searchPoint) return;
         for (int i = 0; i < 360 * precision; i++)
         {
             Vector3 _direction = transform.up * height;
@@ -43,7 +45,7 @@ public class ConeRaycast : MonoBehaviour
             }
             Debug.DrawRay(transform.position, _direction, Color.red);
             RaycastHit hit;
-            if (Physics.Raycast(GPCtrl.Instance.player.mesh.position, _direction, out hit, height, layerMask))
+            if (Physics.Raycast(transform.position, _direction, out hit, height, layerMask))
             {
                 contactPointList.Add(hit.point);
             }
