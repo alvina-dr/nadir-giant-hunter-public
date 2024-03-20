@@ -55,6 +55,7 @@ public class PlayerSwinging : MonoBehaviour
     {
         if (isSwinging)
         {
+            //if (player.rigibody.velocity.y < 1 && player.rigibody.velocity.y > -1) Debug.Log("VELOCITY ALMOST NULL");
             //player.mesh.transform.up = endSwingLinePoint.position - player.mesh.transform.position;
         }
 
@@ -138,7 +139,8 @@ public class PlayerSwinging : MonoBehaviour
                 springJoint.massScale = 4.5f;
                 swingLineRenderer.positionCount = 2;
                 swingLineRenderer.SetPosition(1, startSwingLinePoint.position); //to shoot from the hand of the player
-                player.rigibody.AddForce(Vector3.Cross(player.mesh.transform.right, (endSwingLinePoint.position - player.transform.position).normalized) * player.data.endCurveSpeedBoost, ForceMode.Impulse);
+                if (player.data.startCurveBoost)
+                    player.rigibody.AddForce(Vector3.Cross(player.mesh.transform.right, (endSwingLinePoint.position - player.transform.position).normalized) * player.data.startCurveSpeedBoost, ForceMode.Impulse);
             }
         }
     }
@@ -152,10 +154,11 @@ public class PlayerSwinging : MonoBehaviour
         swingLineRenderer.positionCount = 0;
         isSwinging = false;
         endSwingLinePoint.parent = null;
-        //if (Vector3.Dot(player.rigibody.velocity, player.orientation.transform.forward) > .5f)
-        //{
-        //    player.rigibody.AddForce(player.rigibody.velocity.normalized * player.data.endCurveSpeedBoost, ForceMode.Impulse);
-        //}
+        if (Vector3.Dot(player.rigibody.velocity, player.orientation.transform.forward) > .5f)
+        {
+            if (player.data.endCurveBoost)
+                player.rigibody.AddForce(player.rigibody.velocity.normalized * player.data.endCurveSpeedBoost, ForceMode.Impulse);
+        }
     }
     #endregion
 }

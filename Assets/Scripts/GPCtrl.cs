@@ -16,6 +16,7 @@ public class GPCtrl : MonoBehaviour
         else
         {
             Instance = this;
+
         }
     }
     #endregion
