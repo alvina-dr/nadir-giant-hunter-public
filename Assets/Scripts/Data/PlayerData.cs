@@ -22,6 +22,8 @@ public class PlayerData : ScriptableObject
     public float endCurveSpeedBoost;
     public float radiusDetectionIncreaseSpeed;
     public float minLineDistance;
+    public float fovAddition;
+    public float airSlowDown;
 
     [Header("Tests")]
     public bool startCurveBoost;

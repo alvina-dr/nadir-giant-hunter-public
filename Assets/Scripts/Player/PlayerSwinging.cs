@@ -57,6 +57,12 @@ public class PlayerSwinging : MonoBehaviour
         {
             //if (player.rigibody.velocity.y < 1 && player.rigibody.velocity.y > -1) Debug.Log("VELOCITY ALMOST NULL");
             //player.mesh.transform.up = endSwingLinePoint.position - player.mesh.transform.position;
+            if (player.playerMovement.currentMoveSpeed >= player.data.swingSpeed) {
+                Camera.main.fieldOfView = (player.playerMovement.currentMoveSpeed - player.data.swingSpeed) / (player.data.swingMaxSpeed - player.data.swingSpeed) * player.data.fovAddition + 50;
+            }
+        } else if (player.playerMovement.currentMoveSpeed >= player.data.swingSpeed)
+        {
+            player.playerMovement.currentMoveSpeed *= player.data.airSlowDown;
         }
 
         if (trySwing) StartSwing();
@@ -157,7 +163,10 @@ public class PlayerSwinging : MonoBehaviour
         if (Vector3.Dot(player.rigibody.velocity, player.orientation.transform.forward) > .5f)
         {
             if (player.data.endCurveBoost)
-                player.rigibody.AddForce(player.rigibody.velocity.normalized * player.data.endCurveSpeedBoost, ForceMode.Impulse);
+            {
+                player.rigibody.AddForce(Vector3.Cross(player.mesh.transform.right, (endSwingLinePoint.position - player.transform.position).normalized) * player.data.endCurveSpeedBoost, ForceMode.Impulse);
+                player.playerMovement.currentMoveSpeed++;
+            }
         }
     }
     #endregion
