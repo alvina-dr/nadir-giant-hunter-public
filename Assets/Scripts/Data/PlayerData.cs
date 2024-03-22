@@ -25,7 +25,11 @@ public class PlayerData : ScriptableObject
     public float fovAddition;
     public float airSlowDown;
 
+    [Header("Attack")]
+    public float attackDistance;
+
     [Header("Tests")]
     public bool startCurveBoost;
     public bool endCurveBoost;
+
 }
