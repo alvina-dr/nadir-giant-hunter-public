@@ -377,11 +377,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 5043027637049521611}
   _swingConeRaycast: {fileID: 7395889314644683301}
-  _startSwingLinePoint: {fileID: 8765743874656701413}
+  StartSwingLinePoint: {fileID: 8765743874656701413}
   _endSwingLinePoint: {fileID: 5133866373044044127}
   IsSwinging: 0
   TrySwing: 0
-  _swingLineRenderer: {fileID: 0}
+  SwingLineRenderer: {fileID: 0}
   _layerMask:
     serializedVersion: 2
     m_Bits: 51
@@ -399,11 +399,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 5043027637049521611}
   _swingConeRaycast: {fileID: 2104427182935562414}
-  _startSwingLinePoint: {fileID: 4192822122695975406}
+  StartSwingLinePoint: {fileID: 4192822122695975406}
   _endSwingLinePoint: {fileID: 5133866373044044127}
   IsSwinging: 0
   TrySwing: 0
-  _swingLineRenderer: {fileID: 0}
+  SwingLineRenderer: {fileID: 0}
   _layerMask:
     serializedVersion: 2
     m_Bits: 51
@@ -438,6 +438,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 5043027637049521611}
+  IsGrappling: 0
 --- !u!54 &8166567874876028922
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -486,7 +487,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 64859b341e1aa58418355f2abc3119f1,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 64859b341e1aa58418355f2abc3119f1,
         type: 3}

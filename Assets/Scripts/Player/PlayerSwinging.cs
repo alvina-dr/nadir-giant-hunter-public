@@ -8,7 +8,7 @@ public class PlayerSwinging : MonoBehaviour
 
     [Header("SWINGING")]
     [SerializeField] private ConeRaycast _swingConeRaycast;
-    [SerializeField] private Transform _startSwingLinePoint;
+    [SerializeField] public Transform StartSwingLinePoint;
     [SerializeField] private Transform _endSwingLinePoint;
 
     private SpringJoint _springJoint;
@@ -24,7 +24,7 @@ public class PlayerSwinging : MonoBehaviour
     {
         if (_springJoint) //Visual effect for swing line
         {
-            SwingLineRenderer.SetPosition(0, _startSwingLinePoint.position);
+            SwingLineRenderer.SetPosition(0, StartSwingLinePoint.position);
             if (SwingLineRenderer.GetPosition(1) != _endSwingLinePoint.position)
             {
                 SwingLineRenderer.SetPosition(1, Vector3.Lerp(SwingLineRenderer.GetPosition(1), _endSwingLinePoint.position, 0.1f));
@@ -71,9 +71,9 @@ public class PlayerSwinging : MonoBehaviour
                 }
             }
             if (point == Vector3.zero) return;
-            Vector3 direction = point - _startSwingLinePoint.position;
+            Vector3 direction = point - StartSwingLinePoint.position;
             RaycastHit hit;
-            if (Physics.Raycast(_startSwingLinePoint.position, direction, out hit, Player.Data.maxSwingDistance, _layerMask))
+            if (Physics.Raycast(StartSwingLinePoint.position, direction, out hit, Player.Data.maxSwingDistance, _layerMask))
             {
                 IsSwinging = true;
                 _swingConeRaycast.searchPoint = false;
@@ -83,7 +83,7 @@ public class PlayerSwinging : MonoBehaviour
                 _springJoint.autoConfigureConnectedAnchor = false;
                 _springJoint.connectedAnchor = _endSwingLinePoint.position;
                 _springJoint.enableCollision = true;
-                float distanceFromPoint = Vector3.Distance(_startSwingLinePoint.position, _endSwingLinePoint.position) + 10;
+                float distanceFromPoint = Vector3.Distance(StartSwingLinePoint.position, _endSwingLinePoint.position) + 10;
                 if (distanceFromPoint < Player.Data.minLineDistance) distanceFromPoint = Player.Data.minLineDistance;
 
                 _springJoint.maxDistance = distanceFromPoint * 0.8f;
@@ -93,7 +93,7 @@ public class PlayerSwinging : MonoBehaviour
                 _springJoint.damper = 5f;
                 _springJoint.massScale = 4.5f;
                 SwingLineRenderer.positionCount = 2;
-                SwingLineRenderer.SetPosition(1, _startSwingLinePoint.position); //to shoot from the hand of the player
+                SwingLineRenderer.SetPosition(1, StartSwingLinePoint.position); //to shoot from the hand of the player
                 if (Player.Data.startCurveBoost)
                     Player.Rigibody.AddForce(Vector3.Cross(Player.Mesh.transform.right, (_endSwingLinePoint.position - Player.transform.position).normalized) * Player.Data.startCurveSpeedBoost, ForceMode.Impulse);
             }

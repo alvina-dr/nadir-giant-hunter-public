@@ -27,6 +27,7 @@ public class PlayerData : ScriptableObject
 
     [Header("Attack")]
     public float attackDistance;
+    public float dragForce;
 
     [Header("Tests")]
     public bool startCurveBoost;

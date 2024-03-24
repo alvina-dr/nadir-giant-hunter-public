@@ -30,6 +30,7 @@ public class PlayerAttack : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(transform.position, direction, out hit, Player.Data.attackDistance))
         {
+            if (hit.transform.gameObject != weakSpot.gameObject) return;
             GrappleWeakSpot(weakSpot);
         }       
     }
@@ -38,58 +39,58 @@ public class PlayerAttack : MonoBehaviour
     {
         IsGrappling = true;
         _currentWeakSpot = weakSpot;
-        Vector3 direction = weakSpot.transform.position - transform.position;
-        _springJoint = weakSpot.gameObject.AddComponent<SpringJoint>();
+        Player.Rigibody.useGravity = false;
+        Player.Rigibody.velocity = Vector3.zero;
+        _springJoint = gameObject.AddComponent<SpringJoint>();
         _springJoint.autoConfigureConnectedAnchor = false;
-        _springJoint.connectedAnchor = weakSpot.transform.position;
-        _springJoint.connectedBody = Player.Rigibody;
-        _springJoint.enableCollision = true;
-        float distanceFromPoint = Vector3.Distance(transform.position, weakSpot.transform.position) + 10;
+        _springJoint.connectedAnchor = Vector3.zero;
+        _springJoint.connectedBody = weakSpot.Rigidbody;
 
-        _springJoint.maxDistance = distanceFromPoint * 0.8f;
-        _springJoint.minDistance = distanceFromPoint * 0.25f;
-
-        _springJoint.spring = 10;
-        _springJoint.damper = 5f;
-        _springJoint.massScale = 4.5f;
-
+        _springJoint.spring = 20;
+        _springJoint.damper = 0f;
+        _springJoint.massScale = Player.Data.dragForce;
 
         Player.PlayerSwingingLeft.SwingLineRenderer.positionCount = 2;
         Player.PlayerSwingingLeft.SwingLineRenderer.SetPosition(1, weakSpot.transform.position); //to shoot from the hand of the player
         Player.PlayerSwingingRight.SwingLineRenderer.positionCount = 2;
         Player.PlayerSwingingRight.SwingLineRenderer.SetPosition(1, weakSpot.transform.position); //to shoot from the hand of the player
-
     }
 
     private void Update()
     {
         if (IsGrappling && _springJoint != null)
         {
-            if (_springJoint.maxDistance > 0.5f)
-            {
-                _springJoint.maxDistance -= 0.1f;
-            }
-            else
+            if (Vector3.Distance(transform.position, _currentWeakSpot.transform.position) < 2f)
             {
                 Destroy(_springJoint);
+                _springJoint = null;
                 IsGrappling = false;
+                Player.PlayerSwingingLeft.SwingLineRenderer.positionCount = 0;
+                Player.PlayerSwingingRight.SwingLineRenderer.positionCount = 0;
+                Player.Rigibody.useGravity = true;
             }
         }
     }
 
     private void LateUpdate()
     {
-        if (_springJoint) //Visual effect for swing line
+        if (_springJoint && IsGrappling) //Visual effect for swing line
         {
-            Player.PlayerSwingingLeft.SwingLineRenderer.SetPosition(0, transform.position);
-            if (Player.PlayerSwingingLeft.SwingLineRenderer.GetPosition(1) != _currentWeakSpot.transform.position)
+            if (Player.PlayerSwingingLeft.SwingLineRenderer.positionCount == 2)
             {
-                Player.PlayerSwingingLeft.SwingLineRenderer.SetPosition(1, Vector3.Lerp(Player.PlayerSwingingLeft.SwingLineRenderer.GetPosition(1), _currentWeakSpot.transform.position, 0.1f));
+                Player.PlayerSwingingLeft.SwingLineRenderer.SetPosition(0, Player.PlayerSwingingLeft.StartSwingLinePoint.position);
+                if (Player.PlayerSwingingLeft.SwingLineRenderer.GetPosition(1) != _currentWeakSpot.transform.position)
+                {
+                    Player.PlayerSwingingLeft.SwingLineRenderer.SetPosition(1, Vector3.Lerp(Player.PlayerSwingingLeft.SwingLineRenderer.GetPosition(1), _currentWeakSpot.transform.position, 0.1f));
+                }
             }
-            Player.PlayerSwingingRight.SwingLineRenderer.SetPosition(0, transform.position);
-            if (Player.PlayerSwingingRight.SwingLineRenderer.GetPosition(1) != _currentWeakSpot.transform.position)
+            if (Player.PlayerSwingingRight.SwingLineRenderer.positionCount == 2)
             {
-                Player.PlayerSwingingRight.SwingLineRenderer.SetPosition(1, Vector3.Lerp(Player.PlayerSwingingRight.SwingLineRenderer.GetPosition(1), _currentWeakSpot.transform.position, 0.1f));
+                Player.PlayerSwingingRight.SwingLineRenderer.SetPosition(0, Player.PlayerSwingingRight.StartSwingLinePoint.position);
+                if (Player.PlayerSwingingRight.SwingLineRenderer.GetPosition(1) != _currentWeakSpot.transform.position)
+                {
+                    Player.PlayerSwingingRight.SwingLineRenderer.SetPosition(1, Vector3.Lerp(Player.PlayerSwingingRight.SwingLineRenderer.GetPosition(1), _currentWeakSpot.transform.position, 0.1f));
+                }
             }
         }
     }
