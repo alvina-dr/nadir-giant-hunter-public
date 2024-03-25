@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GPCtrl : MonoBehaviour
@@ -16,9 +17,16 @@ public class GPCtrl : MonoBehaviour
         else
         {
             Instance = this;
+
         }
+    }
+
+    private void Start()
+    {
+        WeakSpotList = FindObjectsByType<WeakSpot>(FindObjectsSortMode.InstanceID).ToList();
     }
     #endregion
 
-    public Player player;
+    public Player Player;
+    public List<WeakSpot> WeakSpotList;
 }
