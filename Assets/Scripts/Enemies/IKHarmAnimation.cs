@@ -182,51 +182,8 @@ namespace Enemies
                     GetAndApplyNextIkPosition(legPair.Legs[legPair.CurrentLeg], 0);
                     legPair.Legs[legPair.CurrentLeg].MaxLength = _maxLengthBeforeUpdate;
                     legPair.CurrentLeg = legPair.CurrentLeg == 0 ? 1 : 0;
-                    //legPair.Legs[legPair.CurrentLeg].MaxLength += _iksDiff;
                 }
             }
-
-
-            /*float dist = Vector3.Distance(_ikTargetsLastPos[_currentIK], _ikTargetsPositions[_currentIK].position);
-            if (dist >= _ikTargetsMaxLength[_currentIK])
-            {
-
-                GetAndApplyNextIkPosition(_currentIK, 0);
-                _ikTargetsMaxLength[_currentIK] = _maxLengthBeforeUpdate + UnityEngine.Random.Range(_lengthBeforeUpdateOffSet.x, _lengthBeforeUpdateOffSet.y);
-
-                _currentIK++;
-                //Resets _lastmoved to -1 if is at end index
-                _currentIK = _currentIK == _ikTargetsLastPos.Count ? 0 : _currentIK;
-                _ikTargetsMaxLength[_currentIK] += _iksDiff;
-                _ikTargetsMaxLength[_currentIK] = Mathf.Min(_ikTargetsMaxLength[_currentIK], _maxLengthBeforeUpdate + _iksMaxDiff);
-
-            }*/
-
-
-            /*for (int i = 0; i < _ikTargets.Count; i++)
-            {
-                float dist = Vector3.Distance(_ikTargetsLastPos[i], _ikTargetsPositions[i].position);
-                if (dist >= _ikTargetsMaxLength[i] && _currentIK == i)
-                {
-                    _currentIK++;
-                    //Resets _lastmoved to -1 if is at end index
-                    _currentIK = _currentIK == _ikTargetsLastPos.Count ? 0 : _currentIK;
-
-                    GetAndApplyNextIkPosition(i, 0);
-                    _ikTargetsMaxLength[i] = _maxLengthBeforeUpdate + UnityEngine.Random.Range(_lengthBeforeUpdateOffSet.x, _lengthBeforeUpdateOffSet.y);
-                    _ikTargetsMaxLength[_currentIK] = _maxLengthBeforeUpdate + UnityEngine.Random.Range(_lengthBeforeUpdateOffSet.x, _lengthBeforeUpdateOffSet.y);
-                    for (int j = 0; j < _ikTargets.Count; j++)
-                    {
-                        if(_ikTargets[j] == _ikTargets[i] && j != _currentIK)
-                        {
-                            continue;
-                        }
-                        _ikTargetsMaxLength[j] += _iksDiff;
-                        _ikTargetsMaxLength[j] = Mathf.Min(_ikTargetsMaxLength[j], _maxLengthBeforeUpdate + _iksMaxDiff);
-                    }
-                    
-                }
-            }*/
         }
 
         private void GetAndApplyNextIkPosition(Leg leg, int tryNum)
