@@ -42,13 +42,14 @@ public class PlayerSwinging : MonoBehaviour
             if (Player.PlayerMovement.CurrentMoveSpeed >= Player.Data.swingSpeed) {
                 Camera.main.fieldOfView = (Player.PlayerMovement.CurrentMoveSpeed - Player.Data.swingSpeed) / (Player.Data.swingMaxSpeed - Player.Data.swingSpeed) * Player.Data.fovAddition + 50;
             }
-            Vector3 up = (EndSwingLinePoint.transform.position - Player.transform.position).normalized;
-            //Player.Mesh.up = Vector3.Slerp(Player.Mesh.up, new Vector3(up.x, Player.Mesh.up.y, up.z), Time.deltaTime * 10);
+            Player.Mesh.up = Vector3.Slerp(Player.Mesh.up, (EndSwingLinePoint.position - Player.transform.position).normalized, Time.deltaTime * 10f);
 
         }
         else if (Player.PlayerMovement.CurrentMoveSpeed >= Player.Data.swingSpeed)
         {
             //Player.PlayerMovement.CurrentMoveSpeed *= Player.Data.airSlowDown;
+            Player.Mesh.up = Vector3.Slerp(Player.Mesh.up, Vector3.up, Time.deltaTime * 10f);
+
         }
 
         if (TrySwing) StartSwing();

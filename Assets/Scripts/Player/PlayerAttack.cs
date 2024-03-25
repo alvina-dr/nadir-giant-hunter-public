@@ -69,7 +69,7 @@ public class PlayerAttack : MonoBehaviour
                 IsGrappling = false;
                 Player.PlayerSwingingLeft.SwingLineRenderer.positionCount = 0;
                 Player.PlayerSwingingRight.SwingLineRenderer.positionCount = 0;
-                //Player.Rigibody.velocity = Vector3.zero;
+                Player.Rigibody.velocity = Vector3.zero;
                 Player.Rigibody.useGravity = true;
             }
         }
