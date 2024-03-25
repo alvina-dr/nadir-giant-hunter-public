@@ -57,7 +57,10 @@ public class PlayerMovement : MonoBehaviour
             Player.Animator.SetBool("Grounded", true);
         }
         else
+        {
             Player.Rigibody.drag = 0;
+            Player.Animator.SetBool("Grounded", false);
+        }
 
         //if (player.playerGrappling.isSwinging)
         //{
