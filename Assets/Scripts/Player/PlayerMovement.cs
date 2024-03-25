@@ -28,11 +28,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, Vector3.down, out hit, Player.Data.charaHeight * 0.5f + 0.3f, WhatIsGround))
-        {
-            Debug.Log("ground hit with : " + hit.transform.gameObject.name);
-        }
         _grounded = Physics.Raycast(transform.position, Vector3.down, Player.Data.charaHeight * 0.5f + 0.3f, WhatIsGround);
         _horizontalInput = Player.InputManager.Gameplay.Move.ReadValue<Vector2>().x;
         _verticalInput = Player.InputManager.Gameplay.Move.ReadValue<Vector2>().y;

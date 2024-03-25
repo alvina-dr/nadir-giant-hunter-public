@@ -5,6 +5,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "PlayerData", menuName = "ScriptableObjects/PlayerData", order = 1)]
 public class PlayerData : ScriptableObject
 {
+    [Header("Camera")]
+    public float walkRotationSpeed;
+    public float airRotationSpeed;
+
     [Header("Movement")]
     public float walkSpeed;
     public float jumpForce;
