@@ -32,6 +32,7 @@ public class PlayerData : ScriptableObject
 
     [Header("Attack")]
     public float attackDistance;
+    public float attackStopDistance;
     public float dragForce;
 
     [Header("Tests")]

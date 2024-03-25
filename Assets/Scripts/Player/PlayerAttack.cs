@@ -8,7 +8,7 @@ public class PlayerAttack : MonoBehaviour
     private SpringJoint _springJoint;
     [HideInInspector]
     public bool IsGrappling = false;
-    private WeakSpot _currentWeakSpot;
+    public WeakSpot CurrentWeakSpot;
 
     public void Attack()
     {
@@ -40,7 +40,7 @@ public class PlayerAttack : MonoBehaviour
         Player.PlayerSwingingLeft.StopSwing(false);
         Player.PlayerSwingingRight.StopSwing(false);
         IsGrappling = true;
-        _currentWeakSpot = weakSpot;
+        CurrentWeakSpot = weakSpot;
         Player.Rigibody.useGravity = false;
         Player.Rigibody.velocity = Vector3.zero;
         _springJoint = gameObject.AddComponent<SpringJoint>();
@@ -48,7 +48,7 @@ public class PlayerAttack : MonoBehaviour
         _springJoint.connectedAnchor = Vector3.zero;
         _springJoint.connectedBody = weakSpot.Rigidbody;
 
-        _springJoint.spring = 20;
+        _springJoint.spring = 30;
         _springJoint.damper = 0f;
         _springJoint.massScale = Player.Data.dragForce;
 
@@ -62,7 +62,7 @@ public class PlayerAttack : MonoBehaviour
     {
         if (IsGrappling && _springJoint != null)
         {
-            if (Vector3.Distance(transform.position, _currentWeakSpot.transform.position) < 2f)
+            if (Vector3.Distance(transform.position, CurrentWeakSpot.transform.position) < Player.Data.attackStopDistance)
             {
                 Destroy(_springJoint);
                 _springJoint = null;
@@ -82,21 +82,19 @@ public class PlayerAttack : MonoBehaviour
             if (Player.PlayerSwingingLeft.SwingLineRenderer.positionCount == 2)
             {
                 Player.PlayerSwingingLeft.SwingLineRenderer.SetPosition(0, Player.PlayerSwingingLeft.StartSwingLinePoint.position);
-                if (Player.PlayerSwingingLeft.SwingLineRenderer.GetPosition(1) != _currentWeakSpot.transform.position)
+                if (Player.PlayerSwingingLeft.SwingLineRenderer.GetPosition(1) != CurrentWeakSpot.transform.position)
                 {
-                    Player.PlayerSwingingLeft.SwingLineRenderer.SetPosition(1, Vector3.Lerp(Player.PlayerSwingingLeft.SwingLineRenderer.GetPosition(1), _currentWeakSpot.transform.position, 0.1f));
+                    Player.PlayerSwingingLeft.SwingLineRenderer.SetPosition(1, Vector3.Lerp(Player.PlayerSwingingLeft.SwingLineRenderer.GetPosition(1), CurrentWeakSpot.transform.position, 0.1f));
                 }
             }
             if (Player.PlayerSwingingRight.SwingLineRenderer.positionCount == 2)
             {
                 Player.PlayerSwingingRight.SwingLineRenderer.SetPosition(0, Player.PlayerSwingingRight.StartSwingLinePoint.position);
-                if (Player.PlayerSwingingRight.SwingLineRenderer.GetPosition(1) != _currentWeakSpot.transform.position)
+                if (Player.PlayerSwingingRight.SwingLineRenderer.GetPosition(1) != CurrentWeakSpot.transform.position)
                 {
-                    Player.PlayerSwingingRight.SwingLineRenderer.SetPosition(1, Vector3.Lerp(Player.PlayerSwingingRight.SwingLineRenderer.GetPosition(1), _currentWeakSpot.transform.position, 0.1f));
+                    Player.PlayerSwingingRight.SwingLineRenderer.SetPosition(1, Vector3.Lerp(Player.PlayerSwingingRight.SwingLineRenderer.GetPosition(1), CurrentWeakSpot.transform.position, 0.1f));
                 }
             }
-            Vector3 direction = (_currentWeakSpot.transform.position - transform.position).normalized;
-            Player.Mesh.forward = Vector3.Slerp(Player.Mesh.forward, new Vector3(direction.x, direction.y, direction.z), Time.deltaTime * 10f);
         }
     }
 }

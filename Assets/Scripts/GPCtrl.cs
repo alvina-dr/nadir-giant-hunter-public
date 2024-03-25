@@ -27,5 +27,6 @@ public class GPCtrl : MonoBehaviour
     #endregion
 
     public Player Player;
+    public CameraThirdPerson CameraThirdPerson;
     public List<WeakSpot> WeakSpotList;
 }

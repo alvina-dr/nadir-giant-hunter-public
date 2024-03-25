@@ -49,10 +49,9 @@ public class PlayerSwinging : MonoBehaviour
         {
             //Player.PlayerMovement.CurrentMoveSpeed *= Player.Data.airSlowDown;
             Player.Mesh.up = Vector3.Slerp(Player.Mesh.up, Vector3.up, Time.deltaTime * 10f);
-
         }
 
-        if (TrySwing) StartSwing();
+        if (TrySwing && !Player.PlayerAttack.IsGrappling) StartSwing();
         else StopSwing();
         Debug.DrawRay(Player.transform.position, Vector3.Cross(Player.Mesh.transform.right, (EndSwingLinePoint.position - Player.transform.position).normalized) * 4);
     }

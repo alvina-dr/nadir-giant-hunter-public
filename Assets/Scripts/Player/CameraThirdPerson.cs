@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraThirdPerson : MonoBehaviour
 {
-    private Vector3 _lookDirectionSave = Vector3.zero;
+    public Vector3 LookDirectionSave = Vector3.zero;
 
     private void Update()
     {
@@ -19,24 +19,29 @@ public class CameraThirdPerson : MonoBehaviour
             {
                 inputDir = Camera.main.transform.forward;
             }
-            _lookDirectionSave = inputDir;
+            LookDirectionSave = inputDir;
             //float rotationSpeed = GPCtrl.Instance.Player.Data.walkRotationSpeed;
             //if (GPCtrl.Instance.Player.PlayerSwingingLeft.IsSwinging && GPCtrl.Instance.Player.PlayerSwingingRight.IsSwinging)
             //    rotationSpeed = GPCtrl.Instance.Player.Data.airRotationSpeed;
             GPCtrl.Instance.Player.Mesh.rotation = Quaternion.LookRotation(inputDir, GPCtrl.Instance.Player.Mesh.up);
         }    
-        else if (inputDir == Vector3.zero)
+        else if (inputDir == Vector3.zero && !GPCtrl.Instance.Player.PlayerAttack.IsGrappling)
         {
             if (GPCtrl.Instance.Player.PlayerSwingingLeft.IsSwinging || GPCtrl.Instance.Player.PlayerSwingingRight.IsSwinging)
             {
                 inputDir = Camera.main.transform.forward;
-                _lookDirectionSave = inputDir;
+                LookDirectionSave = inputDir;
             }
-            else inputDir = _lookDirectionSave;
+            else inputDir = LookDirectionSave;
             //float rotationSpeed = GPCtrl.Instance.Player.Data.walkRotationSpeed;
             //if (GPCtrl.Instance.Player.PlayerSwingingLeft.IsSwinging && GPCtrl.Instance.Player.PlayerSwingingRight.IsSwinging)
             //    rotationSpeed = GPCtrl.Instance.Player.Data.airRotationSpeed;
             GPCtrl.Instance.Player.Mesh.rotation = Quaternion.LookRotation(inputDir, GPCtrl.Instance.Player.Mesh.up);
+        } else if (GPCtrl.Instance.Player.PlayerAttack.IsGrappling)
+        {
+            Vector3 direction = (GPCtrl.Instance.Player.PlayerAttack.CurrentWeakSpot.transform.position - GPCtrl.Instance.Player.transform.transform.position).normalized;
+            GPCtrl.Instance.Player.Mesh.rotation = Quaternion.LookRotation(direction, Vector3.up);
+            LookDirectionSave = direction;
         }
     }
 }
