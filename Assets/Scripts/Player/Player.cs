@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
     public Transform Mesh;
     public Rigidbody Rigibody;
     public Transform Orientation;
+    public Animator Animator;
 
     private void Awake()
     {

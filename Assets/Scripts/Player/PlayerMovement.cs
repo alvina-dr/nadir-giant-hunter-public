@@ -28,9 +28,19 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        _grounded = Physics.Raycast(transform.position + new Vector3(0, 1, 0), Vector3.down, PlayerHeight * 0.5f + 0.3f, WhatIsGround);
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, Player.Data.charaHeight * 0.5f + 0.3f, WhatIsGround))
+        {
+            Debug.Log("ground hit with : " + hit.transform.gameObject.name);
+        }
+        _grounded = Physics.Raycast(transform.position, Vector3.down, Player.Data.charaHeight * 0.5f + 0.3f, WhatIsGround);
         _horizontalInput = Player.InputManager.Gameplay.Move.ReadValue<Vector2>().x;
         _verticalInput = Player.InputManager.Gameplay.Move.ReadValue<Vector2>().y;
+        if (Player.PlayerAttack.IsGrappling)
+        {
+            _horizontalInput = 0;
+            _verticalInput = 0;
+        }
         SpeedControl();
 
         if (Player.PlayerSwingingLeft.IsSwinging || Player.PlayerSwingingRight.IsSwinging)
@@ -42,7 +52,10 @@ public class PlayerMovement : MonoBehaviour
         else if (_grounded) CurrentMoveSpeed = Player.Data.walkSpeed;
 
         if (_grounded)
+        {
             Player.Rigibody.drag = Player.Data.groundDrag;
+            Player.Animator.SetBool("Grounded", true);
+        }
         else
             Player.Rigibody.drag = 0;
 
@@ -50,7 +63,9 @@ public class PlayerMovement : MonoBehaviour
         //{
         //    player.playerMesh.transform.rotation = Quaternion.Slerp(GPCtrl.Instance.player.playerMesh.transform.rotation, Quaternion.LookRotation(rb.velocity), Time.deltaTime);
         //}
-
+        if (_moveDirection != Vector3.zero && _grounded) Player.Animator.SetBool("isWalking", true);
+        else if (_moveDirection == Vector3.zero && _grounded) Player.Animator.SetBool("isWalking", false);
+        //else if (!_grounded) //jump animation
 
     }
 
@@ -65,9 +80,9 @@ public class PlayerMovement : MonoBehaviour
         // calculate movement direction
         _moveDirection = Player.Orientation.forward * _verticalInput + Player.Orientation.right * _horizontalInput;
 
-        
         if (_grounded) // on ground
             Player.Rigibody.AddForce(_moveDirection.normalized * CurrentMoveSpeed * 10f, ForceMode.Force);
+        
         else // in air
             Player.Rigibody.AddForce(_moveDirection.normalized * CurrentMoveSpeed * 10f * Player.Data.airMultiplier, ForceMode.Force);
     }
@@ -80,6 +95,8 @@ public class PlayerMovement : MonoBehaviour
             Player.Rigibody.velocity = new Vector3(Player.Rigibody.velocity.x, 0f, Player.Rigibody.velocity.z);
             Player.Rigibody.AddForce(transform.up * Player.Data.jumpForce, ForceMode.Impulse);
             Invoke(nameof(ResetJump), Player.Data.jumpCooldown);
+            Player.Animator.SetTrigger("Jump");
+            Player.Animator.SetBool("Grounded", false);
         }
     }
 

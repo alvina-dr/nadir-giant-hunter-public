@@ -37,6 +37,8 @@ public class PlayerAttack : MonoBehaviour
 
     public void GrappleWeakSpot(WeakSpot weakSpot)
     {
+        Player.PlayerSwingingLeft.StopSwing(false);
+        Player.PlayerSwingingRight.StopSwing(false);
         IsGrappling = true;
         _currentWeakSpot = weakSpot;
         Player.Rigibody.useGravity = false;
@@ -67,6 +69,7 @@ public class PlayerAttack : MonoBehaviour
                 IsGrappling = false;
                 Player.PlayerSwingingLeft.SwingLineRenderer.positionCount = 0;
                 Player.PlayerSwingingRight.SwingLineRenderer.positionCount = 0;
+                //Player.Rigibody.velocity = Vector3.zero;
                 Player.Rigibody.useGravity = true;
             }
         }
@@ -92,6 +95,8 @@ public class PlayerAttack : MonoBehaviour
                     Player.PlayerSwingingRight.SwingLineRenderer.SetPosition(1, Vector3.Lerp(Player.PlayerSwingingRight.SwingLineRenderer.GetPosition(1), _currentWeakSpot.transform.position, 0.1f));
                 }
             }
+            Vector3 direction = (_currentWeakSpot.transform.position - transform.position).normalized;
+            Player.Mesh.forward = Vector3.Slerp(Player.Mesh.forward, new Vector3(direction.x, direction.y, direction.z), Time.deltaTime * 10f);
         }
     }
 }
