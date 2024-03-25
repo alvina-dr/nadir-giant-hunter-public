@@ -39,12 +39,14 @@ public class PlayerClimbMovementTEMP : MonoBehaviour
     {
         if (_playerInput.InGame.Move.IsInProgress())
         {
+            Vector2 dir = _playerInput.InGame.Move.ReadValue<Vector2>();
             if (_climbing.IsOnMesh())
             {
-                _climbing.MoveToward(Camera.main.transform.right, Camera.main.transform.forward, speed/100 * Time.fixedDeltaTime);
+                Vector3 moveDirection = _camera.transform.forward * dir.y + _camera.transform.right * dir.x;
+                Vector3 movePlane = Vector3.Cross(moveDirection, Camera.main.transform.up);
+                _climbing.MoveToward(movePlane, moveDirection, speed/100 * Time.fixedDeltaTime);
                 return;
             }
-            Vector2 dir = _playerInput.InGame.Move.ReadValue<Vector2>();
             Vector3 force = new Vector3(_camera.transform.forward.x, 0, _camera.transform.forward.z) * dir.y * speed + _camera.transform.right * dir.x * speed;
             _rigidbody.AddForce(force);
         }

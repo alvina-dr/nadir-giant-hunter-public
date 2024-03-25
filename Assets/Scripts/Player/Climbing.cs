@@ -342,7 +342,6 @@ public class Climbing : MonoBehaviour
         return index;
     }
 
-
     private void OnDrawGizmos()
     {
         if (TravelPoints == null)
