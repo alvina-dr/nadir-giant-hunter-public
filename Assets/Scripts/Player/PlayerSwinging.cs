@@ -92,7 +92,7 @@ public class PlayerSwinging : MonoBehaviour
                 _springJoint.connectedAnchor = EndSwingLinePoint.position;
                 _springJoint.enableCollision = true;
                 float distanceFromPoint = Vector3.Distance(StartSwingLinePoint.position, EndSwingLinePoint.position) + 10;
-                if (distanceFromPoint < Player.Data.minLineDistance) distanceFromPoint = Player.Data.minLineDistance;
+                if (distanceFromPoint < Player.Data.minSwingDistance) distanceFromPoint = Player.Data.minSwingDistance;
 
                 _springJoint.maxDistance = distanceFromPoint * 0.7f;
                 _springJoint.minDistance = 0.5f;

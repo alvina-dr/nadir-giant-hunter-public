@@ -348,6 +348,7 @@ GameObject:
   - component: {fileID: 5991739102287327260}
   - component: {fileID: 4012560598477362461}
   - component: {fileID: 5560178313177686885}
+  - component: {fileID: 3422433742143200807}
   - component: {fileID: 8166567874876028922}
   m_Layer: 2
   m_Name: Player
@@ -392,6 +393,7 @@ MonoBehaviour:
   PlayerSwingingRight: {fileID: 4607573896897719150}
   PlayerSwingingLeft: {fileID: 5991739102287327260}
   PlayerAttack: {fileID: 5560178313177686885}
+  PlayerDoubleGrappleBoost: {fileID: 3422433742143200807}
   Mesh: {fileID: 7696976556150254451}
   Rigibody: {fileID: 8166567874876028922}
   Orientation: {fileID: 6609080969534418957}
@@ -473,6 +475,19 @@ MonoBehaviour:
   Player: {fileID: 5043027637049521611}
   IsGrappling: 0
   CurrentWeakSpot: {fileID: 0}
+--- !u!114 &3422433742143200807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7281324820499622086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4aa0a571881b5f24f9ffad30533f7a5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player: {fileID: 5043027637049521611}
 --- !u!54 &8166567874876028922
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -40,8 +40,7 @@ public class PlayerData : ScriptableObject
     public float endCurveSpeedBoost;
     [TabGroup("Swing")]
     public float radiusDetectionIncreaseSpeed;
-    [TabGroup("Swing")]
-    public float minLineDistance;
+
     [TabGroup("Swing")]
     public float fovAddition;
     [TabGroup("Swing")]
@@ -54,11 +53,10 @@ public class PlayerData : ScriptableObject
     [TabGroup("Attack")]
     public float dragForce;
 
-    [TabGroup("Double swing")]
+    [TabGroup("Double swing boost")]
     public float doubleSwingBoost;
 
     [Header("Tests")]
     public bool startCurveBoost;
     public bool endCurveBoost;
-
 }
