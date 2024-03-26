@@ -71,6 +71,8 @@ public class PlayerAttack : MonoBehaviour
                 Player.PlayerSwingingRight.SwingLineRenderer.positionCount = 0;
                 Player.Rigibody.velocity = Vector3.zero;
                 Player.Rigibody.useGravity = true;
+                CurrentWeakSpot.DestroyWeakSpot();
+                CurrentWeakSpot = null;
             }
         }
     }

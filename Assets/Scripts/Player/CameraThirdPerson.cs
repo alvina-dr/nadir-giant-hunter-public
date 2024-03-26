@@ -40,7 +40,7 @@ public class CameraThirdPerson : MonoBehaviour
         } else if (GPCtrl.Instance.Player.PlayerAttack.IsGrappling)
         {
             Vector3 direction = (GPCtrl.Instance.Player.PlayerAttack.CurrentWeakSpot.transform.position - GPCtrl.Instance.Player.transform.transform.position).normalized;
-            GPCtrl.Instance.Player.Mesh.rotation = Quaternion.LookRotation(direction, Vector3.up);
+            GPCtrl.Instance.Player.Mesh.rotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z), Vector3.up);
             LookDirectionSave = direction;
         }
     }
