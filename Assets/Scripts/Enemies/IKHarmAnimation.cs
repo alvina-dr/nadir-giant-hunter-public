@@ -39,7 +39,9 @@ namespace Enemies
         //Components
         [TitleGroup("Components")]
         [SerializeField] private List<IkLegPair> _iksLegPairs = new List<IkLegPair>();
+        public Vector3 TargetPosition;
         [HideInInspector] public Vector3 overrideDir = Vector3.zero;
+
 
         //Parameters
         [TitleGroup("Parameters")]
@@ -49,6 +51,8 @@ namespace Enemies
         private float _nextTargetRaycastOriginY = 1;
         [TabGroup("Parameters/A", "Raycast"), SerializeField]
         private float _nextTargetRaycastY = 1;
+        [TabGroup("Parameters/A", "Raycast"), SerializeField]
+        private float _nextTargetRaycastAnticipation = 1;
         [TabGroup("Parameters/A", "Raycast"), SerializeField]
         private float _checkCoolDown = 0.5f;
         [TabGroup("Parameters/A", "Raycast"), SerializeField]
@@ -197,7 +201,7 @@ namespace Enemies
 
         private void GetAndApplyNextIkPosition(Leg leg, int tryNum)
         {
-            Vector3 toAdd = (leg.TargetPos.position - leg.Target.position);
+            Vector3 toAdd = (leg.TargetPos.position - leg.Target.position)* _nextTargetRaycastAnticipation;
             Vector3 up = transform.forward * _up.z + transform.right * _up.x + transform.up * _up.y;
             Ray ray = new Ray(leg.TargetPos.position + toAdd + up * _nextTargetRaycastOriginY, -up);
 
