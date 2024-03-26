@@ -197,6 +197,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""230886ed-38c8-4370-970c-27e288eb1100"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""51721785-a670-42d4-85aa-57cc16a36442"",
                     ""path"": ""<Gamepad>/buttonNorth"",
                     ""interactions"": """",
