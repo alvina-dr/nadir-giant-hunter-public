@@ -52,6 +52,7 @@ public class PlayerAttack : MonoBehaviour
         _springJoint.damper = 0f;
         _springJoint.massScale = Player.Data.dragForce;
 
+        Player.Animator.SetTrigger("Attack");
         Player.PlayerSwingingLeft.SwingLineRenderer.positionCount = 2;
         Player.PlayerSwingingLeft.SwingLineRenderer.SetPosition(1, weakSpot.transform.position); //to shoot from the hand of the player
         Player.PlayerSwingingRight.SwingLineRenderer.positionCount = 2;

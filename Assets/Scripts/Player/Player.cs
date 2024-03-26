@@ -31,10 +31,22 @@ public class Player : MonoBehaviour
     private void OnEnable()
     {
         InputManager.Enable();
-        InputManager.Gameplay.SwingRight.started += function => { PlayerSwingingRight.TrySwing = true; };
-        InputManager.Gameplay.SwingRight.canceled += function => { PlayerSwingingRight.TrySwing = false; };
-        InputManager.Gameplay.SwingLeft.started += function => { PlayerSwingingLeft.TrySwing = true; };
-        InputManager.Gameplay.SwingLeft.canceled += function => { PlayerSwingingLeft.TrySwing = false; };
+        InputManager.Gameplay.SwingRight.started += function => { 
+            if (PlayerDoubleGrappleBoost.rightSwingReleased)
+                PlayerSwingingRight.TrySwing = true; 
+        };
+        InputManager.Gameplay.SwingRight.canceled += function => { 
+            PlayerSwingingRight.TrySwing = false;
+            PlayerDoubleGrappleBoost.rightSwingReleased = true;
+        };
+        InputManager.Gameplay.SwingLeft.started += function => {
+            if (PlayerDoubleGrappleBoost.leftSwingReleased)
+                PlayerSwingingLeft.TrySwing = true; 
+        };
+        InputManager.Gameplay.SwingLeft.canceled += function => { 
+            PlayerSwingingLeft.TrySwing = false;
+            PlayerDoubleGrappleBoost.leftSwingReleased = true;
+        };
         InputManager.Gameplay.Attack.started += function => { PlayerAttack.Attack(); };
         InputManager.Gameplay.Jump.started += PlayerMovement.Jump;
     }
