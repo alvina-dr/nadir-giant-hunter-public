@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &669130955021557077
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3286274834771364795}
+  m_Layer: 2
+  m_Name: SwingPointLeft
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3286274834771364795
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 669130955021557077}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2946941751287643756}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1153986520517547346
 GameObject:
   m_ObjectHideFlags: 0
@@ -155,7 +186,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5133866373044044127}
   m_Layer: 2
-  m_Name: SwingPoint
+  m_Name: SwingPointRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -341,6 +372,7 @@ Transform:
   - {fileID: 7696976556150254451}
   - {fileID: 6609080969534418957}
   - {fileID: 5133866373044044127}
+  - {fileID: 3286274834771364795}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5043027637049521611
@@ -401,7 +433,7 @@ MonoBehaviour:
   Player: {fileID: 5043027637049521611}
   _swingConeRaycast: {fileID: 2104427182935562414}
   StartSwingLinePoint: {fileID: 7696976556150254393}
-  EndSwingLinePoint: {fileID: 5133866373044044127}
+  EndSwingLinePoint: {fileID: 3286274834771364795}
   IsSwinging: 0
   TrySwing: 0
   SwingLineRenderer: {fileID: 0}
@@ -440,6 +472,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 5043027637049521611}
   IsGrappling: 0
+  CurrentWeakSpot: {fileID: 0}
 --- !u!54 &8166567874876028922
 Rigidbody:
   m_ObjectHideFlags: 0

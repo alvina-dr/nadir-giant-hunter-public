@@ -36,7 +36,8 @@ public class CameraThirdPerson : MonoBehaviour
             //float rotationSpeed = GPCtrl.Instance.Player.Data.walkRotationSpeed;
             //if (GPCtrl.Instance.Player.PlayerSwingingLeft.IsSwinging && GPCtrl.Instance.Player.PlayerSwingingRight.IsSwinging)
             //    rotationSpeed = GPCtrl.Instance.Player.Data.airRotationSpeed;
-            GPCtrl.Instance.Player.Mesh.rotation = Quaternion.LookRotation(inputDir, GPCtrl.Instance.Player.Mesh.up);
+            if (inputDir != Vector3.zero) 
+                GPCtrl.Instance.Player.Mesh.rotation = Quaternion.LookRotation(inputDir, GPCtrl.Instance.Player.Mesh.up);
         } else if (GPCtrl.Instance.Player.PlayerAttack.IsGrappling)
         {
             Vector3 direction = (GPCtrl.Instance.Player.PlayerAttack.CurrentWeakSpot.transform.position - GPCtrl.Instance.Player.transform.transform.position).normalized;
