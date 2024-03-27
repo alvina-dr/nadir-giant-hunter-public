@@ -5,56 +5,65 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private Player player;
+    [SerializeField] private Player Player;
     [Header("Movement")]
-    public float currentMoveSpeed;
-
-    bool readyToJump;
+    public float CurrentMoveSpeed;
 
     [Header("Ground Check")]
-    public float playerHeight;
-    public LayerMask whatIsGround;
-    bool grounded;
+    public float PlayerHeight;
+    public LayerMask WhatIsGround;
 
-    float horizontalInput;
-    float verticalInput;
-
-    Vector3 moveDirection;
+    private bool _grounded;
+    private bool _readyToJump;
+    private float _horizontalInput;
+    private float _verticalInput;
+    private Vector3 _moveDirection;
 
 
     private void Start()
     {
-        player.rigibody.freezeRotation = true;
-        readyToJump = true;
+        Player.Rigibody.freezeRotation = true;
+        _readyToJump = true;
     }
 
     private void Update()
     {
-        // ground check
-        //if (player.playerGrappling.isGrappling) return;
-        grounded = Physics.Raycast(transform.position + new Vector3(0, 1, 0), Vector3.down, playerHeight * 0.5f + 0.3f, whatIsGround);
-        horizontalInput = player.inputManager.Gameplay.Move.ReadValue<Vector2>().x;
-        verticalInput = player.inputManager.Gameplay.Move.ReadValue<Vector2>().y;
+        _grounded = Physics.Raycast(transform.position, Vector3.down, Player.Data.charaHeight * 0.5f + 0.3f, WhatIsGround);
+        _horizontalInput = Player.InputManager.Gameplay.Move.ReadValue<Vector2>().x;
+        _verticalInput = Player.InputManager.Gameplay.Move.ReadValue<Vector2>().y;
+        if (Player.PlayerAttack.IsGrappling)
+        {
+            _horizontalInput = 0;
+            _verticalInput = 0;
+        }
         SpeedControl();
 
-        if (player.playerSwingingLeft.isSwinging || player.playerSwingingRight.isSwinging)
+        if (Player.PlayerSwingingLeft.IsSwinging || Player.PlayerSwingingRight.IsSwinging)
         {
-            if (currentMoveSpeed < player.data.swingSpeed) currentMoveSpeed = player.data.swingSpeed;
-            currentMoveSpeed += player.data.swingAcceleration * Time.deltaTime;
-            if (currentMoveSpeed >= player.data.swingMaxSpeed) currentMoveSpeed = player.data.swingMaxSpeed;
+            if (CurrentMoveSpeed < Player.Data.swingSpeed) CurrentMoveSpeed = Player.Data.swingSpeed;
+            CurrentMoveSpeed += Player.Data.swingAcceleration * Time.deltaTime;
+            if (CurrentMoveSpeed >= Player.Data.swingMaxSpeed) CurrentMoveSpeed = Player.Data.swingMaxSpeed;
         }
-        else if (grounded) currentMoveSpeed = player.data.walkSpeed;
+        else if (_grounded) CurrentMoveSpeed = Player.Data.walkSpeed;
 
-        if (grounded)
-            player.rigibody.drag = player.data.groundDrag;
+        if (_grounded)
+        {
+            Player.Rigibody.drag = Player.Data.groundDrag;
+            Player.Animator.SetBool("Grounded", true);
+        }
         else
-            player.rigibody.drag = 0;
+        {
+            Player.Rigibody.drag = 0;
+            Player.Animator.SetBool("Grounded", false);
+        }
 
         //if (player.playerGrappling.isSwinging)
         //{
         //    player.playerMesh.transform.rotation = Quaternion.Slerp(GPCtrl.Instance.player.playerMesh.transform.rotation, Quaternion.LookRotation(rb.velocity), Time.deltaTime);
         //}
-
+        if (_moveDirection != Vector3.zero && _grounded) Player.Animator.SetBool("isWalking", true);
+        else if (_moveDirection == Vector3.zero && _grounded) Player.Animator.SetBool("isWalking", false);
+        //else if (!_grounded) //jump animation
 
     }
 
@@ -67,42 +76,42 @@ public class PlayerMovement : MonoBehaviour
     private void MovePlayer()
     {
         // calculate movement direction
-        moveDirection = player.orientation.forward * verticalInput + player.orientation.right * horizontalInput;
+        _moveDirection = Player.Orientation.forward * _verticalInput + Player.Orientation.right * _horizontalInput;
 
-        // on ground
-        if (grounded)
-            player.rigibody.AddForce(moveDirection.normalized * currentMoveSpeed * 10f, ForceMode.Force);
-
-        // in air
-        else if (!grounded)
-            player.rigibody.AddForce(moveDirection.normalized * currentMoveSpeed * 10f * player.data.airMultiplier, ForceMode.Force);
+        if (_grounded) // on ground
+            Player.Rigibody.AddForce(_moveDirection.normalized * CurrentMoveSpeed * 10f, ForceMode.Force);
+        
+        else // in air
+            Player.Rigibody.AddForce(_moveDirection.normalized * CurrentMoveSpeed * 10f * Player.Data.airMultiplier, ForceMode.Force);
     }
 
     public void Jump(InputAction.CallbackContext context)
     {
-        if (readyToJump && grounded)
+        if (_readyToJump && _grounded)
         {
-            readyToJump = false;
-            player.rigibody.velocity = new Vector3(player.rigibody.velocity.x, 0f, player.rigibody.velocity.z);
-            player.rigibody.AddForce(transform.up * player.data.jumpForce, ForceMode.Impulse);
-            Invoke(nameof(ResetJump), player.data.jumpCooldown);
+            _readyToJump = false;
+            Player.Rigibody.velocity = new Vector3(Player.Rigibody.velocity.x, 0f, Player.Rigibody.velocity.z);
+            Player.Rigibody.AddForce(transform.up * Player.Data.jumpForce, ForceMode.Impulse);
+            Invoke(nameof(ResetJump), Player.Data.jumpCooldown);
+            Player.Animator.SetTrigger("Jump");
+            Player.Animator.SetBool("Grounded", false);
         }
     }
 
     private void ResetJump()
     {
-        readyToJump = true;
+        _readyToJump = true;
     }
 
     private void SpeedControl()
     {
-        Vector3 flatVel = new Vector3(player.rigibody.velocity.x, 0f, player.rigibody.velocity.z);
+        Vector3 flatVel = new Vector3(Player.Rigibody.velocity.x, 0f, Player.Rigibody.velocity.z);
 
         // limit velocity if needed
-        if (flatVel.magnitude > currentMoveSpeed)
+        if (flatVel.magnitude > CurrentMoveSpeed)
         {
-            Vector3 limitedVel = flatVel.normalized * currentMoveSpeed;
-            player.rigibody.velocity = new Vector3(limitedVel.x, player.rigibody.velocity.y, limitedVel.z);
+            Vector3 limitedVel = flatVel.normalized * CurrentMoveSpeed;
+            Player.Rigibody.velocity = new Vector3(limitedVel.x, Player.Rigibody.velocity.y, limitedVel.z);
         }
     }
 }

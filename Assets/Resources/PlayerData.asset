@@ -12,13 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 054f681d922a5d942a9e02d64328c744, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
+  walkRotationSpeed: 7
+  airRotationSpeed: 3
   walkSpeed: 7
   jumpForce: 25
   jumpCooldown: 0.25
   airMultiplier: 0.4
   groundDrag: 5
+  charaHeight: 1.8
   swingSpeed: 15
-  swingMaxSpeed: 25
+  swingMaxSpeed: 30
   swingAcceleration: 1.5
   minSwingDistance: 3
   maxSwingDistance: 90
@@ -26,5 +29,9 @@ MonoBehaviour:
   endCurveSpeedBoost: 20
   radiusDetectionIncreaseSpeed: 6
   minLineDistance: 25
-  startCurveBoost: 1
-  endCurveBoost: 0
+  fovAddition: 20
+  airSlowDown: 0.999
+  attackDistance: 20
+  dragForce: 10
+  startCurveBoost: 0
+  endCurveBoost: 1

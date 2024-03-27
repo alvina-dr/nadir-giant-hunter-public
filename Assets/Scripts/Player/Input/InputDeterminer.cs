@@ -11,14 +11,14 @@ public class InputDeterminer : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetJoystickNames().Length == 0 && inputProvider != null)
-        {
-            Destroy(transform.GetComponent<CinemachineInputProvider>());
-            inputProvider = null;
-        } else if (Input.GetJoystickNames().Length > 0 && inputProvider == null)
-        {
-            inputProvider = gameObject.AddComponent<CinemachineInputProvider>();
-            inputProvider.XYAxis = XYaxis;
-        }
+        //if (Input.GetJoystickNames().Length == 0 && inputProvider != null)
+        //{
+        //    Destroy(transform.GetComponent<CinemachineInputProvider>());
+        //    inputProvider = null;
+        //} else if (Input.GetJoystickNames().Length > 0 && inputProvider == null)
+        //{
+        //    inputProvider = gameObject.AddComponent<CinemachineInputProvider>();
+        //    inputProvider.XYAxis = XYaxis;
+        //}
     }
 }
