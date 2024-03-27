@@ -108,15 +108,18 @@ public class PlayerSwinging : MonoBehaviour
         }
     }
 
-    public void StopSwing(bool boost = true)
+    public void StopSwing(bool boost = true, bool destroyVisual = true)
     {
         _swingConeRaycast.radius = _swingConeRaycast.minRadius;
         if (!_springJoint) return;
         Player.PlayerMovement.CurrentMoveSpeed++;
         Destroy(_springJoint);
-        SwingLineRenderer.positionCount = 0;
+        if (destroyVisual)
+        {
+            SwingLineRenderer.positionCount = 0;
+            EndSwingLinePoint.parent = null;
+        }
         IsSwinging = false;
-        EndSwingLinePoint.parent = null;
         Player.Animator.SetBool("isSwinging", false);
         float dotProduct = Vector3.Dot(Player.Rigibody.velocity.normalized, Player.Orientation.transform.forward);
         Player.Animator.SetFloat("SwingEndAngle", Player.Rigibody.velocity.normalized.y);
@@ -128,6 +131,12 @@ public class PlayerSwinging : MonoBehaviour
                 Player.PlayerMovement.CurrentMoveSpeed++;
             }
         }
+    }
+
+    public void HideLineRenderer()
+    {
+        SwingLineRenderer.positionCount = 0;
+        EndSwingLinePoint.parent = null;
     }
     #endregion
 }

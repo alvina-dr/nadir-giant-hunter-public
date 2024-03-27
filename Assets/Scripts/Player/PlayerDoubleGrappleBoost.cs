@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
-
+using DG.Tweening;
 public class PlayerDoubleGrappleBoost : MonoBehaviour
 {
     public Player Player;
@@ -20,13 +20,18 @@ public class PlayerDoubleGrappleBoost : MonoBehaviour
     public void Boost()
     {
         Player.Rigibody.AddForce(Player.Data.doubleSwingBoost * Vector3.up, ForceMode.Impulse);
-        Player.PlayerSwingingLeft.StopSwing();
-        Player.PlayerSwingingRight.StopSwing();
+        Player.PlayerSwingingLeft.StopSwing(true, false);
+        Player.PlayerSwingingRight.StopSwing(true, false);
         GameObject vfx = Instantiate(Player.VFXData.doubleGrappleBoost);
         vfx.transform.position = transform.position;
         leftSwingReleased = false;
         rightSwingReleased = false;
         Player.PlayerSwingingRight.TrySwing = false;
         Player.PlayerSwingingLeft.TrySwing = false;
+        DOVirtual.DelayedCall(1f, () =>
+        {
+            Player.PlayerSwingingLeft.HideLineRenderer();
+            Player.PlayerSwingingRight.HideLineRenderer();
+        });
     }
 }
