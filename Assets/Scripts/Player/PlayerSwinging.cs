@@ -22,7 +22,7 @@ public class PlayerSwinging : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (_springJoint) //Visual effect for swing line
+        if (IsSwinging) //Visual effect for swing line
         {
             if (SwingLineRenderer.positionCount == 2)
             {
@@ -37,7 +37,7 @@ public class PlayerSwinging : MonoBehaviour
 
     private void Update()
     {
-        if (IsSwinging)
+        if (_springJoint)
         {
             if (Player.PlayerMovement.CurrentMoveSpeed >= Player.Data.swingSpeed) {
                 Camera.main.fieldOfView = (Player.PlayerMovement.CurrentMoveSpeed - Player.Data.swingSpeed) / (Player.Data.swingMaxSpeed - Player.Data.swingSpeed) * Player.Data.fovAddition + 50;
@@ -47,7 +47,7 @@ public class PlayerSwinging : MonoBehaviour
         }
         else if (Player.PlayerMovement.CurrentMoveSpeed >= Player.Data.swingSpeed)
         {
-            //Player.PlayerMovement.CurrentMoveSpeed *= Player.Data.airSlowDown;
+            Player.PlayerMovement.CurrentMoveSpeed *= Player.Data.airSlowDown;
             Player.Mesh.up = Vector3.Slerp(Player.Mesh.up, Vector3.up, Time.deltaTime * 10f);
         }
 

@@ -32,20 +32,20 @@ public class Player : MonoBehaviour
     {
         InputManager.Enable();
         InputManager.Gameplay.SwingRight.started += function => { 
-            if (PlayerDoubleGrappleBoost.rightSwingReleased)
+            if (PlayerDoubleGrappleBoost.RightSwingReleased)
                 PlayerSwingingRight.TrySwing = true; 
         };
         InputManager.Gameplay.SwingRight.canceled += function => { 
             PlayerSwingingRight.TrySwing = false;
-            PlayerDoubleGrappleBoost.rightSwingReleased = true;
+            PlayerDoubleGrappleBoost.RightSwingReleased = true;
         };
         InputManager.Gameplay.SwingLeft.started += function => {
-            if (PlayerDoubleGrappleBoost.leftSwingReleased)
+            if (PlayerDoubleGrappleBoost.LeftSwingReleased)
                 PlayerSwingingLeft.TrySwing = true; 
         };
         InputManager.Gameplay.SwingLeft.canceled += function => { 
             PlayerSwingingLeft.TrySwing = false;
-            PlayerDoubleGrappleBoost.leftSwingReleased = true;
+            PlayerDoubleGrappleBoost.LeftSwingReleased = true;
         };
         InputManager.Gameplay.Attack.started += function => { PlayerAttack.Attack(); };
         InputManager.Gameplay.Jump.started += PlayerMovement.Jump;

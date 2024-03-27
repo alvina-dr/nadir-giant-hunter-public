@@ -22,6 +22,7 @@ public class GPCtrl : MonoBehaviour
 
     private void Start()
     {
+        Debug.LogError("Ahaha");
         WeakSpotList = FindObjectsByType<WeakSpot>(FindObjectsSortMode.InstanceID).ToList();
     }
     #endregion

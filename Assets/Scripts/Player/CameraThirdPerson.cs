@@ -5,6 +5,7 @@ using UnityEngine;
 public class CameraThirdPerson : MonoBehaviour
 {
     public Vector3 LookDirectionSave = Vector3.zero;
+    public Camera MainCamera;
 
     private void Update()
     {
@@ -17,19 +18,21 @@ public class CameraThirdPerson : MonoBehaviour
         if (inputDir != Vector3.zero && !GPCtrl.Instance.Player.PlayerAttack.IsGrappling) {
             if (GPCtrl.Instance.Player.PlayerSwingingLeft.IsSwinging || GPCtrl.Instance.Player.PlayerSwingingRight.IsSwinging)
             {
-                inputDir = Camera.main.transform.forward;
+                inputDir = MainCamera.transform.forward;
             }
             LookDirectionSave = inputDir;
             //float rotationSpeed = GPCtrl.Instance.Player.Data.walkRotationSpeed;
             //if (GPCtrl.Instance.Player.PlayerSwingingLeft.IsSwinging && GPCtrl.Instance.Player.PlayerSwingingRight.IsSwinging)
             //    rotationSpeed = GPCtrl.Instance.Player.Data.airRotationSpeed;
             GPCtrl.Instance.Player.Mesh.rotation = Quaternion.LookRotation(inputDir, GPCtrl.Instance.Player.Mesh.up);
-        }    
+            Debug.LogError("rotate : " + inputDir);
+        }
         else if (inputDir == Vector3.zero && !GPCtrl.Instance.Player.PlayerAttack.IsGrappling)
         {
             if (GPCtrl.Instance.Player.PlayerSwingingLeft.IsSwinging || GPCtrl.Instance.Player.PlayerSwingingRight.IsSwinging)
             {
-                inputDir = Camera.main.transform.forward;
+                inputDir = MainCamera.transform.forward;
+                Debug.Log("rotate camera with no left joystick");
                 LookDirectionSave = inputDir;
             }
             else inputDir = LookDirectionSave;
