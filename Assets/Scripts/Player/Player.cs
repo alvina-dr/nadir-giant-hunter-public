@@ -34,10 +34,6 @@ public class Player : MonoBehaviour
         InputManager.Gameplay.SwingLeft.started += function => { PlayerSwingingLeft.TrySwing = true; };
         InputManager.Gameplay.SwingLeft.canceled += function => { PlayerSwingingLeft.TrySwing = false; };
         InputManager.Gameplay.Attack.started += function => { PlayerAttack.Attack(); };
-        //inputManager.Gameplay.LeftShoulder.started += function => { leftShoulder = true; };
-        //inputManager.Gameplay.LeftShoulder.canceled += function => { leftShoulder = false; };
-        //inputManager.Gameplay.RightShoulder.started += function => { rightShoulder = true; };
-        //inputManager.Gameplay.RightShoulder.canceled += function => { rightShoulder = false; };
         InputManager.Gameplay.Jump.started += PlayerMovement.Jump;
     }
 
