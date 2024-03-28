@@ -20,7 +20,8 @@ public class PlayerSwinging : MonoBehaviour
     public LineRenderer SwingLineRenderer;
     [SerializeField] private LayerMask _layerMask;
 
-    private void LateUpdate()
+
+    private void Update()
     {
         if (IsSwinging) //Visual effect for swing line
         {
@@ -33,10 +34,6 @@ public class PlayerSwinging : MonoBehaviour
                 }
             }
         }
-    }
-
-    private void Update()
-    {
         if (_springJoint)
         {
             if (Player.PlayerMovement.CurrentMoveSpeed >= Player.Data.swingSpeed) {
@@ -47,7 +44,6 @@ public class PlayerSwinging : MonoBehaviour
         }
         else if (Player.PlayerMovement.CurrentMoveSpeed >= Player.Data.swingSpeed)
         {
-            Player.PlayerMovement.CurrentMoveSpeed *= Player.Data.airSlowDown;
             Player.Mesh.up = Vector3.Slerp(Player.Mesh.up, Vector3.up, Time.deltaTime * 10f);
         }
 
