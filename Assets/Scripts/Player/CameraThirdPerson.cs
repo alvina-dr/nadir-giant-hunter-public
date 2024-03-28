@@ -6,7 +6,7 @@ public class CameraThirdPerson : MonoBehaviour
 {
     public Vector3 LookDirectionSave = Vector3.zero;
 
-    private void LateUpdate()
+    private void Update()
     {
         Vector3 viewDir = GPCtrl.Instance.Player.transform.position - new Vector3(transform.position.x, GPCtrl.Instance.Player.transform.position.y, transform.position.z);
         GPCtrl.Instance.Player.Orientation.forward = viewDir.normalized;
@@ -25,6 +25,8 @@ public class CameraThirdPerson : MonoBehaviour
             //float rotationSpeed = GPCtrl.Instance.Player.Data.walkRotationSpeed;
             //if (GPCtrl.Instance.Player.PlayerSwingingLeft.IsSwinging && GPCtrl.Instance.Player.PlayerSwingingRight.IsSwinging)
             //    rotationSpeed = GPCtrl.Instance.Player.Data.airRotationSpeed;
+            GPCtrl.Instance.Player.PlayerSwingingLeft.CalculateUpVector();
+            GPCtrl.Instance.Player.PlayerSwingingRight.CalculateUpVector();
             GPCtrl.Instance.Player.Mesh.rotation = Quaternion.LookRotation(inputDir, upVector);
         }
         else if (inputDir == Vector3.zero && !GPCtrl.Instance.Player.PlayerAttack.IsGrappling)
@@ -38,6 +40,8 @@ public class CameraThirdPerson : MonoBehaviour
             //float rotationSpeed = GPCtrl.Instance.Player.Data.walkRotationSpeed;
             //if (GPCtrl.Instance.Player.PlayerSwingingLeft.IsSwinging && GPCtrl.Instance.Player.PlayerSwingingRight.IsSwinging)
             //    rotationSpeed = GPCtrl.Instance.Player.Data.airRotationSpeed;
+            GPCtrl.Instance.Player.PlayerSwingingLeft.CalculateUpVector();
+            GPCtrl.Instance.Player.PlayerSwingingRight.CalculateUpVector();
             if (inputDir != Vector3.zero) 
                 GPCtrl.Instance.Player.Mesh.rotation = Quaternion.LookRotation(inputDir, GPCtrl.Instance.Player.Mesh.up);
         } else if (GPCtrl.Instance.Player.PlayerAttack.IsGrappling)

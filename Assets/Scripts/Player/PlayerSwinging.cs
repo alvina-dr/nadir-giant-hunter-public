@@ -20,8 +20,7 @@ public class PlayerSwinging : MonoBehaviour
     public LineRenderer SwingLineRenderer;
     [SerializeField] private LayerMask _layerMask;
 
-
-    private void Update()
+    private void LateUpdate()
     {
         if (IsSwinging) //Visual effect for swing line
         {
@@ -34,11 +33,26 @@ public class PlayerSwinging : MonoBehaviour
                 }
             }
         }
-        if (_springJoint)
+    }
+
+    private void Update()
+    {
+
+        if (IsSwinging)
         {
             if (Player.PlayerMovement.CurrentMoveSpeed >= Player.Data.swingSpeed) {
                 Camera.main.fieldOfView = (Player.PlayerMovement.CurrentMoveSpeed - Player.Data.swingSpeed) / (Player.Data.swingMaxSpeed - Player.Data.swingSpeed) * Player.Data.fovAddition + 50;
             }
+        }
+
+        if (TrySwing && !Player.PlayerAttack.IsGrappling) StartSwing();
+        else StopSwing();
+    }
+
+    public void CalculateUpVector()
+    {
+        if (IsSwinging)
+        {
             Player.Mesh.up = Vector3.Slerp(Player.Mesh.up, (EndSwingLinePoint.position - Player.transform.position).normalized, Time.deltaTime * 10f);
 
         }
@@ -46,10 +60,6 @@ public class PlayerSwinging : MonoBehaviour
         {
             Player.Mesh.up = Vector3.Slerp(Player.Mesh.up, Vector3.up, Time.deltaTime * 10f);
         }
-
-        if (TrySwing && !Player.PlayerAttack.IsGrappling) StartSwing();
-        else StopSwing();
-        Debug.DrawRay(Player.transform.position, Vector3.Cross(Player.Mesh.transform.right, (EndSwingLinePoint.position - Player.transform.position).normalized) * 4);
     }
 
     #region Swing
