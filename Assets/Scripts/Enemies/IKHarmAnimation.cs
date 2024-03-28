@@ -12,7 +12,9 @@ namespace Enemies
     [Serializable]
     public class Leg
     {
+        public bool UseTwoBonesIk = true;
         public TwoBoneIKConstraint Ik;
+        public ChainIKConstraint ChainIk;
         public Transform Target;
         public Transform TargetPos;
         public GameObject Model;
@@ -97,11 +99,6 @@ namespace Enemies
         //Variables
         [TabGroup("Debug/A", "Metrics"), ReadOnly, SerializeField]
         private Vector3 _overideDirDebug;
-
-
-        private List<Vector3> _ikTargetsLastPosTarg = new List<Vector3>();
-        private List<float> _ikTargetsLastPosTargTotDist = new List<float>();
-        private List<float> _moveTimes = new List<float>();
 
         // Start is called before the first frame update
         void Start()
