@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <SoundBanksInfo Platform="Windows" BasePlatform="Windows" SchemaVersion="16" SoundBankVersion="150">
 	<RootPaths>
-		<ProjectRoot>../../../../../../Documents/WwiseProjects/GiantHunter_WwiseProject</ProjectRoot>
-		<SourceFilesRoot>../../../../../../Documents/WwiseProjects/GiantHunter_WwiseProject/.cache/Windows</SourceFilesRoot>
+		<ProjectRoot>../../../../../Documents/WwiseProjects/GiantHunter_WwiseProject</ProjectRoot>
+		<SourceFilesRoot>../../../../../Documents/WwiseProjects/GiantHunter_WwiseProject/.cache/Windows</SourceFilesRoot>
 		<SoundBanksRoot>.</SoundBanksRoot>
 		<ExternalSourcesInputFile></ExternalSourcesInputFile>
-		<ExternalSourcesOutputRoot>../../../../../../Documents/WwiseProjects/GiantHunter_WwiseProject/GeneratedSoundBanks/Windows</ExternalSourcesOutputRoot>
+		<ExternalSourcesOutputRoot>../../../../../Documents/WwiseProjects/GiantHunter_WwiseProject/GeneratedSoundBanks/Windows</ExternalSourcesOutputRoot>
 	</RootPaths>
 	<DialogueEvents/>
 	<SoundBanks>
-		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{AB9F0343-CD85-AB9E-58D8-B63D74A50185}">
+		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{933A0C6F-43E7-EBDC-422C-2CE96CA3098E}">
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 			<Plugins>
@@ -162,23 +162,24 @@
 				</AcousticTexture>
 			</AcousticTextures>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{53E3C81F-4C44-099C-22C3-842A83DB72BA}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{67C68CCD-0065-2DD7-B77B-88DE074EC25A}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
-			<Media>
-				<File Id="24405360" Language="SFX" Streaming="false" Location="Memory">
-					<ShortName>test.wav</ShortName>
-					<CachePath>SFX/test_818F3B66.wem</CachePath>
-				</File>
-			</Media>
+			<Plugins>
+				<Custom>
+					<Plugin Id="387479830" Name="Sine" LibName="Wwise Sine" LibId="6553602"/>
+				</Custom>
+			</Plugins>
 			<Events>
-				<Event Id="431205792" Name="Play_New_Sound_SFX" DurationType="OneShot" DurationMin="10.46" DurationMax="10.46">
-					<MediaRefs>
-						<MediaRef Id="24405360"/>
-					</MediaRefs>
+				<Event Id="431205792" Name="Play_New_Sound_SFX" DurationType="OneShot" DurationMin="3" DurationMax="3">
+					<PluginRefs>
+						<Custom>
+							<PluginRef Id="387479830"/>
+						</Custom>
+					</PluginRefs>
 				</Event>
 			</Events>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{1B0942CB-6EA7-5B5D-B9E1-BBACB66E9EC8}</FileHash>
+	<FileHash>{483F5DE9-3300-7B64-90E3-356BC2454C21}</FileHash>
 </SoundBanksInfo>
