@@ -21,6 +21,9 @@ public class Player : MonoBehaviour
     public Transform Orientation;
     public Animator Animator;
 
+    [Header("Variables")]
+    public float currentTimerPitBottom;
+
     private void Awake()
     {
         InputManager = new PlayerControls();
