@@ -102,11 +102,6 @@ namespace Enemies
         [TabGroup("Debug/A", "Metrics"), ReadOnly, SerializeField]
         private Vector3 _overideDirDebug;
 
-
-        private List<Vector3> _ikTargetsLastPosTarg = new List<Vector3>();
-        private List<float> _ikTargetsLastPosTargTotDist = new List<float>();
-        private List<float> _moveTimes = new List<float>();
-
         // Start is called before the first frame update
         void Start()
         {

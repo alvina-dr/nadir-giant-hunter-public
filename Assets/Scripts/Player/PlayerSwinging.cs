@@ -22,7 +22,7 @@ public class PlayerSwinging : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (_springJoint) //Visual effect for swing line
+        if (IsSwinging) //Visual effect for swing line
         {
             if (SwingLineRenderer.positionCount == 2)
             {
@@ -42,19 +42,23 @@ public class PlayerSwinging : MonoBehaviour
             if (Player.PlayerMovement.CurrentMoveSpeed >= Player.Data.swingSpeed) {
                 Camera.main.fieldOfView = (Player.PlayerMovement.CurrentMoveSpeed - Player.Data.swingSpeed) / (Player.Data.swingMaxSpeed - Player.Data.swingSpeed) * Player.Data.fovAddition + 50;
             }
+        }
+
+        if (TrySwing && !Player.PlayerAttack.IsGrappling) StartSwing();
+        else if (!Player.PlayerDoubleGrappleBoost.IsDoubleGrappling) StopSwing();
+    }
+
+    public void CalculateUpVector()
+    {
+        if (IsSwinging)
+        {
             Player.Mesh.up = Vector3.Slerp(Player.Mesh.up, (EndSwingLinePoint.position - Player.transform.position).normalized, Time.deltaTime * 10f);
 
         }
         else if (Player.PlayerMovement.CurrentMoveSpeed >= Player.Data.swingSpeed)
         {
-            //Player.PlayerMovement.CurrentMoveSpeed *= Player.Data.airSlowDown;
             Player.Mesh.up = Vector3.Slerp(Player.Mesh.up, Vector3.up, Time.deltaTime * 10f);
-
         }
-
-        if (TrySwing) StartSwing();
-        else StopSwing();
-        Debug.DrawRay(Player.transform.position, Vector3.Cross(Player.Mesh.transform.right, (EndSwingLinePoint.position - Player.transform.position).normalized) * 4);
     }
 
     #region Swing
@@ -93,7 +97,7 @@ public class PlayerSwinging : MonoBehaviour
                 _springJoint.connectedAnchor = EndSwingLinePoint.position;
                 _springJoint.enableCollision = true;
                 float distanceFromPoint = Vector3.Distance(StartSwingLinePoint.position, EndSwingLinePoint.position) + 10;
-                if (distanceFromPoint < Player.Data.minLineDistance) distanceFromPoint = Player.Data.minLineDistance;
+                if (distanceFromPoint < Player.Data.minSwingDistance) distanceFromPoint = Player.Data.minSwingDistance;
 
                 _springJoint.maxDistance = distanceFromPoint * 0.7f;
                 _springJoint.minDistance = 0.5f;
@@ -109,15 +113,17 @@ public class PlayerSwinging : MonoBehaviour
         }
     }
 
-    public void StopSwing(bool boost = true)
+    public void StopSwing(bool boost = true, bool destroyVisual = true)
     {
         _swingConeRaycast.radius = _swingConeRaycast.minRadius;
         if (!_springJoint) return;
         Player.PlayerMovement.CurrentMoveSpeed++;
         Destroy(_springJoint);
-        SwingLineRenderer.positionCount = 0;
+        if (destroyVisual)
+        {
+            HideLineRenderer();
+        }
         IsSwinging = false;
-        EndSwingLinePoint.parent = null;
         Player.Animator.SetBool("isSwinging", false);
         float dotProduct = Vector3.Dot(Player.Rigibody.velocity.normalized, Player.Orientation.transform.forward);
         Player.Animator.SetFloat("SwingEndAngle", Player.Rigibody.velocity.normalized.y);
@@ -129,6 +135,12 @@ public class PlayerSwinging : MonoBehaviour
                 Player.PlayerMovement.CurrentMoveSpeed++;
             }
         }
+    }
+
+    public void HideLineRenderer()
+    {
+        SwingLineRenderer.positionCount = 0;
+        EndSwingLinePoint.parent = null;
     }
     #endregion
 }

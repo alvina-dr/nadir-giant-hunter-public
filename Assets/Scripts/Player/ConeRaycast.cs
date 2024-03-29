@@ -27,7 +27,6 @@ public class ConeRaycast : MonoBehaviour
     private void Update()
     {
         contactPointList.Clear();
-        if (!searchPoint) return;
         for (int i = 0; i < 360 * precision; i++)
         {
             Vector3 _direction = transform.up * height;
@@ -44,6 +43,7 @@ public class ConeRaycast : MonoBehaviour
                     break;
             }
             Debug.DrawRay(transform.position, _direction, Color.red);
+            if (!searchPoint) return;
             RaycastHit hit;
             if (Physics.Raycast(transform.position, _direction, out hit, height, layerMask))
             {

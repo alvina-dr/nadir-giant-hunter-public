@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &669130955021557077
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3286274834771364795}
+  m_Layer: 2
+  m_Name: SwingPointLeft
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3286274834771364795
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 669130955021557077}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2946941751287643756}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1153986520517547346
 GameObject:
   m_ObjectHideFlags: 0
@@ -155,7 +186,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5133866373044044127}
   m_Layer: 2
-  m_Name: SwingPoint
+  m_Name: SwingPointRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -317,6 +348,7 @@ GameObject:
   - component: {fileID: 5991739102287327260}
   - component: {fileID: 4012560598477362461}
   - component: {fileID: 5560178313177686885}
+  - component: {fileID: 3422433742143200807}
   - component: {fileID: 8166567874876028922}
   m_Layer: 2
   m_Name: Player
@@ -341,6 +373,7 @@ Transform:
   - {fileID: 7696976556150254451}
   - {fileID: 6609080969534418957}
   - {fileID: 5133866373044044127}
+  - {fileID: 3286274834771364795}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5043027637049521611
@@ -356,10 +389,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: b0578ea5c1818e44487cc36ca565e02c, type: 2}
+  VFXData: {fileID: 11400000, guid: 1f5c18fa9d2015a4d9f47693027b0dc1, type: 2}
   PlayerMovement: {fileID: 4012560598477362461}
   PlayerSwingingRight: {fileID: 4607573896897719150}
   PlayerSwingingLeft: {fileID: 5991739102287327260}
   PlayerAttack: {fileID: 5560178313177686885}
+  PlayerDoubleGrappleBoost: {fileID: 3422433742143200807}
   Mesh: {fileID: 7696976556150254451}
   Rigibody: {fileID: 8166567874876028922}
   Orientation: {fileID: 6609080969534418957}
@@ -401,7 +436,7 @@ MonoBehaviour:
   Player: {fileID: 5043027637049521611}
   _swingConeRaycast: {fileID: 2104427182935562414}
   StartSwingLinePoint: {fileID: 7696976556150254393}
-  EndSwingLinePoint: {fileID: 5133866373044044127}
+  EndSwingLinePoint: {fileID: 3286274834771364795}
   IsSwinging: 0
   TrySwing: 0
   SwingLineRenderer: {fileID: 0}
@@ -440,6 +475,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 5043027637049521611}
   IsGrappling: 0
+  CurrentWeakSpot: {fileID: 0}
+--- !u!114 &3422433742143200807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7281324820499622086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4aa0a571881b5f24f9ffad30533f7a5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player: {fileID: 5043027637049521611}
 --- !u!54 &8166567874876028922
 Rigidbody:
   m_ObjectHideFlags: 0
