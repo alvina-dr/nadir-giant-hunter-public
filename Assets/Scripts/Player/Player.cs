@@ -32,7 +32,7 @@ public class Player : MonoBehaviour
     {
         InputManager.Enable();
         InputManager.Gameplay.SwingRight.started += function => { 
-            if (PlayerDoubleGrappleBoost.RightSwingReleased)
+            if (PlayerDoubleGrappleBoost.RightSwingReleased && !PlayerDoubleGrappleBoost.IsDoubleGrappling)
                 PlayerSwingingRight.TrySwing = true; 
         };
         InputManager.Gameplay.SwingRight.canceled += function => { 
@@ -40,7 +40,7 @@ public class Player : MonoBehaviour
             PlayerDoubleGrappleBoost.RightSwingReleased = true;
         };
         InputManager.Gameplay.SwingLeft.started += function => {
-            if (PlayerDoubleGrappleBoost.LeftSwingReleased)
+            if (PlayerDoubleGrappleBoost.LeftSwingReleased && !PlayerDoubleGrappleBoost.IsDoubleGrappling)
                 PlayerSwingingLeft.TrySwing = true; 
         };
         InputManager.Gameplay.SwingLeft.canceled += function => { 

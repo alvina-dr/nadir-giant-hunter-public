@@ -40,8 +40,8 @@ public class PlayerDoubleGrappleBoost : MonoBehaviour
     public void Boost()
     {
         Player.Rigibody.AddForce(Player.Data.doubleSwingBoost * Vector3.up, ForceMode.Impulse);
-        Player.PlayerSwingingLeft.StopSwing(true, true);
-        Player.PlayerSwingingRight.StopSwing(true, true);
+        Player.PlayerSwingingLeft.StopSwing(true, false);
+        Player.PlayerSwingingRight.StopSwing(true, false);
         GameObject vfx = Instantiate(Player.VFXData.doubleGrappleBoost);
         vfx.transform.position = transform.position;
         LeftSwingReleased = false;
@@ -49,11 +49,17 @@ public class PlayerDoubleGrappleBoost : MonoBehaviour
         Player.PlayerSwingingRight.TrySwing = false;
         Player.PlayerSwingingLeft.TrySwing = false;
         IsDoubleGrappling = true;
-        DOVirtual.DelayedCall(1f, () =>
+        DOVirtual.DelayedCall(Player.Data.doubleSwingLineRendererDuration, () =>
         {
-            //Player.PlayerSwingingLeft.HideLineRenderer();
-            //Player.PlayerSwingingRight.HideLineRenderer();
+            Player.PlayerSwingingLeft.HideLineRenderer();
+            Player.PlayerSwingingRight.HideLineRenderer();
             IsDoubleGrappling = false;
+        }).OnUpdate(() =>
+        {
+            if (Player.PlayerSwingingLeft.EndSwingLinePoint.transform.position.y < Player.transform.position.y)
+                Player.PlayerSwingingLeft.HideLineRenderer();
+            if (Player.PlayerSwingingRight.EndSwingLinePoint.transform.position.y < Player.transform.position.y)
+                Player.PlayerSwingingRight.HideLineRenderer();
         });
     }
 }

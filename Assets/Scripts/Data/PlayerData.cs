@@ -55,6 +55,8 @@ public class PlayerData : ScriptableObject
 
     [TabGroup("Double swing boost")]
     public float doubleSwingBoost;
+    [TabGroup("Double swing boost")]
+    public float doubleSwingLineRendererDuration;
 
     [Header("Tests")]
     public bool startCurveBoost;

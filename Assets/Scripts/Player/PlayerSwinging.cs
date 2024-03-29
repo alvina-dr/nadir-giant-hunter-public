@@ -37,7 +37,6 @@ public class PlayerSwinging : MonoBehaviour
 
     private void Update()
     {
-
         if (IsSwinging)
         {
             if (Player.PlayerMovement.CurrentMoveSpeed >= Player.Data.swingSpeed) {
@@ -46,7 +45,7 @@ public class PlayerSwinging : MonoBehaviour
         }
 
         if (TrySwing && !Player.PlayerAttack.IsGrappling) StartSwing();
-        else StopSwing();
+        else if (!Player.PlayerDoubleGrappleBoost.IsDoubleGrappling) StopSwing();
     }
 
     public void CalculateUpVector()
@@ -122,8 +121,7 @@ public class PlayerSwinging : MonoBehaviour
         Destroy(_springJoint);
         if (destroyVisual)
         {
-            SwingLineRenderer.positionCount = 0;
-            EndSwingLinePoint.parent = null;
+            HideLineRenderer();
         }
         IsSwinging = false;
         Player.Animator.SetBool("isSwinging", false);
