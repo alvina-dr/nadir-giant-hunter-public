@@ -6,4 +6,5 @@ using UnityEngine;
 public class GeneralData : ScriptableObject
 {
     public float levelMaxTime;
+    public float pitBottomDeathTime;
 }

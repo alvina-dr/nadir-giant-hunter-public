@@ -28,6 +28,7 @@ public class GPCtrl : MonoBehaviour
 
     public GeneralData GeneralData;
     public Player Player;
+    public UICtrl UICtrl;
     public List<WeakSpot> WeakSpotList;
     public float Timer;
 
@@ -50,6 +51,7 @@ public class GPCtrl : MonoBehaviour
 
     public void Loose()
     {
+        UICtrl.EndGameMenu.OpenMenu();
         Debug.Log("LOOSE");
     }
 }

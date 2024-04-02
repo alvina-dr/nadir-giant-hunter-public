@@ -4,12 +4,23 @@ using UnityEngine;
 
 public class PitBottom : MonoBehaviour
 {
-    private void OnTriggerStay(Collider other)
+    public void OnTriggerEnter(Collision collision)
     {
-        Player player = GetComponent<Player>();
+        Debug.Log("collision : " + collision.transform.name);
+        Player player = collision.transform.GetComponent<Player>();
         if (player != null)
         {
+            player.currentTimerPitBottom += Time.deltaTime;
+            if (player.currentTimerPitBottom > GPCtrl.Instance.GeneralData.pitBottomDeathTime) GPCtrl.Instance.Loose();
+        }
+    }
 
+    private void OnTriggerExit(Collision collision)
+    {
+        Player player = collision.transform.GetComponent<Player>();
+        if (player != null)
+        {
+            player.currentTimerPitBottom = 0;
         }
     }
 }

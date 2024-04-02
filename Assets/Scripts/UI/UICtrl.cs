@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class UICtrl : MonoBehaviour
 {
-    
+    public UI_EndGameMenu EndGameMenu;
 }
