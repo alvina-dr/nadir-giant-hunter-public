@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7564333293211897035}
+  - component: {fileID: 1087481335142921050}
   - component: {fileID: 950086291426377220}
   - component: {fileID: 7312111613482051253}
   - component: {fileID: 1824491963239610166}
-  - component: {fileID: 1087481335142921050}
   - component: {fileID: 3195429748161207964}
   m_Layer: 0
   m_Name: WeakSpot
@@ -36,6 +36,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1087481335142921050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2430428524241029713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ff0ba8e0e3a73d47add8f5e0310ef34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Rigidbody: {fileID: 3195429748161207964}
+  VFXData: {fileID: 11400000, guid: aea452db0727f454981b9eab3d129318, type: 2}
 --- !u!33 &950086291426377220
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -109,19 +123,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1087481335142921050
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2430428524241029713}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ff0ba8e0e3a73d47add8f5e0310ef34, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Rigidbody: {fileID: 3195429748161207964}
 --- !u!54 &3195429748161207964
 Rigidbody:
   m_ObjectHideFlags: 0

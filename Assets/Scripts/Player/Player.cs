@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public PlayerData Data;
+    public PlayerVFXData VFXData;
     public PlayerControls InputManager;
 
     [Header("Player Scripts")]
@@ -12,6 +13,7 @@ public class Player : MonoBehaviour
     public PlayerSwinging PlayerSwingingRight;
     public PlayerSwinging PlayerSwingingLeft;
     public PlayerAttack PlayerAttack;
+    public PlayerDoubleGrappleBoost PlayerDoubleGrappleBoost;
 
     [Header("Components")]
     public Transform Mesh;
@@ -29,10 +31,22 @@ public class Player : MonoBehaviour
     private void OnEnable()
     {
         InputManager.Enable();
-        InputManager.Gameplay.SwingRight.started += function => { PlayerSwingingRight.TrySwing = true; };
-        InputManager.Gameplay.SwingRight.canceled += function => { PlayerSwingingRight.TrySwing = false; };
-        InputManager.Gameplay.SwingLeft.started += function => { PlayerSwingingLeft.TrySwing = true; };
-        InputManager.Gameplay.SwingLeft.canceled += function => { PlayerSwingingLeft.TrySwing = false; };
+        InputManager.Gameplay.SwingRight.started += function => { 
+            if (PlayerDoubleGrappleBoost.RightSwingReleased && !PlayerDoubleGrappleBoost.IsDoubleGrappling)
+                PlayerSwingingRight.TrySwing = true; 
+        };
+        InputManager.Gameplay.SwingRight.canceled += function => { 
+            PlayerSwingingRight.TrySwing = false;
+            PlayerDoubleGrappleBoost.RightSwingReleased = true;
+        };
+        InputManager.Gameplay.SwingLeft.started += function => {
+            if (PlayerDoubleGrappleBoost.LeftSwingReleased && !PlayerDoubleGrappleBoost.IsDoubleGrappling)
+                PlayerSwingingLeft.TrySwing = true; 
+        };
+        InputManager.Gameplay.SwingLeft.canceled += function => { 
+            PlayerSwingingLeft.TrySwing = false;
+            PlayerDoubleGrappleBoost.LeftSwingReleased = true;
+        };
         InputManager.Gameplay.Attack.started += function => { PlayerAttack.Attack(); };
         InputManager.Gameplay.Jump.started += PlayerMovement.Jump;
     }
