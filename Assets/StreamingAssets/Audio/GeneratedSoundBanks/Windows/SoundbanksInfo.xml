@@ -9,7 +9,7 @@
 	</RootPaths>
 	<DialogueEvents/>
 	<SoundBanks>
-		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{FB19CC8E-FD3B-B481-ED1D-A7C93C6055B7}">
+		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{7CD4C88C-0DD8-9451-9A16-2CDC76D6A7AF}">
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 			<Plugins>
@@ -22,6 +22,7 @@
 				<Bus Id="3803692087" Name="Master Audio Bus"/>
 			</Busses>
 			<GameParameters>
+				<GameParameter Id="640949982" Name="Speed"/>
 				<GameParameter Id="681025064" Name="Depth"/>
 				<GameParameter Id="822163944" Name="SS_Air_RPM"/>
 				<GameParameter Id="1029930033" Name="SS_Air_Fury"/>
@@ -163,7 +164,7 @@
 				</AcousticTexture>
 			</AcousticTextures>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{56540152-D1EE-E86B-6556-90C225A5994B}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{5E5AD719-6F6D-6238-5E0A-804628C341FB}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
@@ -335,6 +336,11 @@
 						<MediaRef Id="1024854411"/>
 					</MediaRefs>
 				</Event>
+				<Event Id="1889579008" Name="Play_AMB_Well_Abyss" DurationType="Infinite">
+					<MediaRefs>
+						<MediaRef Id="944616993"/>
+					</MediaRefs>
+				</Event>
 				<Event Id="1395857203" Name="Play_AMB_Well_FloatingObject" DurationType="Infinite">
 					<MediaRefs>
 						<MediaRef Id="565881983"/>
@@ -343,11 +349,6 @@
 				<Event Id="3338382843" Name="Play_AMB_Well_Sky" DurationType="Infinite">
 					<MediaRefs>
 						<MediaRef Id="39016156"/>
-					</MediaRefs>
-				</Event>
-				<Event Id="3270139493" Name="Play_AMB_Well_Top" DurationType="Infinite">
-					<MediaRefs>
-						<MediaRef Id="944616993"/>
 					</MediaRefs>
 				</Event>
 				<Event Id="431205792" Name="Play_New_Sound_SFX" DurationType="OneShot" DurationMin="10.46" DurationMax="10.46">
@@ -532,5 +533,5 @@
 			</GameParameters>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{148A1EDA-1CD3-5E54-877A-FF1F8BBB530D}</FileHash>
+	<FileHash>{7010D76C-4B41-242E-296C-D054C48D7E6C}</FileHash>
 </SoundBanksInfo>
