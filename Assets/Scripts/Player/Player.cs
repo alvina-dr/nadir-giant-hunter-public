@@ -21,6 +21,10 @@ public class Player : MonoBehaviour
     public Transform Orientation;
     public Animator Animator;
 
+    [Header("Variables")]
+    public float currentTimerPitBottom;
+    public AK.Wwise.Event hitEvent;
+
     private void Awake()
     {
         InputManager = new PlayerControls();

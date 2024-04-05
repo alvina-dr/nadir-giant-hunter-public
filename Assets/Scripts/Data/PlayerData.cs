@@ -52,6 +52,8 @@ public class PlayerData : ScriptableObject
     public float attackStopDistance;
     [TabGroup("Attack")]
     public float dragForce;
+    [TabGroup("Attack")]
+    public float weakSpotDetectionDistance;
 
     [TabGroup("Double swing boost")]
     public float doubleSwingBoost;
