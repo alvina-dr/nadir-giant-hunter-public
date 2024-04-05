@@ -56,9 +56,9 @@ public class PlayerMovement : MonoBehaviour
             Player.Animator.SetBool("Grounded", false);
         }
 
-        if (_moveDirection != Vector3.zero && _grounded) Player.Animator.SetBool("isWalking", true);
+        if (_moveDirection != Vector3.zero && _grounded)
+            Player.Animator.SetBool("isWalking", true);
         else if (_moveDirection == Vector3.zero && _grounded) Player.Animator.SetBool("isWalking", false);
-
     }
 
     private void FixedUpdate()
@@ -86,6 +86,7 @@ public class PlayerMovement : MonoBehaviour
             Invoke(nameof(ResetJump), Player.Data.jumpCooldown);
             Player.Animator.SetTrigger("Jump");
             Player.Animator.SetBool("Grounded", false);
+            Player.SoundData.SFX_Hunter_Jump.Post(gameObject);
         }
     }
 

@@ -745,6 +745,8 @@ GameObject:
   - component: {fileID: 393449893}
   - component: {fileID: 393449895}
   - component: {fileID: 393449894}
+  - component: {fileID: 393449897}
+  - component: {fileID: 393449896}
   m_Layer: 0
   m_Name: Bank
   m_TagString: Untagged
@@ -801,6 +803,58 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 393449892}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &393449896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 393449892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f3f1a869d45fcc4ea4851261c70981c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerList: 
+  useOtherObject: 0
+  actionOnEventType: 0
+  curveInterpolation: 4
+  enableActionOnEvent: 0
+  data:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 7a84e01bad69d984cbbb59afa9ee3bee,
+      type: 2}
+  useCallbacks: 0
+  Callbacks: []
+  playingId: 0
+  soundEmitterObject: {fileID: 0}
+  transitionDuration: 0
+  eventIdInternal: 0
+  valueGuidInternal: 
+  m_callbackDataInternal: {fileID: 0}
+--- !u!114 &393449897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 393449892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 544eba95acff6484c858b5fcc87cae0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_listeners:
+    initialListenerList: []
+    useDefaultListeners: 1
+  isEnvironmentAware: 1
+  isStaticObject: 0
+  m_positionOffsetData:
+    KeepMe: 0
+    positionOffset: {x: 0, y: 0, z: 0}
+  m_posOffsetData: {fileID: 0}
+  listenerMask: 1
 --- !u!1 &413296228
 GameObject:
   m_ObjectHideFlags: 1
@@ -1362,7 +1416,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &584023352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1777,7 +1831,7 @@ GameObject:
   - component: {fileID: 756176497}
   - component: {fileID: 756176498}
   m_Layer: 0
-  m_Name: Cylinder
+  m_Name: BottomPit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4144,7 +4198,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1668533785}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.00000090085643, y: 0.99993557, z: 0.011353507, w: 0.000079340985}
+  m_LocalRotation: {x: -0.0000009008522, y: 0.99993557, z: 0.011353509, w: 0.0000793406}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4258,7 +4312,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1886496854}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.000007819269, y: 0.99513334, z: -0.09853761, w: 0.00007896696}
+  m_LocalRotation: {x: 0.000007818538, y: 0.99513334, z: -0.09853762, w: 0.00007895956}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

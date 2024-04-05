@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
 {
     public PlayerData Data;
     public PlayerVFXData VFXData;
+    public PlayerSoundData SoundData;
     public PlayerControls InputManager;
 
     [Header("Player Scripts")]
@@ -59,4 +60,5 @@ public class Player : MonoBehaviour
     {
         InputManager.Disable();
     }
+
 }

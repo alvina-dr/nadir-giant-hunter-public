@@ -57,6 +57,7 @@ public class PlayerAttack : MonoBehaviour
         Player.PlayerSwingingLeft.SwingLineRenderer.SetPosition(1, weakSpot.transform.position); //to shoot from the hand of the player
         Player.PlayerSwingingRight.SwingLineRenderer.positionCount = 2;
         Player.PlayerSwingingRight.SwingLineRenderer.SetPosition(1, weakSpot.transform.position); //to shoot from the hand of the player
+        Player.SoundData.SFX_Hunter_Attack_Rush.Post(gameObject);
     }
 
     private void Update()
@@ -72,7 +73,7 @@ public class PlayerAttack : MonoBehaviour
                 Player.PlayerSwingingRight.SwingLineRenderer.positionCount = 0;
                 Player.Rigibody.velocity = Vector3.zero;
                 Player.Rigibody.useGravity = true;
-                Player.hitEvent.Post(Player.gameObject);
+                Player.SoundData.SFX_Hunter_Attack_Impact.Post(gameObject);
                 CurrentWeakSpot.DestroyWeakSpot();
                 CurrentWeakSpot = null;
             }
