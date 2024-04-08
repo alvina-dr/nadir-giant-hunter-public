@@ -86,7 +86,7 @@ public class PlayerMovement : MonoBehaviour
             Invoke(nameof(ResetJump), Player.Data.jumpCooldown);
             Player.Animator.SetTrigger("Jump");
             Player.Animator.SetBool("Grounded", false);
-            Player.SoundData.SFX_Hunter_Jump.Post(gameObject);
+            Player.SoundData.SFX_Hunter_Jump.Post(Player.gameObject);
         }
     }
 
