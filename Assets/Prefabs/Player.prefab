@@ -390,6 +390,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: b0578ea5c1818e44487cc36ca565e02c, type: 2}
   VFXData: {fileID: 11400000, guid: 1f5c18fa9d2015a4d9f47693027b0dc1, type: 2}
+  SoundData: {fileID: 11400000, guid: 791ec48c8b7607c4bac01270bd699ae2, type: 2}
   PlayerMovement: {fileID: 4012560598477362461}
   PlayerSwingingRight: {fileID: 4607573896897719150}
   PlayerSwingingLeft: {fileID: 5991739102287327260}
@@ -399,6 +400,11 @@ MonoBehaviour:
   Rigibody: {fileID: 8166567874876028922}
   Orientation: {fileID: 6609080969534418957}
   Animator: {fileID: 7696976556141216899}
+  currentTimerPitBottom: 0
+  hitEvent:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
 --- !u!114 &4607573896897719150
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -489,6 +495,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 5043027637049521611}
+  LeftSwingReleased: 1
+  RightSwingReleased: 1
+  IsDoubleGrappling: 0
 --- !u!54 &8166567874876028922
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -864,6 +873,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 6222032483390639446}
+    - targetCorrespondingSourceObject: {fileID: 100016, guid: d917c7129a9e4c74e84188b278d96de7,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5628016599527409719}
   m_SourcePrefab: {fileID: 100100000, guid: d917c7129a9e4c74e84188b278d96de7, type: 3}
 --- !u!95 &7696976556141216899 stripped
 Animator:
@@ -918,3 +931,16 @@ CapsuleCollider:
   m_Height: 1.8
   m_Direction: 1
   m_Center: {x: 0, y: 0.9, z: 0}
+--- !u!114 &5628016599527409719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7696976556150749011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2105d782186d72d488c6a6e16fb486db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player: {fileID: 5043027637049521611}

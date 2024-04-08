@@ -42,18 +42,23 @@ public class PlayerSwinging : MonoBehaviour
             if (Player.PlayerMovement.CurrentMoveSpeed >= Player.Data.swingSpeed) {
                 Camera.main.fieldOfView = (Player.PlayerMovement.CurrentMoveSpeed - Player.Data.swingSpeed) / (Player.Data.swingMaxSpeed - Player.Data.swingSpeed) * Player.Data.fovAddition + 50;
             }
+        }
+
+        if (TrySwing && !Player.PlayerAttack.IsGrappling) StartSwing();
+        else if (!Player.PlayerDoubleGrappleBoost.IsDoubleGrappling) StopSwing();
+    }
+
+    public void CalculateUpVector()
+    {
+        if (IsSwinging)
+        {
             Player.Mesh.up = Vector3.Slerp(Player.Mesh.up, (EndSwingLinePoint.position - Player.transform.position).normalized, Time.deltaTime * 10f);
 
         }
         else if (Player.PlayerMovement.CurrentMoveSpeed >= Player.Data.swingSpeed)
         {
-            //Player.PlayerMovement.CurrentMoveSpeed *= Player.Data.airSlowDown;
             Player.Mesh.up = Vector3.Slerp(Player.Mesh.up, Vector3.up, Time.deltaTime * 10f);
         }
-
-        if (TrySwing && !Player.PlayerAttack.IsGrappling) StartSwing();
-        else StopSwing();
-        Debug.DrawRay(Player.transform.position, Vector3.Cross(Player.Mesh.transform.right, (EndSwingLinePoint.position - Player.transform.position).normalized) * 4);
     }
 
     #region Swing
@@ -82,6 +87,8 @@ public class PlayerSwinging : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(StartSwingLinePoint.position, direction, out hit, Player.Data.maxSwingDistance, _layerMask))
             {
+                Player.SoundData.SFX_Hunter_Hook_Single_Grappled.Post(EndSwingLinePoint.gameObject);
+                Player.SoundData.SFX_Hunter_Hook_Single_Trigger.Post(gameObject);
                 IsSwinging = true;
                 _swingConeRaycast.searchPoint = false;
                 EndSwingLinePoint.SetParent(hit.transform);
@@ -112,12 +119,12 @@ public class PlayerSwinging : MonoBehaviour
     {
         _swingConeRaycast.radius = _swingConeRaycast.minRadius;
         if (!_springJoint) return;
+        Player.SoundData.SFX_Hunter_Hook_Single_Trigger.Post(EndSwingLinePoint.gameObject);
         Player.PlayerMovement.CurrentMoveSpeed++;
         Destroy(_springJoint);
         if (destroyVisual)
         {
-            SwingLineRenderer.positionCount = 0;
-            EndSwingLinePoint.parent = null;
+            HideLineRenderer();
         }
         IsSwinging = false;
         Player.Animator.SetBool("isSwinging", false);

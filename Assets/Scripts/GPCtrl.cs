@@ -26,7 +26,32 @@ public class GPCtrl : MonoBehaviour
     }
     #endregion
 
+    public GeneralData GeneralData;
     public Player Player;
-    public CameraThirdPerson CameraThirdPerson;
+    public UICtrl UICtrl;
     public List<WeakSpot> WeakSpotList;
+    public float Timer;
+
+    private void Update()
+    {
+        Timer += Time.deltaTime; 
+        if (Timer > GeneralData.levelMaxTime)
+        {
+            //stop monster spawn
+            //if no monster then win
+            if (WeakSpotList.Count == 0)
+                Win();
+        }
+    }
+
+    public void Win()
+    {
+        Debug.Log("WIN");
+    }
+
+    public void Loose()
+    {
+        UICtrl.EndGameMenu.OpenMenu();
+        Debug.Log("LOOSE");
+    }
 }

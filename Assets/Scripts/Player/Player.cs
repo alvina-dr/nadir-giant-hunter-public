@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
 {
     public PlayerData Data;
     public PlayerVFXData VFXData;
+    public PlayerSoundData SoundData;
     public PlayerControls InputManager;
 
     [Header("Player Scripts")]
@@ -21,6 +22,10 @@ public class Player : MonoBehaviour
     public Transform Orientation;
     public Animator Animator;
 
+    [Header("Variables")]
+    public float currentTimerPitBottom;
+    public AK.Wwise.Event hitEvent;
+
     private void Awake()
     {
         InputManager = new PlayerControls();
@@ -32,20 +37,20 @@ public class Player : MonoBehaviour
     {
         InputManager.Enable();
         InputManager.Gameplay.SwingRight.started += function => { 
-            if (PlayerDoubleGrappleBoost.rightSwingReleased)
+            if (PlayerDoubleGrappleBoost.RightSwingReleased && !PlayerDoubleGrappleBoost.IsDoubleGrappling)
                 PlayerSwingingRight.TrySwing = true; 
         };
         InputManager.Gameplay.SwingRight.canceled += function => { 
             PlayerSwingingRight.TrySwing = false;
-            PlayerDoubleGrappleBoost.rightSwingReleased = true;
+            PlayerDoubleGrappleBoost.RightSwingReleased = true;
         };
         InputManager.Gameplay.SwingLeft.started += function => {
-            if (PlayerDoubleGrappleBoost.leftSwingReleased)
+            if (PlayerDoubleGrappleBoost.LeftSwingReleased && !PlayerDoubleGrappleBoost.IsDoubleGrappling)
                 PlayerSwingingLeft.TrySwing = true; 
         };
         InputManager.Gameplay.SwingLeft.canceled += function => { 
             PlayerSwingingLeft.TrySwing = false;
-            PlayerDoubleGrappleBoost.leftSwingReleased = true;
+            PlayerDoubleGrappleBoost.LeftSwingReleased = true;
         };
         InputManager.Gameplay.Attack.started += function => { PlayerAttack.Attack(); };
         InputManager.Gameplay.Jump.started += PlayerMovement.Jump;
@@ -55,4 +60,5 @@ public class Player : MonoBehaviour
     {
         InputManager.Disable();
     }
+
 }
