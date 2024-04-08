@@ -9,7 +9,7 @@
 	</RootPaths>
 	<DialogueEvents/>
 	<SoundBanks>
-		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{7CD4C88C-0DD8-9451-9A16-2CDC76D6A7AF}">
+		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{05286CC8-CFDC-0E0A-AF5B-5C923CFE8E19}">
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 			<Plugins>
@@ -19,7 +19,11 @@
 				</AudioDevices>
 			</Plugins>
 			<Busses>
+				<Bus Id="393239870" Name="SFX"/>
+				<Bus Id="1117531639" Name="AMB"/>
+				<Bus Id="1551306167" Name="UI"/>
 				<Bus Id="3803692087" Name="Master Audio Bus"/>
+				<Bus Id="3991942870" Name="Music"/>
 			</Busses>
 			<GameParameters>
 				<GameParameter Id="640949982" Name="Speed"/>
@@ -31,9 +35,14 @@
 				<GameParameter Id="3002758120" Name="SS_Air_Freefall"/>
 				<GameParameter Id="3074696722" Name="SS_Air_Size"/>
 				<GameParameter Id="3203397129" Name="SS_Air_TimeOfDay"/>
+				<GameParameter Id="3223843150" Name="Volume_AMB"/>
+				<GameParameter Id="3673881719" Name="Volume_SFX"/>
+				<GameParameter Id="3695994288" Name="Volume_Master"/>
 				<GameParameter Id="3715662592" Name="SS_Air_Storm"/>
 				<GameParameter Id="3847924954" Name="SS_Air_Presence"/>
+				<GameParameter Id="3891337659" Name="Volume_Music"/>
 				<GameParameter Id="4160247818" Name="SS_Air_Turbulence"/>
+				<GameParameter Id="4212040332" Name="Volume_UI"/>
 			</GameParameters>
 			<AcousticTextures>
 				<AcousticTexture Id="504532776" Name="Brick">
@@ -164,14 +173,10 @@
 				</AcousticTexture>
 			</AcousticTextures>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{5E5AD719-6F6D-6238-5E0A-804628C341FB}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{39152CD2-3724-2D59-239F-8952000ADFF1}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
-				<File Id="24405360" Language="SFX" Streaming="false" Location="Memory">
-					<ShortName>test.wav</ShortName>
-					<CachePath>SFX/test_818F3B66.wem</CachePath>
-				</File>
 				<File Id="32303396" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>UI_General_Typing.wav</ShortName>
 					<CachePath>SFX/UI_General_Typing_818F3B66.wem</CachePath>
@@ -259,6 +264,10 @@
 				<File Id="663356885" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Quointuple Mooonstre.wav</ShortName>
 					<CachePath>SFX/Quointuple Mooonstre_818F3B66.wem</CachePath>
+				</File>
+				<File Id="695124919" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>SFX_Hunter_Jump.wav</ShortName>
+					<CachePath>SFX/SFX_Hunter_Jump_818F3B66.wem</CachePath>
 				</File>
 				<File Id="698839722" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>SFX_Giant_Movement_LowerBody.wav</ShortName>
@@ -349,11 +358,6 @@
 				<Event Id="3338382843" Name="Play_AMB_Well_Sky" DurationType="Infinite">
 					<MediaRefs>
 						<MediaRef Id="39016156"/>
-					</MediaRefs>
-				</Event>
-				<Event Id="431205792" Name="Play_New_Sound_SFX" DurationType="OneShot" DurationMin="10.46" DurationMax="10.46">
-					<MediaRefs>
-						<MediaRef Id="24405360"/>
 					</MediaRefs>
 				</Event>
 				<Event Id="981365070" Name="Play_SFX_Giant_Hit_ByPlayer" DurationType="OneShot" DurationMin="3" DurationMax="3">
@@ -467,6 +471,11 @@
 						<MediaRef Id="483686326"/>
 					</MediaRefs>
 				</Event>
+				<Event Id="2612978223" Name="Play_SFX_Hunter_Movement_Jump" DurationType="OneShot" DurationMin="0.31498867" DurationMax="0.31498867">
+					<MediaRefs>
+						<MediaRef Id="695124919"/>
+					</MediaRefs>
+				</Event>
 				<Event Id="1321845562" Name="Play_UI_Gameplay_GameOver" DurationType="OneShot" DurationMin="8.689002" DurationMax="8.689002">
 					<MediaRefs>
 						<MediaRef Id="1064328534"/>
@@ -533,5 +542,5 @@
 			</GameParameters>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{7010D76C-4B41-242E-296C-D054C48D7E6C}</FileHash>
+	<FileHash>{4AB421D4-EB5D-37E7-A7A7-2ABF65D1B05F}</FileHash>
 </SoundBanksInfo>
