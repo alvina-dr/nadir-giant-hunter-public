@@ -22,7 +22,7 @@ public class PlayerSwinging : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (_springJoint) //Visual effect for swing line
+        if (IsSwinging) //Visual effect for swing line
         {
             if (SwingLineRenderer.positionCount == 2)
             {
