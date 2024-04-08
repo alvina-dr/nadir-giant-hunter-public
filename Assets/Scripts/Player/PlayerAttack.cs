@@ -9,6 +9,7 @@ public class PlayerAttack : MonoBehaviour
     [HideInInspector]
     public bool IsGrappling = false;
     public WeakSpot CurrentWeakSpot;
+    public List<WeakSpot> closestWeakSpotList = new List<WeakSpot>();
 
     public void Attack()
     {
@@ -62,6 +63,18 @@ public class PlayerAttack : MonoBehaviour
 
     private void Update()
     {
+        closestWeakSpotList = GPCtrl.Instance.WeakSpotList;
+        closestWeakSpotList.Sort(delegate (WeakSpot a, WeakSpot b)
+        {
+            return Vector3.Distance(this.transform.position, a.transform.position).CompareTo(Vector3.Distance(this.transform.position, b.transform.position));
+        });
+        GPCtrl.Instance.UICtrl.AttackInputIndication.HideIndicator();
+        if (closestWeakSpotList.Count > 0 ) {
+            if (Vector3.Distance(transform.position, closestWeakSpotList[0].transform.position) < Player.Data.weakSpotDetectionDistance)
+            {
+                GPCtrl.Instance.UICtrl.AttackInputIndication.ShowIndicatorAt(closestWeakSpotList[0].transform.position);
+            }
+        }
         if (IsGrappling && _springJoint != null)
         {
             if (Vector3.Distance(transform.position, CurrentWeakSpot.transform.position) < Player.Data.attackStopDistance)

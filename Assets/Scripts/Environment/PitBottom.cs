@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class PitBottom : MonoBehaviour
 {
-    public void OnTriggerEnter(Collision collision)
+    public void OnTriggerStay(Collider collision)
     {
-        Debug.Log("collision : " + collision.transform.name);
-        Player player = collision.transform.GetComponent<Player>();
+        if (GPCtrl.Instance.Pause) return;
+        if (collision.transform.parent == null) return;
+        Player player = collision.transform.parent.GetComponent<Player>();
         if (player != null)
         {
             player.currentTimerPitBottom += Time.deltaTime;
@@ -15,9 +16,10 @@ public class PitBottom : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit(Collision collision)
+    private void OnTriggerExit(Collider collision)
     {
-        Player player = collision.transform.GetComponent<Player>();
+        if (collision.transform.parent == null) return;
+        Player player = collision.transform.parent.GetComponent<Player>();
         if (player != null)
         {
             player.currentTimerPitBottom = 0;

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UI_EndGameMenu : MonoBehaviour
 {
-    private CanvasGroup _canvasGroup;
+    [SerializeField] private CanvasGroup _canvasGroup;
     public void OpenMenu()
     {
         Cursor.lockState = CursorLockMode.Confined;
