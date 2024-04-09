@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     private float _horizontalInput;
     private float _verticalInput;
     private Vector3 _moveDirection;
+    public bool CanJumpOnceInAir;
 
     private void Start()
     {
@@ -49,6 +50,7 @@ public class PlayerMovement : MonoBehaviour
         {
             Player.Rigibody.drag = Player.Data.groundDrag;
             Player.Animator.SetBool("Grounded", true);
+            CanJumpOnceInAir = true;
         }
         else
         {
@@ -78,8 +80,9 @@ public class PlayerMovement : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext context)
     {
-        if (_readyToJump)
+        if (_readyToJump && CanJumpOnceInAir)
         {
+            CanJumpOnceInAir = false;
             _readyToJump = false;
             Player.Rigibody.velocity = new Vector3(Player.Rigibody.velocity.x, 0f, Player.Rigibody.velocity.z);
             Player.Rigibody.AddForce(transform.up * Player.Data.jumpForce, ForceMode.Impulse);
