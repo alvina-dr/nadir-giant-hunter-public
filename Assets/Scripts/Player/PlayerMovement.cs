@@ -78,7 +78,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext context)
     {
-        if (_readyToJump && _grounded)
+        if (_readyToJump)
         {
             _readyToJump = false;
             Player.Rigibody.velocity = new Vector3(Player.Rigibody.velocity.x, 0f, Player.Rigibody.velocity.z);
