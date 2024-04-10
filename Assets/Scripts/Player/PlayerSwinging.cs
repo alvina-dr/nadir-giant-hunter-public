@@ -87,6 +87,7 @@ public class PlayerSwinging : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(StartSwingLinePoint.position, direction, out hit, Player.Data.maxSwingDistance, _layerMask))
             {
+                Player.PlayerMovement.CanJumpOnceInAir = true;
                 Player.SoundData.SFX_Hunter_Hook_Single_Grappled.Post(EndSwingLinePoint.gameObject);
                 Player.SoundData.SFX_Hunter_Hook_Single_Trigger.Post(gameObject);
                 IsSwinging = true;
