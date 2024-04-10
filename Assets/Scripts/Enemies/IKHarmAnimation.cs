@@ -19,7 +19,7 @@ namespace Enemies
         public ChainIKConstraint ChainIk;
         public Transform Target;
         public Transform TargetPos;
-        public GameObject Model;
+        public GameObject LastBone;
         [HideInInspector]
         public Vector3 LastPosTarg;
         [HideInInspector]
@@ -49,6 +49,8 @@ namespace Enemies
 
         //Parameters
         [TitleGroup("Parameters")]
+        [TabGroup("Parameters/A", "General"), SerializeField]
+        private bool doAlignTipToLast;
         [TabGroup("Parameters/A", "Raycast"), SerializeField]
         private float _nextTargetRaycastLength = 1;
         [TabGroup("Parameters/A", "Raycast"), SerializeField]
@@ -65,6 +67,7 @@ namespace Enemies
         private float _raycastTryWeight = 1;
         [TabGroup("Parameters/A", "Raycast"), SerializeField]
         private LayerMask _raycastLayerMask;
+
 
         [TabGroup("Parameters/A", "Metrics"), SerializeField]
         private float _maxLengthBeforeUpdate = 1;
@@ -151,6 +154,10 @@ namespace Enemies
                     if (Vector3.Distance(leg.LastPos, leg.LastPosTarg) > 1f)
                     {
                         TransitionLastPos(leg);
+                    }
+                    if (doAlignTipToLast)
+                    {
+                        leg.Target.rotation = leg.LastBone.transform.parent.rotation;
                     }
                 }
             }
