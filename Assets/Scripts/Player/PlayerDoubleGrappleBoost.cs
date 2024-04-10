@@ -39,6 +39,7 @@ public class PlayerDoubleGrappleBoost : MonoBehaviour
 
     public void Boost()
     {
+        Player.SoundData.SFX_Hunter_Hook_Double_Boost.Post(gameObject);
         Player.Rigibody.AddForce(Player.Data.doubleSwingBoost * Vector3.up, ForceMode.Impulse);
         Player.PlayerSwingingLeft.StopSwing(true, false);
         Player.PlayerSwingingRight.StopSwing(true, false);

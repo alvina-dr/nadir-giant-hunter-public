@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GPCtrl : MonoBehaviour
 {
@@ -31,7 +32,7 @@ public class GPCtrl : MonoBehaviour
     public UICtrl UICtrl;
     public List<WeakSpot> WeakSpotList;
     public float Timer;
-
+    public bool Pause = false;
     private void Update()
     {
         Timer += Time.deltaTime; 
@@ -51,7 +52,13 @@ public class GPCtrl : MonoBehaviour
 
     public void Loose()
     {
+        Pause = true;
         UICtrl.EndGameMenu.OpenMenu();
         Debug.Log("LOOSE");
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
