@@ -82,8 +82,9 @@ namespace Enemies
         [TabGroup("Parameters/A", "Metrics"), MinMaxSlider(0, 50), SerializeField]
         private Vector2 _moveSpeed;
         [TabGroup("Parameters/A", "Metrics"), SerializeField]
+        private Vector3 _localUp;
+        [TabGroup("Parameters/A", "Metrics"), SerializeField, ReadOnly]
         private Vector3 _up;
-
 
         //Debug
         [TitleGroup("Debug")]
@@ -141,6 +142,7 @@ namespace Enemies
         // Update is called once per frame
         void Update()
         {
+            _up = transform.forward * _localUp.z + transform.right * _localUp.x + transform.up * _localUp.y;
             for (int i = 0; i < _iksLegPairs.Count; i++)
             {
                 foreach (Leg leg in _iksLegPairs[i].Legs)
@@ -215,6 +217,7 @@ namespace Enemies
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit,_nextTargetRaycastLength, _raycastLayerMask))
             {
+                Debug.Log("1");
                 if (leg.UseTwoBonesIk)
                     leg.Ik.enabled = true;
                 else
@@ -244,7 +247,7 @@ namespace Enemies
             {
                 return;
             }
-            Vector3 up = transform.forward * _up.z + transform.right * _up.x + transform.up * _up.y;
+            Vector3 up = transform.forward * _localUp.z + transform.right * _localUp.x + transform.up * _localUp.y;
             for (int i = 0; i < _iksLegPairs.Count; i++)
             {
                 foreach (Leg leg in _iksLegPairs[i].Legs)
