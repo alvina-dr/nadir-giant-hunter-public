@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Rendering;
 
 public class UI_Resolution : MonoBehaviour
 {
@@ -12,7 +13,8 @@ public class UI_Resolution : MonoBehaviour
     private void Start()
     {
         _resolutions = Screen.resolutions;
-        _index = 0;
+        _index = PlayerPrefs.GetInt("ScreenResolution");
+        UpdateResolution();
     }
 
     public void ButtonLeft()
@@ -34,5 +36,6 @@ public class UI_Resolution : MonoBehaviour
     {
         _textMeshProUGUI.text = _resolutions[_index].width.ToString() + " x " + _resolutions[_index].height.ToString();
         Screen.SetResolution(_resolutions[_index].width, _resolutions[_index].height, Screen.fullScreenMode);
+        PlayerPrefs.SetInt("ScreenResolution", _index);
     }
 }

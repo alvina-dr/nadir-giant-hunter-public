@@ -16,6 +16,20 @@ public class UI_MainMenu : MonoBehaviour
             menuList[i].CloseMenu(false);
         }
         _mainMenu.OpenMenu(true);
+
+        //load all settings from player prefs
+
+        if (PlayerPrefs.HasKey("ScreenResolution"))
+        {
+            int index = PlayerPrefs.GetInt("ScreenResolution");
+            Screen.SetResolution(Screen.resolutions[index].width, Screen.resolutions[index].height, Screen.fullScreenMode);
+        }
+
+        if (PlayerPrefs.HasKey("Fullscreen"))
+        {
+            Screen.fullScreen = PlayerPrefs.GetInt("Fullscreen") == 0 ? false : true;
+        }
+
     }
 
     public void StartGame()
