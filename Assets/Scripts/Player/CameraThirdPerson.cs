@@ -13,7 +13,9 @@ public class CameraThirdPerson : MonoBehaviour
 
         float inputHorizontal = GPCtrl.Instance.Player.InputManager.Gameplay.Move.ReadValue<Vector2>().x;
         float inputVertical = GPCtrl.Instance.Player.InputManager.Gameplay.Move.ReadValue<Vector2>().y;
-        Vector3 inputDir = GPCtrl.Instance.Player.Orientation.forward * inputVertical + GPCtrl.Instance.Player.Orientation.right * inputHorizontal;
+        float camSensi = 1; 
+        if (PlayerPrefs.HasKey("CamSensi")) camSensi = PlayerPrefs.GetFloat("CamSensi");
+        Vector3 inputDir = GPCtrl.Instance.Player.Orientation.forward * inputVertical * camSensi + GPCtrl.Instance.Player.Orientation.right * inputHorizontal * camSensi;
         if (inputDir != Vector3.zero && !GPCtrl.Instance.Player.PlayerAttack.IsGrappling) {
             Vector3 upVector = Vector3.up;
             if (GPCtrl.Instance.Player.PlayerSwingingLeft.IsSwinging || GPCtrl.Instance.Player.PlayerSwingingRight.IsSwinging)

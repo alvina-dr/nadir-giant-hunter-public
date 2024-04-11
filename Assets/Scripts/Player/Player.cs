@@ -54,6 +54,7 @@ public class Player : MonoBehaviour
         };
         InputManager.Gameplay.Attack.started += function => { PlayerAttack.Attack(); };
         InputManager.Gameplay.Jump.started += PlayerMovement.Jump;
+        InputManager.Gameplay.Menu.started += GPCtrl.Instance.UICtrl.CallPause;
     }
 
     private void OnDisable()
