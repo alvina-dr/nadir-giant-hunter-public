@@ -6,6 +6,7 @@ using Sirenix.OdinInspector;
 using DG.Tweening;
 using System;
 using static ak.wwise.core;
+using UnityEngine.UIElements;
 
 namespace Enemies
 {
@@ -55,8 +56,6 @@ namespace Enemies
         private float _nextTargetRaycastLength = 1;
         [TabGroup("Parameters/A", "Raycast"), SerializeField]
         private float _nextTargetRaycastOriginY = 1;
-        [TabGroup("Parameters/A", "Raycast"), SerializeField]
-        private float _nextTargetRaycastY = 1;
         [TabGroup("Parameters/A", "Raycast"), SerializeField]
         private float _nextTargetRaycastAnticipation = 1;
         [TabGroup("Parameters/A", "Raycast"), SerializeField]
@@ -173,7 +172,7 @@ namespace Enemies
             leg.LastPos = Vector3.Lerp(leg.LastPos, leg.LastPosTarg, Time.deltaTime * leg.MoveTime);
             float delta = 1 - Vector3.Distance(leg.LastPos, leg.LastPosTarg) / leg.LastPosTargTotDist;
             float step = -(Mathf.Pow(2 * delta - 1, 2)) + 1;
-            leg.Target.position += -_up * _targetHeightTransition * step;
+            leg.Target.position += _up * _targetHeightTransition * step;
         }
 
 
@@ -210,14 +209,17 @@ namespace Enemies
 
         private void GetAndApplyNextIkPosition(Leg leg, int tryNum)
         {
+
             Vector3 toAdd = (leg.TargetPos.position - leg.Target.position)* _nextTargetRaycastAnticipation;
-            Vector3 up = transform.forward * _up.z + transform.right * _up.x + transform.up * _up.y;
-            Ray ray = new Ray(leg.TargetPos.position + toAdd + up * _nextTargetRaycastOriginY, -up);
+            Vector3 projectedPoint = ProjectPositionOnPlane(toAdd, -_up, leg.TargetPos.position -_up * _nextTargetRaycastOriginY);
+
+            Ray ray = new Ray(leg.TargetPos.position  + _up * _nextTargetRaycastOriginY, -_up);
+
+            Debug.DrawRay(leg.TargetPos.position  + _up * _nextTargetRaycastOriginY, -_up * _nextTargetRaycastLength);
 
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit,_nextTargetRaycastLength, _raycastLayerMask))
             {
-                Debug.Log("1");
                 if (leg.UseTwoBonesIk)
                     leg.Ik.enabled = true;
                 else
@@ -255,11 +257,13 @@ namespace Enemies
                     if (_showGizmosRaycast)
                     {
                         Gizmos.color = _gizmosRaycastColor;
-                        Vector3 toAdd = (leg.TargetPos.position - leg.Target.position);
+                        Vector3 toAdd = (leg.TargetPos.position - leg.Target.position) * _nextTargetRaycastAnticipation;
+
+                        Vector3 projectedPoint = ProjectPositionOnPlane(toAdd, up, leg.TargetPos.position + up * _nextTargetRaycastOriginY);
                         Vector3 pos = leg.TargetPos.position + up * _nextTargetRaycastOriginY;
-                        Gizmos.DrawLine(pos, pos + -up * _nextTargetRaycastY);
+                        Gizmos.DrawLine(pos, pos + -up * _nextTargetRaycastLength);
                         Gizmos.color = Color.white;
-                        Gizmos.DrawLine(pos+ toAdd, pos + toAdd + -up * _nextTargetRaycastY);
+                        Gizmos.DrawLine(pos+ projectedPoint, pos + projectedPoint + -up * _nextTargetRaycastLength);
                         Gizmos.DrawWireCube(leg.TargetPos.position, Vector3.one * 3);
                         if (_showGizmosDir)
                         {
@@ -285,6 +289,17 @@ namespace Enemies
                     Gizmos.DrawWireCube(leg.Target.position + up * _targetHeightTransition, new Vector3(0.1f, 0, 0.1f));
                 }
             }
+        }
+
+        private Vector3 ProjectPositionOnPlane(Vector3 position, Vector3 normal, Vector3 planePoint)
+        {
+            // Calculate the distance from the plane to the point
+            float distance = Vector3.Dot(normal, (position - planePoint));
+
+            // Project the point onto the plane
+            Vector3 projectedPoint = position - distance * normal;
+
+            return projectedPoint;
         }
 
     }
