@@ -259,11 +259,12 @@ namespace Enemies
                         Gizmos.color = _gizmosRaycastColor;
                         Vector3 toAdd = (leg.TargetPos.position - leg.Target.position) * _nextTargetRaycastAnticipation;
 
-                        Vector3 projectedPoint = ProjectPositionOnPlane(toAdd, up, leg.TargetPos.position + up * _nextTargetRaycastOriginY);
                         Vector3 pos = leg.TargetPos.position + up * _nextTargetRaycastOriginY;
-                        Gizmos.DrawLine(pos, pos + -up * _nextTargetRaycastLength);
+                        Vector3 projectedPoint = ProjectPositionOnPlane(toAdd, up, leg.TargetPos.position);
+                        Gizmos.DrawCube(leg.TargetPos.position, Vector3.one * 3);
+                        Gizmos.DrawLine(pos, pos - up * _nextTargetRaycastLength);
                         Gizmos.color = Color.white;
-                        Gizmos.DrawLine(pos+ projectedPoint, pos + projectedPoint + -up * _nextTargetRaycastLength);
+                        Gizmos.DrawLine(pos+ projectedPoint, pos + projectedPoint - up * _nextTargetRaycastLength);
                         Gizmos.DrawWireCube(leg.TargetPos.position, Vector3.one * 3);
                         if (_showGizmosDir)
                         {
@@ -293,13 +294,8 @@ namespace Enemies
 
         private Vector3 ProjectPositionOnPlane(Vector3 position, Vector3 normal, Vector3 planePoint)
         {
-            // Calculate the distance from the plane to the point
-            float distance = Vector3.Dot(normal, (position - planePoint));
-
-            // Project the point onto the plane
-            Vector3 projectedPoint = position - distance * normal;
-
-            return projectedPoint;
+            Plane plane = new Plane(normal, planePoint);
+            return plane.ClosestPointOnPlane(position);
         }
 
     }
