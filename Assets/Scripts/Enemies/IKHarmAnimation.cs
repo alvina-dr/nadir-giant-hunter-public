@@ -211,9 +211,10 @@ namespace Enemies
         {
 
             Vector3 toAdd = (leg.TargetPos.position - leg.Target.position)* _nextTargetRaycastAnticipation;
-            Vector3 projectedPoint = ProjectPositionOnPlane(toAdd, -_up, leg.TargetPos.position -_up * _nextTargetRaycastOriginY);
+            Vector3 pos = leg.TargetPos.position + _up * _nextTargetRaycastOriginY;
+            Vector3 projectedPoint = ProjectPositionOnPlane(pos+toAdd, _up, pos);
 
-            Ray ray = new Ray(leg.TargetPos.position  + _up * _nextTargetRaycastOriginY, -_up);
+            Ray ray = new Ray(projectedPoint, -_up);
 
             Debug.DrawRay(leg.TargetPos.position  + _up * _nextTargetRaycastOriginY, -_up * _nextTargetRaycastLength);
 
@@ -260,11 +261,10 @@ namespace Enemies
                         Vector3 toAdd = (leg.TargetPos.position - leg.Target.position) * _nextTargetRaycastAnticipation;
 
                         Vector3 pos = leg.TargetPos.position + up * _nextTargetRaycastOriginY;
-                        Vector3 projectedPoint = ProjectPositionOnPlane(toAdd, up, leg.TargetPos.position);
-                        Gizmos.DrawCube(leg.TargetPos.position, Vector3.one * 3);
+                        Vector3 projectedPoint = ProjectPositionOnPlane(pos+toAdd, up, pos);
                         Gizmos.DrawLine(pos, pos - up * _nextTargetRaycastLength);
                         Gizmos.color = Color.white;
-                        Gizmos.DrawLine(pos+ projectedPoint, pos + projectedPoint - up * _nextTargetRaycastLength);
+                        Gizmos.DrawLine(projectedPoint, projectedPoint - up * _nextTargetRaycastLength);
                         Gizmos.DrawWireCube(leg.TargetPos.position, Vector3.one * 3);
                         if (_showGizmosDir)
                         {
