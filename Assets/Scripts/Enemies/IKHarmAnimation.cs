@@ -13,11 +13,13 @@ namespace Enemies
     public class Leg
     {
         public bool UseTwoBonesIk = true;
+        [ShowIf("UseTwoBonesIk")]
         public TwoBoneIKConstraint Ik;
+        [HideIf("UseTwoBonesIk")]
         public ChainIKConstraint ChainIk;
         public Transform Target;
         public Transform TargetPos;
-        public GameObject Model;
+        public GameObject LastBone;
         [HideInInspector]
         public Vector3 LastPosTarg;
         [HideInInspector]
@@ -47,6 +49,8 @@ namespace Enemies
 
         //Parameters
         [TitleGroup("Parameters")]
+        [TabGroup("Parameters/A", "General"), SerializeField]
+        private bool doAlignTipToLast;
         [TabGroup("Parameters/A", "Raycast"), SerializeField]
         private float _nextTargetRaycastLength = 1;
         [TabGroup("Parameters/A", "Raycast"), SerializeField]
@@ -63,6 +67,7 @@ namespace Enemies
         private float _raycastTryWeight = 1;
         [TabGroup("Parameters/A", "Raycast"), SerializeField]
         private LayerMask _raycastLayerMask;
+
 
         [TabGroup("Parameters/A", "Metrics"), SerializeField]
         private float _maxLengthBeforeUpdate = 1;
@@ -140,7 +145,8 @@ namespace Enemies
             {
                 foreach (Leg leg in _iksLegPairs[i].Legs)
                 {
-                    if (leg.Ik.enabled)
+
+                    if (leg.UseTwoBonesIk && leg.Ik.enabled || !leg.UseTwoBonesIk && leg.ChainIk.enabled)
                     {
                         leg.Target.position = leg.LastPos;
                     }
@@ -148,6 +154,10 @@ namespace Enemies
                     if (Vector3.Distance(leg.LastPos, leg.LastPosTarg) > 1f)
                     {
                         TransitionLastPos(leg);
+                    }
+                    if (doAlignTipToLast)
+                    {
+                        leg.Target.rotation = leg.LastBone.transform.parent.rotation;
                     }
                 }
             }
@@ -205,7 +215,10 @@ namespace Enemies
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit,_nextTargetRaycastLength, _raycastLayerMask))
             {
-                leg.Ik.enabled = true;
+                if (leg.UseTwoBonesIk)
+                    leg.Ik.enabled = true;
+                else
+                    leg.ChainIk.enabled = true;
                 //leg.Model.SetActive(true);
                 leg.LastPosTarg = hit.point;
                 leg.LastPosTargTotDist = Vector3.Distance(leg.LastPos, leg.LastPosTarg);
@@ -214,7 +227,10 @@ namespace Enemies
             }
             if (tryNum == _raycastTries)
             {
-                leg.Ik.enabled = false;
+                if (leg.UseTwoBonesIk)
+                    leg.Ik.enabled = false;
+                else
+                    leg.ChainIk.enabled = false;
                 //leg.Model.SetActive(false);
                 return;
             }
@@ -241,6 +257,7 @@ namespace Enemies
                         Gizmos.DrawLine(pos, pos + -up * _nextTargetRaycastY);
                         Gizmos.color = Color.white;
                         Gizmos.DrawLine(pos+ toAdd, pos + toAdd + -up * _nextTargetRaycastY);
+                        Gizmos.DrawWireCube(leg.TargetPos.position, Vector3.one * 3);
                         if (_showGizmosDir)
                         {
                             Gizmos.DrawLine(leg.Target.position + up * 2, leg.Target.position + up * 2 + overrideDir);
