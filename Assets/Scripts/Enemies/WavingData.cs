@@ -17,6 +17,7 @@ public class WavingData : ScriptableObject
     }
 
     public float WaveLenght;
+    public float WaveLenghtAccumulation;
     public float WaveSpeed;
     public float WaveWidth;
     public OndulationType OndulType;

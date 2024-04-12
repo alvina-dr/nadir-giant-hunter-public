@@ -38,6 +38,7 @@ public class Waving : MonoBehaviour
         SetupWavePoints();
     }
 
+    
     void Update()
     {
         WavePoints();
@@ -55,7 +56,7 @@ public class Waving : MonoBehaviour
                 delta = wave.data.DeltType == WavingData.DeltaType.Time ? Time.time : delta;
                 if (i != 0)
                 {
-                    delta += (wave.waveTransforms[i].Transformed.position - wave.waveTransforms[i - 1].Transformed.position).magnitude*wave.data.WaveWidth;
+                    delta += i*0.1f* wave.data.WaveWidth;
                 }
 
 
@@ -64,7 +65,7 @@ public class Waving : MonoBehaviour
                 
                 transformData.Delta = delta;
                 transformData.OffSet = offSet;
-                transformData.Transformed.position = transform.position + transformData.BaseLocalPosition + wave.data.WaveDirection * offSet * wave.data.WaveLenght;
+                transformData.Transformed.position = transform.position + transformData.BaseLocalPosition + wave.data.WaveDirection * offSet * (wave.data.WaveLenght + i * wave.data.WaveLenghtAccumulation);
             }
         }
     }

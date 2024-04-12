@@ -78,7 +78,7 @@ namespace Enemies
         private Vector2 _lengthBeforeUpdateOffSet;
         [TabGroup("Parameters/A", "Metrics"), SerializeField]
         private float _targetHeightTransition = 1;
-        [TabGroup("Parameters/A", "Metrics"), MinMaxSlider(0, 50), SerializeField]
+        [TabGroup("Parameters/A", "Metrics"), MinMaxSlider(0, 20), SerializeField]
         private Vector2 _moveSpeed;
         [TabGroup("Parameters/A", "Metrics"), SerializeField]
         private Vector3 _localUp;
@@ -171,7 +171,7 @@ namespace Enemies
         {
             leg.LastPos = Vector3.Lerp(leg.LastPos, leg.LastPosTarg, Time.deltaTime * leg.MoveTime);
             float delta = 1 - Vector3.Distance(leg.LastPos, leg.LastPosTarg) / leg.LastPosTargTotDist;
-            float step = -(Mathf.Pow(2 * delta - 1, 2)) + 1;
+            float step = delta;// - (Mathf.Pow(2 * delta - 1, 2)) + 1;
             leg.Target.position += _up * _targetHeightTransition * step;
         }
 
