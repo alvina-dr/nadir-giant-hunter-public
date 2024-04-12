@@ -173,13 +173,6 @@ public class PlayerSwinging : MonoBehaviour
         Quaternion rot = Quaternion.LookRotation(dir, Vector3.up) * Quaternion.Euler(0,-90,0);
         BaseSwingAnimation.rotation = rot;
 
-
-        BaseSwingAnimation.localEulerAngles = new Vector3(BaseSwingAnimation.localEulerAngles.x, BaseSwingAnimation.localEulerAngles.y, Mathf.Clamp(BaseSwingAnimation.localEulerAngles.z, -35,200));
-        float angle = Quaternion.Angle(Quaternion.Euler(BaseSwingAnimation.localEulerAngles), Quaternion.Euler(_RotationToAvoid));
-        if (angle < _MaxAngleFromAvoid)
-        {
-            BaseSwingAnimation.rotation = Quaternion.RotateTowards(Quaternion.Euler(_RotationToAvoid), Quaternion.Euler(-BaseSwingAnimation.rotation.eulerAngles), _MaxAngleFromAvoid);
-        }
     }
 
     #endregion
