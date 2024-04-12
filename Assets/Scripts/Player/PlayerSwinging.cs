@@ -29,7 +29,7 @@ public class PlayerSwinging : MonoBehaviour
     {
         if (_otherPlayerSwinging.IsSwinging)
         {
-            SwingAnimation(_otherPlayerSwinging.EndSwingLinePoint.position);
+            SwingAnimation(_otherPlayerSwinging.StartSwingLinePoint.position);
         }
         if (IsSwinging) //Visual effect for swing line
         {
@@ -160,12 +160,13 @@ public class PlayerSwinging : MonoBehaviour
 
     private void SwingAnimation(Vector3 toLook)
     {
-        Vector3 dir = (EndSwingLinePoint.position - transform.position).normalized;
+        Vector3 dir = (toLook - BaseSwingAnimation.position).normalized;
+        Debug.DrawRay(BaseSwingAnimation.position, dir);
         if (_side == Side.Left)
         {
             dir = -dir;
         }
-        BaseSwingAnimation.right = dir;
+        BaseSwingAnimation.rotation = Quaternion.LookRotation(dir, Vector3.up) * Quaternion.Euler(0,-90,0);
     }
 
     #endregion
