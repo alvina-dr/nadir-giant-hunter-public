@@ -47,7 +47,7 @@ public class EnemySpawner : MonoBehaviour
         GameObject enemy = Instantiate(spawnerData.EnemyPrefab);
         Enemies.Add(enemy);
         enemy.transform.parent = _enemiesParent;
-        Vector3 pos = Random.insideUnitSphere * spawnerData.SpawnCircleWidth;
+        Vector3 pos = Random.insideUnitSphere.normalized * spawnerData.SpawnCircleWidth;
         pos = transform.position + new Vector3(pos.x, 0, pos.z);
         enemy.transform.position = pos;
         enemy.transform.rotation = Quaternion.LookRotation((enemy.transform.position - transform.position).normalized);

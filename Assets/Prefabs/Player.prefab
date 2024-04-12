@@ -86,7 +86,6 @@ MonoBehaviour:
   minRadius: 20
   maxRadius: 35
   radius: 20
-  height: 90
   precision: 2
 --- !u!1 &3131981798377646201
 GameObject:
@@ -174,7 +173,6 @@ MonoBehaviour:
   minRadius: 20
   maxRadius: 30
   radius: 20
-  height: 90
   precision: 2
 --- !u!1 &5447474520495628610
 GameObject:
@@ -421,6 +419,7 @@ MonoBehaviour:
   _swingConeRaycast: {fileID: 7395889314644683301}
   StartSwingLinePoint: {fileID: 7696976556150254399}
   EndSwingLinePoint: {fileID: 5133866373044044127}
+  BaseSwingAnimation: {fileID: 7696976556150254309}
   IsSwinging: 0
   TrySwing: 0
   SwingLineRenderer: {fileID: 0}
@@ -443,6 +442,7 @@ MonoBehaviour:
   _swingConeRaycast: {fileID: 2104427182935562414}
   StartSwingLinePoint: {fileID: 7696976556150254393}
   EndSwingLinePoint: {fileID: 3286274834771364795}
+  BaseSwingAnimation: {fileID: 7696976556150254311}
   IsSwinging: 0
   TrySwing: 0
   SwingLineRenderer: {fileID: 0}
@@ -467,6 +467,7 @@ MonoBehaviour:
   WhatIsGround:
     serializedVersion: 2
     m_Bits: 51
+  CanJumpOnceInAir: 0
 --- !u!114 &5560178313177686885
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -482,6 +483,7 @@ MonoBehaviour:
   Player: {fileID: 5043027637049521611}
   IsGrappling: 0
   CurrentWeakSpot: {fileID: 0}
+  closestWeakSpotList: []
 --- !u!114 &3422433742143200807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -881,6 +883,18 @@ PrefabInstance:
 --- !u!95 &7696976556141216899 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 9500000, guid: d917c7129a9e4c74e84188b278d96de7,
+    type: 3}
+  m_PrefabInstance: {fileID: 7696976556150649315}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7696976556150254309 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400134, guid: d917c7129a9e4c74e84188b278d96de7,
+    type: 3}
+  m_PrefabInstance: {fileID: 7696976556150649315}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7696976556150254311 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400132, guid: d917c7129a9e4c74e84188b278d96de7,
     type: 3}
   m_PrefabInstance: {fileID: 7696976556150649315}
   m_PrefabAsset: {fileID: 0}
