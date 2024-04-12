@@ -166,13 +166,13 @@ public class PlayerSwinging : MonoBehaviour
     private void SwingAnimation(Vector3 toLook)
     {
         Vector3 dir = (toLook - BaseSwingAnimation.position).normalized;
+        Debug.DrawRay(BaseSwingAnimation.position, dir);
         if (_side == Side.Left)
         {
             dir = -dir;
         }
-        Quaternion rot = Quaternion.LookRotation(dir, Vector3.up) * Quaternion.Euler(0,-90,0);
-        BaseSwingAnimation.rotation = rot;
-
+        BaseSwingAnimation.right = dir;
+        BaseSwingAnimation.rotation = Quaternion.LookRotation(dir, Vector3.up) * Quaternion.Euler(0, -90, 0);
     }
 
     #endregion
