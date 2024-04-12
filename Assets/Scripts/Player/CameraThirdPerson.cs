@@ -1,21 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class CameraThirdPerson : MonoBehaviour
 {
     public Vector3 LookDirectionSave = Vector3.zero;
+    public CinemachineFreeLook CinemachineFreeLook;
 
     private void Update()
     {
+        //CAM SENSI
+        float camSensi = 1;
+        if (PlayerPrefs.HasKey("CamSensi")) camSensi = PlayerPrefs.GetFloat("CamSensi");
+        CinemachineFreeLook.m_XAxis.m_MaxSpeed = camSensi * 300;
+        CinemachineFreeLook.m_YAxis.m_MaxSpeed = camSensi * 2;
+
         Vector3 viewDir = GPCtrl.Instance.Player.transform.position - new Vector3(transform.position.x, GPCtrl.Instance.Player.transform.position.y, transform.position.z);
         GPCtrl.Instance.Player.Orientation.forward = viewDir.normalized;
 
         float inputHorizontal = GPCtrl.Instance.Player.InputManager.Gameplay.Move.ReadValue<Vector2>().x;
         float inputVertical = GPCtrl.Instance.Player.InputManager.Gameplay.Move.ReadValue<Vector2>().y;
-        float camSensi = 1; 
-        if (PlayerPrefs.HasKey("CamSensi")) camSensi = PlayerPrefs.GetFloat("CamSensi");
-        Vector3 inputDir = GPCtrl.Instance.Player.Orientation.forward * inputVertical * camSensi + GPCtrl.Instance.Player.Orientation.right * inputHorizontal * camSensi;
+        Vector3 inputDir = GPCtrl.Instance.Player.Orientation.forward * inputVertical + GPCtrl.Instance.Player.Orientation.right * inputHorizontal;
         if (inputDir != Vector3.zero && !GPCtrl.Instance.Player.PlayerAttack.IsGrappling) {
             Vector3 upVector = Vector3.up;
             if (GPCtrl.Instance.Player.PlayerSwingingLeft.IsSwinging || GPCtrl.Instance.Player.PlayerSwingingRight.IsSwinging)
@@ -23,6 +29,7 @@ public class CameraThirdPerson : MonoBehaviour
                 inputDir = Camera.main.transform.forward;
                 upVector = GPCtrl.Instance.Player.Mesh.up;
             }
+            if (GPCtrl.Instance.Pause) inputDir = LookDirectionSave;
             LookDirectionSave = inputDir;
             //float rotationSpeed = GPCtrl.Instance.Player.Data.walkRotationSpeed;
             //if (GPCtrl.Instance.Player.PlayerSwingingLeft.IsSwinging && GPCtrl.Instance.Player.PlayerSwingingRight.IsSwinging)

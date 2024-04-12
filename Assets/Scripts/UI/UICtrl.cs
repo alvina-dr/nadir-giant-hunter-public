@@ -13,16 +13,22 @@ public class UICtrl : MonoBehaviour
     public void OpenPauseMenu()
     {
         PauseMenu.OpenMenu();
-        //here pause time
+        GPCtrl.Instance.Pause = true;
+        Time.timeScale = 0;
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
     }
 
     public void ClosePauseMenu()
     {
+        GPCtrl.Instance.Pause = false;
+        Time.timeScale = 1;
         PauseMenu.CloseMenu();
-        //make time normal again
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
-    public void CallPause(InputAction.CallbackContext context)
+    public void CallPause()
     {
         if (GPCtrl.Instance.Pause) ClosePauseMenu();
         else OpenPauseMenu();

@@ -9,11 +9,11 @@ public class UI_Button : MonoBehaviour, ISelectHandler, IDeselectHandler
 {
     public void OnDeselect(BaseEventData eventData)
     {
-        transform.DOScale(1f, .3f);
+        transform.DOScale(1f, .3f).SetUpdate(true);
     }
 
     public void OnSelect(BaseEventData eventData)
     {
-        transform.DOScale(1.1f, .3f);        
+        transform.DOScale(1.1f, .3f).SetUpdate(true);        
     }
 }

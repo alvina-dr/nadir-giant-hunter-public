@@ -26,28 +26,28 @@ public class UI_Settings : MonoBehaviour
     {
         for (int i = 0; i < _subMenuList.Count; i++)
         {
-            if (_subMenuList[i].interactable) HideMenu(_subMenuList[i]);
+            if (_subMenuList[i].interactable) HideSubMenu(_subMenuList[i]);
         }
-        ShowMenu(group);
+        ShowSubMenu(group);
     }
 
-    public void HideMenu(CanvasGroup group)
+    public void HideSubMenu(CanvasGroup group)
     {
         group.gameObject.SetActive(false);
         group.interactable = false;
         group.blocksRaycasts = false;
         group.DOFade(0, .3f).OnComplete(() =>
         {
-        });
+        }).SetUpdate(true);
     }
 
-    public void ShowMenu(CanvasGroup group)
+    public void ShowSubMenu(CanvasGroup group)
     {
         group.gameObject.SetActive(true);
         group.DOFade(1, .3f).OnComplete(() =>
         {
             group.blocksRaycasts = true;
             group.interactable = true;
-        });
+        }).SetUpdate(true);
     }
 }
