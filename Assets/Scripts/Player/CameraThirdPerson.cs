@@ -26,7 +26,7 @@ public class CameraThirdPerson : MonoBehaviour
             Vector3 upVector = Vector3.up;
             if (GPCtrl.Instance.Player.PlayerSwingingLeft.IsSwinging || GPCtrl.Instance.Player.PlayerSwingingRight.IsSwinging)
             {
-                inputDir = Camera.main.transform.forward;
+                inputDir = new Vector3(Camera.main.transform.forward.x, 0, Camera.main.transform.forward.z);
                 upVector = GPCtrl.Instance.Player.Mesh.up;
             }
             if (GPCtrl.Instance.Pause) inputDir = LookDirectionSave;

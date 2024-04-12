@@ -19,13 +19,10 @@ public class GPCtrl : MonoBehaviour
         else
         {
             Instance = this;
+            WeakSpotList = FindObjectsByType<WeakSpot>(FindObjectsSortMode.InstanceID).ToList();
         }
     }
 
-    private void Start()
-    {
-        WeakSpotList = FindObjectsByType<WeakSpot>(FindObjectsSortMode.InstanceID).ToList();
-    }
     #endregion
 
     public GeneralData GeneralData;
