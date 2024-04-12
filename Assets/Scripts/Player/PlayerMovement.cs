@@ -31,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
         _grounded = Physics.Raycast(transform.position, Vector3.down, Player.Data.charaHeight * 0.5f + 0.3f, WhatIsGround);
         _horizontalInput = Player.InputManager.Gameplay.Move.ReadValue<Vector2>().x;
         _verticalInput = Player.InputManager.Gameplay.Move.ReadValue<Vector2>().y;
-        if (Player.PlayerAttack.IsGrappling)
+        if (Player.PlayerAttack.IsGrappling || GPCtrl.Instance.Pause)
         {
             _horizontalInput = 0;
             _verticalInput = 0;
@@ -78,7 +78,7 @@ public class PlayerMovement : MonoBehaviour
             Player.Rigibody.AddForce(_moveDirection.normalized * CurrentMoveSpeed * 10f * Player.Data.airMultiplier, ForceMode.Force);
     }
 
-    public void Jump(InputAction.CallbackContext context)
+    public void Jump()
     {
         if (_readyToJump && CanJumpOnceInAir)
         {

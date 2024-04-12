@@ -6,7 +6,7 @@ public class WeakSpot : MonoBehaviour
 {
     public Rigidbody Rigidbody;
     public EnemyVFXData VFXData;
-
+    public EnemyWeakSpotManagement Enemy;
     public void DestroyWeakSpot()
     {
         //add particles and destroy sound here + destroy titan
@@ -14,5 +14,6 @@ public class WeakSpot : MonoBehaviour
         Destroy(gameObject);
         GameObject vfx = Instantiate(VFXData.weakSpotExplosion);
         vfx.transform.position = transform.position;
+        if (Enemy != null) Enemy.Damage(this);
     }
 }

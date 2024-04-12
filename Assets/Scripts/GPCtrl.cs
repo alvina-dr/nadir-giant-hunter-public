@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Sirenix.OdinInspector;
 
 public class GPCtrl : MonoBehaviour
 {
@@ -30,8 +31,11 @@ public class GPCtrl : MonoBehaviour
     public GeneralData GeneralData;
     public Player Player;
     public UICtrl UICtrl;
+    [ReadOnly]
     public List<WeakSpot> WeakSpotList;
+    [ReadOnly]
     public float Timer;
+    [ReadOnly]
     public bool Pause = false;
     private void Update()
     {
