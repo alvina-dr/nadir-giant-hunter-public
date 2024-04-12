@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +14,9 @@ public class PlayerSwinging : MonoBehaviour
     [SerializeField] public Transform EndSwingLinePoint;
     [SerializeField] private Transform BaseSwingAnimation;
     [SerializeField] private PlayerSwinging _otherPlayerSwinging;
+    private Vector3 _otherHandPosition;
+    [SerializeField] private Vector3 _RotationToAvoid;
+    [SerializeField] private float _MaxAngleFromAvoid;
 
     private SpringJoint _springJoint;
 
@@ -29,7 +33,7 @@ public class PlayerSwinging : MonoBehaviour
     {
         if (_otherPlayerSwinging.IsSwinging)
         {
-            SwingAnimation(_otherPlayerSwinging.StartSwingLinePoint.position);
+            SwingAnimation(_otherHandPosition);
         }
         if (IsSwinging) //Visual effect for swing line
         {
@@ -47,6 +51,7 @@ public class PlayerSwinging : MonoBehaviour
 
     private void Update()
     {
+        _otherHandPosition = _otherPlayerSwinging.StartSwingLinePoint.position;
         if (IsSwinging)
         {
             if (Player.PlayerMovement.CurrentMoveSpeed >= Player.Data.swingSpeed) {
@@ -161,12 +166,20 @@ public class PlayerSwinging : MonoBehaviour
     private void SwingAnimation(Vector3 toLook)
     {
         Vector3 dir = (toLook - BaseSwingAnimation.position).normalized;
-        Debug.DrawRay(BaseSwingAnimation.position, dir);
         if (_side == Side.Left)
         {
             dir = -dir;
         }
-        BaseSwingAnimation.rotation = Quaternion.LookRotation(dir, Vector3.up) * Quaternion.Euler(0,-90,0);
+        Quaternion rot = Quaternion.LookRotation(dir, Vector3.up) * Quaternion.Euler(0,-90,0);
+        BaseSwingAnimation.rotation = rot;
+
+
+        BaseSwingAnimation.localEulerAngles = new Vector3(BaseSwingAnimation.localEulerAngles.x, BaseSwingAnimation.localEulerAngles.y, Mathf.Clamp(BaseSwingAnimation.localEulerAngles.z, -35,200));
+        float angle = Quaternion.Angle(Quaternion.Euler(BaseSwingAnimation.localEulerAngles), Quaternion.Euler(_RotationToAvoid));
+        if (angle < _MaxAngleFromAvoid)
+        {
+            BaseSwingAnimation.rotation = Quaternion.RotateTowards(Quaternion.Euler(_RotationToAvoid), Quaternion.Euler(-BaseSwingAnimation.rotation.eulerAngles), _MaxAngleFromAvoid);
+        }
     }
 
     #endregion
