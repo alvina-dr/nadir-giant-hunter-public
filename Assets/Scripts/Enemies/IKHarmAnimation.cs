@@ -100,7 +100,6 @@ namespace Enemies
         [TabGroup("Debug/A", "Gizmos"), ShowIf("_showGizmos"), SerializeField]
         private Color _gizmosMetricsColor = Color.red;
 
-
         //Variables
         [TabGroup("Debug/A", "Metrics"), ReadOnly, SerializeField]
         private Vector3 _overideDirDebug;
@@ -138,6 +137,7 @@ namespace Enemies
             }
         }
 
+
         // Update is called once per frame
         void Update()
         {
@@ -150,6 +150,8 @@ namespace Enemies
                     if (leg.UseTwoBonesIk && leg.Ik.enabled || !leg.UseTwoBonesIk && leg.ChainIk.enabled)
                     {
                         leg.Target.position = leg.LastPos;
+                        Debug.DrawRay(leg.LastPos, Vector3.up * 10);
+                        Debug.DrawRay(leg.LastPos, Vector3.right * 10);
                     }
 
                     if (Vector3.Distance(leg.LastPos, leg.LastPosTarg) > 1f)
@@ -173,6 +175,7 @@ namespace Enemies
             float delta = 1 - Vector3.Distance(leg.LastPos, leg.LastPosTarg) / leg.LastPosTargTotDist;
             float step = delta;// - (Mathf.Pow(2 * delta - 1, 2)) + 1;
             leg.Target.position += _up * _targetHeightTransition * step;
+            
         }
 
 
