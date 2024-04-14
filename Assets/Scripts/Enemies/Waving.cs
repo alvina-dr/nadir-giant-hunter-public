@@ -12,11 +12,13 @@ public class TransformWaveData
     [HideInInspector]
     public Vector3 BaseLocalPosition;
     [ReadOnly]
+    public Vector3 Position;
+    [ReadOnly]
     public float Delta;
     [ReadOnly]
     public float OffSet;
     [ReadOnly]
-    public Vector3 added;
+    public Vector3 Added;
 }
 
 [Serializable]
@@ -42,12 +44,15 @@ public class Waving : MonoBehaviour
     void Update()
     {
         WavePoints();
+        CleanPoints();
     }
 
     private void WavePoints()
     {
         foreach (WaveData wave in waves)
         {
+            Vector3 waveDirection = transform.forward * wave.data.WaveDirection.z + transform.right * wave.data.WaveDirection.x + transform.up * wave.data.WaveDirection.y;
+
             for (int i = 0; i < wave.waveTransforms.Count; i++)
             {
                 TransformWaveData transformData = wave.waveTransforms[i];
@@ -56,7 +61,7 @@ public class Waving : MonoBehaviour
                 delta = wave.data.DeltType == WavingData.DeltaType.Time ? Time.time : delta;
                 if (i != 0)
                 {
-                    delta += i*0.1f* wave.data.WaveWidth;
+                    delta += (i+1)*0.1f* wave.data.WaveWidth;
                 }
 
 
@@ -65,7 +70,36 @@ public class Waving : MonoBehaviour
                 
                 transformData.Delta = delta;
                 transformData.OffSet = offSet;
-                transformData.Transformed.position = transform.position + transformData.BaseLocalPosition + wave.data.WaveDirection * offSet * (wave.data.WaveLenght + i * wave.data.WaveLenghtAccumulation);
+                Vector3 position = transform.position + transformData.BaseLocalPosition + waveDirection * offSet * (wave.data.WaveLenght + i * wave.data.WaveLenghtAccumulation);
+                transformData.Position = position;
+                transformData.Transformed.position = position;
+            }
+        }
+    }
+
+    private void CleanPoints()
+    {
+        bool isClean = false;
+        int iteration = 10;
+        while (!isClean)
+        {
+            iteration--;
+            if (iteration <= 0)
+            {
+                break;
+            }
+            isClean = true;
+            foreach (WaveData wave in waves)
+            {
+                for (int i = 0; i < wave.waveTransforms.Count; i++)
+                {
+                    TransformWaveData transformData = wave.waveTransforms[i];
+                    if (transformData.Position != transformData.Transformed.position)
+                    {
+                        isClean = false;
+                        transformData.Transformed.position = transformData.Position;
+                    }
+                }
             }
         }
     }
