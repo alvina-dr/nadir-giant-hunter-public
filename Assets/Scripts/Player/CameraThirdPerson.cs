@@ -31,12 +31,18 @@ public class CameraThirdPerson : MonoBehaviour
             }
             if (GPCtrl.Instance.Pause) inputDir = LookDirectionSave;
             LookDirectionSave = inputDir;
-            //float rotationSpeed = GPCtrl.Instance.Player.Data.walkRotationSpeed;
-            //if (GPCtrl.Instance.Player.PlayerSwingingLeft.IsSwinging && GPCtrl.Instance.Player.PlayerSwingingRight.IsSwinging)
-            //    rotationSpeed = GPCtrl.Instance.Player.Data.airRotationSpeed;
             GPCtrl.Instance.Player.PlayerSwingingLeft.CalculateUpVector();
             GPCtrl.Instance.Player.PlayerSwingingRight.CalculateUpVector();
-            GPCtrl.Instance.Player.Mesh.rotation = Quaternion.LookRotation(inputDir, upVector);
+            if (GPCtrl.Instance.Player.PlayerSwingingLeft.IsSwinging || GPCtrl.Instance.Player.PlayerSwingingRight.IsSwinging || !GPCtrl.Instance.Player.PlayerMovement.Grounded)
+            {
+                GPCtrl.Instance.Player.Mesh.rotation = Quaternion.LookRotation(inputDir, upVector);
+            }
+            else
+            {
+                float rotationSpeed = GPCtrl.Instance.Player.Data.walkRotationSpeed;
+                GPCtrl.Instance.Player.Mesh.rotation = Quaternion.Lerp(GPCtrl.Instance.Player.Mesh.rotation, Quaternion.LookRotation(inputDir, upVector), rotationSpeed * Time.deltaTime);
+            }
+
         }
         else if (inputDir == Vector3.zero && !GPCtrl.Instance.Player.PlayerAttack.IsGrappling)
         {

@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
     public float PlayerHeight;
     public LayerMask WhatIsGround;
 
-    private bool _grounded;
+    public bool Grounded;
     private bool _readyToJump;
     private float _horizontalInput;
     private float _verticalInput;
@@ -28,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        _grounded = Physics.Raycast(transform.position, Vector3.down, Player.Data.charaHeight * 0.5f + 0.3f, WhatIsGround);
+        Grounded = Physics.Raycast(transform.position, Vector3.down, Player.Data.charaHeight * 0.5f + 0.3f, WhatIsGround);
         _horizontalInput = Player.InputManager.Gameplay.Move.ReadValue<Vector2>().x;
         _verticalInput = Player.InputManager.Gameplay.Move.ReadValue<Vector2>().y;
         if (Player.PlayerAttack.IsGrappling || GPCtrl.Instance.Pause)
@@ -44,9 +44,9 @@ public class PlayerMovement : MonoBehaviour
             CurrentMoveSpeed += Player.Data.swingAcceleration * Time.deltaTime;
             if (CurrentMoveSpeed >= Player.Data.swingMaxSpeed) CurrentMoveSpeed = Player.Data.swingMaxSpeed;
         }
-        else if (_grounded) CurrentMoveSpeed = Player.Data.walkSpeed;
+        else if (Grounded) CurrentMoveSpeed = Player.Data.walkSpeed;
 
-        if (_grounded)
+        if (Grounded)
         {
             Player.Rigibody.drag = Player.Data.groundDrag;
             Player.Animator.SetBool("Grounded", true);
@@ -58,9 +58,9 @@ public class PlayerMovement : MonoBehaviour
             Player.Animator.SetBool("Grounded", false);
         }
 
-        if (_moveDirection != Vector3.zero && _grounded)
+        if (_moveDirection != Vector3.zero && Grounded)
             Player.Animator.SetBool("isWalking", true);
-        else if (_moveDirection == Vector3.zero && _grounded) Player.Animator.SetBool("isWalking", false);
+        else if (_moveDirection == Vector3.zero && Grounded) Player.Animator.SetBool("isWalking", false);
     }
 
     private void FixedUpdate()
@@ -72,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _moveDirection = Player.Orientation.forward * _verticalInput + Player.Orientation.right * _horizontalInput; // calculate movement direction
 
-        if (_grounded) // on ground
+        if (Grounded) // on ground
             Player.Rigibody.AddForce(_moveDirection.normalized * CurrentMoveSpeed * 10f, ForceMode.Force);
         else // in air
             Player.Rigibody.AddForce(_moveDirection.normalized * CurrentMoveSpeed * 10f * Player.Data.airMultiplier, ForceMode.Force);
