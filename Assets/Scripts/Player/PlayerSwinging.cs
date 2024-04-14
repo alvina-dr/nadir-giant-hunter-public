@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,16 +6,24 @@ using UnityEngine;
 public class PlayerSwinging : MonoBehaviour
 {
     public Player Player;
+    private enum Side {  Left, Right };
 
     [Header("SWINGING")]
     [SerializeField] private ConeRaycast _swingConeRaycast;
     [SerializeField] public Transform StartSwingLinePoint;
     [SerializeField] public Transform EndSwingLinePoint;
+    [SerializeField] private Transform BaseSwingAnimation;
+    [SerializeField] private PlayerSwinging _otherPlayerSwinging;
+    private Vector3 _otherHandPosition;
+    [SerializeField] private Vector3 _RotationToAvoid;
+    [SerializeField] private float _MaxAngleFromAvoid;
 
     private SpringJoint _springJoint;
 
     [HideInInspector]
     public bool IsSwinging = false;
+    [SerializeField]
+    private Side _side;
     [HideInInspector]
     public bool TrySwing = false;
     public LineRenderer SwingLineRenderer;
@@ -22,8 +31,13 @@ public class PlayerSwinging : MonoBehaviour
 
     private void LateUpdate()
     {
+        if (_otherPlayerSwinging.IsSwinging)
+        {
+            SwingAnimation(_otherHandPosition);
+        }
         if (IsSwinging) //Visual effect for swing line
         {
+            SwingAnimation(EndSwingLinePoint.position);
             if (SwingLineRenderer.positionCount == 2)
             {
                 SwingLineRenderer.SetPosition(0, StartSwingLinePoint.position);
@@ -37,6 +51,7 @@ public class PlayerSwinging : MonoBehaviour
 
     private void Update()
     {
+        _otherHandPosition = _otherPlayerSwinging.StartSwingLinePoint.position;
         if (IsSwinging)
         {
             if (Player.PlayerMovement.CurrentMoveSpeed >= Player.Data.swingSpeed) {
@@ -146,5 +161,19 @@ public class PlayerSwinging : MonoBehaviour
         SwingLineRenderer.positionCount = 0;
         EndSwingLinePoint.parent = null;
     }
+
+
+    private void SwingAnimation(Vector3 toLook)
+    {
+        Vector3 dir = (toLook - BaseSwingAnimation.position).normalized;
+        Debug.DrawRay(BaseSwingAnimation.position, dir);
+        if (_side == Side.Left)
+        {
+            dir = -dir;
+        }
+        BaseSwingAnimation.right = dir;
+        BaseSwingAnimation.rotation = Quaternion.LookRotation(dir, Vector3.up) * Quaternion.Euler(0, -90, 0);
+    }
+
     #endregion
 }

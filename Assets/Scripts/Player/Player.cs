@@ -36,24 +36,35 @@ public class Player : MonoBehaviour
     private void OnEnable()
     {
         InputManager.Enable();
-        InputManager.Gameplay.SwingRight.started += function => { 
+        InputManager.Gameplay.SwingRight.started += function => {
+            if (GPCtrl.Instance.Pause) return;
             if (PlayerDoubleGrappleBoost.RightSwingReleased && !PlayerDoubleGrappleBoost.IsDoubleGrappling)
                 PlayerSwingingRight.TrySwing = true; 
         };
-        InputManager.Gameplay.SwingRight.canceled += function => { 
+        InputManager.Gameplay.SwingRight.canceled += function => {
+            if (GPCtrl.Instance.Pause) return;
             PlayerSwingingRight.TrySwing = false;
             PlayerDoubleGrappleBoost.RightSwingReleased = true;
         };
         InputManager.Gameplay.SwingLeft.started += function => {
+            if (GPCtrl.Instance.Pause) return;
             if (PlayerDoubleGrappleBoost.LeftSwingReleased && !PlayerDoubleGrappleBoost.IsDoubleGrappling)
                 PlayerSwingingLeft.TrySwing = true; 
         };
-        InputManager.Gameplay.SwingLeft.canceled += function => { 
+        InputManager.Gameplay.SwingLeft.canceled += function => {
+            if (GPCtrl.Instance.Pause) return;
             PlayerSwingingLeft.TrySwing = false;
             PlayerDoubleGrappleBoost.LeftSwingReleased = true;
         };
-        InputManager.Gameplay.Attack.started += function => { PlayerAttack.Attack(); };
-        InputManager.Gameplay.Jump.started += PlayerMovement.Jump;
+        InputManager.Gameplay.Attack.started += function => { 
+            if (GPCtrl.Instance.Pause) return;
+            PlayerAttack.Attack(); 
+        };
+        InputManager.Gameplay.Jump.started += function => {
+            if (GPCtrl.Instance.Pause) return;
+            PlayerMovement.Jump();
+        };
+        InputManager.Gameplay.Menu.started += function => GPCtrl.Instance.UICtrl.CallPause();
     }
 
     private void OnDisable()
