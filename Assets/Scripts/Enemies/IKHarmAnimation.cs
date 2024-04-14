@@ -171,9 +171,10 @@ namespace Enemies
 
         public void TransitionLastPos(Leg leg)
         {
-            leg.LastPos = Vector3.Lerp(leg.LastPos, leg.LastPosTarg, Time.deltaTime * leg.MoveTime);
-            float delta = 1 - Vector3.Distance(leg.LastPos, leg.LastPosTarg) / leg.LastPosTargTotDist;
-            float step = delta;// - (Mathf.Pow(2 * delta - 1, 2)) + 1;
+            float deltaP = 1.1f - Vector3.Distance(leg.LastPos, leg.LastPosTarg) / leg.LastPosTargTotDist;
+            leg.LastPos = Vector3.Lerp(leg.LastPos, leg.LastPosTarg, Time.deltaTime * leg.MoveTime * deltaP);
+            float delta = 1f - Vector3.Distance(leg.LastPos, leg.LastPosTarg) / leg.LastPosTargTotDist;
+            float step = 1 - Mathf.Pow(2 * delta - 1, 2);
             leg.Target.position += _up * _targetHeightTransition * step;
             
         }
