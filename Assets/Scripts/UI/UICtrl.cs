@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class UICtrl : MonoBehaviour
 {
-    public UI_EndGameMenu EndGameMenu;
+    public UI_Menu EndGameMenu;
     public UI_InputIndication AttackInputIndication;
     public UI_Settings UI_Settings;
     public UI_Menu PauseMenu;
@@ -32,5 +33,11 @@ public class UICtrl : MonoBehaviour
     {
         if (GPCtrl.Instance.Pause) ClosePauseMenu();
         else OpenPauseMenu();
+    }
+
+    public void BackToMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+        Time.timeScale = 1;
     }
 }

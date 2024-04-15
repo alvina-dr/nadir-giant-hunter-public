@@ -12,6 +12,7 @@ public class UI_Menu : MonoBehaviour
     public void OpenMenu(bool animated = true)
     {
         gameObject.SetActive(true);
+        Debug.Log("set active");
         _canvasGroup.DOFade(1, animated ? .3f : 0).OnComplete(() =>
         {
             _canvasGroup.interactable = true;
@@ -23,13 +24,20 @@ public class UI_Menu : MonoBehaviour
 
     public void CloseMenu(bool animated = true)
     {
-        _canvasGroup.DOFade(0, animated ? .3f : 0).OnComplete(() =>
+        if (!animated)
         {
             gameObject.SetActive(false);
-        }).SetUpdate(true);
+            _canvasGroup.alpha = 0;
+        }
+        else
+        {
+            _canvasGroup.DOFade(0, animated ? .3f : 0).OnComplete(() =>
+            {
+                gameObject.SetActive(false);
+            }).SetUpdate(true);
+        }
         _canvasGroup.interactable = false;
         _canvasGroup.blocksRaycasts = false;
         EventSystem.current.SetSelectedGameObject(null);
-        if (!animated) gameObject.SetActive(false);
     }
 }
