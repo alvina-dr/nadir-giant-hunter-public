@@ -8559,6 +8559,7 @@ MonoBehaviour:
       MoveTime: 0
       LastPos: {x: 0, y: 0, z: 0}
       MaxLength: 0
+      LegMaterialName: 
     - UseTwoBonesIk: 1
       Ik: {fileID: 6957904228371648000}
       ChainIk: {fileID: 0}
@@ -8570,8 +8571,10 @@ MonoBehaviour:
       MoveTime: 0
       LastPos: {x: 0, y: 0, z: 0}
       MaxLength: 0
+      LegMaterialName: 
   TargetPosition: {x: 0, y: 0, z: 0}
   overrideDir: {x: 0, y: 0, z: 0}
+  _skinnedMeshRenderer: {fileID: 5036299529153242453}
   doAlignTipToLast: 0
   _nextTargetRaycastLength: 859.2
   _nextTargetRaycastOriginY: 53.1
@@ -8590,6 +8593,8 @@ MonoBehaviour:
   _moveSpeed: {x: 3.273856, y: 3.273856}
   _localUp: {x: 0, y: 0, z: -1}
   _up: {x: 0, y: 0, z: 0}
+  _LegMaterialAnimTime: 0
+  _LegMaterialAnimIterations: 0
   _showGizmos: 0
   _showGizmosRaycast: 1
   _showGizmosDir: 1
@@ -8623,6 +8628,7 @@ MonoBehaviour:
       MoveTime: 4.102692
       LastPos: {x: 42.65, y: 2508.1055, z: -21.359556}
       MaxLength: 40.2
+      LegMaterialName: _leg_1L_Burst
     - UseTwoBonesIk: 0
       Ik: {fileID: 0}
       ChainIk: {fileID: 5630974209723627448}
@@ -8634,6 +8640,7 @@ MonoBehaviour:
       MoveTime: 3.2386897
       LastPos: {x: -42.65, y: 2540.0374, z: -21.35957}
       MaxLength: 40.2
+      LegMaterialName: _leg_1R_Burst
   - CurrentLeg: 1
     Legs:
     - UseTwoBonesIk: 0
@@ -8647,6 +8654,7 @@ MonoBehaviour:
       MoveTime: 2.9931402
       LastPos: {x: 60.192005, y: 2508.847, z: -21.359571}
       MaxLength: 40.2
+      LegMaterialName: _leg_2L_Burst
     - UseTwoBonesIk: 0
       Ik: {fileID: 0}
       ChainIk: {fileID: 1089432869373358044}
@@ -8658,6 +8666,7 @@ MonoBehaviour:
       MoveTime: 3.5031126
       LastPos: {x: -60.192, y: 2474.283, z: -21.359562}
       MaxLength: 40.2
+      LegMaterialName: _leg_2R_Burst
   - CurrentLeg: 1
     Legs:
     - UseTwoBonesIk: 0
@@ -8671,6 +8680,7 @@ MonoBehaviour:
       MoveTime: 3.365035
       LastPos: {x: 45.307858, y: 2487.468, z: -21.359575}
       MaxLength: 40.2
+      LegMaterialName: _leg_3L_Burst
     - UseTwoBonesIk: 0
       Ik: {fileID: 0}
       ChainIk: {fileID: 8413849919433536492}
@@ -8682,6 +8692,7 @@ MonoBehaviour:
       MoveTime: 2.349943
       LastPos: {x: -45.308, y: 2449.8909, z: -21.359573}
       MaxLength: 40.2
+      LegMaterialName: _leg_3R_Burst
   - CurrentLeg: 0
     Legs:
     - UseTwoBonesIk: 0
@@ -8695,6 +8706,7 @@ MonoBehaviour:
       MoveTime: 2.608986
       LastPos: {x: 59.523838, y: 2428.722, z: -21.359575}
       MaxLength: 40.2
+      LegMaterialName: _leg_4L_Burst
     - UseTwoBonesIk: 0
       Ik: {fileID: 0}
       ChainIk: {fileID: 4829227121340902474}
@@ -8706,6 +8718,7 @@ MonoBehaviour:
       MoveTime: 2.688756
       LastPos: {x: -63.314, y: 2462.2556, z: -21.359585}
       MaxLength: 40.2
+      LegMaterialName: _leg_4R_Burst
   - CurrentLeg: 0
     Legs:
     - UseTwoBonesIk: 0
@@ -8719,6 +8732,7 @@ MonoBehaviour:
       MoveTime: 2.8676715
       LastPos: {x: 46.58188, y: 2437.288, z: -21.35957}
       MaxLength: 40.2
+      LegMaterialName: _leg_5L_Burst
     - UseTwoBonesIk: 0
       Ik: {fileID: 0}
       ChainIk: {fileID: 1582438452675923221}
@@ -8730,6 +8744,7 @@ MonoBehaviour:
       MoveTime: 2.9977148
       LastPos: {x: -46.894005, y: 2417.9512, z: -21.359583}
       MaxLength: 40.2
+      LegMaterialName: _leg_5R_Burst
   - CurrentLeg: 0
     Legs:
     - UseTwoBonesIk: 0
@@ -8743,6 +8758,7 @@ MonoBehaviour:
       MoveTime: 2.275265
       LastPos: {x: 26.469952, y: 2430.7476, z: -21.359571}
       MaxLength: 40.2
+      LegMaterialName: _leg_6L_Burst
     - UseTwoBonesIk: 0
       Ik: {fileID: 0}
       ChainIk: {fileID: 1589534406301437281}
@@ -8754,8 +8770,10 @@ MonoBehaviour:
       MoveTime: 2.3831024
       LastPos: {x: -26.470001, y: 2443.5552, z: -21.359589}
       MaxLength: 40.2
+      LegMaterialName: _leg_6R_Burst
   TargetPosition: {x: 0, y: 0, z: 0}
   overrideDir: {x: 0, y: 0, z: 0}
+  _skinnedMeshRenderer: {fileID: 5036299529153242453}
   doAlignTipToLast: 1
   _nextTargetRaycastLength: 1746.8
   _nextTargetRaycastOriginY: 51.6
@@ -8774,6 +8792,8 @@ MonoBehaviour:
   _moveSpeed: {x: 2.0336876, y: 4.1962996}
   _localUp: {x: 0, y: 0, z: -1}
   _up: {x: 0, y: 0, z: 1}
+  _LegMaterialAnimTime: 1
+  _LegMaterialAnimIterations: 30
   _showGizmos: 0
   _showGizmosRaycast: 1
   _showGizmosDir: 1

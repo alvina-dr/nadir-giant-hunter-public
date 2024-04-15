@@ -61,7 +61,7 @@ public class Waving : MonoBehaviour
                 delta = wave.data.DeltType == WavingData.DeltaType.Time ? Time.time : delta;
                 if (i != 0)
                 {
-                    delta += (i+1)*0.1f* wave.data.WaveWidth;
+                    delta += i * 0.1f * wave.data.WaveWidth;
                 }
 
 

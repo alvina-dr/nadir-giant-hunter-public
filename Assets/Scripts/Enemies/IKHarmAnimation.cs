@@ -7,6 +7,7 @@ using DG.Tweening;
 using System;
 using static ak.wwise.core;
 using UnityEngine.UIElements;
+using UnityEditor;
 
 namespace Enemies
 {
@@ -31,6 +32,9 @@ namespace Enemies
         public Vector3 LastPos;
         [HideInInspector]
         public float MaxLength;
+        public string LegMaterialName;
+        [ReadOnly]
+        public bool IsLegMaterialAnim;
     }
     [Serializable]
     public class IkLegPair {
@@ -46,6 +50,7 @@ namespace Enemies
         [SerializeField] private List<IkLegPair> _iksLegPairs = new List<IkLegPair>();
         public Vector3 TargetPosition;
         [HideInInspector] public Vector3 overrideDir = Vector3.zero;
+        [SerializeField] private SkinnedMeshRenderer _skinnedMeshRenderer;
 
 
         //Parameters
@@ -84,6 +89,11 @@ namespace Enemies
         private Vector3 _localUp;
         [TabGroup("Parameters/A", "Metrics"), SerializeField, ReadOnly]
         private Vector3 _up;
+
+        [TabGroup("Parameters/A", "LegMaterialAnim"), SerializeField]
+        private float _LegMaterialAnimTime;
+        [TabGroup("Parameters/A", "LegMaterialAnim"), SerializeField]
+        private int _LegMaterialAnimIterations;
 
         //Debug
         [TitleGroup("Debug")]
@@ -175,11 +185,25 @@ namespace Enemies
             leg.LastPos = Vector3.Lerp(leg.LastPos, leg.LastPosTarg, Time.deltaTime * leg.MoveTime * deltaP);
             float delta = 1f - Vector3.Distance(leg.LastPos, leg.LastPosTarg) / leg.LastPosTargTotDist;
             float step = 1 - Mathf.Pow(2 * delta - 1, 2);
+            if (delta >= 0.98f && leg.LegMaterialName != "" && !leg.IsLegMaterialAnim) {
+                leg.IsLegMaterialAnim = true;
+                StartCoroutine(StartLegMaterialAnim(leg));
+            }
             leg.Target.position += _up * _targetHeightTransition * step;
             
         }
 
-
+        IEnumerator StartLegMaterialAnim(Leg leg)
+        {
+            float delta = _LegMaterialAnimTime / (float)_LegMaterialAnimIterations;
+            for (int i = 0; i < _LegMaterialAnimIterations; i++)
+            {
+                float step = i/ (float)_LegMaterialAnimIterations;
+                _skinnedMeshRenderer.materials[1].SetFloat(leg.LegMaterialName, step);
+                yield return new WaitForSeconds(delta);
+            }
+            leg.IsLegMaterialAnim = false;
+        }
 
         private void CheckEachIkDistances()
         {
