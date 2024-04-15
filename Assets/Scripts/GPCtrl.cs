@@ -27,6 +27,7 @@ public class GPCtrl : MonoBehaviour
 
     public GeneralData GeneralData;
     public Player Player;
+    public CameraThirdPerson CameraThirdPerson;
     public UICtrl UICtrl;
     [ReadOnly]
     public List<WeakSpot> WeakSpotList;
