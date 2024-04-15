@@ -185,7 +185,7 @@ namespace Enemies
             leg.LastPos = Vector3.Lerp(leg.LastPos, leg.LastPosTarg, Time.deltaTime * leg.MoveTime * deltaP);
             float delta = 1f - Vector3.Distance(leg.LastPos, leg.LastPosTarg) / leg.LastPosTargTotDist;
             float step = 1 - Mathf.Pow(2 * delta - 1, 2);
-            if (delta >= 0.98f && leg.LegMaterialName != "" && !leg.IsLegMaterialAnim) {
+            if (delta >= 0.93f && leg.LegMaterialName != "" && !leg.IsLegMaterialAnim) {
                 leg.IsLegMaterialAnim = true;
                 StartCoroutine(StartLegMaterialAnim(leg));
             }
