@@ -60,7 +60,7 @@ public class PlayerSwinging : MonoBehaviour
         }
 
         if (TrySwing && !Player.PlayerAttack.IsGrappling) StartSwing();
-        else if (!Player.PlayerDoubleGrappleBoost.IsDoubleGrappling) StopSwing();
+        else if (!Player.PlayerDoubleGrappleBoost.IsGrapplingBoost) StopSwing();
     }
 
     public void CalculateUpVector()

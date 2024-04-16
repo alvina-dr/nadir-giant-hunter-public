@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
     public PlayerSwinging PlayerSwingingRight;
     public PlayerSwinging PlayerSwingingLeft;
     public PlayerAttack PlayerAttack;
-    public PlayerDoubleGrappleBoost PlayerDoubleGrappleBoost;
+    public PlayerGrappleBoost PlayerDoubleGrappleBoost;
 
     [Header("Components")]
     public Transform Mesh;
@@ -38,23 +38,21 @@ public class Player : MonoBehaviour
         InputManager.Enable();
         InputManager.Gameplay.SwingRight.started += function => {
             if (GPCtrl.Instance.Pause) return;
-            if (PlayerDoubleGrappleBoost.RightSwingReleased && !PlayerDoubleGrappleBoost.IsDoubleGrappling)
+            if (!PlayerDoubleGrappleBoost.IsGrapplingBoost)
                 PlayerSwingingRight.TrySwing = true; 
         };
         InputManager.Gameplay.SwingRight.canceled += function => {
             if (GPCtrl.Instance.Pause) return;
             PlayerSwingingRight.TrySwing = false;
-            PlayerDoubleGrappleBoost.RightSwingReleased = true;
         };
         InputManager.Gameplay.SwingLeft.started += function => {
             if (GPCtrl.Instance.Pause) return;
-            if (PlayerDoubleGrappleBoost.LeftSwingReleased && !PlayerDoubleGrappleBoost.IsDoubleGrappling)
+            if (!PlayerDoubleGrappleBoost.IsGrapplingBoost)
                 PlayerSwingingLeft.TrySwing = true; 
         };
         InputManager.Gameplay.SwingLeft.canceled += function => {
             if (GPCtrl.Instance.Pause) return;
             PlayerSwingingLeft.TrySwing = false;
-            PlayerDoubleGrappleBoost.LeftSwingReleased = true;
         };
         InputManager.Gameplay.Attack.started += function => { 
             if (GPCtrl.Instance.Pause) return;
@@ -62,7 +60,10 @@ public class Player : MonoBehaviour
         };
         InputManager.Gameplay.Jump.started += function => {
             if (GPCtrl.Instance.Pause) return;
-            PlayerMovement.Jump();
+            if (PlayerSwingingLeft.IsSwinging || PlayerSwingingRight.IsSwinging)
+                PlayerDoubleGrappleBoost.Boost();
+            else
+                PlayerMovement.Jump();
         };
         InputManager.Gameplay.Menu.started += function => GPCtrl.Instance.UICtrl.CallPause();
     }
