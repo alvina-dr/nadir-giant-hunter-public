@@ -19,7 +19,7 @@ public class GPCtrl : MonoBehaviour
         else
         {
             Instance = this;
-            WeakSpotList = FindObjectsByType<WeakSpot>(FindObjectsSortMode.InstanceID).ToList();
+            TargetableSpotList = FindObjectsByType<TargetableSpot>(FindObjectsSortMode.InstanceID).ToList();
         }
     }
 
@@ -31,11 +31,12 @@ public class GPCtrl : MonoBehaviour
     public CameraLock CameraLock;
     public UICtrl UICtrl;
     [ReadOnly]
-    public List<WeakSpot> WeakSpotList;
+    public List<TargetableSpot> TargetableSpotList;
     [ReadOnly]
     public float Timer;
     [ReadOnly]
     public bool Pause = false;
+    public bool DashPause = false;
     private void Update()
     {
         Timer += Time.deltaTime; 
@@ -43,7 +44,7 @@ public class GPCtrl : MonoBehaviour
         {
             //stop monster spawn
             //if no monster then win
-            if (WeakSpotList.Count == 0)
+            if (TargetableSpotList.Count == 0)
                 Win();
         }
     }

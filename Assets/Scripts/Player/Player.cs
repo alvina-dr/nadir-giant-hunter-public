@@ -14,7 +14,8 @@ public class Player : MonoBehaviour
     public PlayerSwinging PlayerSwingingRight;
     public PlayerSwinging PlayerSwingingLeft;
     public PlayerAttack PlayerAttack;
-    public PlayerGrappleBoost PlayerDoubleGrappleBoost;
+    public PlayerGrappleBoost PlayerGrappleBoost;
+    public PlayerDash PlayerDash;
 
     [Header("Components")]
     public Transform Mesh;
@@ -38,7 +39,7 @@ public class Player : MonoBehaviour
         InputManager.Enable();
         InputManager.Gameplay.SwingRight.started += function => {
             if (GPCtrl.Instance.Pause) return;
-            if (!PlayerDoubleGrappleBoost.IsGrapplingBoost)
+            if (!PlayerGrappleBoost.IsGrapplingBoost)
                 PlayerSwingingRight.TrySwing = true; 
         };
         InputManager.Gameplay.SwingRight.canceled += function => {
@@ -47,7 +48,7 @@ public class Player : MonoBehaviour
         };
         InputManager.Gameplay.SwingLeft.started += function => {
             if (GPCtrl.Instance.Pause) return;
-            if (!PlayerDoubleGrappleBoost.IsGrapplingBoost)
+            if (!PlayerGrappleBoost.IsGrapplingBoost)
                 PlayerSwingingLeft.TrySwing = true; 
         };
         InputManager.Gameplay.SwingLeft.canceled += function => {
@@ -56,12 +57,13 @@ public class Player : MonoBehaviour
         };
         InputManager.Gameplay.Attack.started += function => { 
             if (GPCtrl.Instance.Pause) return;
-            PlayerAttack.Attack(); 
+            if (GPCtrl.Instance.DashPause) PlayerDash.Dash();
+            else PlayerAttack.Attack(); 
         };
         InputManager.Gameplay.Jump.started += function => {
             if (GPCtrl.Instance.Pause) return;
             if (PlayerSwingingLeft.IsSwinging || PlayerSwingingRight.IsSwinging)
-                PlayerDoubleGrappleBoost.Boost();
+                PlayerGrappleBoost.Boost();
             else
                 PlayerMovement.Jump();
         };
