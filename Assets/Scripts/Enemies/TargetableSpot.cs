@@ -37,7 +37,7 @@ public class TargetableSpot : MonoBehaviour
 
     private IEnumerator DashSlowDown()
     {
-        yield return new WaitForSeconds(GPCtrl.Instance.Player.Data.timeBeforeAutomaticDash);
+        yield return new WaitForSecondsRealtime(GPCtrl.Instance.Player.Data.timeBeforeAutomaticDash);
         if (GPCtrl.Instance.DashPause) GPCtrl.Instance.Player.PlayerDash.Dash();
     }
 }
