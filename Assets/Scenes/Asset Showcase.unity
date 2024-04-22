@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 1914.6243, g: 2117.2268, b: 3122.645, a: 1}
+  m_IndirectSpecularColor: {r: 997.3999, g: 2005.6125, b: 1779.9963, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -567,7 +567,7 @@ Light:
   m_LightShadowCasterMode: 2
   m_AreaSize: {x: 0.5, y: 0.5}
   m_BounceIntensity: 1
-  m_ColorTemperature: 6500
+  m_ColorTemperature: 6558
   m_UseColorTemperature: 1
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
@@ -610,7 +610,7 @@ MonoBehaviour:
   m_InnerSpotPercent: 0
   m_SpotIESCutoffPercent: 100
   m_LightDimmer: 1
-  m_VolumetricDimmer: 1
+  m_VolumetricDimmer: 10.6
   m_LightUnit: 2
   m_FadeDistance: 10000
   m_VolumetricFadeDistance: 10000
@@ -645,10 +645,10 @@ MonoBehaviour:
   moonPhase: 0.2
   moonPhaseRotation: 0
   earthshine: 1
-  flareSize: 0
+  flareSize: 90
   flareTint: {r: 1, g: 1, b: 1, a: 1}
   flareFalloff: 2
-  flareMultiplier: 1
+  flareMultiplier: 0
   surfaceTexture: {fileID: 0}
   surfaceTint: {r: 1, g: 1, b: 1, a: 1}
   m_Distance: 1.5e+11
@@ -3550,7 +3550,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: ddf4a2ccb0b8ef247b1da4294181c6d2,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 292.3
+      value: 354.4
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ddf4a2ccb0b8ef247b1da4294181c6d2,
         type: 3}
