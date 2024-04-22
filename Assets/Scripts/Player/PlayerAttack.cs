@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -69,30 +70,42 @@ public class PlayerAttack : MonoBehaviour
             return Vector3.Distance(this.transform.position, a.transform.position).CompareTo(Vector3.Distance(this.transform.position, b.transform.position));
         });
         GPCtrl.Instance.UICtrl.AttackInputIndication.HideIndicator();
-        //if (GPCtrl.Instance.CameraThirdPerson.CinemachineTargetGroup.m_Targets.Length > 1)
-            //GPCtrl.Instance.CameraThirdPerson.CinemachineTargetGroup.RemoveMember(GPCtrl.Instance.CameraThirdPerson.CinemachineTargetGroup.m_Targets[1].target.transform);
         if (closestWeakSpotList.Count > 0 ) {
             if (Vector3.Distance(transform.position, closestWeakSpotList[0].transform.position) < Player.Data.weakSpotDetectionDistance)
             {
                 GPCtrl.Instance.UICtrl.AttackInputIndication.ShowIndicatorAt(closestWeakSpotList[0].transform.position);
-                if (GPCtrl.Instance.CameraThirdPerson.CinemachineTargetGroup.m_Targets.Length == 1)
-                    GPCtrl.Instance.CameraThirdPerson.CinemachineTargetGroup.AddMember(closestWeakSpotList[0].transform, 0.8f, 4.5f);
-            } else
+                GPCtrl.Instance.CameraThirdPerson.ActivateFreeLook(false);
+                //GPCtrl.Instance.CameraLock.CinemachineVirtualCamera.transform.forward = closestWeakSpotList[0].transform.position - transform.position;
+
+                //if (GPCtrl.Instance.CameraLock.CinemachineTargetGroup.m_Targets.Length == 1)
+                //{
+                //    //GPCtrl.Instance.CameraLock.CinemachineTargetGroup.AddMember(closestWeakSpotList[0].transform, 0.8f, 4.5f);
+                //}
+
+            }
+            else
             {
-                if (GPCtrl.Instance.CameraThirdPerson.CinemachineTargetGroup.m_Targets.Length > 1)
-                    GPCtrl.Instance.CameraThirdPerson.CinemachineTargetGroup.RemoveMember(GPCtrl.Instance.CameraThirdPerson.CinemachineTargetGroup.m_Targets[1].target);
+                //if (GPCtrl.Instance.CameraLock.CinemachineTargetGroup.m_Targets.Length > 1)
+                //{
+                GPCtrl.Instance.CameraThirdPerson.ActivateFreeLook(true);
+                //GPCtrl.Instance.CameraLock.CinemachineTargetGroup.RemoveMember(GPCtrl.Instance.CameraLock.CinemachineTargetGroup.m_Targets[1].target);
+                //}
             }
         } else
         {
-            if (GPCtrl.Instance.CameraThirdPerson.CinemachineTargetGroup.m_Targets.Length > 1)
-                GPCtrl.Instance.CameraThirdPerson.CinemachineTargetGroup.RemoveMember(GPCtrl.Instance.CameraThirdPerson.CinemachineTargetGroup.m_Targets[1].target);
+            //if (GPCtrl.Instance.CameraLock.CinemachineTargetGroup.m_Targets.Length > 1)
+            //{
+            //GPCtrl.Instance.CameraLock.CinemachineTargetGroup.RemoveMember(GPCtrl.Instance.CameraLock.CinemachineTargetGroup.m_Targets[1].target);
+            GPCtrl.Instance.CameraThirdPerson.ActivateFreeLook(true);
+            //}
         }
         if (IsGrappling && _springJoint != null)
         {
             if (Vector3.Distance(transform.position, CurrentWeakSpot.transform.position) < Player.Data.attackStopDistance)
             {
                 Destroy(_springJoint);
-                GPCtrl.Instance.CameraThirdPerson.CinemachineTargetGroup.RemoveMember(CurrentWeakSpot.transform);
+                //GPCtrl.Instance.CameraLock.CinemachineTargetGroup.RemoveMember(CurrentWeakSpot.transform);
+                GPCtrl.Instance.CameraThirdPerson.ActivateFreeLook(true);
                 _springJoint = null;
                 IsGrappling = false;
                 Player.PlayerSwingingLeft.SwingLineRenderer.positionCount = 0;

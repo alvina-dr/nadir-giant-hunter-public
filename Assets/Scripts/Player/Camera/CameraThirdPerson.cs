@@ -8,9 +8,11 @@ public class CameraThirdPerson : MonoBehaviour
     public Vector3 LookDirectionSave = Vector3.zero;
     public CinemachineFreeLook CinemachineFreeLook;
     public CinemachineTargetGroup CinemachineTargetGroup;
+    //public bool canMoveCamera;
 
     private void Update()
     {
+        //if (!canMoveCamera) return;
         //CAM SENSI
         float camSensi = 1;
         if (PlayerPrefs.HasKey("CamSensi")) camSensi = PlayerPrefs.GetFloat("CamSensi");
@@ -66,5 +68,11 @@ public class CameraThirdPerson : MonoBehaviour
             GPCtrl.Instance.Player.Mesh.rotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z), Vector3.up);
             LookDirectionSave = direction;
         }
+    }
+
+    public void ActivateFreeLook(bool value)
+    {
+        return;
+        CinemachineFreeLook.enabled = value;
     }
 }

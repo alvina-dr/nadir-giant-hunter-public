@@ -66,6 +66,7 @@ public class Player : MonoBehaviour
                 PlayerMovement.Jump();
         };
         InputManager.Gameplay.Menu.started += function => GPCtrl.Instance.UICtrl.CallPause();
+        //InputManager.Gameplay.Lock.started += function => GPCtrl.Instance.CameraThirdPerson.ActivateFreeLook(!GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.enabled);
     }
 
     private void OnDisable()
