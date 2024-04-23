@@ -78,6 +78,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _GatherTexture2D_c4d8afdc18c24efb9d3575a323139409_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: cbb72192401dddb47a6e6d3baa2613bc, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _HeightMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -98,11 +102,19 @@ Material:
         m_Texture: {fileID: 2800000, guid: 91c2021a9564f6145a9445fd793f8d1a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _NormalFromTexture_58e54bea9b6041e3aa05b9f3e086ef4d_Texture_0_Texture2D:
+        m_Texture: {fileID: 2800000, guid: cbb72192401dddb47a6e6d3baa2613bc, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _NormalMap:
         m_Texture: {fileID: 2800000, guid: d9441e13902c8724fb4f4a286840e0d2, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMapOS:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SAnd:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -176,6 +188,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _normalmap:
         m_Texture: {fileID: 2800000, guid: d9441e13902c8724fb4f4a286840e0d2, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _sand_tex:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _texcoord:
@@ -296,6 +312,13 @@ Material:
     - _SubsurfaceMask: 1
     - _SupportDecals: 1
     - _SurfaceType: 0
+    - _TessellationBackFaceCullEpsilon: -0.25
+    - _TessellationFactorMaxDistance: 50
+    - _TessellationFactorMinDistance: 20
+    - _TessellationFactorTriangleSize: 100
+    - _TessellationMaxDisplacement: 0.05
+    - _TessellationMode: 0
+    - _TessellationShapeFactor: 0.75
     - _TexWorldScale: 1
     - _TexWorldScaleEmissive: 1
     - _Thickness: 1
@@ -318,10 +341,13 @@ Material:
     - _ZTestTransparent: 4
     - _ZWrite: 1
     - __dirty: 0
+    - _displacement_intensity: 1
     - _normal_intensity: 0.21
     - _power: 11.58
+    - _roughness_smoothness: 0
     - _sandnormalintensity: 2.5
     - _smooth: 0.6
+    - _tesselation_definition: 0
     - _tiling_sand: -0.06
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
