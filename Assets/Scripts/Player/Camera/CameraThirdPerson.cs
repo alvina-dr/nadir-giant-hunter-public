@@ -14,6 +14,7 @@ public class CameraThirdPerson : MonoBehaviour
     {
         //if (!canMoveCamera) return;
         //CAM SENSI
+        if (GPCtrl.Instance.DashPause) return;
         float camSensi = 1;
         if (PlayerPrefs.HasKey("CamSensi")) camSensi = PlayerPrefs.GetFloat("CamSensi");
         CinemachineFreeLook.m_XAxis.m_MaxSpeed = camSensi * 300;
