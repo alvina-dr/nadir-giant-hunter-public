@@ -1,3 +1,4 @@
+using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,13 +6,17 @@ using UnityEngine;
 public class TargetableSpot : MonoBehaviour
 {
     public Rigidbody Rigidbody;
-    public EnemyWeakSpotManagement Enemy;
     public enum SpotType
     {
         WeakSpot = 0,
         DashSpot = 1
     }
     public SpotType SpotCurrentType;
+    [ShowIf("SpotCurrentType", SpotType.WeakSpot)]
+    public EnemyWeakSpotManagement Enemy;
+
+    [ShowIf("SpotCurrentType", SpotType.DashSpot)]
+    public MeshRenderer Mesh;
 
     public void DestroyWeakSpot()
     {
@@ -24,20 +29,32 @@ public class TargetableSpot : MonoBehaviour
                     vfx.transform.position = transform.position;
                     Enemy.Damage(this);
                 }
+                GPCtrl.Instance.TargetableSpotList.Remove(this);
+                Destroy(gameObject);
                 break;
             case SpotType.DashSpot:
                 GPCtrl.Instance.DashPause = true;
                 Time.timeScale = GPCtrl.Instance.Player.Data.slowDownTime;
                 StartCoroutine(DashSlowDown());
+                StartCoroutine(ReloadDashSpot());
+                Mesh.enabled = false;
+                GPCtrl.Instance.TargetableSpotList.Remove(this);
                 break;
         }
-        GPCtrl.Instance.TargetableSpotList.Remove(this);
-        Destroy(gameObject);
+
     }
 
     private IEnumerator DashSlowDown()
     {
         yield return new WaitForSecondsRealtime(GPCtrl.Instance.Player.Data.timeBeforeAutomaticDash);
+        Debug.Log("DASH SLOW DOWN");
         if (GPCtrl.Instance.DashPause) GPCtrl.Instance.Player.PlayerDash.Dash();
+    }
+
+    private IEnumerator ReloadDashSpot()
+    {
+        yield return new WaitForSecondsRealtime(GPCtrl.Instance.GeneralData.dashSpotReloadTime);
+        GPCtrl.Instance.TargetableSpotList.Add(this);
+        Mesh.enabled = true;
     }
 }
