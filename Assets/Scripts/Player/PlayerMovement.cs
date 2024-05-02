@@ -100,6 +100,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void SpeedControl()
     {
+        if (Player.PlayerDash.IsDashing) return;
         Vector3 flatVel = new Vector3(Player.Rigibody.velocity.x, 0f, Player.Rigibody.velocity.z);
         if (flatVel.magnitude > CurrentMoveSpeed) // limit velocity if needed
         {
