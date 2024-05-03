@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,21 +9,21 @@ public class PlayerAttack : MonoBehaviour
     private SpringJoint _springJoint;
     [HideInInspector]
     public bool IsGrappling = false;
-    public WeakSpot CurrentWeakSpot;
-    public List<WeakSpot> closestWeakSpotList = new List<WeakSpot>();
+    public TargetableSpot CurrentTargetSpot;
+    public List<TargetableSpot> closestWeakSpotList = new List<TargetableSpot>();
 
     public void Attack()
     {
         if (IsGrappling) return;
-        if (GPCtrl.Instance.WeakSpotList.Count == 0) return;
+        if (GPCtrl.Instance.TargetableSpotList.Count == 0) return;
         float distance = 1000;
-        WeakSpot weakSpot = null;
-        for (int i = 0; i < GPCtrl.Instance.WeakSpotList.Count; i++)
+        TargetableSpot weakSpot = null;
+        for (int i = 0; i < GPCtrl.Instance.TargetableSpotList.Count; i++)
         {
-            float currentDistance = Vector3.Distance(transform.position, GPCtrl.Instance.WeakSpotList[i].transform.position);
+            float currentDistance = Vector3.Distance(transform.position, GPCtrl.Instance.TargetableSpotList[i].transform.position);
             if (currentDistance < distance)
             {
-                weakSpot = GPCtrl.Instance.WeakSpotList[i];
+                weakSpot = GPCtrl.Instance.TargetableSpotList[i];
                 distance = currentDistance;
             }
         }
@@ -36,12 +37,12 @@ public class PlayerAttack : MonoBehaviour
         }       
     }
 
-    public void GrappleWeakSpot(WeakSpot weakSpot)
+    public void GrappleWeakSpot(TargetableSpot weakSpot)
     {
         Player.PlayerSwingingLeft.StopSwing(false);
         Player.PlayerSwingingRight.StopSwing(false);
         IsGrappling = true;
-        CurrentWeakSpot = weakSpot;
+        CurrentTargetSpot = weakSpot;
         Player.Rigibody.useGravity = false;
         Player.Rigibody.velocity = Vector3.zero;
         _springJoint = gameObject.AddComponent<SpringJoint>();
@@ -63,8 +64,8 @@ public class PlayerAttack : MonoBehaviour
 
     private void Update()
     {
-        closestWeakSpotList = GPCtrl.Instance.WeakSpotList;
-        closestWeakSpotList.Sort(delegate (WeakSpot a, WeakSpot b)
+        closestWeakSpotList = GPCtrl.Instance.TargetableSpotList;
+        closestWeakSpotList.Sort(delegate (TargetableSpot a, TargetableSpot b)
         {
             return Vector3.Distance(this.transform.position, a.transform.position).CompareTo(Vector3.Distance(this.transform.position, b.transform.position));
         });
@@ -73,13 +74,38 @@ public class PlayerAttack : MonoBehaviour
             if (Vector3.Distance(transform.position, closestWeakSpotList[0].transform.position) < Player.Data.weakSpotDetectionDistance)
             {
                 GPCtrl.Instance.UICtrl.AttackInputIndication.ShowIndicatorAt(closestWeakSpotList[0].transform.position);
+                GPCtrl.Instance.CameraThirdPerson.ActivateFreeLook(false);
+                //GPCtrl.Instance.CameraLock.CinemachineVirtualCamera.transform.forward = closestWeakSpotList[0].transform.position - transform.position;
+
+                //if (GPCtrl.Instance.CameraLock.CinemachineTargetGroup.m_Targets.Length == 1)
+                //{
+                //    //GPCtrl.Instance.CameraLock.CinemachineTargetGroup.AddMember(closestWeakSpotList[0].transform, 0.8f, 4.5f);
+                //}
+
             }
+            else
+            {
+                //if (GPCtrl.Instance.CameraLock.CinemachineTargetGroup.m_Targets.Length > 1)
+                //{
+                GPCtrl.Instance.CameraThirdPerson.ActivateFreeLook(true);
+                //GPCtrl.Instance.CameraLock.CinemachineTargetGroup.RemoveMember(GPCtrl.Instance.CameraLock.CinemachineTargetGroup.m_Targets[1].target);
+                //}
+            }
+        } else
+        {
+            //if (GPCtrl.Instance.CameraLock.CinemachineTargetGroup.m_Targets.Length > 1)
+            //{
+            //GPCtrl.Instance.CameraLock.CinemachineTargetGroup.RemoveMember(GPCtrl.Instance.CameraLock.CinemachineTargetGroup.m_Targets[1].target);
+            GPCtrl.Instance.CameraThirdPerson.ActivateFreeLook(true);
+            //}
         }
         if (IsGrappling && _springJoint != null)
         {
-            if (Vector3.Distance(transform.position, CurrentWeakSpot.transform.position) < Player.Data.attackStopDistance)
+            if (Vector3.Distance(transform.position, CurrentTargetSpot.transform.position) < Player.Data.attackStopDistance)
             {
                 Destroy(_springJoint);
+                //GPCtrl.Instance.CameraLock.CinemachineTargetGroup.RemoveMember(CurrentWeakSpot.transform);
+                GPCtrl.Instance.CameraThirdPerson.ActivateFreeLook(true);
                 _springJoint = null;
                 IsGrappling = false;
                 Player.PlayerSwingingLeft.SwingLineRenderer.positionCount = 0;
@@ -87,8 +113,8 @@ public class PlayerAttack : MonoBehaviour
                 Player.Rigibody.velocity = Vector3.zero;
                 Player.Rigibody.useGravity = true;
                 Player.SoundData.SFX_Hunter_Attack_Impact.Post(gameObject);
-                CurrentWeakSpot.DestroyWeakSpot();
-                CurrentWeakSpot = null;
+                CurrentTargetSpot.DestroyWeakSpot();
+                CurrentTargetSpot = null;
             }
         }
     }
@@ -100,17 +126,17 @@ public class PlayerAttack : MonoBehaviour
             if (Player.PlayerSwingingLeft.SwingLineRenderer.positionCount == 2)
             {
                 Player.PlayerSwingingLeft.SwingLineRenderer.SetPosition(0, Player.PlayerSwingingLeft.StartSwingLinePoint.position);
-                if (Player.PlayerSwingingLeft.SwingLineRenderer.GetPosition(1) != CurrentWeakSpot.transform.position)
+                if (Player.PlayerSwingingLeft.SwingLineRenderer.GetPosition(1) != CurrentTargetSpot.transform.position)
                 {
-                    Player.PlayerSwingingLeft.SwingLineRenderer.SetPosition(1, Vector3.Lerp(Player.PlayerSwingingLeft.SwingLineRenderer.GetPosition(1), CurrentWeakSpot.transform.position, 0.1f));
+                    Player.PlayerSwingingLeft.SwingLineRenderer.SetPosition(1, Vector3.Lerp(Player.PlayerSwingingLeft.SwingLineRenderer.GetPosition(1), CurrentTargetSpot.transform.position, 0.1f));
                 }
             }
             if (Player.PlayerSwingingRight.SwingLineRenderer.positionCount == 2)
             {
                 Player.PlayerSwingingRight.SwingLineRenderer.SetPosition(0, Player.PlayerSwingingRight.StartSwingLinePoint.position);
-                if (Player.PlayerSwingingRight.SwingLineRenderer.GetPosition(1) != CurrentWeakSpot.transform.position)
+                if (Player.PlayerSwingingRight.SwingLineRenderer.GetPosition(1) != CurrentTargetSpot.transform.position)
                 {
-                    Player.PlayerSwingingRight.SwingLineRenderer.SetPosition(1, Vector3.Lerp(Player.PlayerSwingingRight.SwingLineRenderer.GetPosition(1), CurrentWeakSpot.transform.position, 0.1f));
+                    Player.PlayerSwingingRight.SwingLineRenderer.SetPosition(1, Vector3.Lerp(Player.PlayerSwingingRight.SwingLineRenderer.GetPosition(1), CurrentTargetSpot.transform.position, 0.1f));
                 }
             }
         }

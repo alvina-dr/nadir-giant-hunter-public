@@ -14,7 +14,8 @@ public class Player : MonoBehaviour
     public PlayerSwinging PlayerSwingingRight;
     public PlayerSwinging PlayerSwingingLeft;
     public PlayerAttack PlayerAttack;
-    public PlayerDoubleGrappleBoost PlayerDoubleGrappleBoost;
+    public PlayerGrappleBoost PlayerGrappleBoost;
+    public PlayerDash PlayerDash;
 
     [Header("Components")]
     public Transform Mesh;
@@ -38,33 +39,36 @@ public class Player : MonoBehaviour
         InputManager.Enable();
         InputManager.Gameplay.SwingRight.started += function => {
             if (GPCtrl.Instance.Pause) return;
-            if (PlayerDoubleGrappleBoost.RightSwingReleased && !PlayerDoubleGrappleBoost.IsDoubleGrappling)
+            if (!PlayerGrappleBoost.IsGrapplingBoost)
                 PlayerSwingingRight.TrySwing = true; 
         };
         InputManager.Gameplay.SwingRight.canceled += function => {
             if (GPCtrl.Instance.Pause) return;
             PlayerSwingingRight.TrySwing = false;
-            PlayerDoubleGrappleBoost.RightSwingReleased = true;
         };
         InputManager.Gameplay.SwingLeft.started += function => {
             if (GPCtrl.Instance.Pause) return;
-            if (PlayerDoubleGrappleBoost.LeftSwingReleased && !PlayerDoubleGrappleBoost.IsDoubleGrappling)
+            if (!PlayerGrappleBoost.IsGrapplingBoost)
                 PlayerSwingingLeft.TrySwing = true; 
         };
         InputManager.Gameplay.SwingLeft.canceled += function => {
             if (GPCtrl.Instance.Pause) return;
             PlayerSwingingLeft.TrySwing = false;
-            PlayerDoubleGrappleBoost.LeftSwingReleased = true;
         };
         InputManager.Gameplay.Attack.started += function => { 
             if (GPCtrl.Instance.Pause) return;
-            PlayerAttack.Attack(); 
+            if (GPCtrl.Instance.DashPause) PlayerDash.Dash();
+            else PlayerAttack.Attack(); 
         };
         InputManager.Gameplay.Jump.started += function => {
             if (GPCtrl.Instance.Pause) return;
-            PlayerMovement.Jump();
+            if (PlayerSwingingLeft.IsSwinging || PlayerSwingingRight.IsSwinging)
+                PlayerGrappleBoost.Boost();
+            else
+                PlayerMovement.Jump();
         };
         InputManager.Gameplay.Menu.started += function => GPCtrl.Instance.UICtrl.CallPause();
+        //InputManager.Gameplay.Lock.started += function => GPCtrl.Instance.CameraThirdPerson.ActivateFreeLook(!GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.enabled);
     }
 
     private void OnDisable()

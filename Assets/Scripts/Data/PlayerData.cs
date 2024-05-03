@@ -60,6 +60,18 @@ public class PlayerData : ScriptableObject
     [TabGroup("Double swing boost")]
     public float doubleSwingLineRendererDuration;
 
+    [TabGroup("Dash")]
+    public float dashForce;
+    [TabGroup("Dash")]
+    public float slowDownTime;
+    [TabGroup("Dash")]
+    public float timeBeforeAutomaticDash;
+    [TabGroup("Dash")]
+    public float dashTime;
+
+    [TabGroup("Bumper")]
+    public float bumpForce;
+
     [Header("Tests")]
     public bool startCurveBoost;
     public bool endCurveBoost;

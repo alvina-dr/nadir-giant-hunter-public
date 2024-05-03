@@ -60,7 +60,7 @@ public class PlayerSwinging : MonoBehaviour
         }
 
         if (TrySwing && !Player.PlayerAttack.IsGrappling) StartSwing();
-        else if (!Player.PlayerDoubleGrappleBoost.IsDoubleGrappling) StopSwing();
+        else if (!Player.PlayerGrappleBoost.IsGrapplingBoost) StopSwing();
     }
 
     public void CalculateUpVector()
@@ -146,14 +146,14 @@ public class PlayerSwinging : MonoBehaviour
         Player.Animator.SetBool("isSwinging", false);
         float dotProduct = Vector3.Dot(Player.Rigibody.velocity.normalized, Player.Orientation.transform.forward);
         Player.Animator.SetFloat("SwingEndAngle", Player.Rigibody.velocity.normalized.y);
-        if (dotProduct > .5f)
-        {
+        //if (dotProduct > .5f)
+        //{
             if (Player.Data.endCurveBoost && boost)
             {
                 Player.Rigibody.AddForce(Vector3.Cross(Player.Mesh.transform.right, (EndSwingLinePoint.position - Player.transform.position).normalized) * Player.Data.endCurveSpeedBoost, ForceMode.Impulse);
                 Player.PlayerMovement.CurrentMoveSpeed++;
             }
-        }
+        //}
     }
 
     public void HideLineRenderer()

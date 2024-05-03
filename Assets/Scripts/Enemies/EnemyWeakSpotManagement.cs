@@ -5,28 +5,30 @@ using Sirenix.OdinInspector;
 
 public class EnemyWeakSpotManagement : MonoBehaviour
 {
-    public List<WeakSpot> WeakSpotSpawnList;
+    public List<TargetableSpot> WeakSpotSpawnList;
     [ReadOnly]
-    public List<WeakSpot> WeakSpotList;
+    public List<TargetableSpot> WeakSpotList;
     public int WeakSpotNum;
+    public EnemyVFXData VFXData;
+
     void Start()
     {
-        foreach (WeakSpot weakSpot in WeakSpotSpawnList)
+        foreach (TargetableSpot weakSpot in WeakSpotSpawnList)
         {
             weakSpot.gameObject.SetActive(false);
         }
         for (int i = 0; i < WeakSpotNum; ++i)
         {
-            WeakSpot weakSpot = WeakSpotSpawnList[Random.Range(0, WeakSpotSpawnList.Count)];
+            TargetableSpot weakSpot = WeakSpotSpawnList[Random.Range(0, WeakSpotSpawnList.Count)];
             WeakSpotSpawnList.Remove(weakSpot);
             weakSpot.gameObject.SetActive(true);
             WeakSpotList.Add(weakSpot);
-            GPCtrl.Instance.WeakSpotList.Add(weakSpot);
+            GPCtrl.Instance.TargetableSpotList.Add(weakSpot);
             weakSpot.Enemy = this;
         }
     }
 
-    public void Damage(WeakSpot weakSpot)
+    public void Damage(TargetableSpot weakSpot)
     {
         WeakSpotList.Remove(weakSpot);
         if (WeakSpotList.Count == 0)
