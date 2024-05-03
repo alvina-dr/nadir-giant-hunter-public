@@ -12,7 +12,7 @@ Shader "Sha_VFX_Sandfall_a"
 		_Color0("Color 0", Color) = (0.7924528,0.7441841,0.6242435,0)
 		_Color1("Color 1", Color) = (0.8679245,0.4903704,0.3234247,0)
 
-		[HideInInspector] _RenderQueueType("Render Queue Type", Float) = 1
+		[HideInInspector] _RenderQueueType("Render Queue Type", Float) = 5
 		//[HideInInspector][ToggleUI] _AddPrecomputedVelocity("Add Precomputed Velocity", Float) = 1
 		//[HideInInspector] _ShadowMatteFilter("Shadow Matte Filter", Float) = 2.006836
 		[HideInInspector] _StencilRef("Stencil Ref", Int) = 0 // StencilUsage.Clear
@@ -28,7 +28,7 @@ Shader "Sha_VFX_Sandfall_a"
 		[HideInInspector] _ZTestGBuffer("ZTest GBuffer", Int) = 4
 		[HideInInspector][ToggleUI] _RequireSplitLighting("Require Split Lighting", Float) = 0
 		[HideInInspector][ToggleUI] _ReceivesSSR("Receives SSR", Float) = 1
-		[HideInInspector] _SurfaceType("Surface Type", Float) = 0
+		[HideInInspector] _SurfaceType("Surface Type", Float) = 1
 		[HideInInspector] _BlendMode("Blend Mode", Float) = 0
 		[HideInInspector] _SrcBlend("Src Blend", Float) = 1
 		[HideInInspector] _DstBlend("Dst Blend", Float) = 0
@@ -40,9 +40,9 @@ Shader "Sha_VFX_Sandfall_a"
 		[HideInInspector] _TransparentSortPriority("Transparent Sort Priority", Float) = 0
 		[HideInInspector][ToggleUI] _EnableFogOnTransparent("Enable Fog", Float) = 1
 		[HideInInspector] _CullModeForward("Cull Mode Forward", Float) = 2 // This mode is dedicated to Forward to correctly handle backface then front face rendering thin transparent
-		[HideInInspector][Enum(UnityEditor.Rendering.HighDefinition.TransparentCullMode)] _TransparentCullMode("Transparent Cull Mode", Int) = 2 // Back culling by default
+		[HideInInspector][Enum(UnityEditor.Rendering.HighDefinition.TransparentCullMode)] _TransparentCullMode("Transparent Cull Mode", Int) = 2// Back culling by default
 		[HideInInspector] _ZTestDepthEqualForOpaque("ZTest Depth Equal For Opaque", Int) = 4 // Less equal
-		[HideInInspector][Enum(UnityEngine.Rendering.CompareFunction)] _ZTestTransparent("ZTest Transparent", Int) = 4 // Less equal
+		[HideInInspector][Enum(UnityEngine.Rendering.CompareFunction)] _ZTestTransparent("ZTest Transparent", Int) = 4// Less equal
 		[HideInInspector][ToggleUI] _TransparentBackfaceEnable("Transparent Backface Enable", Float) = 0
 		[HideInInspector][ToggleUI] _AlphaCutoffEnable("Alpha Cutoff Enable", Float) = 0
 		[HideInInspector][ToggleUI] _UseShadowThreshold("Use Shadow Threshold", Float) = 0
@@ -75,7 +75,7 @@ Shader "Sha_VFX_Sandfall_a"
 
 		
 
-		Tags { "RenderPipeline"="HDRenderPipeline" "RenderType"="Opaque" "Queue"="Geometry" }
+		Tags { "RenderPipeline"="HDRenderPipeline" "RenderType"="Opaque" "Queue"="Transparent" }
 
 		HLSLINCLUDE
 		#pragma target 4.5
@@ -217,9 +217,9 @@ Shader "Sha_VFX_Sandfall_a"
 
 			HLSLPROGRAM
 
+			#pragma shader_feature_local_fragment _ENABLE_FOG_ON_TRANSPARENT
 			#pragma multi_compile_instancing
 			#pragma instancing_options renderinglayer
-			#pragma shader_feature_local_fragment _ENABLE_FOG_ON_TRANSPARENT
 			#define ASE_SRP_VERSION 160005
 
 
@@ -598,8 +598,7 @@ Shader "Sha_VFX_Sandfall_a"
 				float2 texCoord44 = packedInput.ase_texcoord1.xy * float2( 1,1 ) + float2( 0,-0.01 );
 				float2 panner43 = ( mulTime18 * _Vector1 + texCoord44);
 				float2 texCoord22 = packedInput.ase_texcoord1.zw * float2( 1,1 ) + float2( 0,0 );
-				float temp_output_131_0 = pow( texCoord22.y , 2.14 );
-				float4 clampResult130 = clamp( ( tex2D( _SandPattern, panner43 ) + temp_output_131_0 ) , float4( 0,0,0,0 ) , float4( 1,1,1,0 ) );
+				float4 clampResult130 = clamp( ( tex2D( _SandPattern, panner43 ) + pow( texCoord22.y , 2.14 ) ) , float4( 0,0,0,0 ) , float4( 1,1,1,0 ) );
 				float4 clampResult56 = clamp( pow( ( _Color1 + clampResult130 ) , 0.66 ) , float4( 0,0,0,0 ) , float4( 1,1,1,0 ) );
 				float2 texCoord14 = packedInput.ase_texcoord1.xy * float2( 1,1 ) + float2( 0,0 );
 				float2 panner12 = ( mulTime18 * float2( 0,0.2 ) + texCoord14);
@@ -607,14 +606,15 @@ Shader "Sha_VFX_Sandfall_a"
 				
 				float3 temp_cast_1 = (0.0).xxx;
 				
-				float clampResult52 = clamp( ( ( ( ( 1.0 - texCoord22.x ) * texCoord22.x ) * ( texCoord22.y * 1.0 ) ) * 35.73 ) , 0.0 , 1.0 );
+				float temp_output_25_0 = ( texCoord22.y * ( 1.0 - texCoord22.y ) );
+				float clampResult52 = clamp( ( temp_output_25_0 * 7.6 ) , 0.0 , 1.0 );
 				float2 panner20 = ( mulTime18 * _Vector1 + texCoord14);
-				float4 clampResult59 = clamp( ( temp_output_131_0 + ( pow( tex2D( _SandPattern, panner20 ) , 0.44 ) * ( 1.0 - tex2D( _Tex_VFX_Sandfall_a_alpha, panner12 ).r ) ) ) , float4( 0,0,0,0 ) , float4( 1,1,1,0 ) );
-				float4 clampResult31 = clamp( ( clampResult52 * clampResult59 ) , float4( 0,0,0,0 ) , float4( 1,0,0,0 ) );
+				float clampResult59 = clamp( ( 0.0 + ( pow( tex2D( _SandPattern, panner20 ).r , 0.44 ) * ( 1.0 - tex2D( _Tex_VFX_Sandfall_a_alpha, panner12 ).r ) ) ) , 0.0 , 1.0 );
+				float clampResult31 = clamp( ( clampResult52 * clampResult59 ) , 0.0 , 1.0 );
 				
 				surfaceDescription.Color = ( clampResult56 * clampResult57 ).rgb;
 				surfaceDescription.Emission = temp_cast_1;
-				surfaceDescription.Alpha = clampResult31.r;
+				surfaceDescription.Alpha = ( clampResult31 * 0.78 );
 				surfaceDescription.AlphaClipThreshold = _AlphaCutoff;
 				surfaceDescription.ShadowTint = float4( 0, 0 ,0 ,1 );
 				float2 Distortion = float2 ( 0, 0 );
@@ -704,9 +704,9 @@ Shader "Sha_VFX_Sandfall_a"
 
 			HLSLPROGRAM
 
+			#pragma shader_feature_local_fragment _ENABLE_FOG_ON_TRANSPARENT
 			#pragma multi_compile_instancing
 			#pragma instancing_options renderinglayer
-			#pragma shader_feature_local_fragment _ENABLE_FOG_ON_TRANSPARENT
 			#define ASE_SRP_VERSION 160005
 
 
@@ -1050,8 +1050,7 @@ Shader "Sha_VFX_Sandfall_a"
 				float2 texCoord44 = packedInput.ase_texcoord2.xy * float2( 1,1 ) + float2( 0,-0.01 );
 				float2 panner43 = ( mulTime18 * _Vector1 + texCoord44);
 				float2 texCoord22 = packedInput.ase_texcoord2.zw * float2( 1,1 ) + float2( 0,0 );
-				float temp_output_131_0 = pow( texCoord22.y , 2.14 );
-				float4 clampResult130 = clamp( ( tex2D( _SandPattern, panner43 ) + temp_output_131_0 ) , float4( 0,0,0,0 ) , float4( 1,1,1,0 ) );
+				float4 clampResult130 = clamp( ( tex2D( _SandPattern, panner43 ) + pow( texCoord22.y , 2.14 ) ) , float4( 0,0,0,0 ) , float4( 1,1,1,0 ) );
 				float4 clampResult56 = clamp( pow( ( _Color1 + clampResult130 ) , 0.66 ) , float4( 0,0,0,0 ) , float4( 1,1,1,0 ) );
 				float2 texCoord14 = packedInput.ase_texcoord2.xy * float2( 1,1 ) + float2( 0,0 );
 				float2 panner12 = ( mulTime18 * float2( 0,0.2 ) + texCoord14);
@@ -1059,14 +1058,15 @@ Shader "Sha_VFX_Sandfall_a"
 				
 				float3 temp_cast_1 = (0.0).xxx;
 				
-				float clampResult52 = clamp( ( ( ( ( 1.0 - texCoord22.x ) * texCoord22.x ) * ( texCoord22.y * 1.0 ) ) * 35.73 ) , 0.0 , 1.0 );
+				float temp_output_25_0 = ( texCoord22.y * ( 1.0 - texCoord22.y ) );
+				float clampResult52 = clamp( ( temp_output_25_0 * 7.6 ) , 0.0 , 1.0 );
 				float2 panner20 = ( mulTime18 * _Vector1 + texCoord14);
-				float4 clampResult59 = clamp( ( temp_output_131_0 + ( pow( tex2D( _SandPattern, panner20 ) , 0.44 ) * ( 1.0 - tex2D( _Tex_VFX_Sandfall_a_alpha, panner12 ).r ) ) ) , float4( 0,0,0,0 ) , float4( 1,1,1,0 ) );
-				float4 clampResult31 = clamp( ( clampResult52 * clampResult59 ) , float4( 0,0,0,0 ) , float4( 1,0,0,0 ) );
+				float clampResult59 = clamp( ( 0.0 + ( pow( tex2D( _SandPattern, panner20 ).r , 0.44 ) * ( 1.0 - tex2D( _Tex_VFX_Sandfall_a_alpha, panner12 ).r ) ) ) , 0.0 , 1.0 );
+				float clampResult31 = clamp( ( clampResult52 * clampResult59 ) , 0.0 , 1.0 );
 				
 				surfaceDescription.Color = ( clampResult56 * clampResult57 ).rgb;
 				surfaceDescription.Emission = temp_cast_1;
-				surfaceDescription.Alpha = clampResult31.r;
+				surfaceDescription.Alpha = ( clampResult31 * 0.78 );
 				surfaceDescription.AlphaClipThreshold =  _AlphaCutoff;
 
 				SurfaceData surfaceData;
@@ -1103,9 +1103,9 @@ Shader "Sha_VFX_Sandfall_a"
 
 			HLSLPROGRAM
 
+			#pragma shader_feature_local_fragment _ENABLE_FOG_ON_TRANSPARENT
 			#pragma multi_compile_instancing
 			#pragma instancing_options renderinglayer
-			#pragma shader_feature_local_fragment _ENABLE_FOG_ON_TRANSPARENT
 			#define ASE_SRP_VERSION 160005
 
 
@@ -1407,17 +1407,17 @@ Shader "Sha_VFX_Sandfall_a"
 				BuiltinData builtinData;
 				SurfaceDescription surfaceDescription = (SurfaceDescription)0;
 				float2 texCoord22 = packedInput.ase_texcoord.xy * float2( 1,1 ) + float2( 0,0 );
-				float clampResult52 = clamp( ( ( ( ( 1.0 - texCoord22.x ) * texCoord22.x ) * ( texCoord22.y * 1.0 ) ) * 35.73 ) , 0.0 , 1.0 );
-				float temp_output_131_0 = pow( texCoord22.y , 2.14 );
+				float temp_output_25_0 = ( texCoord22.y * ( 1.0 - texCoord22.y ) );
+				float clampResult52 = clamp( ( temp_output_25_0 * 7.6 ) , 0.0 , 1.0 );
 				float mulTime18 = _TimeParameters.x * _speed;
 				float2 _Vector1 = float2(0,0.3);
 				float2 texCoord14 = packedInput.ase_texcoord.zw * float2( 1,1 ) + float2( 0,0 );
 				float2 panner20 = ( mulTime18 * _Vector1 + texCoord14);
 				float2 panner12 = ( mulTime18 * float2( 0,0.2 ) + texCoord14);
-				float4 clampResult59 = clamp( ( temp_output_131_0 + ( pow( tex2D( _SandPattern, panner20 ) , 0.44 ) * ( 1.0 - tex2D( _Tex_VFX_Sandfall_a_alpha, panner12 ).r ) ) ) , float4( 0,0,0,0 ) , float4( 1,1,1,0 ) );
-				float4 clampResult31 = clamp( ( clampResult52 * clampResult59 ) , float4( 0,0,0,0 ) , float4( 1,0,0,0 ) );
+				float clampResult59 = clamp( ( 0.0 + ( pow( tex2D( _SandPattern, panner20 ).r , 0.44 ) * ( 1.0 - tex2D( _Tex_VFX_Sandfall_a_alpha, panner12 ).r ) ) ) , 0.0 , 1.0 );
+				float clampResult31 = clamp( ( clampResult52 * clampResult59 ) , 0.0 , 1.0 );
 				
-				surfaceDescription.Alpha = clampResult31.r;
+				surfaceDescription.Alpha = ( clampResult31 * 0.78 );
 				surfaceDescription.AlphaClipThreshold =  _AlphaCutoff;
 
 				GetSurfaceAndBuiltinData(surfaceDescription, input, V, posInput, surfaceData, builtinData);
@@ -1454,9 +1454,9 @@ Shader "Sha_VFX_Sandfall_a"
 
 			HLSLPROGRAM
 
+			#pragma shader_feature_local_fragment _ENABLE_FOG_ON_TRANSPARENT
 			#pragma multi_compile_instancing
 			#pragma instancing_options renderinglayer
-			#pragma shader_feature_local_fragment _ENABLE_FOG_ON_TRANSPARENT
 			#define ASE_SRP_VERSION 160005
 
 
@@ -1766,17 +1766,17 @@ Shader "Sha_VFX_Sandfall_a"
 
 				SurfaceDescription surfaceDescription = (SurfaceDescription)0;
 				float2 texCoord22 = packedInput.ase_texcoord.xy * float2( 1,1 ) + float2( 0,0 );
-				float clampResult52 = clamp( ( ( ( ( 1.0 - texCoord22.x ) * texCoord22.x ) * ( texCoord22.y * 1.0 ) ) * 35.73 ) , 0.0 , 1.0 );
-				float temp_output_131_0 = pow( texCoord22.y , 2.14 );
+				float temp_output_25_0 = ( texCoord22.y * ( 1.0 - texCoord22.y ) );
+				float clampResult52 = clamp( ( temp_output_25_0 * 7.6 ) , 0.0 , 1.0 );
 				float mulTime18 = _TimeParameters.x * _speed;
 				float2 _Vector1 = float2(0,0.3);
 				float2 texCoord14 = packedInput.ase_texcoord.zw * float2( 1,1 ) + float2( 0,0 );
 				float2 panner20 = ( mulTime18 * _Vector1 + texCoord14);
 				float2 panner12 = ( mulTime18 * float2( 0,0.2 ) + texCoord14);
-				float4 clampResult59 = clamp( ( temp_output_131_0 + ( pow( tex2D( _SandPattern, panner20 ) , 0.44 ) * ( 1.0 - tex2D( _Tex_VFX_Sandfall_a_alpha, panner12 ).r ) ) ) , float4( 0,0,0,0 ) , float4( 1,1,1,0 ) );
-				float4 clampResult31 = clamp( ( clampResult52 * clampResult59 ) , float4( 0,0,0,0 ) , float4( 1,0,0,0 ) );
+				float clampResult59 = clamp( ( 0.0 + ( pow( tex2D( _SandPattern, panner20 ).r , 0.44 ) * ( 1.0 - tex2D( _Tex_VFX_Sandfall_a_alpha, panner12 ).r ) ) ) , 0.0 , 1.0 );
+				float clampResult31 = clamp( ( clampResult52 * clampResult59 ) , 0.0 , 1.0 );
 				
-				surfaceDescription.Alpha = clampResult31.r;
+				surfaceDescription.Alpha = ( clampResult31 * 0.78 );
 				surfaceDescription.AlphaClipThreshold =  _AlphaCutoff;
 
 				SurfaceData surfaceData;
@@ -1813,9 +1813,9 @@ Shader "Sha_VFX_Sandfall_a"
 
 			HLSLPROGRAM
 
+			#pragma shader_feature_local_fragment _ENABLE_FOG_ON_TRANSPARENT
 			#pragma multi_compile_instancing
 			#pragma instancing_options renderinglayer
-			#pragma shader_feature_local_fragment _ENABLE_FOG_ON_TRANSPARENT
 			#define ASE_SRP_VERSION 160005
 
 
@@ -2141,17 +2141,17 @@ Shader "Sha_VFX_Sandfall_a"
 
 				SurfaceDescription surfaceDescription = (SurfaceDescription)0;
 				float2 texCoord22 = packedInput.ase_texcoord2.xy * float2( 1,1 ) + float2( 0,0 );
-				float clampResult52 = clamp( ( ( ( ( 1.0 - texCoord22.x ) * texCoord22.x ) * ( texCoord22.y * 1.0 ) ) * 35.73 ) , 0.0 , 1.0 );
-				float temp_output_131_0 = pow( texCoord22.y , 2.14 );
+				float temp_output_25_0 = ( texCoord22.y * ( 1.0 - texCoord22.y ) );
+				float clampResult52 = clamp( ( temp_output_25_0 * 7.6 ) , 0.0 , 1.0 );
 				float mulTime18 = _TimeParameters.x * _speed;
 				float2 _Vector1 = float2(0,0.3);
 				float2 texCoord14 = packedInput.ase_texcoord2.zw * float2( 1,1 ) + float2( 0,0 );
 				float2 panner20 = ( mulTime18 * _Vector1 + texCoord14);
 				float2 panner12 = ( mulTime18 * float2( 0,0.2 ) + texCoord14);
-				float4 clampResult59 = clamp( ( temp_output_131_0 + ( pow( tex2D( _SandPattern, panner20 ) , 0.44 ) * ( 1.0 - tex2D( _Tex_VFX_Sandfall_a_alpha, panner12 ).r ) ) ) , float4( 0,0,0,0 ) , float4( 1,1,1,0 ) );
-				float4 clampResult31 = clamp( ( clampResult52 * clampResult59 ) , float4( 0,0,0,0 ) , float4( 1,0,0,0 ) );
+				float clampResult59 = clamp( ( 0.0 + ( pow( tex2D( _SandPattern, panner20 ).r , 0.44 ) * ( 1.0 - tex2D( _Tex_VFX_Sandfall_a_alpha, panner12 ).r ) ) ) , 0.0 , 1.0 );
+				float clampResult31 = clamp( ( clampResult52 * clampResult59 ) , 0.0 , 1.0 );
 				
-				surfaceDescription.Alpha = clampResult31.r;
+				surfaceDescription.Alpha = ( clampResult31 * 0.78 );
 				surfaceDescription.AlphaClipThreshold =  _AlphaCutoff;
 
 
@@ -2305,34 +2305,33 @@ Node;AmplifyShaderEditor.SimpleTimeNode;18;-2384,288;Inherit;False;1;0;FLOAT;1;F
 Node;AmplifyShaderEditor.TexturePropertyNode;122;-1712,224;Inherit;True;Property;_SandPattern;Sand Pattern;3;0;Create;True;0;0;0;False;0;False;b479cc8410bbf304c8d33743f265660d;b479cc8410bbf304c8d33743f265660d;False;white;Auto;Texture2D;-1;0;2;SAMPLER2D;0;SAMPLERSTATE;1
 Node;AmplifyShaderEditor.PannerNode;20;-1968,336;Inherit;False;3;0;FLOAT2;0,0;False;2;FLOAT2;0,0;False;1;FLOAT;1;False;1;FLOAT2;0
 Node;AmplifyShaderEditor.PannerNode;12;-1888,-96;Inherit;False;3;0;FLOAT2;0,0;False;2;FLOAT2;0,0;False;1;FLOAT;1;False;1;FLOAT2;0
-Node;AmplifyShaderEditor.TextureCoordinatesNode;22;-1792,752;Inherit;False;1;-1;2;3;2;SAMPLER2D;;False;0;FLOAT2;1,1;False;1;FLOAT2;0,0;False;5;FLOAT2;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
-Node;AmplifyShaderEditor.OneMinusNode;24;-1312,768;Inherit;False;1;0;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.SamplerNode;9;-1136,32;Inherit;True;Property;_Tex_VFX_Sandfall_a_alpha;Tex_VFX_Sandfall_a_alpha;0;0;Create;True;0;0;0;False;0;False;-1;243eff6f8fa10684e9e5f4bc259c9101;243eff6f8fa10684e9e5f4bc259c9101;True;0;False;white;Auto;False;Object;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.SamplerNode;13;-1280,256;Inherit;True;Property;_Tex_VFX_Sandfall_a_alphapattern;Tex_VFX_Sandfall_a_alphapattern;2;0;Create;True;0;0;0;False;0;False;-1;b479cc8410bbf304c8d33743f265660d;b479cc8410bbf304c8d33743f265660d;True;0;False;white;Auto;False;Object;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
-Node;AmplifyShaderEditor.SimpleMultiplyOpNode;23;-1088,768;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.TextureCoordinatesNode;22;-1792,752;Inherit;False;1;-1;2;3;2;SAMPLER2D;;False;0;FLOAT2;1,1;False;1;FLOAT2;0,0;False;5;FLOAT2;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.OneMinusNode;16;-688,16;Inherit;False;1;0;FLOAT;0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.PowerNode;37;-896,256;Inherit;False;False;2;0;COLOR;0,0,0,0;False;1;FLOAT;0.44;False;1;COLOR;0
+Node;AmplifyShaderEditor.PowerNode;37;-896,256;Inherit;False;False;2;0;FLOAT;0;False;1;FLOAT;0.44;False;1;FLOAT;0
+Node;AmplifyShaderEditor.OneMinusNode;26;-1344,976;Inherit;False;1;0;FLOAT;0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.SimpleMultiplyOpNode;19;-704,240;Inherit;True;2;2;0;FLOAT;0;False;1;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode;25;-1088,896;Inherit;True;2;2;0;FLOAT;0;False;1;FLOAT;1;False;1;FLOAT;0
+Node;AmplifyShaderEditor.SimpleAddOpNode;128;-583.3436,569.5597;Inherit;True;2;2;0;FLOAT;0;False;1;FLOAT;0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.SimpleMultiplyOpNode;29;-704,768;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;7.6;False;1;FLOAT;0
+Node;AmplifyShaderEditor.ClampOpNode;59;-384,256;Inherit;False;3;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;1;False;1;FLOAT;0
+Node;AmplifyShaderEditor.ClampOpNode;52;-480,816;Inherit;True;3;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;1;False;1;FLOAT;0
+Node;AmplifyShaderEditor.SimpleMultiplyOpNode;30;-48,480;Inherit;True;2;2;0;FLOAT;0;False;1;FLOAT;0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.ClampOpNode;31;608,80;Inherit;False;3;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;1;False;1;FLOAT;0
+Node;AmplifyShaderEditor.OneMinusNode;24;-1312,768;Inherit;False;1;0;FLOAT;0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.SimpleMultiplyOpNode;23;-1088,768;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode;27;-896,768;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.SimpleMultiplyOpNode;19;-704,240;Inherit;True;2;2;0;COLOR;0,0,0,0;False;1;FLOAT;0;False;1;COLOR;0
 Node;AmplifyShaderEditor.PowerNode;131;-1088,512;Inherit;True;False;2;0;FLOAT;0;False;1;FLOAT;2.14;False;1;FLOAT;0
-Node;AmplifyShaderEditor.SimpleMultiplyOpNode;29;-704,768;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;35.73;False;1;FLOAT;0
-Node;AmplifyShaderEditor.SimpleAddOpNode;128;-583.3436,569.5597;Inherit;True;2;2;0;FLOAT;0;False;1;COLOR;0,0,0,0;False;1;COLOR;0
-Node;AmplifyShaderEditor.ClampOpNode;52;-512,768;Inherit;True;3;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;1;False;1;FLOAT;0
-Node;AmplifyShaderEditor.ClampOpNode;59;-384,256;Inherit;False;3;0;COLOR;0,0,0,0;False;1;COLOR;0,0,0,0;False;2;COLOR;1,1,1,0;False;1;COLOR;0
-Node;AmplifyShaderEditor.SimpleMultiplyOpNode;30;-128,256;Inherit;True;2;2;0;FLOAT;0;False;1;COLOR;0,0,0,0;False;1;COLOR;0
 Node;AmplifyShaderEditor.SimpleAddOpNode;33;-624,-256;Inherit;True;2;2;0;COLOR;0,0,0,0;False;1;COLOR;0,0,0,0;False;1;COLOR;0
 Node;AmplifyShaderEditor.TextureCoordinatesNode;44;-896,-752;Inherit;False;0;-1;2;3;2;SAMPLER2D;;False;0;FLOAT2;1,1;False;1;FLOAT2;0,0;False;5;FLOAT2;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.PannerNode;43;-544,-640;Inherit;False;3;0;FLOAT2;0,0;False;2;FLOAT2;0,0;False;1;FLOAT;1;False;1;FLOAT2;0
 Node;AmplifyShaderEditor.SamplerNode;41;-336,-752;Inherit;True;Property;_Tex_VFX_Sandfall_a_alphapattern1;Tex_VFX_Sandfall_a_alphapattern;3;0;Create;True;0;0;0;False;0;False;-1;b479cc8410bbf304c8d33743f265660d;b479cc8410bbf304c8d33743f265660d;True;0;False;white;Auto;False;Object;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.Vector2Node;45;-1088,-768;Inherit;False;Constant;_Vector2;Vector 2;4;0;Create;True;0;0;0;False;0;False;0,-0.01;0,0;0;3;FLOAT2;0;FLOAT;1;FLOAT;2
-Node;AmplifyShaderEditor.RangedFloatNode;72;1024,-304;Inherit;False;Constant;_Float0;Float 0;4;0;Create;True;0;0;0;False;0;False;0;0;0;0;0;1;FLOAT;0
-Node;AmplifyShaderEditor.ClampOpNode;31;608,80;Inherit;False;3;0;COLOR;0,0,0,0;False;1;COLOR;0,0,0,0;False;2;COLOR;1,0,0,0;False;1;COLOR;0
 Node;AmplifyShaderEditor.ColorNode;35;-992,-432;Inherit;False;Property;_Color0;Color 0;4;0;Create;True;0;0;0;False;0;False;0.7924528,0.7441841,0.6242435,0;0.7924528,0.7441841,0.6242435,0;True;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.SamplerNode;11;-1328,-240;Inherit;True;Property;_Tex_VFX_Sandfall_a_color;Tex_VFX_Sandfall_a_color;1;0;Create;True;0;0;0;False;0;False;-1;41e96239598e72a4caf42628b50e3cd2;41e96239598e72a4caf42628b50e3cd2;True;0;False;white;Auto;False;Object;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.SimpleAddOpNode;129;-16,-592;Inherit;True;2;2;0;COLOR;0,0,0,0;False;1;FLOAT;0;False;1;COLOR;0
 Node;AmplifyShaderEditor.ClampOpNode;130;208,-592;Inherit;True;3;0;COLOR;0,0,0,0;False;1;COLOR;0,0,0,0;False;2;COLOR;1,1,1,0;False;1;COLOR;0
-Node;AmplifyShaderEditor.OneMinusNode;26;-1344,976;Inherit;False;1;0;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.WorldNormalVector;187;1733.833,-874.4093;Inherit;False;False;1;0;FLOAT3;0,0,1;False;4;FLOAT3;0;FLOAT;1;FLOAT;2;FLOAT;3
 Node;AmplifyShaderEditor.FunctionNode;186;1520,-592;Inherit;False;World Normal Face;-1;;3;8ad4248928242e14ab87cd99e6913c33;1,86,1;0;1;FLOAT3;30
 Node;AmplifyShaderEditor.BreakToComponentsNode;188;1807.456,-448.0081;Inherit;False;FLOAT3;1;0;FLOAT3;0,0,0;False;16;FLOAT;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4;FLOAT;5;FLOAT;6;FLOAT;7;FLOAT;8;FLOAT;9;FLOAT;10;FLOAT;11;FLOAT;12;FLOAT;13;FLOAT;14;FLOAT;15
@@ -2346,7 +2345,9 @@ Node;AmplifyShaderEditor.PowerNode;58;832,-656;Inherit;True;False;2;0;COLOR;0,0,
 Node;AmplifyShaderEditor.SimpleAddOpNode;54;560,-768;Inherit;True;2;2;0;COLOR;0,0,0,0;False;1;COLOR;0,0,0,0;False;1;COLOR;0
 Node;AmplifyShaderEditor.ColorNode;55;128,-944;Inherit;False;Property;_Color1;Color 1;5;0;Create;True;0;0;0;False;0;False;0.8679245,0.4903704,0.3234247,0;0.8679245,0.4903704,0.3234247,0;True;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.ClampOpNode;57;64,-224;Inherit;False;3;0;COLOR;0,0,0,0;False;1;COLOR;0,0,0,0;False;2;COLOR;1,1,1,0;False;1;COLOR;0
-Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;195;2160,-336;Float;False;True;-1;2;Rendering.HighDefinition.HDUnlitGUI;0;13;Sha_VFX_Sandfall_a;7f5cb9c3ea6481f469fdd856555439ef;True;Forward Unlit;0;0;Forward Unlit;9;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;3;RenderPipeline=HDRenderPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;5;True;7;d3d11;metal;vulkan;xboxone;xboxseries;playstation;switch;0;False;False;False;False;True;3;1;False;;10;False;;0;1;False;;0;False;;False;False;True;1;1;False;;0;True;_DstBlend2;0;1;False;;0;False;;False;False;True;1;1;False;;0;True;_DstBlend2;0;1;False;;0;False;;False;False;False;True;0;True;_CullModeForward;False;False;False;True;True;True;True;True;0;True;_ColorMaskTransparentVel;False;False;False;False;False;True;True;0;True;_StencilRef;255;False;;255;True;_StencilWriteMask;7;False;;3;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;True;0;True;_ZWrite;True;0;True;_ZTestDepthEqualForOpaque;False;True;1;LightMode=ForwardOnly;False;False;0;Hidden/InternalErrorShader;0;0;Standard;30;Surface Type;0;638497467048815431;  Rendering Pass ;0;0;  Rendering Pass;1;0;  Blending Mode;0;0;  Receive Fog;1;0;  Distortion;0;638497467023904162;    Distortion Mode;0;0;    Distortion Only;1;0;  Depth Write;1;0;  Cull Mode;0;638497466986557378;  Depth Test;4;0;Double-Sided;1;638497467157638573;Alpha Clipping;0;0;Receive Decals;1;0;Motion Vectors;0;638497467453608977;  Add Precomputed Velocity;0;0;Shadow Matte;0;638497467431587427;Cast Shadows;0;638497467201461752;GPU Instancing;1;0;Tessellation;0;0;  Phong;0;0;  Strength;0.5,False,;0;  Type;0;0;  Tess;16,False,;0;  Min;10,False,;0;  Max;25,False,;0;  Edge Length;16,False,;0;  Max Displacement;25,False,;0;Vertex Position,InvertActionOnDeselection;1;0;LOD CrossFade;0;0;0;8;True;False;True;True;True;False;False;True;False;;False;0
+Node;AmplifyShaderEditor.RangedFloatNode;72;1296,-192;Inherit;False;Constant;_Float0;Float 0;4;0;Create;True;0;0;0;False;0;False;0;0;0;0;0;1;FLOAT;0
+Node;AmplifyShaderEditor.SimpleMultiplyOpNode;203;1680.578,83.25812;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;0.78;False;1;FLOAT;0
+Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;195;2160,-336;Float;False;True;-1;2;Rendering.HighDefinition.HDUnlitGUI;0;13;Sha_VFX_Sandfall_a;7f5cb9c3ea6481f469fdd856555439ef;True;Forward Unlit;0;0;Forward Unlit;9;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;3;RenderPipeline=HDRenderPipeline;RenderType=Opaque=RenderType;Queue=Transparent=Queue=0;True;5;True;7;d3d11;metal;vulkan;xboxone;xboxseries;playstation;switch;0;False;False;False;False;True;3;1;False;;10;False;;0;1;False;;0;False;;False;False;True;1;1;False;;0;True;_DstBlend2;0;1;False;;0;False;;False;False;True;1;1;False;;0;True;_DstBlend2;0;1;False;;0;False;;False;False;False;True;0;True;_CullModeForward;False;False;False;True;True;True;True;True;0;True;_ColorMaskTransparentVel;False;False;False;False;False;True;True;0;True;_StencilRef;255;False;;255;True;_StencilWriteMask;7;False;;3;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;True;0;True;_ZWrite;True;0;True;_ZTestDepthEqualForOpaque;False;True;1;LightMode=ForwardOnly;False;False;0;Hidden/InternalErrorShader;0;0;Standard;30;Surface Type;1;638503265862474423;  Rendering Pass ;0;0;  Rendering Pass;1;0;  Blending Mode;0;0;  Receive Fog;1;0;  Distortion;0;638497467023904162;    Distortion Mode;0;0;    Distortion Only;1;0;  Depth Write;1;0;  Cull Mode;0;638497466986557378;  Depth Test;4;0;Double-Sided;1;638503265890199419;Alpha Clipping;0;0;Receive Decals;1;0;Motion Vectors;0;638497467453608977;  Add Precomputed Velocity;0;0;Shadow Matte;0;638497467431587427;Cast Shadows;0;638503265798980278;GPU Instancing;1;0;Tessellation;0;0;  Phong;0;0;  Strength;0.5,False,;0;  Type;0;0;  Tess;16,False,;0;  Min;10,False,;0;  Max;25,False,;0;  Edge Length;16,False,;0;  Max Displacement;25,False,;0;Vertex Position,InvertActionOnDeselection;1;0;LOD CrossFade;0;0;0;8;True;False;True;True;True;False;False;True;False;;False;0
 Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;196;2160,-336;Float;False;False;-1;2;Rendering.HighDefinition.HDUnlitGUI;0;1;New Amplify Shader;7f5cb9c3ea6481f469fdd856555439ef;True;ShadowCaster;0;1;ShadowCaster;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;3;RenderPipeline=HDRenderPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;5;True;7;d3d11;metal;vulkan;xboxone;xboxseries;playstation;switch;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;0;True;_CullMode;False;True;False;False;False;False;0;False;;False;False;False;False;False;False;False;False;False;True;1;False;;False;False;True;1;LightMode=ShadowCaster;False;False;0;Hidden/InternalErrorShader;0;0;Standard;0;False;0
 Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;197;2160,-336;Float;False;False;-1;2;Rendering.HighDefinition.HDUnlitGUI;0;1;New Amplify Shader;7f5cb9c3ea6481f469fdd856555439ef;True;META;0;2;META;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;3;RenderPipeline=HDRenderPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;5;True;7;d3d11;metal;vulkan;xboxone;xboxseries;playstation;switch;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;2;False;;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;1;LightMode=Meta;False;False;0;Hidden/InternalErrorShader;0;0;Standard;0;False;0
 Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;198;2160,-336;Float;False;False;-1;2;Rendering.HighDefinition.HDUnlitGUI;0;1;New Amplify Shader;7f5cb9c3ea6481f469fdd856555439ef;True;SceneSelectionPass;0;3;SceneSelectionPass;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;3;RenderPipeline=HDRenderPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;5;True;7;d3d11;metal;vulkan;xboxone;xboxseries;playstation;switch;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;2;False;;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;1;LightMode=SceneSelectionPass;False;False;0;Hidden/InternalErrorShader;0;0;Standard;0;False;0
@@ -2361,27 +2362,29 @@ WireConnection;20;1;18;0
 WireConnection;12;0;14;0
 WireConnection;12;2;17;0
 WireConnection;12;1;18;0
-WireConnection;24;0;22;1
 WireConnection;9;1;12;0
 WireConnection;13;0;122;0
 WireConnection;13;1;20;0
-WireConnection;23;0;24;0
-WireConnection;23;1;22;1
 WireConnection;16;0;9;1
-WireConnection;37;0;13;0
-WireConnection;25;0;22;2
-WireConnection;27;0;23;0
-WireConnection;27;1;25;0
+WireConnection;37;0;13;1
+WireConnection;26;0;22;2
 WireConnection;19;0;37;0
 WireConnection;19;1;16;0
-WireConnection;131;0;22;2
-WireConnection;29;0;27;0
-WireConnection;128;0;131;0
+WireConnection;25;0;22;2
+WireConnection;25;1;26;0
 WireConnection;128;1;19;0
-WireConnection;52;0;29;0
+WireConnection;29;0;25;0
 WireConnection;59;0;128;0
+WireConnection;52;0;29;0
 WireConnection;30;0;52;0
 WireConnection;30;1;59;0
+WireConnection;31;0;30;0
+WireConnection;24;0;22;1
+WireConnection;23;0;24;0
+WireConnection;23;1;22;1
+WireConnection;27;0;23;0
+WireConnection;27;1;25;0
+WireConnection;131;0;22;2
 WireConnection;33;0;11;0
 WireConnection;33;1;35;0
 WireConnection;44;1;45;0
@@ -2390,12 +2393,10 @@ WireConnection;43;2;21;0
 WireConnection;43;1;18;0
 WireConnection;41;0;122;0
 WireConnection;41;1;43;0
-WireConnection;31;0;30;0
 WireConnection;11;1;12;0
 WireConnection;129;0;41;0
 WireConnection;129;1;131;0
 WireConnection;130;0;129;0
-WireConnection;26;0;22;2
 WireConnection;188;0;186;30
 WireConnection;190;0;191;0
 WireConnection;194;0;189;2
@@ -2409,8 +2410,9 @@ WireConnection;58;0;54;0
 WireConnection;54;0;55;0
 WireConnection;54;1;130;0
 WireConnection;57;0;33;0
+WireConnection;203;0;31;0
 WireConnection;195;0;39;0
 WireConnection;195;1;72;0
-WireConnection;195;2;31;0
+WireConnection;195;2;203;0
 ASEEND*/
-//CHKSM=0ABD7FCED2193F144775644873438A1563949BD8
+//CHKSM=E2F9DCDF015D6DEA9B4BA948DE8A64B2BD42D49F
