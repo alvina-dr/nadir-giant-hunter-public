@@ -17,29 +17,29 @@ MonoBehaviour:
   walkSpeed: 15
   jumpForce: 50
   jumpCooldown: 0.25
-  airMultiplier: 0.4
+  airMultiplier: 0.1
   groundDrag: 3
   charaHeight: 1.8
-  swingSpeed: 15
-  swingMaxSpeed: 30
-  swingAcceleration: 1.5
+  swingSpeed: 10
+  swingMaxSpeed: 80
+  swingAcceleration: 5
   minSwingDistance: 25
   maxSwingDistance: 200
-  startCurveSpeedBoost: 100
-  endCurveSpeedBoost: 50
-  radiusDetectionIncreaseSpeed: 1000
+  startCurveSpeedBoost: 0
+  endCurveSpeedBoost: 0
+  radiusDetectionIncreaseSpeed: 10
   fovAddition: 0
-  airSlowDown: 0.999
-  attackDistance: 62
+  airSlowDown: 500
+  attackDistance: 100
   attackStopDistance: 1
   dragForce: 20
-  weakSpotDetectionDistance: 62
+  weakSpotDetectionDistance: 100
   doubleSwingBoost: 100
   doubleSwingLineRendererDuration: 0.5
-  dashForce: 210
-  slowDownTime: 0.1
-  timeBeforeAutomaticDash: 5
+  dashForce: 500
+  slowDownTime: 0.01
+  timeBeforeAutomaticDash: 20
   dashTime: 0.5
-  bumpForce: 0
+  bumpForce: 100
   startCurveBoost: 0
   endCurveBoost: 0
