@@ -31,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
         Grounded = Physics.Raycast(transform.position, Vector3.down, Player.Data.charaHeight * 0.5f + 0.3f, WhatIsGround);
         _horizontalInput = Player.InputManager.Gameplay.Move.ReadValue<Vector2>().x;
         _verticalInput = Player.InputManager.Gameplay.Move.ReadValue<Vector2>().y;
-        if (Player.PlayerAttack.IsGrappling || GPCtrl.Instance.Pause || GPCtrl.Instance.DashPause)
+        if (Player.PlayerAttack.IsGrappling || Player.PlayerDash.IsDashing || GPCtrl.Instance.Pause || GPCtrl.Instance.DashPause)
         {
             _horizontalInput = 0;
             _verticalInput = 0;
@@ -100,6 +100,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void SpeedControl()
     {
+        if (Player.PlayerDash.IsDashing || Player.PlayerAttack.IsGrappling) return;
         Vector3 flatVel = new Vector3(Player.Rigibody.velocity.x, 0f, Player.Rigibody.velocity.z);
         if (flatVel.magnitude > CurrentMoveSpeed) // limit velocity if needed
         {
