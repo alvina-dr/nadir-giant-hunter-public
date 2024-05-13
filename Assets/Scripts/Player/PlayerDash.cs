@@ -8,18 +8,9 @@ public class PlayerDash : MonoBehaviour
     public GameObject forwardIndication;
     public bool IsDashing;
 
-    private void Update()
-    {
-        //if (GPCtrl.Instance.DashPause)
-        //{
-            //forwardIndication.transform.forward = (GPCtrl.Instance.Player.transform.position - Camera.main.transform.position).normalized;
-        //}
-    }
-
     public void Dash()
     {
         IsDashing = true;
-        Debug.Log("Dash : " + Camera.main.transform.forward.normalized);
         GPCtrl.Instance.DashPause = false;
         Time.timeScale = 1;
         Player.Rigibody.velocity = Vector3.zero;
@@ -33,13 +24,11 @@ public class PlayerDash : MonoBehaviour
     private IEnumerator PrintSpeed()
     {
         yield return new WaitForFixedUpdate();
-        Debug.Log("rb velocity : " + Player.Rigibody.velocity);
     }
 
     private IEnumerator StopDash()
     {
         yield return new WaitForSecondsRealtime(Player.Data.dashTime);
-        Debug.Log("STOP DASH");
         Player.Rigibody.useGravity = true;
         IsDashing = false;
     }

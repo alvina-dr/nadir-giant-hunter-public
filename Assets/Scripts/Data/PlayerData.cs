@@ -69,6 +69,9 @@ public class PlayerData : ScriptableObject
     [TabGroup("Dash")]
     public float dashTime;
 
+    [TabGroup("Bumper")]
+    public float bumpForce;
+
     [Header("Tests")]
     public bool startCurveBoost;
     public bool endCurveBoost;
