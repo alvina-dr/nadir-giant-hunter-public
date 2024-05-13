@@ -9,7 +9,8 @@ public class TargetableSpot : MonoBehaviour
     public enum SpotType
     {
         WeakSpot = 0,
-        DashSpot = 1
+        DashSpot = 1, 
+        Bumper = 2
     }
     public SpotType SpotCurrentType;
     [ShowIf("SpotCurrentType", SpotType.WeakSpot)]
@@ -47,7 +48,6 @@ public class TargetableSpot : MonoBehaviour
     private IEnumerator DashSlowDown()
     {
         yield return new WaitForSecondsRealtime(GPCtrl.Instance.Player.Data.timeBeforeAutomaticDash);
-        Debug.Log("DASH SLOW DOWN");
         if (GPCtrl.Instance.DashPause) GPCtrl.Instance.Player.PlayerDash.Dash();
     }
 
