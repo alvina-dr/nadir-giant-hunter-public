@@ -171,7 +171,7 @@ public class PlayerSwinging : MonoBehaviour
         //{
         //    dir = -dir;
         //}
-        BaseSwingAnimation.forward = dir;
+        BaseSwingAnimation.right = dir;
         BaseSwingAnimation.rotation = Quaternion.LookRotation(dir, Vector3.up) * Quaternion.Euler(0, -90, 0);
     }
 
