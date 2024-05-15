@@ -22,6 +22,7 @@ namespace Enemies
         public Transform Target;
         public Transform TargetPos;
         public GameObject LastBone;
+        public GameObject FirstBone;
         [HideInInspector]
         public Vector3 LastPosTarg;
         [HideInInspector]
@@ -47,11 +48,11 @@ namespace Enemies
     {
         //Components
         [TitleGroup("Components")]
-        [SerializeField] private List<IkLegPair> _iksLegPairs = new List<IkLegPair>();
+        public List<IkLegPair> _iksLegPairs = new List<IkLegPair>();
         public Vector3 TargetPosition;
         [HideInInspector] public Vector3 overrideDir = Vector3.zero;
         [SerializeField] private SkinnedMeshRenderer _skinnedMeshRenderer;
-
+        private Waving _waving;
 
         //Parameters
         [TitleGroup("Parameters")]
@@ -117,6 +118,7 @@ namespace Enemies
         // Start is called before the first frame update
         void Start()
         {
+            _waving = GetComponent<Waving>();
             InitTargetsPos();
         }
 
@@ -160,6 +162,7 @@ namespace Enemies
                     if (leg.UseTwoBonesIk && leg.Ik.enabled || !leg.UseTwoBonesIk && leg.ChainIk.enabled)
                     {
                         leg.Target.position = leg.LastPos;
+                        _waving.IkHarmCompensateWave(leg);
                         Debug.DrawRay(leg.LastPos, Vector3.up * 10);
                         Debug.DrawRay(leg.LastPos, Vector3.right * 10);
                     }
