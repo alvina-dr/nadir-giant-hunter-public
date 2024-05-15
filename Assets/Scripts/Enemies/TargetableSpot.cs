@@ -2,6 +2,7 @@ using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class TargetableSpot : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class TargetableSpot : MonoBehaviour
         Bumper = 2
     }
     public SpotType SpotCurrentType;
+    public VisualEffect VisualFX;
     [ShowIf("SpotCurrentType", SpotType.WeakSpot)]
     public EnemyWeakSpotManagement Enemy;
 
@@ -38,7 +40,8 @@ public class TargetableSpot : MonoBehaviour
                 Time.timeScale = GPCtrl.Instance.Player.Data.slowDownTime;
                 StartCoroutine(DashSlowDown());
                 StartCoroutine(ReloadDashSpot());
-                Mesh.enabled = false;
+                VisualFX.SendEvent("collision");
+                //Mesh.enabled = false;
                 GPCtrl.Instance.TargetableSpotList.Remove(this);
                 break;
         }
@@ -55,6 +58,7 @@ public class TargetableSpot : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(GPCtrl.Instance.GeneralData.dashSpotReloadTime);
         GPCtrl.Instance.TargetableSpotList.Add(this);
-        Mesh.enabled = true;
+        //Mesh.enabled = true;
+        VisualFX.SendEvent("OnPlay");
     }
 }
