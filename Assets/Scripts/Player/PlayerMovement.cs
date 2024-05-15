@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
+using Sirenix.OdinInspector;
 using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
@@ -19,6 +21,10 @@ public class PlayerMovement : MonoBehaviour
     private float _verticalInput;
     private Vector3 _moveDirection;
     public bool CanJumpOnceInAir;
+
+    //Debug
+    [SerializeField, Sirenix.OdinInspector.ReadOnly]
+    private float _CurrentSpeed;
 
     private void Start()
     {
@@ -40,12 +46,16 @@ public class PlayerMovement : MonoBehaviour
 
         if (Player.PlayerSwingingLeft.IsSwinging || Player.PlayerSwingingRight.IsSwinging)
         {
-            if (CurrentMoveSpeed < Player.Data.swingSpeed) CurrentMoveSpeed = Player.Data.swingSpeed;
+            //Keep move speed btwn min and max of swing speed AND add an acceleration to it.
+            CurrentMoveSpeed = Mathf.Max(Player.Data.swingSpeed, CurrentMoveSpeed);
             CurrentMoveSpeed += Player.Data.swingAcceleration * Time.deltaTime;
-            if (CurrentMoveSpeed >= Player.Data.swingMaxSpeed) CurrentMoveSpeed = Player.Data.swingMaxSpeed;
+            CurrentMoveSpeed = Mathf.Min(Player.Data.swingMaxSpeed, CurrentMoveSpeed);
         }
-        else if (Grounded) CurrentMoveSpeed = Player.Data.walkSpeed;
+        else if (Grounded) CurrentMoveSpeed = Player.Data.walkSpeed;//set moveSpeed to WalkSpeed when grounded
 
+        _CurrentSpeed = Player.Rigibody.velocity.magnitude;
+
+        //Set drag depending on groundState and animation
         if (Grounded)
         {
             Player.Rigibody.drag = Player.Data.groundDrag;
@@ -58,9 +68,11 @@ public class PlayerMovement : MonoBehaviour
             Player.Animator.SetBool("Grounded", false);
         }
 
+        //walk Animation
         if (_moveDirection != Vector3.zero && Grounded)
             Player.Animator.SetBool("isWalking", true);
-        else if (_moveDirection == Vector3.zero && Grounded) Player.Animator.SetBool("isWalking", false);
+        else if (_moveDirection == Vector3.zero && Grounded)
+            Player.Animator.SetBool("isWalking", false);
     }
 
     private void FixedUpdate()
@@ -70,8 +82,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void MovePlayer()
     {
-        _moveDirection = Player.Orientation.forward * _verticalInput + Player.Orientation.right * _horizontalInput; // calculate movement direction
+        _moveDirection = Player.Orientation.forward * _verticalInput + Player.Orientation.right * _horizontalInput; // calculate input movement direction
 
+        //add force from input and player velo with certain force (air control when in air)
         if (Grounded) // on ground
             Player.Rigibody.AddForce(_moveDirection.normalized * CurrentMoveSpeed * 10f, ForceMode.Force);
         else // in air
@@ -98,6 +111,9 @@ public class PlayerMovement : MonoBehaviour
         _readyToJump = true;
     }
 
+    /// <summary>
+    /// Clamp the speed of the player when is not dashing to the currentMoveSpeed value
+    /// </summary>
     private void SpeedControl()
     {
         if (Player.PlayerDash.IsDashing || Player.PlayerAttack.IsGrappling) return;

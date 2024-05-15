@@ -22,7 +22,7 @@ public class DebugMenu : MonoBehaviour
             else DM.Open();
         }
         _wtf = GPCtrl.Instance.Player.Rigibody.velocity.magnitude.ToString();
-        DN.Notify("Speed : " + _wtf, 1);
+        //DN.Notify("Speed : " + _wtf, 1);
     }
 
     public void SetupDebugMenu()
