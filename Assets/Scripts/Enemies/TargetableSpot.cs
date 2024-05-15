@@ -32,8 +32,9 @@ public class TargetableSpot : MonoBehaviour
                     vfx.transform.position = transform.position;
                     Enemy.Damage(this);
                 }
+                VisualFX.SendEvent("collision");
+                StartCoroutine(DestroyAfterDelay());
                 GPCtrl.Instance.TargetableSpotList.Remove(this);
-                Destroy(gameObject);
                 break;
             case SpotType.DashSpot:
                 GPCtrl.Instance.DashPause = true;
@@ -60,5 +61,11 @@ public class TargetableSpot : MonoBehaviour
         GPCtrl.Instance.TargetableSpotList.Add(this);
         //Mesh.enabled = true;
         VisualFX.SendEvent("OnPlay");
+    }
+
+    private IEnumerator DestroyAfterDelay()
+    {
+        yield return new WaitForSecondsRealtime(1.0f);
+        Destroy(gameObject);
     }
 }
