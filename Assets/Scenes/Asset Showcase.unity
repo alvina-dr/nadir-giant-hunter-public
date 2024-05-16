@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 1426.006, g: 1580.8147, b: 2342.0256, a: 1}
+  m_IndirectSpecularColor: {r: 1427.1945, g: 1581.2366, b: 2341.5667, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -371,6 +371,9 @@ VisualEffect:
       - m_Value: {x: 22.12, y: 6.27, z: 0}
         m_Name: input velocity
         m_Overridden: 1
+      - m_Value: {x: 0, y: 0, z: 0}
+        m_Name: bypass velocity value
+        m_Overridden: 1
     m_Vector4f:
       m_Array:
       - m_Value: {x: 0.8784314, y: 0.15294117, z: 0.16729736, w: 1}
@@ -471,6 +474,9 @@ VisualEffect:
       m_Array:
       - m_Value: 0
         m_Name: kill tentacles
+        m_Overridden: 1
+      - m_Value: 0
+        m_Name: bypass velocity
         m_Overridden: 1
 --- !u!1 &157207112
 GameObject:
@@ -921,12 +927,12 @@ PrefabInstance:
     - target: {fileID: 4148005752741292242, guid: a380a9af41e079441a308404864f80b8,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.00000009868232
+      value: -0.00000006637803
       objectReference: {fileID: 0}
     - target: {fileID: 4148005752741292242, guid: a380a9af41e079441a308404864f80b8,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.000000036231103
+      value: -0.00000002437062
       objectReference: {fileID: 0}
     - target: {fileID: 5439288570597720854, guid: a380a9af41e079441a308404864f80b8,
         type: 3}
@@ -1016,12 +1022,12 @@ PrefabInstance:
     - target: {fileID: 7763139289796435826, guid: a380a9af41e079441a308404864f80b8,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.00000003138737
+      value: 0.00000003138737
       objectReference: {fileID: 0}
     - target: {fileID: 7763139289796435826, guid: a380a9af41e079441a308404864f80b8,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.000000014109275
+      value: 0.000000014109275
       objectReference: {fileID: 0}
     - target: {fileID: 8648787738928888980, guid: a380a9af41e079441a308404864f80b8,
         type: 3}
@@ -1642,7 +1648,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: ddf4a2ccb0b8ef247b1da4294181c6d2,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -100
+      value: -110.7
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ddf4a2ccb0b8ef247b1da4294181c6d2,
         type: 3}
