@@ -118,6 +118,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 257173779111668331}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4420066484461107419
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8145714931176276673}
+  m_Layer: 2
+  m_Name: FollowParticles
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8145714931176276673
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4420066484461107419}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.156, z: -0.1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1460274065303597221}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5338985080547449992
 GameObject:
   m_ObjectHideFlags: 0
@@ -526,6 +557,7 @@ MonoBehaviour:
   Player: {fileID: 5043027637049521611}
   forwardIndication: {fileID: 0}
   IsDashing: 0
+  CurrentDashSpot: {fileID: 0}
 --- !u!54 &8166567874876028922
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -903,6 +935,10 @@ PrefabInstance:
         type: 3}
       insertIndex: 0
       addedObject: {fileID: 257173779111668331}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3b7c5e875defd924c9f4e4301b8faaab,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8145714931176276673}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3b7c5e875defd924c9f4e4301b8faaab,
         type: 3}
