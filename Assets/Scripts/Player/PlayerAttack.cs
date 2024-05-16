@@ -69,7 +69,8 @@ public class PlayerAttack : MonoBehaviour
         {
             return Vector3.Distance(this.transform.position, a.transform.position).CompareTo(Vector3.Distance(this.transform.position, b.transform.position));
         });
-        GPCtrl.Instance.UICtrl.AttackInputIndication.HideIndicator();
+        if (GPCtrl.Instance.UICtrl != null)
+            GPCtrl.Instance.UICtrl.AttackInputIndication.HideIndicator();
         if (closestWeakSpotList.Count > 0 ) {
             if (Vector3.Distance(transform.position, closestWeakSpotList[0].transform.position) < Player.Data.weakSpotDetectionDistance)
             {
