@@ -59,7 +59,7 @@ public class PlayerSwinging : MonoBehaviour
             }
         }
 
-        if (TrySwing && !Player.PlayerAttack.IsGrappling) StartSwing();
+        if (TrySwing && !Player.PlayerAttack.IsGrappling && !GPCtrl.Instance.DashPause) StartSwing();
         else if (!Player.PlayerGrappleBoost.IsGrapplingBoost) StopSwing();
     }
 
