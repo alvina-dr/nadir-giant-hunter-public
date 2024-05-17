@@ -65,4 +65,10 @@ public class GPCtrl : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+
+    [Button]
+    public void Shake()
+    {
+        CameraThirdPerson.CameraShake.ShakeCamera(5, .5f);
+    }
 }

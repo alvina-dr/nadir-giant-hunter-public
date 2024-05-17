@@ -8,6 +8,7 @@ public class CameraThirdPerson : MonoBehaviour
     public Vector3 LookDirectionSave = Vector3.zero;
     public CinemachineFreeLook CinemachineFreeLook;
     public CinemachineTargetGroup CinemachineTargetGroup;
+    public CameraShake CameraShake;
     //public bool canMoveCamera;
 
     private void Update()

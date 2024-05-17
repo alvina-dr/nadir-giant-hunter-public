@@ -594,7 +594,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 5
-  m_FollowOffset: {x: 0, y: -2, z: -5}
+  m_FollowOffset: {x: 0, y: 10, z: -6}
   m_XDamping: 1
   m_YDamping: 0
   m_ZDamping: 0
@@ -691,6 +691,7 @@ GameObject:
   - component: {fileID: 1222323048892885843}
   - component: {fileID: 3405825141838471991}
   - component: {fileID: 6210509024893047403}
+  - component: {fileID: 3627954362006338013}
   m_Layer: 0
   m_Name: cm
   m_TagString: Untagged
@@ -738,7 +739,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 5
-  m_FollowOffset: {x: 0, y: -2, z: -5}
+  m_FollowOffset: {x: 0, y: 10, z: -6}
   m_XDamping: 1
   m_YDamping: 0
   m_ZDamping: 0
@@ -791,6 +792,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e8b78ac948f05a46a6d8339a503172b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3627954362006338013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5185078155751820710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_NoiseProfile: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
+  m_PivotOffset: {x: 0, y: 0, z: 0}
+  m_AmplitudeGain: 1
+  m_FrequencyGain: 1
+  mNoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &5258096268107281352
 GameObject:
   m_ObjectHideFlags: 0
@@ -861,6 +879,7 @@ MonoBehaviour:
   LookDirectionSave: {x: 0, y: 0, z: 0}
   CinemachineFreeLook: {fileID: 2204764063099714349}
   CinemachineTargetGroup: {fileID: 5439288570597720854}
+  CameraShake: {fileID: 508450122630835153}
 --- !u!114 &2204764063099714349
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -908,7 +927,7 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_YAxis:
-    Value: 0
+    Value: 1
     m_SpeedMode: 0
     m_MaxSpeed: 2
     m_AccelTime: 0.2
@@ -985,6 +1004,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 859a07a1e76cb23429b9b68ba3e50d8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _virtualCamera: {fileID: 2204764063099714349}
 --- !u!114 &5354865185022879566
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1060,8 +1080,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5676512092264516563}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.07052695, y: 0.00000008769793, z: -0.000000006200507, w: 0.9975099}
-  m_LocalPosition: {x: -5.2505093, y: 0, z: -1.4892921}
+  m_LocalRotation: {x: 0.09853762, y: 0.00000018980661, z: -0.000000018794557, w: 0.99513334}
+  m_LocalPosition: {x: -5.250511, y: 0, z: -1.4892921}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1101,7 +1121,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 40
+  field of view: 58.74486
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
@@ -1733,6 +1753,7 @@ GameObject:
   - component: {fileID: 166803137704921397}
   - component: {fileID: 5511640858582434537}
   - component: {fileID: 3987728838933249726}
+  - component: {fileID: 4244656451761565861}
   m_Layer: 0
   m_Name: cm
   m_TagString: Untagged
@@ -1780,7 +1801,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 5
-  m_FollowOffset: {x: 0, y: -2, z: -5}
+  m_FollowOffset: {x: 0, y: 10, z: -6}
   m_XDamping: 1
   m_YDamping: 0
   m_ZDamping: 0
@@ -1848,6 +1869,23 @@ MonoBehaviour:
   m_BiasX: 0
   m_BiasY: 0
   m_CenterOnActivate: 1
+--- !u!114 &4244656451761565861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8152738351752036631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_NoiseProfile: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
+  m_PivotOffset: {x: 0, y: 0, z: 0}
+  m_AmplitudeGain: 1
+  m_FrequencyGain: 1
+  mNoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &8652540813882079021
 GameObject:
   m_ObjectHideFlags: 0
