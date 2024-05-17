@@ -25,7 +25,6 @@ public class Player : MonoBehaviour
 
     [Header("Variables")]
     public float currentTimerPitBottom;
-    public AK.Wwise.Event hitEvent;
 
     private void Awake()
     {
@@ -75,5 +74,4 @@ public class Player : MonoBehaviour
     {
         InputManager.Disable();
     }
-
 }

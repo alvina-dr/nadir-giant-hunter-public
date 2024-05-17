@@ -5,11 +5,16 @@ using UnityEngine;
 public class PlayerDash : MonoBehaviour
 {
     public Player Player;
-    public GameObject forwardIndication;
     public bool IsDashing;
+    public TargetableSpot CurrentDashSpot;
 
     public void Dash()
     {
+        if (CurrentDashSpot != null)
+        {
+            CurrentDashSpot.VisualFX.SendEvent("stop");
+            CurrentDashSpot = null;
+        }
         IsDashing = true;
         GPCtrl.Instance.DashPause = false;
         Time.timeScale = 1;
@@ -17,8 +22,8 @@ public class PlayerDash : MonoBehaviour
         Player.Rigibody.useGravity = false;
         Player.Rigibody.AddForce(Player.Data.dashForce * Camera.main.transform.forward.normalized, ForceMode.Impulse);
         StartCoroutine(StopDash());
-        Debug.DrawRay(Player.transform.position, Camera.main.transform.forward* 10, Color.red, 5);
         StartCoroutine(PrintSpeed());
+        GPCtrl.Instance.reliefFX.enabled = false;
     }
 
     private IEnumerator PrintSpeed()

@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Sirenix.OdinInspector;
+using UnityEngine.Rendering.HighDefinition;
 
 public class GPCtrl : MonoBehaviour
 {
@@ -37,6 +38,8 @@ public class GPCtrl : MonoBehaviour
     [ReadOnly]
     public bool Pause = false;
     public bool DashPause = false;
+    public CustomPassVolume reliefFX;
+
     private void Update()
     {
         Timer += Time.deltaTime; 
@@ -64,5 +67,11 @@ public class GPCtrl : MonoBehaviour
     public void RestartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    [Button]
+    public void Shake()
+    {
+        CameraThirdPerson.CameraShake.ShakeCamera(5, .5f);
     }
 }
