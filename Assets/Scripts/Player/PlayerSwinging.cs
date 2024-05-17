@@ -1,6 +1,7 @@
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class PlayerSwinging : MonoBehaviour
@@ -17,6 +18,9 @@ public class PlayerSwinging : MonoBehaviour
     private Vector3 _otherHandPosition;
     [SerializeField] private Vector3 _RotationToAvoid;
     [SerializeField] private float _MaxAngleFromAvoid;
+    //the direction of the swing when started to swing.
+    [SerializeField, ReadOnly] private Vector3 _swingOriginalDirection;
+    [ReadOnly] public Vector3 SwingInfluenceDirection;
 
     private SpringJoint _springJoint;
 
@@ -47,6 +51,10 @@ public class PlayerSwinging : MonoBehaviour
                 }
             }
         }
+        if (IsSwinging)
+        {
+            Swinging();
+        }
     }
 
     private void Update()
@@ -61,6 +69,8 @@ public class PlayerSwinging : MonoBehaviour
 
         if (TrySwing && !Player.PlayerAttack.IsGrappling && !GPCtrl.Instance.DashPause) StartSwing();
         else if (!Player.PlayerGrappleBoost.IsGrapplingBoost) StopSwing();
+
+        
     }
 
     public void CalculateUpVector()
@@ -78,6 +88,27 @@ public class PlayerSwinging : MonoBehaviour
 
     #region Swing
 
+    public void Swinging()
+    {
+        Vector3 forceAdded = new Vector3(_swingOriginalDirection.x, Player.Rigibody.velocity.y, _swingOriginalDirection.z);
+        Debug.DrawRay(Player.transform.position, _swingOriginalDirection*5, Color.blue);
+
+        Vector3 influenceYPlaned = new Vector3(SwingInfluenceDirection.x, 0, SwingInfluenceDirection.z);
+        float dot = Vector3.Dot(_swingOriginalDirection.normalized, influenceYPlaned.normalized);
+        Vector3 influence = SwingInfluenceDirection * (dot <= 0 ? 0 : dot+1);
+        Debug.DrawRay(Player.transform.position, influence*5, Color.green);
+
+        Player.Rigibody.AddForce((forceAdded + influence * 3000) * Time.fixedDeltaTime, ForceMode.Force);
+        Player.Rigibody.velocity *= 0.999f;
+        bool hasToStopSwing = Vector3.Dot(Vector3.up, (EndSwingLinePoint.position - Player.transform.position).normalized) <= 0.2f;
+        if (hasToStopSwing)
+        {
+            TrySwing = false;
+            StopSwing();
+        }
+    }
+
+
     public void StartSwing()
     {
         if (_springJoint) return;
@@ -88,6 +119,7 @@ public class PlayerSwinging : MonoBehaviour
         {
             float distance = 1000;
             Vector3 point = Vector3.zero;
+            //Get point closest to perfect point
             for (int i = 0; i < _swingConeRaycast.contactPointList.Count; i++)
             {
                 float currentDistance = Vector3.Distance(_swingConeRaycast.perfectPoint.position, _swingConeRaycast.contactPointList[i]);
@@ -98,13 +130,19 @@ public class PlayerSwinging : MonoBehaviour
                 }
             }
             if (point == Vector3.zero) return;
+
             Vector3 direction = point - StartSwingLinePoint.position;
             RaycastHit hit;
             if (Physics.Raycast(StartSwingLinePoint.position, direction, out hit, Player.Data.maxSwingDistance, _layerMask))
             {
-                Player.PlayerMovement.CanJumpOnceInAir = true;
+                //swing direction on the y plane
+                _swingOriginalDirection = Player.Mesh.forward;//new Vector3(Player.Rigibody.velocity.normalized.x, 0, Player.Rigibody.velocity.normalized.z);
+
+                //sound
                 Player.SoundData.SFX_Hunter_Hook_Single_Grappled.Post(EndSwingLinePoint.gameObject);
                 Player.SoundData.SFX_Hunter_Hook_Single_Trigger.Post(gameObject);
+
+                Player.PlayerMovement.CanJumpOnceInAir = true;
                 IsSwinging = true;
                 _swingConeRaycast.searchPoint = false;
                 EndSwingLinePoint.SetParent(hit.transform);
@@ -125,6 +163,7 @@ public class PlayerSwinging : MonoBehaviour
                 _springJoint.massScale = 4.5f;
                 SwingLineRenderer.positionCount = 2;
                 SwingLineRenderer.SetPosition(1, StartSwingLinePoint.position); //to shoot from the hand of the player
+                Player.Rigibody.velocity = Vector3.zero;
                 if (Player.Data.startCurveBoost)
                     Player.Rigibody.AddForce(Vector3.Cross(Player.Mesh.transform.right, (EndSwingLinePoint.position - Player.transform.position).normalized) * Player.Data.startCurveSpeedBoost, ForceMode.Impulse);
             }
