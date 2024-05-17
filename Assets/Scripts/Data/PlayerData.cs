@@ -10,6 +10,10 @@ public class PlayerData : ScriptableObject
     public float walkRotationSpeed;
     [TabGroup("Camera")]
     public float airRotationSpeed;
+    [TabGroup("Camera")]
+    public float swingCameraFOVAddition;
+    [TabGroup("Camera")]
+    public float swingCameraDistanceAddition;
 
     [TabGroup("Movement")]
     public float walkSpeed;
@@ -42,8 +46,6 @@ public class PlayerData : ScriptableObject
     [TabGroup("Swing")]
     public float radiusDetectionIncreaseSpeed;
 
-    [TabGroup("Swing")]
-    public float fovAddition;
     [TabGroup("Swing")]
     public float airSlowDown;
 

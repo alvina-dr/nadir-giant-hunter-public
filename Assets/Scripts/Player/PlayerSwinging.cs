@@ -1,3 +1,4 @@
+using Cinemachine;
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
@@ -55,7 +56,11 @@ public class PlayerSwinging : MonoBehaviour
         if (IsSwinging)
         {
             if (Player.PlayerMovement.CurrentMoveSpeed >= Player.Data.swingSpeed) {
-                Camera.main.fieldOfView = (Player.PlayerMovement.CurrentMoveSpeed - Player.Data.swingSpeed) / (Player.Data.swingMaxSpeed - Player.Data.swingSpeed) * Player.Data.fovAddition + 50;
+                float factor = (Player.PlayerMovement.CurrentMoveSpeed - Player.Data.swingSpeed) / (Player.Data.swingMaxSpeed - Player.Data.swingSpeed);
+                Camera.main.fieldOfView = factor * Player.Data.swingCameraFOVAddition + 50;
+                GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(0).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = factor * Player.Data.swingCameraDistanceAddition;
+                GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(1).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = factor * Player.Data.swingCameraDistanceAddition;
+                GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(2).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = factor * Player.Data.swingCameraDistanceAddition;
             }
         }
 
