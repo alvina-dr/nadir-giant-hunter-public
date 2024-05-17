@@ -56,7 +56,6 @@ public class EnemySpawner : MonoBehaviour
             return;
         }
         GameObject enemy = Instantiate(spawnerData.EnemyPrefab);
-        Enemies.Add(enemy);
         enemy.transform.parent = _enemiesParent;
 
         Transform pos = EnemiesSpawnPoints[SpawnPointIndex];
