@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerDash : MonoBehaviour
 {
     public Player Player;
-    public GameObject forwardIndication;
     public bool IsDashing;
     public TargetableSpot CurrentDashSpot;
 
