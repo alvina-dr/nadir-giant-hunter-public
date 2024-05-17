@@ -5251,7 +5251,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &869418090
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5264,10 +5264,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3999b6acae35e0e4d9fda45fe0183df1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnerData: {fileID: 11400000, guid: fc0587ca3a9eea349b02a46ca9cacb2b, type: 2}
+  SpawnerData: {fileID: 11400000, guid: fc0587ca3a9eea349b02a46ca9cacb2b, type: 2}
   _enemiesParent: {fileID: 2072123934}
-  doSpawnOnlyOnePerLine: 0
-  EnemiesSpawnPoints:
+  _doSpawnOnlyOnePerLine: 1
+  _enemiesSpawnPoints:
   - {fileID: 209896836}
   - {fileID: 11672053}
   - {fileID: 571304145}
@@ -5281,7 +5281,7 @@ MonoBehaviour:
   - {fileID: 1537350963}
   - {fileID: 1200007073}
   - {fileID: 259678472}
-  Enemies: []
+  _enemies: []
 --- !u!4 &869418091
 Transform:
   m_ObjectHideFlags: 0
@@ -14382,7 +14382,7 @@ PrefabInstance:
     - target: {fileID: 2314835390014168199, guid: 8fc895de432ed764c8de29a2e3b805bb,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 50
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2314835390014168199, guid: 8fc895de432ed764c8de29a2e3b805bb,
         type: 3}
@@ -14562,7 +14562,7 @@ PrefabInstance:
     - target: {fileID: 6195198491409396999, guid: 8fc895de432ed764c8de29a2e3b805bb,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 50
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6195198491409396999, guid: 8fc895de432ed764c8de29a2e3b805bb,
         type: 3}
@@ -14687,7 +14687,7 @@ PrefabInstance:
     - target: {fileID: 8024589707599560899, guid: 8fc895de432ed764c8de29a2e3b805bb,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 50
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8024589707599560899, guid: 8fc895de432ed764c8de29a2e3b805bb,
         type: 3}
