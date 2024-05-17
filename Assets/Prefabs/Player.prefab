@@ -380,6 +380,7 @@ GameObject:
   - component: {fileID: 3422433742143200807}
   - component: {fileID: 3326746357893381278}
   - component: {fileID: 8166567874876028922}
+  - component: {fileID: 3269909729525327512}
   m_Layer: 2
   m_Name: Player
   m_TagString: Player
@@ -432,10 +433,6 @@ MonoBehaviour:
   Orientation: {fileID: 6609080969534418957}
   Animator: {fileID: 4801896384869378783}
   currentTimerPitBottom: 0
-  hitEvent:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 0}
 --- !u!114 &4607573896897719150
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -525,7 +522,7 @@ MonoBehaviour:
   Player: {fileID: 5043027637049521611}
   IsGrappling: 0
   CurrentTargetSpot: {fileID: 0}
-  closestWeakSpotList: []
+  closestTargetableSpotList: []
 --- !u!114 &3422433742143200807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -555,7 +552,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 5043027637049521611}
-  forwardIndication: {fileID: 0}
   IsDashing: 0
   CurrentDashSpot: {fileID: 0}
 --- !u!54 &8166567874876028922
@@ -585,6 +581,27 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 1
+--- !u!114 &3269909729525327512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7281324820499622086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06b33cb7541c2e74fbfced089e9248f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeTime: 0.2
+  meshRefreshRate: 0.1
+  positionToSpawn: {fileID: 2946941751287643756}
+  meshDestroyDelay: 0.09
+  skinnedMeshRenderers:
+  - {fileID: 1537450150095244804}
+  materials:
+  - {fileID: 2100000, guid: e14f91f30f71bbc4f96e2f56ef77c419, type: 2}
+  - {fileID: 2100000, guid: e14f91f30f71bbc4f96e2f56ef77c419, type: 2}
 --- !u!1001 &1425766397230683982
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -747,6 +764,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -3750292838169897180, guid: 3b7c5e875defd924c9f4e4301b8faaab,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -3617562400939787601, guid: 3b7c5e875defd924c9f4e4301b8faaab,
         type: 3}
@@ -952,6 +974,12 @@ PrefabInstance:
 --- !u!4 &1460274065303597221 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3b7c5e875defd924c9f4e4301b8faaab,
+    type: 3}
+  m_PrefabInstance: {fileID: 1425766397230683982}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &1537450150095244804 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -8746192511618000566, guid: 3b7c5e875defd924c9f4e4301b8faaab,
     type: 3}
   m_PrefabInstance: {fileID: 1425766397230683982}
   m_PrefabAsset: {fileID: 0}
