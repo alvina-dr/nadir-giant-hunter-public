@@ -73,7 +73,8 @@ public class PlayerData : ScriptableObject
     [TabGroup("Bumper")]
     public float bumpForce;
 
-    [Header("Tests")]
+    [Header("DEBUG")]
     public bool startCurveBoost;
     public bool endCurveBoost;
+    public bool magicSwinging;
 }

@@ -15,15 +15,14 @@ public class Meshtrail : MonoBehaviour
     public SkinnedMeshRenderer[] skinnedMeshRenderers;
     public List<Material> materials;
 
-    void Update()
+    public void ShowTrail()
     {
-        if(Input.GetKeyDown (KeyCode.Space) && !isTrailActive)
+        if (!isTrailActive)
         {
-            isTrailActive = true;
             StartCoroutine(ActivateTrail(activeTime));
         }
     }
-     IEnumerator ActivateTrail (float timeActive)
+    IEnumerator ActivateTrail (float timeActive)
     {
         while (timeActive > 0)
         {

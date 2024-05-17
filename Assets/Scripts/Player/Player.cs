@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
     public PlayerAttack PlayerAttack;
     public PlayerGrappleBoost PlayerGrappleBoost;
     public PlayerDash PlayerDash;
+    public Meshtrail Meshtrail;
 
     [Header("Components")]
     public Transform Mesh;
@@ -41,20 +42,20 @@ public class Player : MonoBehaviour
         InputManager.Gameplay.SwingRight.started += function => {
             if (GPCtrl.Instance.Pause) return;
             if (!PlayerGrappleBoost.IsGrapplingBoost)
-                PlayerSwingingRight.TrySwing = true; 
+                PlayerSwingingRight.IsTrySwing = true; 
         };
         InputManager.Gameplay.SwingRight.canceled += function => {
             if (GPCtrl.Instance.Pause) return;
-            PlayerSwingingRight.TrySwing = false;
+            PlayerSwingingRight.IsTrySwing = false;
         };
         InputManager.Gameplay.SwingLeft.started += function => {
             if (GPCtrl.Instance.Pause) return;
             if (!PlayerGrappleBoost.IsGrapplingBoost)
-                PlayerSwingingLeft.TrySwing = true; 
+                PlayerSwingingLeft.IsTrySwing = true; 
         };
         InputManager.Gameplay.SwingLeft.canceled += function => {
             if (GPCtrl.Instance.Pause) return;
-            PlayerSwingingLeft.TrySwing = false;
+            PlayerSwingingLeft.IsTrySwing = false;
         };
         InputManager.Gameplay.Attack.started += function => { 
             if (GPCtrl.Instance.Pause) return;

@@ -24,6 +24,7 @@ public class PlayerDash : MonoBehaviour
         StartCoroutine(StopDash());
         StartCoroutine(PrintSpeed());
         GPCtrl.Instance.reliefFX.enabled = false;
+        Player.Meshtrail.ShowTrail();
     }
 
     private IEnumerator PrintSpeed()
