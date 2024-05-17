@@ -10,7 +10,7 @@ public class PlayerAttack : MonoBehaviour
     [HideInInspector]
     public bool IsGrappling = false;
     public TargetableSpot CurrentTargetSpot;
-    public List<TargetableSpot> closestWeakSpotList = new List<TargetableSpot>();
+    public List<TargetableSpot> closestTargetableSpotList = new List<TargetableSpot>();
 
     public void Attack()
     {
@@ -64,16 +64,20 @@ public class PlayerAttack : MonoBehaviour
 
     private void Update()
     {
-        closestWeakSpotList = GPCtrl.Instance.TargetableSpotList;
-        closestWeakSpotList.Sort(delegate (TargetableSpot a, TargetableSpot b)
+        closestTargetableSpotList = GPCtrl.Instance.TargetableSpotList;
+        closestTargetableSpotList.Sort(delegate (TargetableSpot a, TargetableSpot b)
         {
             return Vector3.Distance(this.transform.position, a.transform.position).CompareTo(Vector3.Distance(this.transform.position, b.transform.position));
         });
-        GPCtrl.Instance.UICtrl.AttackInputIndication.HideIndicator();
-        if (closestWeakSpotList.Count > 0 ) {
-            if (Vector3.Distance(transform.position, closestWeakSpotList[0].transform.position) < Player.Data.weakSpotDetectionDistance)
+        if (GPCtrl.Instance.UICtrl != null)
+            GPCtrl.Instance.UICtrl.AttackInputIndication.HideIndicator();
+        if (closestTargetableSpotList.Count > 0 ) {
+            if (Vector3.Distance(transform.position, closestTargetableSpotList[0].transform.position) < Player.Data.weakSpotDetectionDistance)
             {
-                GPCtrl.Instance.UICtrl.AttackInputIndication.ShowIndicatorAt(closestWeakSpotList[0].transform.position);
+                if (!GPCtrl.Instance.DashPause)
+                {
+                    GPCtrl.Instance.UICtrl.AttackInputIndication.ShowIndicatorAt(closestTargetableSpotList[0].transform.position);
+                }
                 GPCtrl.Instance.CameraThirdPerson.ActivateFreeLook(false);
                 //GPCtrl.Instance.CameraLock.CinemachineVirtualCamera.transform.forward = closestWeakSpotList[0].transform.position - transform.position;
 

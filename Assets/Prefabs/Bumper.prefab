@@ -28,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.299, z: 0}
-  m_LocalScale: {x: 2.9, y: 0.29000002, z: 2.9}
+  m_LocalScale: {x: 5.8, y: 0.58000004, z: 5.8}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 839979020712737038}
@@ -67,6 +67,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e47a711fd1094d745aa6c8fd1ffca569, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  VisualFX: {fileID: 1463613209453952031}
 --- !u!1 &3435385155437413654
 GameObject:
   m_ObjectHideFlags: 0
@@ -95,7 +96,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.17, y: 0.17, z: 0.17}
+  m_LocalScale: {x: 0.34, y: 0.34, z: 0.34}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 839979020712737038}
@@ -198,7 +199,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &745325963689692596
 Transform:
   m_ObjectHideFlags: 0
@@ -338,6 +339,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Rigidbody: {fileID: 110462053079543056}
   SpotCurrentType: 2
+  VisualFX: {fileID: 1463613209453952031}
   Enemy: {fileID: 0}
   Mesh: {fileID: 0}
 --- !u!54 &110462053079543056
