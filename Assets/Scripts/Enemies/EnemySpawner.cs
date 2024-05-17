@@ -11,11 +11,8 @@ public class EnemySpawner : MonoBehaviour
     public EnemySpawnerData spawnerData;
     [SerializeField]
     private Transform _enemiesParent;
-    [SerializeField]
-    private bool doSpawnOnlyOnePerLine;
 
-    [SerializeField]
-    private List<Transform> EnemiesSpawnPoints = new List<Transform>();
+
     [SerializeField, Sirenix.OdinInspector.ReadOnly]
     private List<GameObject> Enemies = new List<GameObject>();
 
@@ -24,13 +21,6 @@ public class EnemySpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (doSpawnOnlyOnePerLine)
-        {
-            foreach (var item in EnemiesSpawnPoints)
-            {
-                Enemies.Add(null);
-            }
-        }
         StartCoroutine(SpawnCycle());
     }
 
@@ -50,26 +40,17 @@ public class EnemySpawner : MonoBehaviour
 
     public void SpawnNewEnemy()
     {
-        int SpawnPointIndex = Random.Range(0, EnemiesSpawnPoints.Count);
-        if((!doSpawnOnlyOnePerLine && Enemies.Count >= spawnerData.MaxEnemies) || (doSpawnOnlyOnePerLine && Enemies[SpawnPointIndex] != null))
+        if (Enemies.Count >= spawnerData.MaxEnemies)
         {
             return;
         }
         GameObject enemy = Instantiate(spawnerData.EnemyPrefab);
         Enemies.Add(enemy);
         enemy.transform.parent = _enemiesParent;
-
-        Transform pos = EnemiesSpawnPoints[SpawnPointIndex];
-        enemy.transform.position = pos.position;
-        enemy.transform.rotation = pos.rotation;
-        if (doSpawnOnlyOnePerLine)
-        {
-            Enemies[SpawnPointIndex] = enemy;
-        }
-        else
-        {
-            Enemies.Add(enemy);
-        }
+        Vector3 pos = Random.insideUnitSphere.normalized * spawnerData.SpawnCircleWidth;
+        pos = transform.position + new Vector3(pos.x, 0, pos.z);
+        enemy.transform.position = pos;
+        enemy.transform.rotation = Quaternion.LookRotation((enemy.transform.position - transform.position).normalized);
     }
 
 

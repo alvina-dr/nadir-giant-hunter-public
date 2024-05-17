@@ -4,7 +4,6 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Sirenix.OdinInspector;
-using UnityEngine.Rendering.HighDefinition;
 
 public class GPCtrl : MonoBehaviour
 {
@@ -38,8 +37,6 @@ public class GPCtrl : MonoBehaviour
     [ReadOnly]
     public bool Pause = false;
     public bool DashPause = false;
-    public CustomPassVolume reliefFX;
-
     private void Update()
     {
         Timer += Time.deltaTime; 
