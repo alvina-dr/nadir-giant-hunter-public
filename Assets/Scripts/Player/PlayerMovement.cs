@@ -34,6 +34,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        Player.SparksVFX.SetVector3("Input Velocity", Player.Rigibody.velocity);
         Grounded = Physics.Raycast(transform.position, Vector3.down, Player.Data.charaHeight * 0.5f + 0.3f, WhatIsGround);
         _horizontalInput = Player.InputManager.Gameplay.Move.ReadValue<Vector2>().x;
         _verticalInput = Player.InputManager.Gameplay.Move.ReadValue<Vector2>().y;

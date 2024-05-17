@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class Player : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class Player : MonoBehaviour
     public Rigidbody Rigibody;
     public Transform Orientation;
     public Animator Animator;
+    public VisualEffect SparksVFX;
 
     [Header("Variables")]
     public float currentTimerPitBottom;
