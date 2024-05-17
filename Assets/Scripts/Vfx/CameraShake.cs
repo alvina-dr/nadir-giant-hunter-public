@@ -5,7 +5,7 @@ using Cinemachine;
 
 public class CameraShake : MonoBehaviour
 {
-    private CinemachineVirtualCamera _virtualCamera;
+    [SerializeField] private CinemachineVirtualCamera _virtualCamera;
 
     private float _timer;
     private CinemachineBasicMultiChannelPerlin _perlin;
