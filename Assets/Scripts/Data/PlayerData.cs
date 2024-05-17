@@ -17,6 +17,7 @@ public class PlayerData : ScriptableObject
     public float jumpForce;
     [TabGroup("Movement")]
     public float jumpCooldown;
+    //Air control value
     [TabGroup("Movement")]
     public float airMultiplier;
     [TabGroup("Movement")]

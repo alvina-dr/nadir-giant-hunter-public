@@ -14,12 +14,14 @@ public class CameraThirdPerson : MonoBehaviour
     private void Update()
     {
         //if (!canMoveCamera) return;
+
         //CAM SENSI
         if (GPCtrl.Instance.DashPause) return;
         float camSensi = 1;
         if (PlayerPrefs.HasKey("CamSensi")) camSensi = PlayerPrefs.GetFloat("CamSensi");
         CinemachineFreeLook.m_XAxis.m_MaxSpeed = camSensi * 300;
         CinemachineFreeLook.m_YAxis.m_MaxSpeed = camSensi * 2;
+
 
         Vector3 viewDir = GPCtrl.Instance.Player.transform.position - new Vector3(transform.position.x, GPCtrl.Instance.Player.transform.position.y, transform.position.z);
         GPCtrl.Instance.Player.Orientation.forward = viewDir.normalized;
@@ -75,6 +77,6 @@ public class CameraThirdPerson : MonoBehaviour
     public void ActivateFreeLook(bool value)
     {
         return;
-        CinemachineFreeLook.enabled = value;
+        //CinemachineFreeLook.enabled = value;
     }
 }
