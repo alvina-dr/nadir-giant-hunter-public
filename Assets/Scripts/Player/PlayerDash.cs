@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,6 +25,10 @@ public class PlayerDash : MonoBehaviour
         StartCoroutine(StopDash());
         StartCoroutine(PrintSpeed());
         GPCtrl.Instance.reliefFX.enabled = false;
+        Player.Meshtrail.ShowTrail();
+        GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(0).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = 0.1f;
+        GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(1).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = 0.1f;
+        GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(2).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = 0.1f;
     }
 
     private IEnumerator PrintSpeed()
@@ -36,5 +41,8 @@ public class PlayerDash : MonoBehaviour
         yield return new WaitForSecondsRealtime(Player.Data.dashTime);
         Player.Rigibody.useGravity = true;
         IsDashing = false;
+        GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(0).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = 0f;
+        GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(1).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = 0f;
+        GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(2).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = 0f;
     }
 }

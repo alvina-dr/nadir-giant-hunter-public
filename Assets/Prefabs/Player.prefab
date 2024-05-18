@@ -545,6 +545,7 @@ MonoBehaviour:
   PlayerAttack: {fileID: 5560178313177686885}
   PlayerGrappleBoost: {fileID: 3422433742143200807}
   PlayerDash: {fileID: 3326746357893381278}
+  Meshtrail: {fileID: 3269909729525327512}
   Mesh: {fileID: 1460274065303597221}
   Rigibody: {fileID: 8166567874876028922}
   Orientation: {fileID: 6609080969534418957}
@@ -573,7 +574,7 @@ MonoBehaviour:
   _MaxAngleFromAvoid: 0
   IsSwinging: 0
   _side: 1
-  TrySwing: 0
+  IsTrySwing: 0
   SwingLineRenderer: {fileID: 0}
   _layerMask:
     serializedVersion: 2
@@ -600,7 +601,7 @@ MonoBehaviour:
   _MaxAngleFromAvoid: 0
   IsSwinging: 0
   _side: 0
-  TrySwing: 0
+  IsTrySwing: 0
   SwingLineRenderer: {fileID: 0}
   _layerMask:
     serializedVersion: 2
@@ -712,10 +713,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06b33cb7541c2e74fbfced089e9248f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activeTime: 0.2
-  meshRefreshRate: 0.1
-  positionToSpawn: {fileID: 2946941751287643756}
-  meshDestroyDelay: 0.09
+  activeTime: 0.5
+  meshRefreshRate: 0.02
+  positionToSpawn: {fileID: 1460274065303597221}
+  meshDestroyDelay: 0.03
   skinnedMeshRenderers:
   - {fileID: 1537450150095244804}
   materials:

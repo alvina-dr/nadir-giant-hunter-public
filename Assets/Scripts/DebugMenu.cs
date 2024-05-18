@@ -12,7 +12,7 @@ public class DebugMenu : MonoBehaviour
     Color _color;
     float _playerSpeed;
     [SerializeField] TextMeshProUGUI speedText;
-    private void Awake()
+    private void Start()
     {
         SetupDebugMenu();
     }
