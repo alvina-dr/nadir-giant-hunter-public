@@ -104,6 +104,7 @@ public class PlayerMovement : MonoBehaviour
             Player.Animator.SetTrigger("Jump");
             Player.Animator.SetBool("Grounded", false);
             Player.SoundData.SFX_Hunter_Jump.Post(Player.gameObject);
+            Player.SparksVFX.SendEvent("Jump");
         }
     }
 
