@@ -28,9 +28,13 @@ public class GPCtrl : MonoBehaviour
 
     public GeneralData GeneralData;
     public Player Player;
+    public UICtrl UICtrl;
+
+    [Header("Camera")]
     public CameraThirdPerson CameraThirdPerson;
     public CameraLock CameraLock;
-    public UICtrl UICtrl;
+    public GameOverCamera GameOverCamera;
+
     [ReadOnly]
     public List<TargetableSpot> TargetableSpotList;
     [ReadOnly]
@@ -57,10 +61,14 @@ public class GPCtrl : MonoBehaviour
         Debug.Log("WIN");
     }
 
-    public void Loose()
+    public void Loose(EnemyMovement enemy = null)
     {
         Pause = true;
         UICtrl.EndGameMenu.OpenMenu();
+        if (enemy != null)
+        {
+            GameOverCamera.FocusEnemy(enemy);
+        }
         Debug.Log("LOOSE");
     }
 
