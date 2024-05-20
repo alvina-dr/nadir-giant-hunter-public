@@ -1,3 +1,4 @@
+using DG.Tweening;
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
@@ -39,14 +40,13 @@ public class TargetableSpot : MonoBehaviour
             case SpotType.DashSpot:
                 GPCtrl.Instance.DashPause = true;
                 Time.timeScale = GPCtrl.Instance.Player.Data.slowDownTime;
-                //GPCtrl.Instance.reliefFX.customPasses.
-                GPCtrl.Instance.reliefFX.enabled = true;
                 StartCoroutine(DashSlowDown());
                 StartCoroutine(ReloadDashSpot());
                 GPCtrl.Instance.Player.PlayerDash.CurrentDashSpot = this;
                 VisualFX.SendEvent("collision");
-                //Mesh.enabled = false;
                 GPCtrl.Instance.TargetableSpotList.Remove(this);
+                Material material = GPCtrl.Instance.GetPostProcessMaterial();
+                material.DOFloat(1f, "_strength", .2f).SetUpdate(true);
                 break;
         }
 
