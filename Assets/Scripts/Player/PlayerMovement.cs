@@ -39,7 +39,9 @@ public class PlayerMovement : MonoBehaviour
         Material postProcess = GPCtrl.Instance.GetPostProcessMaterial();
         if (postProcess != null )
         {
-            postProcess.SetFloat("_speed_effect", (Player.Rigibody.velocity.magnitude - 20) / 100);
+            float speed = (Player.Rigibody.velocity.magnitude - 20) / 100;
+            if (speed < 0) speed = 0;
+            postProcess.SetFloat("_speed_effect", speed);
             postProcess.SetVector("_Input_Velocity", Player.Rigibody.velocity);
         }
 
