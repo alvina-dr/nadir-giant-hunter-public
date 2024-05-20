@@ -74,4 +74,15 @@ public class GPCtrl : MonoBehaviour
     {
         CameraThirdPerson.CameraShake.ShakeCamera(5, .5f);
     }
+
+    public Material GetPostProcessMaterial()
+    {
+        foreach (var pass in reliefFX.customPasses)
+        {
+            if (pass is FullScreenCustomPass f)
+                return f.fullscreenPassMaterial;
+        }
+        Debug.LogError("Custom error : No full screen pass material found in post process.");
+        return null;
+    }
 }
