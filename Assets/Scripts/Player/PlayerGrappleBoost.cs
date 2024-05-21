@@ -47,6 +47,7 @@ public class PlayerGrappleBoost : MonoBehaviour
         Player.PlayerSwingingRight.IsTrySwing = false;
         Player.PlayerSwingingLeft.IsTrySwing = false;
         IsGrapplingBoost = true;
+        GPCtrl.Instance.CameraThirdPerson.CameraShake.ShakeCamera(5f, .3f);
         DOVirtual.DelayedCall(Player.Data.doubleSwingLineRendererDuration, () =>
         {
             Player.PlayerSwingingLeft.HideLineRenderer();

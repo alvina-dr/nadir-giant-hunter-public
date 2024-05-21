@@ -34,7 +34,17 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        //speed effect
         Player.SparksVFX.SetVector3("Input Velocity", Player.Rigibody.velocity);
+        Material postProcess = GPCtrl.Instance.GetPostProcessMaterial();
+        if (postProcess != null )
+        {
+            float speed = (Player.Rigibody.velocity.magnitude - 20) / 100;
+            if (speed < 0) speed = 0;
+            postProcess.SetFloat("_speed_effect", speed);
+            postProcess.SetVector("_Input_Velocity", Player.Rigibody.velocity);
+        }
+
         Grounded = Physics.Raycast(transform.position, Vector3.down, Player.Data.charaHeight * 0.5f + 0.3f, WhatIsGround);
         _horizontalInput = Player.InputManager.Gameplay.Move.ReadValue<Vector2>().x;
         _verticalInput = Player.InputManager.Gameplay.Move.ReadValue<Vector2>().y;

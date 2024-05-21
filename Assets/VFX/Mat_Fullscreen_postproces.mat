@@ -101,6 +101,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_c98c6234d38e4ff180785bf6dc1f7034_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: c1a81c7b3095718448ee20952e3f23af, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SpecularColorMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -262,12 +266,13 @@ Material:
     - _enable: 1
     - _gradient: 1
     - _scan_effect: 1
-    - _scanline_distance: 3
+    - _scanline_distance: 10
     - _scanline_intensity: 200
-    - _scanline_quantity: 8
-    - _scanline_speed: 0.15
-    - _scanline_width: 0.00072
-    - _strength: 0.437
+    - _scanline_quantity: 6.41
+    - _scanline_speed: 0.13
+    - _scanline_width: 0.0031
+    - _speed_effect: 0
+    - _strength: 0
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}
@@ -277,6 +282,7 @@ Material:
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissiveColor: {r: 0, g: 0, b: 0, a: 1}
     - _EmissiveColorLDR: {r: 0, g: 0, b: 0, a: 1}
+    - _Input_Velocity: {r: -0.000009185088, g: -275.6922, b: -0.0000074971445, a: 0}
     - _InvPrimScale: {r: 1, g: 1, b: 0, a: 0}
     - _IridescenceThicknessRemap: {r: 0, g: 1, b: 0, a: 0}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
@@ -285,7 +291,7 @@ Material:
     - _UVDetailsMappingMask: {r: 1, g: 0, b: 0, a: 0}
     - _UVMappingMask: {r: 1, g: 0, b: 0, a: 0}
     - _UVMappingMaskEmissive: {r: 1, g: 0, b: 0, a: 0}
-    - _color_far: {r: 0.8978462, g: 1, b: 0, a: 0}
+    - _color_far: {r: 1, g: 0, b: 0.046096325, a: 0}
     - _color_near: {r: 0.05281806, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-
-    public EnemyData enemyData;
+    public EnemyData Data;
     [TitleGroup("Components")]
     public Transform toGo;
 
@@ -18,30 +17,34 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField, ReadOnly]
     private Vector3 _positionWanted;
 
-
-
-    // Start is called before the first frame update
     void Start()
     {
         _positionWanted = transform.position;
     }
 
-    // Update is called once per frame
+    private void Update()
+    {
+        if (GPCtrl.Instance.Pause) return;
+        if (transform.position.y > GPCtrl.Instance.GeneralData.yHeightGameOver)
+        {
+            GPCtrl.Instance.Loose(this);
+        }
+    }
+
     void FixedUpdate()
     {
+        if (GPCtrl.Instance.Pause) return;
         Move();
     }
 
-
-
     private void Move()
     {
-        _positionWanted += _direction * enemyData.MoveSpeed * Time.fixedDeltaTime;
+        _positionWanted += _direction * Data.MoveSpeed * Time.fixedDeltaTime;
         if (toGo!=null)
         {
             _positionWanted = toGo.position;
         }
-        transform.position += (_positionWanted - transform.position).normalized * enemyData.MoveSpeed * Time.fixedDeltaTime;
+        transform.position += (_positionWanted - transform.position).normalized * Data.MoveSpeed * Time.fixedDeltaTime;
         GetDown();
     }
 
@@ -54,7 +57,7 @@ public class EnemyMovement : MonoBehaviour
             return;
         }
         Vector3 dir = hitInfo.point - transform.position;
-        Vector3 posWanted = hitInfo.point - dir.normalized * enemyData.DistanceToGround;
+        Vector3 posWanted = hitInfo.point - dir.normalized * Data.DistanceToGround;
         transform.position = Vector3.Slerp(transform.position, posWanted, 0.9f * Time.fixedDeltaTime);
     }
 
