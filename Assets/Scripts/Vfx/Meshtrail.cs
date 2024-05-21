@@ -2,9 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class Meshtrail : MonoBehaviour
-
 {
     public float activeTime = 2f;
     [Header("Mesh Related")]
@@ -12,21 +10,19 @@ public class Meshtrail : MonoBehaviour
     public Transform positionToSpawn;
     public float meshDestroyDelay;
     private bool isTrailActive;
+
     [Header("Shader Related")]
-
-
     public SkinnedMeshRenderer[] skinnedMeshRenderers;
     public List<Material> materials;
 
-    void Update()
+    public void ShowTrail()
     {
-        if(Input.GetKeyDown (KeyCode.Space) && !isTrailActive)
+        if (!isTrailActive)
         {
-            isTrailActive = true;
             StartCoroutine(ActivateTrail(activeTime));
         }
     }
-     IEnumerator ActivateTrail (float timeActive)
+    IEnumerator ActivateTrail (float timeActive)
     {
         while (timeActive > 0)
         {
@@ -51,12 +47,8 @@ public class Meshtrail : MonoBehaviour
 
                 mf.mesh = mesh;
 
-                Destroy(gObj, meshDestroyDelay);
-
-
-                
+                Destroy(gObj, meshDestroyDelay);   
             }
-
             yield return new WaitForSeconds (meshRefreshRate); 
         }
         isTrailActive = false;

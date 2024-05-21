@@ -8,4 +8,5 @@ public class GeneralData : ScriptableObject
     public float levelMaxTime;
     public float pitBottomDeathTime;
     public float dashSpotReloadTime;
+    public float yHeightGameOver;
 }

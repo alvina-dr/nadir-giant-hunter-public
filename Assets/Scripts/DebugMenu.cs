@@ -3,10 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using extDebug.Menu;
 using UnityEngine.SceneManagement;
+using extDebug.Notifications;
+using UnityEngine.UI;
+using TMPro;
+
 public class DebugMenu : MonoBehaviour
 {
     Color _color;
-    private void Awake()
+    float _playerSpeed;
+    [SerializeField] TextMeshProUGUI speedText;
+    private void Start()
     {
         SetupDebugMenu();
     }
@@ -18,6 +24,7 @@ public class DebugMenu : MonoBehaviour
             if (DM.IsVisible) DM.Back();
             else DM.Open();
         }
+        speedText.text = "player speed : " + GPCtrl.Instance.Player.Rigibody.velocity.magnitude.ToString();
     }
 
     public void SetupDebugMenu()
@@ -27,7 +34,9 @@ public class DebugMenu : MonoBehaviour
         DM.Add("Debug/ReloadScene", action => ReloadScene());
         DM.Add("Grapple/StartCurveBoost", () => GPCtrl.Instance.Player.Data.startCurveBoost, v => GPCtrl.Instance.Player.Data.startCurveBoost = v);
         DM.Add("Grapple/EndCurveBoost", () => GPCtrl.Instance.Player.Data.endCurveBoost, v => GPCtrl.Instance.Player.Data.endCurveBoost = v);
-        //DM.Add("Values/Color", () => _color, v => _color = v, order: 18).SetPrecision(2);
+        DM.Add("Grapple/EndCurveBoost", () => GPCtrl.Instance.Player.Data.endCurveBoost, v => GPCtrl.Instance.Player.Data.endCurveBoost = v);
+        DM.Add("Values/PlayerSpeed", action => speedText.gameObject.SetActive(!speedText.gameObject.activeSelf));
+        DN.Notify("Simple notification", 5f);
     }
 
     #region DEBUG FUNCTIONS
