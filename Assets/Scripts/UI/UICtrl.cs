@@ -40,4 +40,10 @@ public class UICtrl : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
         Time.timeScale = 1;
     }
+
+    public void TryAgain()
+    {
+        SceneManager.LoadScene("Game");
+        Time.timeScale = 1;
+    }
 }
