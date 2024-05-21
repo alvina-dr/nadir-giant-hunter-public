@@ -142,7 +142,7 @@ public class PlayerSwinging : MonoBehaviour
         _springJoint.maxDistance = distanceFromPoint * 0.7f;
         _springJoint.minDistance = 0.5f;
 
-        _springJoint.spring = 10;
+        _springJoint.spring = 0;
         _springJoint.damper = 5f;
         _springJoint.massScale = 4.5f;
         SwingLineRenderer.positionCount = 2;
