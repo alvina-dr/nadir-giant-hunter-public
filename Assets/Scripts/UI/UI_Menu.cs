@@ -12,7 +12,6 @@ public class UI_Menu : MonoBehaviour
     public void OpenMenu(bool animated = true)
     {
         gameObject.SetActive(true);
-        Debug.Log("set active");
         _canvasGroup.DOFade(1, animated ? .3f : 0).OnComplete(() =>
         {
             _canvasGroup.interactable = true;

@@ -14,32 +14,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkRotationSpeed: 7
   airRotationSpeed: 3
-  walkSpeed: 7
-  jumpForce: 25
+  swingCameraFOVAddition: 5
+  swingCameraDistanceAddition: 0.5
+  walkSpeed: 15
+  jumpForce: 50
   jumpCooldown: 0.25
-  airMultiplier: 0.4
-  groundDrag: 3
+  airMultiplier: 0.05
+  groundDrag: 1
   charaHeight: 1.8
-  swingSpeed: 15
-  swingMaxSpeed: 30
-  swingAcceleration: 1.5
+  swingSpeed: 30
+  swingMaxSpeed: 100
+  swingAcceleration: 10
   minSwingDistance: 25
   maxSwingDistance: 200
-  startCurveSpeedBoost: 100
-  endCurveSpeedBoost: 50
-  radiusDetectionIncreaseSpeed: 1000
-  fovAddition: 0
-  airSlowDown: 0.999
+  startCurveSpeedBoost: 0
+  endCurveSpeedBoost: 0
+  radiusDetectionIncreaseSpeed: 50
+  airSlowDown: 5
   attackDistance: 50
-  attackStopDistance: 3
-  dragForce: 10
-  weakSpotDetectionDistance: 20
-  doubleSwingBoost: 50
+  attackStopDistance: 5
+  dragForce: 20
+  weakSpotDetectionDistance: 50
+  doubleSwingBoost: 100
   doubleSwingLineRendererDuration: 0.5
-  dashForce: 200
+  dashForce: 500
   slowDownTime: 0.01
-  timeBeforeAutomaticDash: 1
-  dashTime: 0.2
+  timeBeforeAutomaticDash: 200
+  dashTime: 1
   bumpForce: 100
   startCurveBoost: 0
   endCurveBoost: 0
+  magicSwinging: 0

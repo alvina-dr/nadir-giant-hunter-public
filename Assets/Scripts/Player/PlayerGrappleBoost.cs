@@ -44,8 +44,8 @@ public class PlayerGrappleBoost : MonoBehaviour
         Player.PlayerSwingingRight.StopSwing(true, false);
         GameObject vfx = Instantiate(Player.VFXData.doubleGrappleBoost);
         vfx.transform.position = transform.position;
-        Player.PlayerSwingingRight.TrySwing = false;
-        Player.PlayerSwingingLeft.TrySwing = false;
+        Player.PlayerSwingingRight.IsTrySwing = false;
+        Player.PlayerSwingingLeft.IsTrySwing = false;
         IsGrapplingBoost = true;
         DOVirtual.DelayedCall(Player.Data.doubleSwingLineRendererDuration, () =>
         {

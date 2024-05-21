@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class Player : MonoBehaviour
 {
@@ -16,16 +17,17 @@ public class Player : MonoBehaviour
     public PlayerAttack PlayerAttack;
     public PlayerGrappleBoost PlayerGrappleBoost;
     public PlayerDash PlayerDash;
+    public Meshtrail Meshtrail;
 
     [Header("Components")]
     public Transform Mesh;
     public Rigidbody Rigibody;
     public Transform Orientation;
     public Animator Animator;
+    public VisualEffect SparksVFX;
 
     [Header("Variables")]
     public float currentTimerPitBottom;
-    public AK.Wwise.Event hitEvent;
 
     private void Awake()
     {
@@ -40,20 +42,20 @@ public class Player : MonoBehaviour
         InputManager.Gameplay.SwingRight.started += function => {
             if (GPCtrl.Instance.Pause) return;
             if (!PlayerGrappleBoost.IsGrapplingBoost)
-                PlayerSwingingRight.TrySwing = true; 
+                PlayerSwingingRight.IsTrySwing = true; 
         };
         InputManager.Gameplay.SwingRight.canceled += function => {
             if (GPCtrl.Instance.Pause) return;
-            PlayerSwingingRight.TrySwing = false;
+            PlayerSwingingRight.IsTrySwing = false;
         };
         InputManager.Gameplay.SwingLeft.started += function => {
             if (GPCtrl.Instance.Pause) return;
             if (!PlayerGrappleBoost.IsGrapplingBoost)
-                PlayerSwingingLeft.TrySwing = true; 
+                PlayerSwingingLeft.IsTrySwing = true; 
         };
         InputManager.Gameplay.SwingLeft.canceled += function => {
             if (GPCtrl.Instance.Pause) return;
-            PlayerSwingingLeft.TrySwing = false;
+            PlayerSwingingLeft.IsTrySwing = false;
         };
         InputManager.Gameplay.Attack.started += function => { 
             if (GPCtrl.Instance.Pause) return;
@@ -75,5 +77,4 @@ public class Player : MonoBehaviour
     {
         InputManager.Disable();
     }
-
 }

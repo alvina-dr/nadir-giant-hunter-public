@@ -10,6 +10,10 @@ public class PlayerData : ScriptableObject
     public float walkRotationSpeed;
     [TabGroup("Camera")]
     public float airRotationSpeed;
+    [TabGroup("Camera")]
+    public float swingCameraFOVAddition;
+    [TabGroup("Camera")]
+    public float swingCameraDistanceAddition;
 
     [TabGroup("Movement")]
     public float walkSpeed;
@@ -17,6 +21,7 @@ public class PlayerData : ScriptableObject
     public float jumpForce;
     [TabGroup("Movement")]
     public float jumpCooldown;
+    //Air control value
     [TabGroup("Movement")]
     public float airMultiplier;
     [TabGroup("Movement")]
@@ -41,8 +46,6 @@ public class PlayerData : ScriptableObject
     [TabGroup("Swing")]
     public float radiusDetectionIncreaseSpeed;
 
-    [TabGroup("Swing")]
-    public float fovAddition;
     [TabGroup("Swing")]
     public float airSlowDown;
 
@@ -72,7 +75,8 @@ public class PlayerData : ScriptableObject
     [TabGroup("Bumper")]
     public float bumpForce;
 
-    [Header("Tests")]
+    [Header("DEBUG")]
     public bool startCurveBoost;
     public bool endCurveBoost;
+    public bool magicSwinging;
 }

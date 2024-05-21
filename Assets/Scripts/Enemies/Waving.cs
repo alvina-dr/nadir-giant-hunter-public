@@ -1,9 +1,13 @@
+using Enemies;
 using Sirenix.OdinInspector;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UIElements;
+using static ak.wwise.core;
 
 [Serializable]
 public class TransformWaveData
@@ -32,6 +36,7 @@ public class Waving : MonoBehaviour
 {
     [TitleGroup("Components")]
     public List<WaveData> waves = new List<WaveData>();
+    public List<TransformWaveData> waveTransforms = new List<TransformWaveData>();
 
 
 
@@ -59,10 +64,9 @@ public class Waving : MonoBehaviour
                 float offSet = 0;
                 float delta = 0;
                 delta = wave.data.DeltType == WavingData.DeltaType.Time ? Time.time : delta;
-                if (i != 0)
-                {
-                    delta += i * 0.1f * wave.data.WaveWidth;
-                }
+                
+                delta += transformData.Transformed.position.y *0.01f* wave.data.WaveWidth;
+                
 
 
                 offSet = wave.data.OndulType == WavingData.OndulationType.Cosinus ? Mathf.Cos(delta * wave.data.WaveSpeed) : offSet;
@@ -70,9 +74,11 @@ public class Waving : MonoBehaviour
                 
                 transformData.Delta = delta;
                 transformData.OffSet = offSet;
-                Vector3 position = transform.position + transformData.BaseLocalPosition + waveDirection * offSet * (wave.data.WaveLenght + i * wave.data.WaveLenghtAccumulation);
+                float distToFirst = Vector3.Distance(wave.waveTransforms[0].BaseLocalPosition, transformData.Transformed.position);
+                Vector3 position = transform.position + transformData.BaseLocalPosition + waveDirection * offSet * (wave.data.WaveLenght + distToFirst * 0.01f * wave.data.WaveLenghtAccumulation);
                 transformData.Position = position;
                 transformData.Transformed.position = position;
+                
             }
         }
     }
@@ -101,6 +107,27 @@ public class Waving : MonoBehaviour
                     }
                 }
             }
+        }
+    }
+
+    public void IkHarmCompensateWave(Leg leg)
+    {
+        foreach (WaveData wave in waves)
+        {
+            Vector3 waveDirection = transform.forward * wave.data.WaveDirection.z + transform.right * wave.data.WaveDirection.x + transform.up * wave.data.WaveDirection.y;
+            float offSet = 0;
+            float delta = 0;
+            delta = wave.data.DeltType == WavingData.DeltaType.Time ? Time.time : delta;
+                
+            delta += leg.FirstBone.transform.position.y * 0.01f * wave.data.WaveWidth;
+                
+
+
+            offSet = wave.data.OndulType == WavingData.OndulationType.Cosinus ? Mathf.Cos(delta * wave.data.WaveSpeed) : offSet;
+            offSet = wave.data.OndulType == WavingData.OndulationType.Sinus ? Mathf.Sin(delta * wave.data.WaveSpeed) : offSet;
+            float distToFirst = Vector3.Distance(wave.waveTransforms[0].BaseLocalPosition, leg.FirstBone.transform.position);
+
+            leg.Target.position -= waveDirection * offSet * (wave.data.WaveLenght + distToFirst * 0.01f * wave.data.WaveLenghtAccumulation);
         }
     }
 
