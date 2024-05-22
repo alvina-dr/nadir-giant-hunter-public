@@ -65,9 +65,10 @@ public class PlayerSwinging : MonoBehaviour
         {
             float factor = (Player.PlayerMovement.CurrentMoveSpeed - Player.Data.swingSpeed) / (Player.Data.swingMaxSpeed - Player.Data.swingSpeed);
             Camera.main.fieldOfView = factor * Player.Data.swingCameraFOVAddition + 50;
-            GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(0).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = factor * Player.Data.swingCameraDistanceAddition;
-            GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(1).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = factor * Player.Data.swingCameraDistanceAddition;
-            GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(2).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = factor * Player.Data.swingCameraDistanceAddition;
+            float initialValue = GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(0).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping;
+            GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(0).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = Mathf.Lerp(initialValue, factor * Player.Data.swingCameraDistanceAddition, .3f);
+            GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(1).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = Mathf.Lerp(initialValue, factor * Player.Data.swingCameraDistanceAddition, .3f);
+            GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(2).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = Mathf.Lerp(initialValue, factor * Player.Data.swingCameraDistanceAddition, .3f);
             float dotVector = Vector3.Dot((EndSwingLinePoint.position - transform.position).normalized, Vector3.up);
             //Debug.Log("dot vector : " + dotVector);
             if (dotVector > .8f)
