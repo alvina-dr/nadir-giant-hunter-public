@@ -53,21 +53,19 @@ public class PlayerSwinging : MonoBehaviour
     private void Update()
     {
         _otherHandPosition = _otherPlayerSwinging.StartSwingLinePoint.position;
-        if (IsSwinging)
+        if (!Player.PlayerDash.IsDashing)
         {
-            if (Player.PlayerMovement.CurrentMoveSpeed >= Player.Data.swingSpeed) {
-                float factor = (Player.PlayerMovement.CurrentMoveSpeed - Player.Data.swingSpeed) / (Player.Data.swingMaxSpeed - Player.Data.swingSpeed);
-                Camera.main.fieldOfView = factor * Player.Data.swingCameraFOVAddition + 50;
-                GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(0).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = factor * Player.Data.swingCameraDistanceAddition;
-                GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(1).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = factor * Player.Data.swingCameraDistanceAddition;
-                GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(2).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = factor * Player.Data.swingCameraDistanceAddition;
-            }
+            float factor = (Player.PlayerMovement.CurrentMoveSpeed - Player.Data.swingSpeed) / (Player.Data.swingMaxSpeed - Player.Data.swingSpeed);
+            Camera.main.fieldOfView = factor * Player.Data.swingCameraFOVAddition + 50;
+            GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(0).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = factor * Player.Data.swingCameraDistanceAddition;
+            GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(1).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = factor * Player.Data.swingCameraDistanceAddition;
+            GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(2).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = factor * Player.Data.swingCameraDistanceAddition;
             float dotVector = Vector3.Dot((EndSwingLinePoint.position - transform.position).normalized, Vector3.up);
             Debug.Log("dot vector : " + dotVector);
             if (dotVector > .8f)
             {
                 Debug.Log("SHAKKEEEE");
-                GPCtrl.Instance.CameraThirdPerson.CameraShake.ShakeCamera(1 * dotVector, .1f);
+                //GPCtrl.Instance.CameraThirdPerson.CameraShake.ShakeCamera(1 * dotVector, .1f);
             }
         }
 
@@ -144,7 +142,7 @@ public class PlayerSwinging : MonoBehaviour
         _springJoint.maxDistance = distanceFromPoint * 0.7f;
         _springJoint.minDistance = 0.5f;
 
-        _springJoint.spring = 10;
+        _springJoint.spring = 0;
         _springJoint.damper = 5f;
         _springJoint.massScale = 4.5f;
         SwingLineRenderer.positionCount = 2;

@@ -60,6 +60,8 @@ public class PlayerAttack : MonoBehaviour
         Player.PlayerSwingingRight.SwingLineRenderer.positionCount = 2;
         Player.PlayerSwingingRight.SwingLineRenderer.SetPosition(1, weakSpot.transform.position); //to shoot from the hand of the player
         Player.SoundData.SFX_Hunter_Attack_Rush.Post(gameObject);
+
+        GPCtrl.Instance.CameraThirdPerson.CameraShake.ShakeCamera(5f, .3f);
     }
 
     private void Update()
