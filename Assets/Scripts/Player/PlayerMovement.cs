@@ -98,8 +98,8 @@ public class PlayerMovement : MonoBehaviour
         //add force from input and player velo with certain force (air control when in air)
         if (Grounded) // on ground
             Player.Rigibody.AddForce(_moveDirection.normalized * CurrentMoveSpeed * 10f, ForceMode.Force);
-        else // in air
-            Player.Rigibody.AddForce(_moveDirection.normalized * CurrentMoveSpeed * 10f * Player.Data.airMultiplier, ForceMode.Force);
+        /*else // in air
+            Player.Rigibody.AddForce(_moveDirection.normalized * CurrentMoveSpeed * 10f * Player.Data.airMultiplier, ForceMode.Force);*/
     }
 
     public void Jump()
