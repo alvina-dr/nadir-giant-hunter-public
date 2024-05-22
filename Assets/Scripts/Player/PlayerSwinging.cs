@@ -69,10 +69,10 @@ public class PlayerSwinging : MonoBehaviour
             GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(1).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = factor * Player.Data.swingCameraDistanceAddition;
             GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(2).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = factor * Player.Data.swingCameraDistanceAddition;
             float dotVector = Vector3.Dot((EndSwingLinePoint.position - transform.position).normalized, Vector3.up);
-            Debug.Log("dot vector : " + dotVector);
+            //Debug.Log("dot vector : " + dotVector);
             if (dotVector > .8f)
             {
-                Debug.Log("SHAKKEEEE");
+                //Debug.Log("SHAKKEEEE");
                 //GPCtrl.Instance.CameraThirdPerson.CameraShake.ShakeCamera(1 * dotVector, .1f);
             }
         }
@@ -149,6 +149,7 @@ public class PlayerSwinging : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(StartSwingLinePoint.position, direction, out hit, Player.Data.maxSwingDistance, _layerMask))
             {
+                Debug.Log("find collision point");
                 StartSwing(hit.transform, hit.point);
             }
         }
@@ -156,6 +157,7 @@ public class PlayerSwinging : MonoBehaviour
 
     public void StartSwing(Transform hitTransform, Vector3 hitPoint)
     {
+        Debug.Log("start swinging");
         //swing direction on the y plane
         _swingOriginalDirection = Player.Mesh.forward;//new Vector3(Player.Rigibody.velocity.normalized.x, 0, Player.Rigibody.velocity.normalized.z);
         Player.PlayerMovement.CanJumpOnceInAir = true;
@@ -188,6 +190,7 @@ public class PlayerSwinging : MonoBehaviour
 
     public void StopSwing(bool boost = true, bool destroyVisual = true)
     {
+        Debug.Log("stop swinging");
         _swingConeRaycast.radius = _swingConeRaycast.minRadius;
         if (!_springJoint) return;
         Player.SoundData.SFX_Hunter_Hook_Single_Trigger.Post(EndSwingLinePoint.gameObject);
