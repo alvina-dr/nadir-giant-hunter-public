@@ -7,6 +7,7 @@ using UnityEngine;
 public class PlayerDash : MonoBehaviour
 {
     public Player Player;
+    [Sirenix.OdinInspector.ReadOnly]
     public bool IsDashing;
     public TargetableSpot CurrentDashSpot;
 
@@ -19,6 +20,8 @@ public class PlayerDash : MonoBehaviour
         }
         IsDashing = true;
         GPCtrl.Instance.DashPause = false;
+        Vector3 inputDir = new Vector3(Camera.main.transform.forward.x, 0, Camera.main.transform.forward.z);
+        GPCtrl.Instance.Player.Mesh.rotation = Quaternion.LookRotation(inputDir, Vector3.up);
         Time.timeScale = 1;
         Player.Rigibody.velocity = Vector3.zero;
         Player.Rigibody.useGravity = false;
