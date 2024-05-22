@@ -15,11 +15,13 @@ public class PlayerMovement : MonoBehaviour
     public float PlayerHeight;
     public LayerMask WhatIsGround;
 
+    [Sirenix.OdinInspector.ReadOnly]
     public bool Grounded;
     private bool _readyToJump;
     private float _horizontalInput;
     private float _verticalInput;
     private Vector3 _moveDirection;
+    [Sirenix.OdinInspector.ReadOnly]
     public bool CanJumpOnceInAir;
 
     //Debug
