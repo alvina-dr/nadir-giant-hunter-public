@@ -15,7 +15,7 @@ MonoBehaviour:
   walkRotationSpeed: 15
   airRotationSpeed: 3
   swingCameraFOVAddition: 5
-  swingCameraDistanceAddition: 0.5
+  swingCameraDistanceAddition: 0
   walkSpeed: 15
   jumpForce: 100
   jumpCooldown: 0.25
@@ -26,10 +26,10 @@ MonoBehaviour:
   swingMaxSpeed: 100
   swingAcceleration: 20
   minSwingDistance: 25
-  maxSwingDistance: 100
+  maxSwingDistance: 200
   startCurveSpeedBoost: 100
   endCurveSpeedBoost: 500
-  radiusDetectionIncreaseSpeed: 1
+  radiusDetectionIncreaseSpeed: 100
   airSlowDown: 5
   attackDistance: 150
   attackStopDistance: 5
@@ -42,6 +42,6 @@ MonoBehaviour:
   timeBeforeAutomaticDash: 200
   dashTime: 0.5
   bumpForce: 300
-  startCurveBoost: 1
+  startCurveBoost: 0
   endCurveBoost: 0
-  magicSwinging: 1
+  magicSwinging: 0

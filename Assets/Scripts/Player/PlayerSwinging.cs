@@ -76,11 +76,12 @@ public class PlayerSwinging : MonoBehaviour
                 //GPCtrl.Instance.CameraThirdPerson.CameraShake.ShakeCamera(1 * dotVector, .1f);
             }
         }
-
+        if (_side == Side.Right)
+        {
+            Debug.Log("try swing : " + IsTrySwing);
+        }
         if (IsTrySwing && !Player.PlayerAttack.IsGrappling && !GPCtrl.Instance.DashPause) TrySwing();
-        else if (!Player.PlayerGrappleBoost.IsGrapplingBoost) StopSwing();
-
-        
+        else if (!IsTrySwing && !Player.PlayerGrappleBoost.IsGrapplingBoost && !GPCtrl.Instance.DashPause) StopSwing();
     }
 
     public void CalculateUpVector()
@@ -183,14 +184,17 @@ public class PlayerSwinging : MonoBehaviour
         _springJoint.massScale = 4.5f;
         SwingLineRenderer.positionCount = 2;
         SwingLineRenderer.SetPosition(1, StartSwingLinePoint.position); //to shoot from the hand of the
-        Player.Rigibody.velocity = Vector3.zero;
+        //Player.Rigibody.velocity = Vector3.zero;
         if (Player.Data.startCurveBoost)
             Player.Rigibody.AddForce(Vector3.Cross(Player.Mesh.transform.right, (EndSwingLinePoint.position - Player.transform.position).normalized) * Player.Data.startCurveSpeedBoost, ForceMode.Impulse);
     }
 
     public void StopSwing(bool boost = true, bool destroyVisual = true)
     {
-        Debug.Log("stop swinging");
+        if (_side == Side.Right)
+        {
+            Debug.Log("stop swinging");
+        }
         _swingConeRaycast.radius = _swingConeRaycast.minRadius;
         if (!_springJoint) return;
         Player.SoundData.SFX_Hunter_Hook_Single_Trigger.Post(EndSwingLinePoint.gameObject);

@@ -14,7 +14,6 @@ public class CameraThirdPerson : MonoBehaviour
     private void Update()
     {
         //if (!canMoveCamera) return;
-        return;
         //CAM SENSI
         if (GPCtrl.Instance.DashPause) return;
         float camSensi = 1;
