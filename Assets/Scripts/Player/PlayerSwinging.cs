@@ -105,18 +105,25 @@ public class PlayerSwinging : MonoBehaviour
 
     public void Swinging()
     {
-        Vector3 forceAdded = new Vector3(_swingOriginalDirection.x, Player.Rigibody.velocity.y, _swingOriginalDirection.z);
+        Vector3 forceAdded = new Vector3(_swingOriginalDirection.x, 0, _swingOriginalDirection.z);
         Debug.DrawRay(Player.transform.position, _swingOriginalDirection*5, Color.blue);
 
         Vector3 influenceYPlaned = new Vector3(SwingInfluenceDirection.x, 0, SwingInfluenceDirection.z);
         float dot = Vector3.Dot(_swingOriginalDirection.normalized, influenceYPlaned.normalized);
-        Vector3 influence = SwingInfluenceDirection * (dot <= 0 ? 0 : dot+1);
+        Vector3 influence = SwingInfluenceDirection * (dot <= 0 ? 0 : dot+0.7f);
         Debug.DrawRay(Player.transform.position, influence*5, Color.green);
 
-        float lengthMult = Vector3.Distance(EndSwingLinePoint.position, StartSwingLinePoint.position) * Player.Data.SwingSpeedLengthMult;
-        Player.Rigibody.AddForce((forceAdded + influence * 3000)* (1+lengthMult) * Time.fixedDeltaTime, ForceMode.Force);
-        Player.Rigibody.velocity *= 0.999f;
-        bool hasToStopSwing = Vector3.Dot(Vector3.up, (EndSwingLinePoint.position - Player.transform.position).normalized) <= 0.2f;
+        float delta = Mathf.Max(dot, 0);
+        delta = delta <= 0 ? 0 : delta+0.1f;
+        delta = Mathf.Min(delta, 1);
+        Vector3 mix = Vector3.Lerp(forceAdded * 2000 * Player.Data.SwingBaseOrientationSpeed, influence * 2000 * Player.Data.SwingCameraOrientInfluence, delta);
+        Debug.DrawRay(Player.transform.position, mix * 5, Color.magenta);
+
+        float upDot = Vector3.Dot(Player.Rigibody.velocity.normalized, Player.Orientation.transform.forward);
+        float lengthMult = Vector3.Distance(EndSwingLinePoint.position, StartSwingLinePoint.position) * Player.Data.SwingSpeedLengthMult * (upDot-0.1f);
+        Player.Rigibody.AddForce(mix * (1+lengthMult) * Time.fixedDeltaTime, ForceMode.Force);
+        Player.Rigibody.velocity *= 0.999f * (1+Time.deltaTime);
+        bool hasToStopSwing = Vector3.Dot(Vector3.up, (EndSwingLinePoint.position - Player.transform.position).normalized) <= Player.Data.MaxSwingAngle;
         if (hasToStopSwing)
         {
             IsTrySwing = false;
