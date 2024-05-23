@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 3890.3237, g: 2793.428, b: 2423.508, a: 1}
+  m_IndirectSpecularColor: {r: 3892.0503, g: 2791.6897, b: 2416.59, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2560,6 +2560,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 444321298}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &445486737 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2906424856931999946, guid: 15eb996f72cd4374eade63faae095044,
+    type: 3}
+  m_PrefabInstance: {fileID: 8802809636439642778}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &461406043
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4870,6 +4876,12 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1899206470}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &859267382 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1278421804651148268, guid: 15eb996f72cd4374eade63faae095044,
+    type: 3}
+  m_PrefabInstance: {fileID: 8802809636439642778}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &869418089
 GameObject:
   m_ObjectHideFlags: 0
@@ -15948,6 +15960,16 @@ PrefabInstance:
       propertyPath: m_LookAt
       value: 
       objectReference: {fileID: 2553406}
+    - target: {fileID: 2204764063099714349, guid: a380a9af41e079441a308404864f80b8,
+        type: 3}
+      propertyPath: m_XAxis.m_MaxSpeed
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 2204764063099714349, guid: a380a9af41e079441a308404864f80b8,
+        type: 3}
+      propertyPath: m_YAxis.m_MaxSpeed
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2726512720832969696, guid: a380a9af41e079441a308404864f80b8,
         type: 3}
       propertyPath: m_LocalRotation.y
@@ -15957,6 +15979,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalRotation.z
       value: -3.3741232e-10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3405825141838471991, guid: a380a9af41e079441a308404864f80b8,
+        type: 3}
+      propertyPath: m_ZDamping
+      value: 1e-45
+      objectReference: {fileID: 0}
+    - target: {fileID: 3405825141838471991, guid: a380a9af41e079441a308404864f80b8,
+        type: 3}
+      propertyPath: m_FollowOffset.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3405825141838471991, guid: a380a9af41e079441a308404864f80b8,
+        type: 3}
+      propertyPath: m_FollowOffset.z
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3518096891097797370, guid: a380a9af41e079441a308404864f80b8,
+        type: 3}
+      propertyPath: m_AmplitudeGain
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627954362006338013, guid: a380a9af41e079441a308404864f80b8,
+        type: 3}
+      propertyPath: m_AmplitudeGain
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3702566035670704831, guid: a380a9af41e079441a308404864f80b8,
         type: 3}
@@ -15997,6 +16044,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalRotation.z
       value: -0.21835282
+      objectReference: {fileID: 0}
+    - target: {fileID: 4244656451761565861, guid: a380a9af41e079441a308404864f80b8,
+        type: 3}
+      propertyPath: m_AmplitudeGain
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5354865185022879566, guid: a380a9af41e079441a308404864f80b8,
         type: 3}
@@ -16047,6 +16099,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5511640858582434537, guid: a380a9af41e079441a308404864f80b8,
+        type: 3}
+      propertyPath: m_ZDamping
+      value: 1e-45
+      objectReference: {fileID: 0}
+    - target: {fileID: 5511640858582434537, guid: a380a9af41e079441a308404864f80b8,
+        type: 3}
+      propertyPath: m_FollowOffset.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5511640858582434537, guid: a380a9af41e079441a308404864f80b8,
+        type: 3}
+      propertyPath: m_FollowOffset.z
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 5696876307003449193, guid: a380a9af41e079441a308404864f80b8,
         type: 3}
@@ -16137,6 +16204,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalRotation.z
       value: -0.00024119123
+      objectReference: {fileID: 0}
+    - target: {fileID: 7987840799432841516, guid: a380a9af41e079441a308404864f80b8,
+        type: 3}
+      propertyPath: m_ZDamping
+      value: 1e-45
+      objectReference: {fileID: 0}
+    - target: {fileID: 7987840799432841516, guid: a380a9af41e079441a308404864f80b8,
+        type: 3}
+      propertyPath: m_FollowOffset.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7987840799432841516, guid: a380a9af41e079441a308404864f80b8,
+        type: 3}
+      propertyPath: m_FollowOffset.z
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 8648787738928888980, guid: a380a9af41e079441a308404864f80b8,
         type: 3}
@@ -17039,6 +17121,11 @@ PrefabInstance:
       objectReference: {fileID: 1635829129}
     - target: {fileID: 4607573896897719150, guid: 15eb996f72cd4374eade63faae095044,
         type: 3}
+      propertyPath: BaseSwingAnimation
+      value: 
+      objectReference: {fileID: 445486737}
+    - target: {fileID: 4607573896897719150, guid: 15eb996f72cd4374eade63faae095044,
+        type: 3}
       propertyPath: _MaxAngleFromAvoid
       value: 30
       objectReference: {fileID: 0}
@@ -17088,6 +17175,11 @@ PrefabInstance:
       propertyPath: SwingLineRenderer
       value: 
       objectReference: {fileID: 1357809310}
+    - target: {fileID: 5991739102287327260, guid: 15eb996f72cd4374eade63faae095044,
+        type: 3}
+      propertyPath: BaseSwingAnimation
+      value: 
+      objectReference: {fileID: 859267382}
     - target: {fileID: 5991739102287327260, guid: 15eb996f72cd4374eade63faae095044,
         type: 3}
       propertyPath: _MaxAngleFromAvoid
