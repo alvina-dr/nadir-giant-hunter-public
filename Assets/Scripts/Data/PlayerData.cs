@@ -59,6 +59,8 @@ public class PlayerData : ScriptableObject
     public float dragForce;
     [TabGroup("Attack")]
     public float weakSpotDetectionDistance;
+    [TabGroup("Attack")]
+    public float weakSpotReboundForce;
 
     [TabGroup("Double swing boost")]
     public float doubleSwingBoost;
@@ -73,6 +75,7 @@ public class PlayerData : ScriptableObject
     public float timeBeforeAutomaticDash;
     [TabGroup("Dash")]
     public float dashTime;
+
 
     [TabGroup("Bumper")]
     public float bumpForce;

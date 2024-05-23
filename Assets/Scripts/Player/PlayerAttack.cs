@@ -11,6 +11,7 @@ public class PlayerAttack : MonoBehaviour
     public bool IsGrappling = false;
     public TargetableSpot CurrentTargetSpot;
     public List<TargetableSpot> closestTargetableSpotList = new List<TargetableSpot>();
+    public Vector3 TargetSpotDistance = Vector3.zero;
 
     public void Attack()
     {
@@ -40,6 +41,7 @@ public class PlayerAttack : MonoBehaviour
     public void GrappleWeakSpot(TargetableSpot weakSpot)
     {
         Player.Collider.enabled = false;
+        TargetSpotDistance = transform.position - weakSpot.transform.position;
         Player.PlayerSwingingLeft.StopSwing(false);
         Player.PlayerSwingingRight.StopSwing(false);
         IsGrappling = true;

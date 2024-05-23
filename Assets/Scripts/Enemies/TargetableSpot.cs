@@ -37,6 +37,10 @@ public class TargetableSpot : MonoBehaviour
                 VisualFX.SetBool("kill tentacles", true);
                 StartCoroutine(DestroyAfterDelay());
                 GPCtrl.Instance.TargetableSpotList.Remove(this);
+                Vector3 vector3 = GPCtrl.Instance.Player.PlayerAttack.TargetSpotDistance.normalized;
+                Vector3 newDirection = new Vector3(-vector3.x, vector3.y, -vector3.z) * GPCtrl.Instance.Player.Data.weakSpotReboundForce;
+                GPCtrl.Instance.Player.Rigibody.velocity = Vector3.zero;
+                GPCtrl.Instance.Player.Rigibody.AddForce(newDirection, ForceMode.Impulse);
                 break;
             case SpotType.DashSpot:
                 GPCtrl.Instance.DashPause = true;
