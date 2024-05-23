@@ -188,7 +188,8 @@ public class PlayerSwinging : MonoBehaviour
         _springJoint.massScale = 100f;
         SwingLineRenderer.positionCount = 2;
         SwingLineRenderer.SetPosition(1, StartSwingLinePoint.position); //to shoot from the hand of the
-        //Player.Rigibody.velocity = Vector3.zero;
+        Vector3 newVelocity = Vector3.Cross(Player.Mesh.transform.right, (EndSwingLinePoint.position - Player.transform.position).normalized) * Player.Rigibody.velocity.magnitude;
+        Player.Rigibody.velocity = newVelocity;
         if (Player.Data.startCurveBoost)
             Player.Rigibody.AddForce(Vector3.Cross(Player.Mesh.transform.right, (EndSwingLinePoint.position - Player.transform.position).normalized) * Player.Data.startCurveSpeedBoost, ForceMode.Impulse);
     }

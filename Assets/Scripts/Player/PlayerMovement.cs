@@ -59,10 +59,13 @@ public class PlayerMovement : MonoBehaviour
 
         if (Player.PlayerSwingingLeft.IsSwinging || Player.PlayerSwingingRight.IsSwinging)
         {
-            //Keep move speed btwn min and max of swing speed AND add an acceleration to it.
-            CurrentMoveSpeed = Mathf.Max(Player.Data.swingSpeed, CurrentMoveSpeed);
-            CurrentMoveSpeed += Player.Data.swingAcceleration * Time.deltaTime;
-            CurrentMoveSpeed = Mathf.Min(Player.Data.swingMaxSpeed, CurrentMoveSpeed);
+            if (!GPCtrl.Instance.Pause)
+            {
+                //Keep move speed btwn min and max of swing speed AND add an acceleration to it.
+                CurrentMoveSpeed = Mathf.Max(Player.Data.swingSpeed, CurrentMoveSpeed);
+                CurrentMoveSpeed += Player.Data.swingAcceleration * Time.deltaTime;
+                CurrentMoveSpeed = Mathf.Min(Player.Data.swingMaxSpeed, CurrentMoveSpeed);
+            }
         }
         else if (Grounded) CurrentMoveSpeed = Player.Data.walkSpeed;//set moveSpeed to WalkSpeed when grounded
 
