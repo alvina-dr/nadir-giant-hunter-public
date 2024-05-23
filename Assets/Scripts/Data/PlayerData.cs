@@ -45,6 +45,8 @@ public class PlayerData : ScriptableObject
     public float endCurveSpeedBoost;
     [TabGroup("Swing")]
     public float radiusDetectionIncreaseSpeed;
+    [TabGroup("Swing")]
+    public float SwingSpeedLengthMult;
 
     [TabGroup("Swing")]
     public float airSlowDown;
