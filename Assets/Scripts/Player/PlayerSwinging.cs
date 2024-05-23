@@ -74,7 +74,10 @@ public class PlayerSwinging : MonoBehaviour
             if (dotVector > .8f)
             {
                 //Debug.Log("SHAKKEEEE");
-                GPCtrl.Instance.CameraThirdPerson.CameraShake.ShakeCamera(2 * dotVector, .1f);
+                //GPCtrl.Instance.CameraThirdPerson.CameraShake.ShakeCamera(2 * dotVector, .1f);
+            } else if (IsSwinging)
+            {
+                //GPCtrl.Instance.CameraThirdPerson.CameraShake.StopShake();
             }
         }
         if (_side == Side.Right)

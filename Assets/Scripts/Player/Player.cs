@@ -25,6 +25,7 @@ public class Player : MonoBehaviour
     public Transform Orientation;
     public Animator Animator;
     public VisualEffect SparksVFX;
+    public CapsuleCollider Collider;
 
     [Header("Variables")]
     public float currentTimerPitBottom;

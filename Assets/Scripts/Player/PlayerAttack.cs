@@ -39,6 +39,7 @@ public class PlayerAttack : MonoBehaviour
 
     public void GrappleWeakSpot(TargetableSpot weakSpot)
     {
+        Player.Collider.enabled = false;
         Player.PlayerSwingingLeft.StopSwing(false);
         Player.PlayerSwingingRight.StopSwing(false);
         IsGrappling = true;
@@ -121,6 +122,7 @@ public class PlayerAttack : MonoBehaviour
                 Player.SoundData.SFX_Hunter_Attack_Impact.Post(gameObject);
                 CurrentTargetSpot.DestroyWeakSpot();
                 CurrentTargetSpot = null;
+                Player.Collider.enabled = true;
             }
         }
     }
