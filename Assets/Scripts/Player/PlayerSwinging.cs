@@ -185,7 +185,7 @@ public class PlayerSwinging : MonoBehaviour
 
         _springJoint.spring = 0;
         _springJoint.damper = 5f;
-        _springJoint.massScale = 4.5f;
+        _springJoint.massScale = 100f;
         SwingLineRenderer.positionCount = 2;
         SwingLineRenderer.SetPosition(1, StartSwingLinePoint.position); //to shoot from the hand of the
         //Player.Rigibody.velocity = Vector3.zero;

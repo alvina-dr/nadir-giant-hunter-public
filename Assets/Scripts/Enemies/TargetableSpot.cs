@@ -33,7 +33,8 @@ public class TargetableSpot : MonoBehaviour
                     vfx.transform.position = transform.position;
                     Enemy.Damage(this);
                 }
-                VisualFX.SendEvent("collision");
+                VisualFX.SendEvent("Destroy");
+                VisualFX.SetBool("kill tentacles", true);
                 StartCoroutine(DestroyAfterDelay());
                 GPCtrl.Instance.TargetableSpotList.Remove(this);
                 break;
@@ -71,7 +72,7 @@ public class TargetableSpot : MonoBehaviour
 
     private IEnumerator DestroyAfterDelay()
     {
-        yield return new WaitForSecondsRealtime(1.0f);
+        yield return new WaitForSecondsRealtime(5.0f);
         Destroy(gameObject);
     }
     
