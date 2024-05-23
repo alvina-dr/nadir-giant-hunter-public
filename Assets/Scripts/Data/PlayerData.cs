@@ -34,6 +34,12 @@ public class PlayerData : ScriptableObject
     [TabGroup("Swing")]
     public float swingMaxSpeed;
     [TabGroup("Swing")]
+    public float SwingSpeedLengthMult;
+    [TabGroup("Swing"), Tooltip("How much base direction direction is kept during swing")]
+    public float SwingBaseOrientationSpeed;
+    [TabGroup("Swing"), Tooltip("How much looking right and left will affect direction during swing")]
+    public float SwingCameraOrientInfluence;
+    [TabGroup("Swing")]
     public float swingAcceleration;
     [TabGroup("Swing")]
     public float minSwingDistance;
@@ -45,8 +51,8 @@ public class PlayerData : ScriptableObject
     public float endCurveSpeedBoost;
     [TabGroup("Swing")]
     public float radiusDetectionIncreaseSpeed;
-    [TabGroup("Swing")]
-    public float SwingSpeedLengthMult;
+    [TabGroup("Swing"), Tooltip("when is the swing stopped automatically, between 0 and 1")]
+    public float MaxSwingAngle;
 
     [TabGroup("Swing")]
     public float airSlowDown;
