@@ -74,7 +74,7 @@ public class PlayerSwinging : MonoBehaviour
             if (dotVector > .8f)
             {
                 //Debug.Log("SHAKKEEEE");
-                //GPCtrl.Instance.CameraThirdPerson.CameraShake.ShakeCamera(1 * dotVector, .1f);
+                GPCtrl.Instance.CameraThirdPerson.CameraShake.ShakeCamera(2 * dotVector, .1f);
             }
         }
         if (_side == Side.Right)
@@ -152,7 +152,6 @@ public class PlayerSwinging : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(StartSwingLinePoint.position, direction, out hit, Player.Data.maxSwingDistance, _layerMask))
             {
-                Debug.Log("find collision point");
                 StartSwing(hit.transform, hit.point);
             }
         }

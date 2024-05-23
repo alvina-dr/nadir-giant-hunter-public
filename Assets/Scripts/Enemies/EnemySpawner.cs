@@ -18,10 +18,8 @@ public class EnemySpawner : MonoBehaviour
     private List<GameObject> _enemies = new List<GameObject>();
 
     private int _currentSpawningTimerIndex;
+    public int NumTotalEnemy = 0;
 
-    
-
-    // Start is called before the first frame update
     void Start()
     {
         _currentSpawningTimerIndex = 0;
@@ -35,12 +33,6 @@ public class EnemySpawner : MonoBehaviour
         }
         StartCoroutine(SpawnCycle());
         StartCoroutine(WaitForNextSpawningTimer());
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     IEnumerator WaitForNextSpawningTimer()
@@ -94,7 +86,6 @@ public class EnemySpawner : MonoBehaviour
             _enemies.Add(enemy);
         }
     }
-
 
     public int GetAliveEnemiesNum()
     {
