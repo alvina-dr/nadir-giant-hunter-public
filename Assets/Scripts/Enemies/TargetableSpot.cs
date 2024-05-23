@@ -48,6 +48,9 @@ public class TargetableSpot : MonoBehaviour
                 Material material = GPCtrl.Instance.GetPostProcessMaterial();
                 material.DOFloat(1f, "_strength", .2f).SetUpdate(true);
                 break;
+            case SpotType.Bumper:
+                Bump();
+                break;
         }
 
     }
@@ -70,5 +73,12 @@ public class TargetableSpot : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(1.0f);
         Destroy(gameObject);
+    }
+    
+    public void Bump()
+    {
+        GPCtrl.Instance.Player.Rigibody.velocity = Vector3.zero;
+        GPCtrl.Instance.Player.Rigibody.AddForce(transform.up * GPCtrl.Instance.Player.Data.bumpForce, ForceMode.Impulse);
+        VisualFX.SendEvent("trigger2");
     }
 }
