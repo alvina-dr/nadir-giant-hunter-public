@@ -11,6 +11,12 @@ public class UI_Button : MonoBehaviour, ISelectHandler, IDeselectHandler
 {
     [SerializeField] private TextMeshProUGUI _textMeshProUGUI;
     [SerializeField] private Image _image;
+
+    private void Start()
+    {
+        _image.material = new Material(_image.material);
+    }
+
     public void OnDeselect(BaseEventData eventData)
     {
         transform.DOScale(1f, .3f).SetUpdate(true);
