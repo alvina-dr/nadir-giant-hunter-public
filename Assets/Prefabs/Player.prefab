@@ -551,6 +551,7 @@ MonoBehaviour:
   Orientation: {fileID: 6609080969534418957}
   Animator: {fileID: 4801896384869378783}
   SparksVFX: {fileID: 5443287702632640422}
+  Collider: {fileID: 2380919973635274701}
   currentTimerPitBottom: 0
 --- !u!114 &4607573896897719150
 MonoBehaviour:
@@ -572,6 +573,8 @@ MonoBehaviour:
   _otherPlayerSwinging: {fileID: 5991739102287327260}
   _RotationToAvoid: {x: 19.236, y: -0.11, z: -85.99}
   _MaxAngleFromAvoid: 0
+  _swingOriginalDirection: {x: 0, y: 0, z: 0}
+  SwingInfluenceDirection: {x: 0, y: 0, z: 0}
   IsSwinging: 0
   _side: 1
   IsTrySwing: 0
@@ -599,6 +602,8 @@ MonoBehaviour:
   _otherPlayerSwinging: {fileID: 4607573896897719150}
   _RotationToAvoid: {x: 19.236, y: -0.11, z: -85.99}
   _MaxAngleFromAvoid: 0
+  _swingOriginalDirection: {x: 0, y: 0, z: 0}
+  SwingInfluenceDirection: {x: 0, y: 0, z: 0}
   IsSwinging: 0
   _side: 0
   IsTrySwing: 0
