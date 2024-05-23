@@ -79,7 +79,7 @@ public class PlayerSwinging : MonoBehaviour
         }
         if (_side == Side.Right)
         {
-            Debug.Log("try swing : " + IsTrySwing);
+            //Debug.Log("try swing : " + IsTrySwing);
         }
         if (IsTrySwing && !Player.PlayerAttack.IsGrappling && !GPCtrl.Instance.DashPause) TrySwing();
         else if (!IsTrySwing && !Player.PlayerGrappleBoost.IsGrapplingBoost && !GPCtrl.Instance.DashPause) StopSwing();
@@ -159,7 +159,7 @@ public class PlayerSwinging : MonoBehaviour
 
     public void StartSwing(Transform hitTransform, Vector3 hitPoint)
     {
-        Debug.Log("start swinging");
+        //Debug.Log("start swinging");
         //swing direction on the y plane
         _swingOriginalDirection = Player.Mesh.forward;//new Vector3(Player.Rigibody.velocity.normalized.x, 0, Player.Rigibody.velocity.normalized.z);
         Player.PlayerMovement.CanJumpOnceInAir = true;
@@ -194,7 +194,7 @@ public class PlayerSwinging : MonoBehaviour
     {
         if (_side == Side.Right)
         {
-            Debug.Log("stop swinging");
+            //Debug.Log("stop swinging");
         }
         _swingConeRaycast.radius = _swingConeRaycast.minRadius;
         if (!_springJoint) return;

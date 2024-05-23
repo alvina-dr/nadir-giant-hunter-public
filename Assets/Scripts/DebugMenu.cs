@@ -36,7 +36,7 @@ public class DebugMenu : MonoBehaviour
         DM.Add("Grapple/EndCurveBoost", () => GPCtrl.Instance.Player.Data.endCurveBoost, v => GPCtrl.Instance.Player.Data.endCurveBoost = v);
         DM.Add("Grapple/EndCurveBoost", () => GPCtrl.Instance.Player.Data.endCurveBoost, v => GPCtrl.Instance.Player.Data.endCurveBoost = v);
         DM.Add("Values/PlayerSpeed", action => speedText.gameObject.SetActive(!speedText.gameObject.activeSelf));
-        DN.Notify("Simple notification", 5f);
+        //DN.Notify("Simple notification", 5f);
     }
 
     #region DEBUG FUNCTIONS
