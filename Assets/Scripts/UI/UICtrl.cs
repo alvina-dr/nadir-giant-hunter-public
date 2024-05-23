@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -11,6 +12,8 @@ public class UICtrl : MonoBehaviour
     public UI_Settings UI_Settings;
     public UI_Menu PauseMenu;
 
+    [Header("End Game Menu")]
+    [SerializeField] private TextMeshProUGUI _endGameMenuTitle;
     public void OpenPauseMenu()
     {
         PauseMenu.OpenMenu();
@@ -45,5 +48,11 @@ public class UICtrl : MonoBehaviour
     {
         SceneManager.LoadScene("Game");
         Time.timeScale = 1;
+    }
+
+    public void OpenEndGameMenu(bool hasWon)
+    {
+        _endGameMenuTitle.text = hasWon ? "Victory" : "Game Over";
+        EndGameMenu.OpenMenu();
     }
 }

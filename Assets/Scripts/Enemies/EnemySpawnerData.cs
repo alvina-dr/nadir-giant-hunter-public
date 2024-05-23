@@ -23,6 +23,6 @@ public class SpawningTimer
 public class EnemySpawnerData : ScriptableObject
 {
     public GameObject EnemyPrefab;
-    
     public List<SpawningTimer> spawningTimers = new List<SpawningTimer>();
+    public int NumTotalEnemy;
 }

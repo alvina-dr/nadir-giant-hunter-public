@@ -39,6 +39,7 @@ public class EnemyWeakSpotManagement : MonoBehaviour
 
     public void Death()
     {
+        GPCtrl.Instance.AddKilledEnemy();
         Destroy(gameObject);
     }
 }

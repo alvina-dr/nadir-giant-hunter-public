@@ -29,6 +29,7 @@ public class GPCtrl : MonoBehaviour
     public GeneralData GeneralData;
     public Player Player;
     public UICtrl UICtrl;
+    public EnemySpawner EnemySpawner;
 
     [Header("Camera")]
     public CameraThirdPerson CameraThirdPerson;
@@ -43,6 +44,7 @@ public class GPCtrl : MonoBehaviour
     public bool Pause = false;
     public bool DashPause = false;
     public CustomPassVolume reliefFX;
+    public int NumEnemyKilled = 0;
 
     private void Update()
     {
@@ -59,17 +61,28 @@ public class GPCtrl : MonoBehaviour
     public void Win()
     {
         Debug.Log("WIN");
+        Pause = true;
+        UICtrl.OpenEndGameMenu(true);
     }
 
     public void Loose(EnemyMovement enemy = null)
     {
         Pause = true;
-        UICtrl.EndGameMenu.OpenMenu();
+        UICtrl.OpenEndGameMenu(false);
         if (enemy != null)
         {
             GameOverCamera.FocusEnemy(enemy);
         }
         Debug.Log("LOOSE");
+    }
+
+    public void AddKilledEnemy()
+    {
+        NumEnemyKilled++;
+        if (NumEnemyKilled > EnemySpawner.SpawnerData.NumTotalEnemy)
+        {
+            Win();
+        }
     }
 
     public void RestartGame()
