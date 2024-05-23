@@ -95,6 +95,6 @@ public class CameraThirdPerson : MonoBehaviour
     public void ActivateFreeLook(bool value)
     {
         return;
-        CinemachineFreeLook.enabled = value;
+        //CinemachineFreeLook.enabled = value;
     }
 }
