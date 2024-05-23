@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83430b9cec0e9484fb7d72799361fa39, type: 3}
   m_Name: EnemySpawnerData
   m_EditorClassIdentifier: 
-  SpawnCircleWidth: 575.82
   EnemyPrefab: {fileID: 6621249812686024313, guid: 37fcea3c9f56e5e45b2f440ccd893f1a,
     type: 3}
-  SpawnCycle: 5
-  MaxEnemies: 5
+  spawningTimers:
+  - TimerStart: 0
+    MaxEnemiesSpawned: 10
+    SpawnCoolDown: 5
+    DoSpawnOnlyOnePerLine: 1
