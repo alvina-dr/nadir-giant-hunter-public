@@ -47,9 +47,10 @@ public class PlayerDash : MonoBehaviour
         yield return new WaitForSecondsRealtime(Player.Data.dashTime);
         Player.Rigibody.useGravity = true;
         float factor = (Player.PlayerMovement.CurrentMoveSpeed - Player.Data.swingSpeed) / (Player.Data.swingMaxSpeed - Player.Data.swingSpeed);
+        Player.PlayerMovement.CurrentMoveSpeed = Player.Data.swingMaxSpeed;
         DOVirtual.Float(1f, factor * Player.Data.swingCameraDistanceAddition, .3f, v =>
         {
-            Debug.Log("float : " + v);
+            //Debug.Log("float : " + v);
             GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(0).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = v;
             GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(1).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = v;
             GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(2).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = v;
