@@ -110,7 +110,8 @@ public class PlayerSwinging : MonoBehaviour
         Vector3 influence = SwingInfluenceDirection * (dot <= 0 ? 0 : dot+1);
         Debug.DrawRay(Player.transform.position, influence*5, Color.green);
 
-        Player.Rigibody.AddForce((forceAdded + influence * 3000) * Time.fixedDeltaTime, ForceMode.Force);
+        float lengthMult = Vector3.Distance(EndSwingLinePoint.position, StartSwingLinePoint.position) * Player.Data.SwingSpeedLengthMult;
+        Player.Rigibody.AddForce((forceAdded + influence * 3000)* (1+lengthMult) * Time.fixedDeltaTime, ForceMode.Force);
         Player.Rigibody.velocity *= 0.999f;
         bool hasToStopSwing = Vector3.Dot(Vector3.up, (EndSwingLinePoint.position - Player.transform.position).normalized) <= 0.2f;
         if (hasToStopSwing)
