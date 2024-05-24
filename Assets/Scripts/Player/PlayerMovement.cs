@@ -116,7 +116,7 @@ public class PlayerMovement : MonoBehaviour
         {
             CanJumpOnceInAir = false;
             _readyToJump = false;
-            Player.Rigibody.velocity = new Vector3(Player.Rigibody.velocity.x, Mathf.Max(Player.Rigibody.velocity.x, 0), Player.Rigibody.velocity.z);
+            Player.Rigibody.velocity = new Vector3(Player.Rigibody.velocity.x, Mathf.Max(Player.Rigibody.velocity.y, 0), Player.Rigibody.velocity.z);
             Player.Rigibody.AddForce(transform.up * Player.Data.jumpForce, ForceMode.Impulse);
             Invoke(nameof(ResetJump), Player.Data.jumpCooldown);
             Player.Animator.SetTrigger("Jump");

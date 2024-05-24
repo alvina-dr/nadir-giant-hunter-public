@@ -65,6 +65,7 @@ public class Player : MonoBehaviour
         };
         InputManager.Gameplay.Jump.started += function => {
             if (GPCtrl.Instance.Pause) return;
+            if (PlayerAttack.IsGrappling) return;
             if (PlayerSwingingLeft.IsSwinging || PlayerSwingingRight.IsSwinging)
                 PlayerGrappleBoost.Boost();
             else
