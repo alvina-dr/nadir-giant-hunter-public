@@ -19,14 +19,14 @@ public class PlayerGrappleBoost : MonoBehaviour
 
     public void DrawGrapple(PlayerSwinging playerSwinging)
     {
-        if (playerSwinging.SwingLineRenderer.positionCount == 2)
-        {
-            playerSwinging.SwingLineRenderer.SetPosition(0, playerSwinging.StartSwingLinePoint.position);
-            if (playerSwinging.SwingLineRenderer.GetPosition(1) != playerSwinging.EndSwingLinePoint.position)
-            {
-                playerSwinging.SwingLineRenderer.SetPosition(1, Vector3.Lerp(playerSwinging.SwingLineRenderer.GetPosition(1), playerSwinging.EndSwingLinePoint.position, 0.1f));
-            }
-        }
+        //if (playerSwinging.SwingLineRenderer.positionCount == 2)
+        //{
+        //    playerSwinging.SwingLineRenderer.SetPosition(0, playerSwinging.StartSwingLinePoint.position);
+        //    if (playerSwinging.SwingLineRenderer.GetPosition(1) != playerSwinging.EndSwingLinePoint.position)
+        //    {
+        //        playerSwinging.SwingLineRenderer.SetPosition(1, Vector3.Lerp(playerSwinging.SwingLineRenderer.GetPosition(1), playerSwinging.EndSwingLinePoint.position, 0.1f));
+        //    }
+        //}
     }
 
     public void Boost()

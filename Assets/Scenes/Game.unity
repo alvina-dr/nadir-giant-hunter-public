@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 3924.0474, g: 2737.5706, b: 2237.2737, a: 1}
+  m_IndirectSpecularColor: {r: 3879.9595, g: 2795.7815, b: 2447.5354, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -9738,6 +9738,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1357809311}
   - component: {fileID: 1357809310}
+  - component: {fileID: 1357809312}
   m_Layer: 0
   m_Name: GrappleLineLeft
   m_TagString: Untagged
@@ -9792,12 +9793,12 @@ LineRenderer:
   m_Positions: []
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.1
+    widthMultiplier: 0.03
     widthCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0
+        time: 0.00995636
         value: 1
         inSlope: 0
         outSlope: 0
@@ -9864,6 +9865,49 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1357809312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1357809309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a4417fb88f66454680248ed3594139d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _lineRenderer: {fileID: 1357809310}
+  _quality: 500
+  _damper: 14
+  _strength: 800
+  _velocity: 5
+  _waveCount: 50
+  _waveHeight: 50
+  _affectCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2.7327075
+      outSlope: 2.7327075
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.10419486
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1379823410
 GameObject:
   m_ObjectHideFlags: 0
@@ -11703,6 +11747,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1635829130}
   - component: {fileID: 1635829129}
+  - component: {fileID: 1635829131}
   m_Layer: 0
   m_Name: GrappleLineRight
   m_TagString: Untagged
@@ -11763,7 +11808,7 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1
+        value: 0.3
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -11829,6 +11874,49 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1635829131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1635829128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a4417fb88f66454680248ed3594139d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _lineRenderer: {fileID: 1635829129}
+  _quality: 500
+  _damper: 14
+  _strength: 800
+  _velocity: 5
+  _waveCount: 50
+  _waveHeight: 50
+  _affectCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2.7327075
+      outSlope: 2.7327075
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.10419486
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1001 &1647900775
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17114,6 +17202,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4607573896897719150, guid: 15eb996f72cd4374eade63faae095044,
         type: 3}
+      propertyPath: SwingRopeFX
+      value: 
+      objectReference: {fileID: 1635829131}
+    - target: {fileID: 4607573896897719150, guid: 15eb996f72cd4374eade63faae095044,
+        type: 3}
       propertyPath: SwingLineRenderer
       value: 
       objectReference: {fileID: 1635829129}
@@ -17163,6 +17256,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5991739102287327260, guid: 15eb996f72cd4374eade63faae095044,
+        type: 3}
+      propertyPath: SwingRopeFX
+      value: 
+      objectReference: {fileID: 1357809312}
     - target: {fileID: 5991739102287327260, guid: 15eb996f72cd4374eade63faae095044,
         type: 3}
       propertyPath: SwingLineRenderer

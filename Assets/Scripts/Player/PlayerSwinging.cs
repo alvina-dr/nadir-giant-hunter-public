@@ -32,6 +32,7 @@ public class PlayerSwinging : MonoBehaviour
     [HideInInspector]
     public bool IsTrySwing = false;
     public LineRenderer SwingLineRenderer;
+    public SwingRopeFX SwingRopeFX;
     [SerializeField] private LayerMask _layerMask;
 
     private void LateUpdate()
@@ -43,15 +44,18 @@ public class PlayerSwinging : MonoBehaviour
         if (IsSwinging) //Visual effect for swing line
         {
             SwingAnimation(EndSwingLinePoint.position);
-            if (SwingLineRenderer.positionCount == 2)
+            //if (SwingLineRenderer.positionCount == 2)
             {
-                SwingLineRenderer.SetPosition(0, StartSwingLinePoint.position);
-                if (SwingLineRenderer.GetPosition(1) != EndSwingLinePoint.position)
-                {
-                    SwingLineRenderer.SetPosition(1, Vector3.Lerp(SwingLineRenderer.GetPosition(1), EndSwingLinePoint.position, 0.1f));
-                }
+                //SwingLineRenderer.SetPosition(0, StartSwingLinePoint.position);
+                //if (SwingLineRenderer.GetPosition(1) != EndSwingLinePoint.position)
+                //{
+                //    SwingLineRenderer.SetPosition(1, Vector3.Lerp(SwingLineRenderer.GetPosition(1), EndSwingLinePoint.position, 0.1f));
+                //}
             }
         }
+
+        SwingRopeFX.DrawRope(this);
+
         if (IsSwinging)
         {
             Swinging();
@@ -193,8 +197,8 @@ public class PlayerSwinging : MonoBehaviour
         _springJoint.spring = 0;
         _springJoint.damper = 5f;
         _springJoint.massScale = 100f;
-        SwingLineRenderer.positionCount = 2;
-        SwingLineRenderer.SetPosition(1, StartSwingLinePoint.position); //to shoot from the hand of the
+        //SwingLineRenderer.positionCount = 2;
+        //SwingLineRenderer.SetPosition(1, StartSwingLinePoint.position); //to shoot from the hand of the
         Vector3 newVelocity = Vector3.Cross(Player.Mesh.transform.right, (EndSwingLinePoint.position - Player.transform.position).normalized) * Player.Rigibody.velocity.magnitude;
         Player.Rigibody.velocity = newVelocity;
         if (Player.Data.startCurveBoost)
@@ -229,7 +233,7 @@ public class PlayerSwinging : MonoBehaviour
 
     public void HideLineRenderer()
     {
-        SwingLineRenderer.positionCount = 0;
+        //SwingLineRenderer.positionCount = 0;
         EndSwingLinePoint.parent = null;
     }
 
