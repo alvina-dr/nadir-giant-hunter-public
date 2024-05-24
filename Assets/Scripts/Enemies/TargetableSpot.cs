@@ -59,7 +59,6 @@ public class TargetableSpot : MonoBehaviour
                 GPCtrl.Instance.TargetableSpotList.Remove(this);
                 break;
         }
-
     }
 
     private IEnumerator DashSlowDown()
