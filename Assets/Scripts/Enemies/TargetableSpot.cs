@@ -55,6 +55,8 @@ public class TargetableSpot : MonoBehaviour
                 break;
             case SpotType.Bumper:
                 Bump();
+                StartCoroutine(ReloadBumper());
+                GPCtrl.Instance.TargetableSpotList.Remove(this);
                 break;
         }
 
@@ -70,8 +72,13 @@ public class TargetableSpot : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(GPCtrl.Instance.GeneralData.dashSpotReloadTime);
         GPCtrl.Instance.TargetableSpotList.Add(this);
-        //Mesh.enabled = true;
         VisualFX.SendEvent("OnPlay");
+    }
+
+    private IEnumerator ReloadBumper()
+    {
+        yield return new WaitForSecondsRealtime(1);
+        GPCtrl.Instance.TargetableSpotList.Add(this);
     }
 
     private IEnumerator DestroyAfterDelay()
