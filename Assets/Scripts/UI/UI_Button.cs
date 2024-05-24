@@ -12,7 +12,7 @@ public class UI_Button : MonoBehaviour, ISelectHandler, IDeselectHandler
     [SerializeField] private TextMeshProUGUI _textMeshProUGUI;
     [SerializeField] private Image _image;
 
-    private void Start()
+    private void Awake()
     {
         _image.material = new Material(_image.material);
     }
