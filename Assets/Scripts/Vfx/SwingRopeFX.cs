@@ -22,19 +22,8 @@ public class SwingRopeFX : MonoBehaviour
         _spring.SetTarget(0);
     }
 
-    public void DrawRope(PlayerSwinging playerSwinging)
+    public void DrawRope(Vector3 startPoint, Vector3 endPoint)
     {
-        //if not grappling don't draw rope
-        if (!playerSwinging.IsSwinging)
-        {
-            _currentGrapplePosition = playerSwinging.StartSwingLinePoint.position;
-            _spring.Reset();
-
-            if (_lineRenderer.positionCount > 0)
-                _lineRenderer.positionCount = 0;
-            return;
-        }
-
         if (_lineRenderer.positionCount == 0)
         {
             _spring.SetVelocity(_velocity);
@@ -45,8 +34,8 @@ public class SwingRopeFX : MonoBehaviour
         _spring.SetStrength(_strength);
         _spring.Update(Time.deltaTime);
 
-        Vector3 grapplePoint = playerSwinging.EndSwingLinePoint.position;
-        Vector3 gunTipPosition = playerSwinging.StartSwingLinePoint.position;
+        Vector3 grapplePoint = endPoint;
+        Vector3 gunTipPosition = startPoint;
         var up = Quaternion.LookRotation((grapplePoint - gunTipPosition).normalized) * Vector3.up;
 
         _currentGrapplePosition = Vector3.Lerp(_currentGrapplePosition, grapplePoint, Time.deltaTime * 12f);
@@ -59,5 +48,14 @@ public class SwingRopeFX : MonoBehaviour
 
             _lineRenderer.SetPosition(i, Vector3.Lerp(gunTipPosition, _currentGrapplePosition, delta) + offset);
         }
+    }
+
+    public void HideRope(Vector3 startPoint)
+    {
+        _currentGrapplePosition = startPoint;
+        _spring.Reset();
+
+        if (_lineRenderer.positionCount > 0)
+            _lineRenderer.positionCount = 0;
     }
 }

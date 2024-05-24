@@ -44,21 +44,11 @@ public class PlayerSwinging : MonoBehaviour
         if (IsSwinging) //Visual effect for swing line
         {
             SwingAnimation(EndSwingLinePoint.position);
-            //if (SwingLineRenderer.positionCount == 2)
-            {
-                //SwingLineRenderer.SetPosition(0, StartSwingLinePoint.position);
-                //if (SwingLineRenderer.GetPosition(1) != EndSwingLinePoint.position)
-                //{
-                //    SwingLineRenderer.SetPosition(1, Vector3.Lerp(SwingLineRenderer.GetPosition(1), EndSwingLinePoint.position, 0.1f));
-                //}
-            }
-        }
-
-        SwingRopeFX.DrawRope(this);
-
-        if (IsSwinging)
-        {
             Swinging();
+            SwingRopeFX.DrawRope(StartSwingLinePoint.position, EndSwingLinePoint.position);
+        } else
+        {
+            //SwingRopeFX.HideRope(StartSwingLinePoint.position);
         }
     }
 
@@ -74,19 +64,13 @@ public class PlayerSwinging : MonoBehaviour
             GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(1).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = Mathf.Lerp(initialValue, factor * Player.Data.swingCameraDistanceAddition, .3f);
             GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(2).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = Mathf.Lerp(initialValue, factor * Player.Data.swingCameraDistanceAddition, .3f);
             float dotVector = Vector3.Dot((EndSwingLinePoint.position - transform.position).normalized, Vector3.up);
-            //Debug.Log("dot vector : " + dotVector);
             if (dotVector > .8f)
             {
-                //Debug.Log("SHAKKEEEE");
                 //GPCtrl.Instance.CameraThirdPerson.CameraShake.ShakeCamera(2 * dotVector, .1f);
             } else if (IsSwinging)
             {
                 //GPCtrl.Instance.CameraThirdPerson.CameraShake.StopShake();
             }
-        }
-        if (_side == Side.Right)
-        {
-            //Debug.Log("try swing : " + IsTrySwing);
         }
         if (IsTrySwing && !Player.PlayerAttack.IsGrappling && !GPCtrl.Instance.DashPause) TrySwing();
         else if (!IsTrySwing && !Player.PlayerGrappleBoost.IsGrapplingBoost && !GPCtrl.Instance.DashPause) StopSwing();
@@ -173,7 +157,6 @@ public class PlayerSwinging : MonoBehaviour
 
     public void StartSwing(Transform hitTransform, Vector3 hitPoint)
     {
-        //Debug.Log("start swinging");
         //swing direction on the y plane
         _swingOriginalDirection = Player.Mesh.forward;//new Vector3(Player.Rigibody.velocity.normalized.x, 0, Player.Rigibody.velocity.normalized.z);
         Player.PlayerMovement.CanJumpOnceInAir = true;
@@ -193,12 +176,12 @@ public class PlayerSwinging : MonoBehaviour
 
         _springJoint.maxDistance = distanceFromPoint * 0.7f;
         _springJoint.minDistance = 0.5f;
-
         _springJoint.spring = 0;
         _springJoint.damper = 5f;
         _springJoint.massScale = 100f;
-        //SwingLineRenderer.positionCount = 2;
-        //SwingLineRenderer.SetPosition(1, StartSwingLinePoint.position); //to shoot from the hand of the
+
+        SwingRopeFX.HideRope(StartSwingLinePoint.position);
+
         Vector3 newVelocity = Vector3.Cross(Player.Mesh.transform.right, (EndSwingLinePoint.position - Player.transform.position).normalized) * Player.Rigibody.velocity.magnitude;
         Player.Rigibody.velocity = newVelocity;
         if (Player.Data.startCurveBoost)
@@ -218,7 +201,7 @@ public class PlayerSwinging : MonoBehaviour
         Destroy(_springJoint);
         if (destroyVisual)
         {
-            HideLineRenderer();
+            SwingRopeFX.HideRope(StartSwingLinePoint.position);
         }
         IsSwinging = false;
         Player.Animator.SetBool("isSwinging", false);
@@ -230,13 +213,6 @@ public class PlayerSwinging : MonoBehaviour
             Player.PlayerMovement.CurrentMoveSpeed++;
         }
     }
-
-    public void HideLineRenderer()
-    {
-        //SwingLineRenderer.positionCount = 0;
-        EndSwingLinePoint.parent = null;
-    }
-
 
     private void SwingAnimation(Vector3 toLook)
     {

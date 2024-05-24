@@ -13,20 +13,8 @@ public class PlayerGrappleBoost : MonoBehaviour
     private void LateUpdate()
     {
         if (!IsGrapplingBoost) return;
-        DrawGrapple(Player.PlayerSwingingLeft);
-        DrawGrapple(Player.PlayerSwingingRight);
-    }
-
-    public void DrawGrapple(PlayerSwinging playerSwinging)
-    {
-        //if (playerSwinging.SwingLineRenderer.positionCount == 2)
-        //{
-        //    playerSwinging.SwingLineRenderer.SetPosition(0, playerSwinging.StartSwingLinePoint.position);
-        //    if (playerSwinging.SwingLineRenderer.GetPosition(1) != playerSwinging.EndSwingLinePoint.position)
-        //    {
-        //        playerSwinging.SwingLineRenderer.SetPosition(1, Vector3.Lerp(playerSwinging.SwingLineRenderer.GetPosition(1), playerSwinging.EndSwingLinePoint.position, 0.1f));
-        //    }
-        //}
+        Player.PlayerSwingingLeft.SwingRopeFX.DrawRope(Player.PlayerSwingingLeft.StartSwingLinePoint.position, Player.PlayerSwingingLeft.EndSwingLinePoint.position);
+        Player.PlayerSwingingRight.SwingRopeFX.DrawRope(Player.PlayerSwingingRight.StartSwingLinePoint.position, Player.PlayerSwingingRight.EndSwingLinePoint.position);
     }
 
     public void Boost()
@@ -50,15 +38,15 @@ public class PlayerGrappleBoost : MonoBehaviour
         GPCtrl.Instance.CameraThirdPerson.CameraShake.ShakeCamera(5f, .3f);
         DOVirtual.DelayedCall(Player.Data.doubleSwingLineRendererDuration, () =>
         {
-            Player.PlayerSwingingLeft.HideLineRenderer();
-            Player.PlayerSwingingRight.HideLineRenderer();
+            Player.PlayerSwingingLeft.SwingRopeFX.HideRope(Player.PlayerSwingingLeft.StartSwingLinePoint.position);
+            Player.PlayerSwingingRight.SwingRopeFX.HideRope(Player.PlayerSwingingRight.StartSwingLinePoint.position);
             IsGrapplingBoost = false;
         }).OnUpdate(() =>
         {
             if (Player.PlayerSwingingLeft.EndSwingLinePoint.transform.position.y < Player.transform.position.y)
-                Player.PlayerSwingingLeft.HideLineRenderer();
+                Player.PlayerSwingingLeft.SwingRopeFX.HideRope(Player.PlayerSwingingLeft.StartSwingLinePoint.position);
             if (Player.PlayerSwingingRight.EndSwingLinePoint.transform.position.y < Player.transform.position.y)
-                Player.PlayerSwingingRight.HideLineRenderer();
+                Player.PlayerSwingingRight.SwingRopeFX.HideRope(Player.PlayerSwingingRight.StartSwingLinePoint.position);
         });
     }
 }

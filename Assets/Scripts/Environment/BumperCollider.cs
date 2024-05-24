@@ -9,11 +9,11 @@ public class BumperCollider : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform.parent == null) return;
-        Player player = other.transform.parent.GetComponent<Player>();
-        if (player != null)
-        {
-            _targetableSpot.Bump();
-        }
+        //if (other.transform.parent == null) return;
+        //Player player = other.transform.parent.GetComponent<Player>();
+        //if (player != null)
+        //{
+        //    _targetableSpot.Bump();
+        //}
     }
 }
