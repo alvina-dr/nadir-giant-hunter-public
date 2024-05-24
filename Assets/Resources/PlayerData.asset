@@ -23,19 +23,19 @@ MonoBehaviour:
   groundDrag: 1
   charaHeight: 1.8
   swingSpeed: 30
-  swingMaxSpeed: 100
+  swingMaxSpeed: 300
   swingAcceleration: 20
   minSwingDistance: 25
-  maxSwingDistance: 300
-  startCurveSpeedBoost: 300
+  maxSwingDistance: 1000
+  startCurveSpeedBoost: 100
   endCurveSpeedBoost: 100
-  radiusDetectionIncreaseSpeed: 100
+  radiusDetectionIncreaseSpeed: 1000
   SwingSpeedLengthMult: 0.06
   airSlowDown: 5
-  attackDistance: 150
+  attackDistance: 300
   attackStopDistance: 5
   dragForce: 15
-  weakSpotDetectionDistance: 150
+  weakSpotDetectionDistance: 300
   weakSpotReboundForce: 400
   doubleSwingBoost: 200
   doubleSwingLineRendererDuration: 0.1
@@ -43,7 +43,7 @@ MonoBehaviour:
   slowDownTime: 0.01
   timeBeforeAutomaticDash: 200
   dashTime: 0.5
-  bumpForce: 450
+  bumpForce: 1000
   startCurveBoost: 1
   endCurveBoost: 1
   magicSwinging: 0
