@@ -22,15 +22,18 @@ MonoBehaviour:
   airMultiplier: 0.05
   groundDrag: 1
   charaHeight: 1.8
-  swingSpeed: 30
+  swingSpeed: 50
   swingMaxSpeed: 300
+  SwingSpeedLengthMult: 0
+  SwingBaseOrientationSpeed: 0
+  SwingCameraOrientInfluence: 100
   swingAcceleration: 20
   minSwingDistance: 25
-  maxSwingDistance: 1000
+  maxSwingDistance: 500
   startCurveSpeedBoost: 100
-  endCurveSpeedBoost: 100
+  endCurveSpeedBoost: 50
   radiusDetectionIncreaseSpeed: 1000
-  SwingSpeedLengthMult: 0.06
+  MaxSwingAngle: 0
   airSlowDown: 5
   attackDistance: 300
   attackStopDistance: 5
@@ -44,6 +47,6 @@ MonoBehaviour:
   timeBeforeAutomaticDash: 200
   dashTime: 0.5
   bumpForce: 1000
-  startCurveBoost: 1
-  endCurveBoost: 1
+  startCurveBoost: 0
+  endCurveBoost: 0
   magicSwinging: 0
