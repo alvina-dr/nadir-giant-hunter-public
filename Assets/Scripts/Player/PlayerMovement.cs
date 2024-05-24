@@ -23,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 _moveDirection;
     [Sirenix.OdinInspector.ReadOnly]
     public bool CanJumpOnceInAir;
+    private float _fallingTimer = 0.0f;
 
     //Debug
     [SerializeField, Sirenix.OdinInspector.ReadOnly]
@@ -89,6 +90,19 @@ public class PlayerMovement : MonoBehaviour
             Player.Animator.SetBool("isWalking", true);
         else if (_moveDirection == Vector3.zero && Grounded)
             Player.Animator.SetBool("isWalking", false);
+
+        if (!GPCtrl.Instance.Pause && !Grounded && !Player.PlayerSwingingLeft.IsSwinging && !Player.PlayerSwingingRight.IsSwinging && !Player.PlayerDash.IsDashing && !Player.PlayerAttack.IsGrappling && Player.Rigibody.velocity.y < -5)
+        {
+            _fallingTimer += Time.deltaTime;
+            if (_fallingTimer > Player.Data.timeBeforeLookingDownAnim)
+            {
+                Player.Animator.SetBool("LongFall", true);
+            }
+        } else
+        {
+            _fallingTimer = 0;
+            Player.Animator.SetBool("LongFall", false);
+        }
     }
 
     private void FixedUpdate()

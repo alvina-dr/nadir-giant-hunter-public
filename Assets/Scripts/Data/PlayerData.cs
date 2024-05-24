@@ -28,6 +28,8 @@ public class PlayerData : ScriptableObject
     public float groundDrag;
     [TabGroup("Movement")]
     public float charaHeight;
+    [TabGroup("Movement")]
+    public float timeBeforeLookingDownAnim;
 
     [TabGroup("Swing")]
     public float swingSpeed;
