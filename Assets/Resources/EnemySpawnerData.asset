@@ -16,11 +16,15 @@ MonoBehaviour:
     type: 3}
   spawningTimers:
   - TimerStart: 1
-    MaxEnemiesSpawned: 2
+    MaxEnemiesSpawned: 1
     SpawnCoolDown: 1
-    DoSpawnOnlyOnePerLine: 0
+    DoSpawnOnlyOnePerLine: 1
   - TimerStart: 30
-    MaxEnemiesSpawned: 10
+    MaxEnemiesSpawned: 3
     SpawnCoolDown: 1
+    DoSpawnOnlyOnePerLine: 1
+  - TimerStart: 240
+    MaxEnemiesSpawned: 4
+    SpawnCoolDown: 10
     DoSpawnOnlyOnePerLine: 0
   NumTotalEnemy: 10
