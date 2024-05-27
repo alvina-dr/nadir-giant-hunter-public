@@ -43,6 +43,11 @@ public class UI_Menu : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(null);
     }
 
+    public void ChangeGamepadFirstFocus(GameObject focusGameObject)
+    {
+        _gamepadFocus = focusGameObject;
+    }
+
     void Update()
     {
         //to get back focus for gamepad after you use the mouse
