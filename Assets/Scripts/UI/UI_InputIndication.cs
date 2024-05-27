@@ -17,6 +17,17 @@ public class UI_InputIndication : MonoBehaviour
 
         Vector2 pos = Camera.main.WorldToScreenPoint(worldPosition);
 
+        if (Vector3.Dot(worldPosition - Camera.main.transform.position, Camera.main.transform.forward) < 0)
+        {
+            if (pos.x < Screen.width / 2)
+            {
+                pos.x = maxX;
+            } else
+            {
+                pos.x = minX;
+            }
+        }
+
         pos.x = Mathf.Clamp(pos.x, minX, maxX); 
         pos.y = Mathf.Clamp(pos.y, minY, maxY);
         transform.localScale = Vector3.one;

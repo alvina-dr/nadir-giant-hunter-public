@@ -48,7 +48,8 @@ public class GPCtrl : MonoBehaviour
 
     private void Update()
     {
-        Timer += Time.deltaTime; 
+        Timer += Time.deltaTime;
+        UICtrl.TimerText.text = Timer.ToString();
     }
 
     public void Win()

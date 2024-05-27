@@ -46,7 +46,6 @@ public class PlayerMovement : MonoBehaviour
             if (speed < 0) speed = 0;
             float lerp = Mathf.Lerp(postProcess.GetFloat("_bypass_Input_Velocity_Factor"), speed, 0.1f);
             postProcess.SetFloat("_bypass_Input_Velocity_Factor", lerp);
-            Debug.Log("speed : " + speed);
             postProcess.SetVector("_Input_Velocity", Player.Rigibody.velocity / Player.Data.speedDivisionFactorVFX);
         }
 

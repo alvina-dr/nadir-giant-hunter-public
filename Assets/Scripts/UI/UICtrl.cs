@@ -18,6 +18,8 @@ public class UICtrl : MonoBehaviour
     public UI_InputIndication MonsterHighIndicator;
     public CanvasGroup PlayerLowIndicator;
 
+    [Header("In game UI")]
+    public TextMeshProUGUI TimerText;
 
     [Header("End Game Menu")]
     [SerializeField] private TextMeshProUGUI _endGameMenuTitle;
