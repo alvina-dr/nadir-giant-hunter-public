@@ -55,7 +55,7 @@ public class PlayerSwinging : MonoBehaviour
     private void Update()
     {
         _otherHandPosition = _otherPlayerSwinging.StartSwingLinePoint.position;
-        if (!Player.PlayerDash.IsDashing)
+        if (!Player.PlayerDash.IsDashing && !Player.PlayerAttack.IsGrappling)
         {
             float factor = (Player.PlayerMovement.CurrentMoveSpeed - Player.Data.swingSpeed) / (Player.Data.swingMaxSpeed - Player.Data.swingSpeed);
             Camera.main.fieldOfView = factor * Player.Data.swingCameraFOVAddition + 50;
