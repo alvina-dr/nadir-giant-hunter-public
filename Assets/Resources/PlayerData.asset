@@ -26,14 +26,14 @@ MonoBehaviour:
   speedDivisionFactorVFX: 5
   swingSpeed: 30
   swingMaxSpeed: 300
-  SwingSpeedLengthMult: 0.0001
+  SwingSpeedLengthMult: 0.005
   SwingBaseOrientationSpeed: 0
   SwingCameraOrientInfluence: 100
   swingAcceleration: 20
   minSwingDistance: 25
   maxSwingDistance: 5000
   startCurveSpeedBoost: 20
-  endCurveSpeedBoost: 5
+  endCurveSpeedBoost: 50
   radiusDetectionIncreaseSpeed: 1000
   MaxSwingAngle: 0.2
   maxYForceOnRelease: 250
@@ -49,7 +49,7 @@ MonoBehaviour:
   slowDownTime: 0.01
   timeBeforeAutomaticDash: 200
   dashTime: 0.5
-  bumpForce: 1200
-  startCurveBoost: 0
-  endCurveBoost: 0
+  bumpForce: 2000
+  startCurveBoost: 1
+  endCurveBoost: 1
   magicSwinging: 0
