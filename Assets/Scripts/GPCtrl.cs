@@ -49,13 +49,6 @@ public class GPCtrl : MonoBehaviour
     private void Update()
     {
         Timer += Time.deltaTime; 
-        if (Timer > GeneralData.levelMaxTime)
-        {
-            //stop monster spawn
-            //if no monster then win
-            if (TargetableSpotList.Count == 0)
-                Win();
-        }
     }
 
     public void Win()

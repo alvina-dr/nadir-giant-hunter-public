@@ -73,13 +73,13 @@ public class PlayerAttack : MonoBehaviour
             return Vector3.Distance(this.transform.position, a.transform.position).CompareTo(Vector3.Distance(this.transform.position, b.transform.position));
         });
         if (GPCtrl.Instance.UICtrl != null)
-            GPCtrl.Instance.UICtrl.AttackInputIndication.HideIndicator();
+            GPCtrl.Instance.UICtrl.AttackInputIndicator.HideIndicator();
         if (closestTargetableSpotList.Count > 0 ) {
             if (Vector3.Distance(transform.position, closestTargetableSpotList[0].transform.position) < Player.Data.weakSpotDetectionDistance)
             {
                 if (!GPCtrl.Instance.DashPause)
                 {
-                    GPCtrl.Instance.UICtrl.AttackInputIndication.ShowIndicatorAt(closestTargetableSpotList[0].transform.position);
+                    GPCtrl.Instance.UICtrl.AttackInputIndicator.ShowIndicatorAt(closestTargetableSpotList[0].transform.position);
                 }
                 GPCtrl.Instance.CameraThirdPerson.ActivateFreeLook(false);
                 //GPCtrl.Instance.CameraLock.CinemachineVirtualCamera.transform.forward = closestWeakSpotList[0].transform.position - transform.position;

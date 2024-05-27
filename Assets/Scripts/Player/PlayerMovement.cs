@@ -38,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         //speed effect
-        Player.SparksVFX.SetVector3("Input Velocity", Player.Rigibody.velocity);
+        Player.SparksVFX.SetVector3("Input Velocity", Player.Rigibody.velocity / Player.Data.speedDivisionFactorVFX);
         Material postProcess = GPCtrl.Instance.GetPostProcessMaterial();
         if (postProcess != null )
         {

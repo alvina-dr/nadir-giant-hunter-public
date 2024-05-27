@@ -51,6 +51,7 @@ public class UI_Menu : MonoBehaviour
     void Update()
     {
         //to get back focus for gamepad after you use the mouse
+        if (Gamepad.current == null) return;
         var gamepadButtonPressed = Gamepad.current.allControls.Any(x => x is ButtonControl button && x.IsPressed() && !x.synthetic);
         if (EventSystem.current.currentSelectedGameObject == null && gamepadButtonPressed)
         {

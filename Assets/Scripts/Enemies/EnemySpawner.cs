@@ -16,6 +16,7 @@ public class EnemySpawner : MonoBehaviour
     private List<Transform> _enemiesSpawnPoints = new List<Transform>();
     [SerializeField, Sirenix.OdinInspector.ReadOnly]
     private List<GameObject> _enemies = new List<GameObject>();
+    public List<EnemyMovement> EnemyList;
 
     private int _currentSpawningTimerIndex;
     public int NumTotalEnemy = 0;
@@ -33,6 +34,14 @@ public class EnemySpawner : MonoBehaviour
         }
         StartCoroutine(SpawnCycle());
         StartCoroutine(WaitForNextSpawningTimer());
+    }
+
+    private void Update()
+    {
+        if (EnemyList.Count > 0)
+        {
+            GPCtrl.Instance.UICtrl.MonsterHighIndicator.ShowIndicatorAt(EnemyList[0].transform.position);
+        }
     }
 
     IEnumerator WaitForNextSpawningTimer()
@@ -80,10 +89,12 @@ public class EnemySpawner : MonoBehaviour
         if (SpawnerData.spawningTimers[_currentSpawningTimerIndex].DoSpawnOnlyOnePerLine)
         {
             _enemies[SpawnPointIndex] = enemy;
+            EnemyList.Add(enemy.GetComponent<EnemyMovement>());
         }
         else
         {
             _enemies.Add(enemy);
+            EnemyList.Add(enemy.GetComponent<EnemyMovement>());
         }
     }
 

@@ -7,11 +7,17 @@ using UnityEngine.SceneManagement;
 
 public class UICtrl : MonoBehaviour
 {
+    [Header("Menu")]
     public UI_EndGameMenu EndGameMenu;
-    public UI_InputIndication AttackInputIndication;
     public UI_Settings UI_Settings;
     public UI_Menu PauseMenu;
     public UI_Scoreboard Scoreboard;
+
+    [Header("Indicators")]
+    public UI_InputIndication AttackInputIndicator;
+    public UI_InputIndication MonsterHighIndicator;
+    public UI_InputIndication PlayerLowIndicator;
+
 
     [Header("End Game Menu")]
     [SerializeField] private TextMeshProUGUI _endGameMenuTitle;
