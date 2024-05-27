@@ -9,6 +9,7 @@ public class CameraThirdPerson : MonoBehaviour
     public CinemachineFreeLook CinemachineFreeLook;
     public CinemachineTargetGroup CinemachineTargetGroup;
     public CameraShake CameraShake;
+    public CinemachineInputProvider InputProvider;
     //public bool canMoveCamera;
 
     private void Update()

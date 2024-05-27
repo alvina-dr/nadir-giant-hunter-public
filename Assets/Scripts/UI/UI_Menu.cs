@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using DG.Tweening;
+using UnityEngine.InputSystem;
+using System.Linq;
+using UnityEngine.InputSystem.Controls;
 
 public class UI_Menu : MonoBehaviour
 {
@@ -38,5 +41,15 @@ public class UI_Menu : MonoBehaviour
         _canvasGroup.interactable = false;
         _canvasGroup.blocksRaycasts = false;
         EventSystem.current.SetSelectedGameObject(null);
+    }
+
+    void Update()
+    {
+        //to get back focus for gamepad after you use the mouse
+        var gamepadButtonPressed = Gamepad.current.allControls.Any(x => x is ButtonControl button && x.IsPressed() && !x.synthetic);
+        if (EventSystem.current.currentSelectedGameObject == null && gamepadButtonPressed)
+        {
+            EventSystem.current.SetSelectedGameObject(_gamepadFocus);
+        }
     }
 }

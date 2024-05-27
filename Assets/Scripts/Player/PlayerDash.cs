@@ -26,7 +26,6 @@ public class PlayerDash : MonoBehaviour
         Player.Rigibody.velocity = Vector3.zero;
         Player.Rigibody.useGravity = false;
         Player.Rigibody.AddForce(Player.Data.dashForce * Camera.main.transform.forward.normalized, ForceMode.Impulse);
-        StartCoroutine(StopDash());
         StartCoroutine(PrintSpeed());
         Material material = GPCtrl.Instance.GetPostProcessMaterial();
         material.DOFloat(0f, "_strength", .2f).SetUpdate(true);
@@ -35,6 +34,15 @@ public class PlayerDash : MonoBehaviour
         GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(1).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = 1f;
         GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(2).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = 1f;
         GPCtrl.Instance.CameraThirdPerson.CameraShake.ShakeCamera(5f, .3f);
+        float factor = (Player.PlayerMovement.CurrentMoveSpeed - Player.Data.swingSpeed) / (Player.Data.swingMaxSpeed - Player.Data.swingSpeed);
+        DOVirtual.Float(1f, factor * Player.Data.swingCameraDistanceAddition, Player.Data.dashTime, v =>
+        {
+            //Debug.Log("float : " + v);
+            GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(0).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = v;
+            GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(1).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = v;
+            GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(2).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = v;
+        });
+        StartCoroutine(StopDash());
     }
 
     private IEnumerator PrintSpeed()
@@ -46,18 +54,7 @@ public class PlayerDash : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(Player.Data.dashTime);
         Player.Rigibody.useGravity = true;
-        float factor = (Player.PlayerMovement.CurrentMoveSpeed - Player.Data.swingSpeed) / (Player.Data.swingMaxSpeed - Player.Data.swingSpeed);
         Player.PlayerMovement.CurrentMoveSpeed = Player.Data.swingMaxSpeed;
-        DOVirtual.Float(1f, factor * Player.Data.swingCameraDistanceAddition, .3f, v =>
-        {
-            //Debug.Log("float : " + v);
-            GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(0).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = v;
-            GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(1).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = v;
-            GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(2).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = v;
-        }).OnComplete(() =>
-        {
-            IsDashing = false;
-        });
-
+        IsDashing = false;
     }
 }

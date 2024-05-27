@@ -30,6 +30,7 @@ public class UI_MainMenu : MonoBehaviour
             Screen.fullScreen = PlayerPrefs.GetInt("Fullscreen") == 0 ? false : true;
         }
 
+        if (!PlayerPrefs.HasKey("CameraShake")) PlayerPrefs.SetInt("CameraShake", 1);
     }
 
     public void StartGame()

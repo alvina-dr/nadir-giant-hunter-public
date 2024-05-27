@@ -19,8 +19,9 @@ public class UICtrl : MonoBehaviour
         PauseMenu.OpenMenu();
         GPCtrl.Instance.Pause = true;
         Time.timeScale = 0;
-        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+        GPCtrl.Instance.CameraThirdPerson.InputProvider.enabled = false;
     }
 
     public void ClosePauseMenu()
@@ -30,6 +31,7 @@ public class UICtrl : MonoBehaviour
         PauseMenu.CloseMenu();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        GPCtrl.Instance.CameraThirdPerson.InputProvider.enabled = true;
     }
 
     public void CallPause()
