@@ -1,12 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 using System.Linq;
 using DG.Tweening;
-using UnityEngine.SceneManagement;
-using UnityEngine.EventSystems;
 
 public class UI_Scoreboard : MonoBehaviour
 {
@@ -31,13 +28,11 @@ public class UI_Scoreboard : MonoBehaviour
     public UI_Menu Menu;
     private ScoreboardList scoreList = new ScoreboardList();
     public TMP_InputField inputField;
-    //public TextMeshProUGUI scoreText;
     public UI_ScoreEntry scoreEntryPrefab;
     public Transform scoreEntryLayout;
 
     private void Start()
     {
-        //scoreText.transform.localScale = Vector3.zero;
         if (scoreList.entries.Count == 0)
         {
             if (PlayerPrefs.HasKey("scoreboard"))
@@ -58,23 +53,8 @@ public class UI_Scoreboard : MonoBehaviour
     {
         ScoreboardEntry entry = new(_name, _timer);
         scoreList.entries.Add(entry);
-        Debug.Log(entry.name + " , " + entry.timer.ToString());
         SaveScoreboard();
     }
-
-    //public void ShowTypeNameMenu()
-    //{
-    //    typeNameMenu.gameObject.SetActive(true);
-    //    typeNameMenu.DOFade(1, .3f).OnComplete(() =>
-    //    {
-    //        scoreText.text = GPCtrl.Instance.currentScore.ToString();
-    //        scoreText.transform.DOScale(1.1f, .3f).OnComplete(() =>
-    //        {
-    //            scoreText.transform.DOScale(1f, .1f);
-    //            EventSystem.current.SetSelectedGameObject(keyboardFirstButton);
-    //        });
-    //    });
-    //}
 
     public void ShowScoreboard()
     {
@@ -105,8 +85,6 @@ public class UI_Scoreboard : MonoBehaviour
         string json = JsonUtility.ToJson(scoreList);
         PlayerPrefs.SetString("scoreboard", json);
         PlayerPrefs.Save();
-        Debug.Log("SAVE SCOREBOARD");
-        Debug.Log(json);
     }
 
     public void InstantiateScoreboardEntry(ScoreboardEntry scoreboardEntry, int rank)
