@@ -44,8 +44,18 @@ public class PlayerMovement : MonoBehaviour
         {
             float speed = (Player.Rigibody.velocity.magnitude - 20) / 100;
             if (speed < 0) speed = 0;
-            postProcess.SetFloat("_speed_effect", speed);
-            postProcess.SetVector("_Input_Velocity", Player.Rigibody.velocity);
+            float lerp = Mathf.Lerp(postProcess.GetFloat("_bypass_Input_Velocity_Factor"), speed, 0.1f);
+            postProcess.SetFloat("_bypass_Input_Velocity_Factor", lerp);
+            Debug.Log("speed : " + speed);
+            postProcess.SetVector("_Input_Velocity", Player.Rigibody.velocity / Player.Data.speedDivisionFactorVFX);
+        }
+
+        if (transform.position.y < GPCtrl.Instance.GeneralData.yHeightPitBottom)
+        {
+            GPCtrl.Instance.UICtrl.PlayerLowIndicator.alpha = 1;
+        } else
+        {
+            GPCtrl.Instance.UICtrl.PlayerLowIndicator.alpha = 0;
         }
 
         Grounded = Physics.Raycast(transform.position, Vector3.down, Player.Data.charaHeight * 0.5f + 0.3f, WhatIsGround);

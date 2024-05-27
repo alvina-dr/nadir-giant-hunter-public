@@ -33,7 +33,6 @@ public class CameraShake : MonoBehaviour
     public void ShakeCamera(float intensity, float time)
     {
         if (PlayerPrefs.GetInt("CameraShake") == 0) return;
-        Debug.Log("CAMERA SHAKE");
         _perlin0.m_AmplitudeGain = intensity;
         _perlin1.m_AmplitudeGain = intensity;
         _perlin2.m_AmplitudeGain = intensity;

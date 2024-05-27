@@ -16,7 +16,7 @@ public class UICtrl : MonoBehaviour
     [Header("Indicators")]
     public UI_InputIndication AttackInputIndicator;
     public UI_InputIndication MonsterHighIndicator;
-    public UI_InputIndication PlayerLowIndicator;
+    public CanvasGroup PlayerLowIndicator;
 
 
     [Header("End Game Menu")]
