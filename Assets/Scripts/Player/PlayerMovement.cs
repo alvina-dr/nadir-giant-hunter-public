@@ -121,6 +121,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void MovePlayer()
     {
+        if (Player.PlayerAttack.IsGrappling) return;
         _moveDirection = Player.Orientation.forward * _verticalInput + Player.Orientation.right * _horizontalInput; // calculate input movement direction
 
         //add force from input and player velo with certain force (air control when in air)
@@ -135,7 +136,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void Jump()
     {
-        if (_readyToJump && CanJumpOnceInAir)
+        if (_readyToJump && CanJumpOnceInAir && !Player.PlayerAttack.IsGrappling)
         {
             CanJumpOnceInAir = false;
             _readyToJump = false;

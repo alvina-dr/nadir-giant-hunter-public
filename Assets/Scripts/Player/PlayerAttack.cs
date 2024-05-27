@@ -1,13 +1,16 @@
 using Cinemachine;
 using DG.Tweening;
+using Sirenix.Serialization;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
     public Player Player;
     private SpringJoint _springJoint;
+    [SerializeField] private Rigidbody _targetRigibody;
     [HideInInspector]
     public bool IsGrappling = false;
     public TargetableSpot CurrentTargetSpot;
@@ -41,6 +44,8 @@ public class PlayerAttack : MonoBehaviour
 
     public void GrappleWeakSpot(TargetableSpot weakSpot)
     {
+        _targetRigibody.gameObject.SetActive(true);
+        _targetRigibody.transform.position = weakSpot.transform.position;
         Player.Collider.enabled = false;
         TargetSpotDistance = transform.position - weakSpot.transform.position;
         Player.PlayerSwingingLeft.StopSwing(false);
@@ -54,7 +59,7 @@ public class PlayerAttack : MonoBehaviour
         _springJoint = gameObject.AddComponent<SpringJoint>();
         _springJoint.autoConfigureConnectedAnchor = false;
         _springJoint.connectedAnchor = Vector3.zero;
-        _springJoint.connectedBody = weakSpot.Rigidbody;
+        _springJoint.connectedBody = _targetRigibody;
         _springJoint.spring = 30;
         _springJoint.damper = 0f;
         _springJoint.massScale = Player.Data.dragForce;
@@ -119,9 +124,9 @@ public class PlayerAttack : MonoBehaviour
             GPCtrl.Instance.CameraThirdPerson.ActivateFreeLook(true);
             //}
         }
-        if (IsGrappling && _springJoint != null)
+        if (IsGrappling && _springJoint != null && _targetRigibody.gameObject.activeSelf)
         {
-            if (Vector3.Distance(transform.position, CurrentTargetSpot.transform.position) < Player.Data.attackStopDistance)
+            if (Vector3.Distance(transform.position, _targetRigibody.transform.position) < Player.Data.attackStopDistance)
             {
                 ReachWeakSpot();
             }
@@ -152,5 +157,6 @@ public class PlayerAttack : MonoBehaviour
         CurrentTargetSpot.DestroyWeakSpot();
         CurrentTargetSpot = null;
         Player.Collider.enabled = true;
+        _targetRigibody.gameObject.SetActive(false);
     }
 }
