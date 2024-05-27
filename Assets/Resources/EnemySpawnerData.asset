@@ -15,8 +15,12 @@ MonoBehaviour:
   EnemyPrefab: {fileID: 6621249812686024313, guid: 37fcea3c9f56e5e45b2f440ccd893f1a,
     type: 3}
   spawningTimers:
-  - TimerStart: 0
-    MaxEnemiesSpawned: 50
-    SpawnCoolDown: 5
-    DoSpawnOnlyOnePerLine: 1
+  - TimerStart: 1
+    MaxEnemiesSpawned: 2
+    SpawnCoolDown: 1
+    DoSpawnOnlyOnePerLine: 0
+  - TimerStart: 30
+    MaxEnemiesSpawned: 10
+    SpawnCoolDown: 1
+    DoSpawnOnlyOnePerLine: 0
   NumTotalEnemy: 10
