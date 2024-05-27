@@ -212,6 +212,10 @@ public class PlayerSwinging : MonoBehaviour
             Player.Rigibody.AddForce(Vector3.Cross(Player.Mesh.transform.right, (EndSwingLinePoint.position - Player.transform.position).normalized) * Player.Data.endCurveSpeedBoost, ForceMode.Impulse);
             Player.PlayerMovement.CurrentMoveSpeed++;
         }
+        if (Player.Rigibody.velocity.y > Player.Data.maxYForceOnRelease)
+        {
+            Player.Rigibody.velocity = new Vector3(Player.Rigibody.velocity.x, Player.Data.maxYForceOnRelease, Player.Rigibody.velocity.z);
+        }
     }
 
     private void SwingAnimation(Vector3 toLook)

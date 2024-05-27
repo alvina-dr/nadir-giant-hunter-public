@@ -57,6 +57,8 @@ public class PlayerData : ScriptableObject
     public float radiusDetectionIncreaseSpeed;
     [TabGroup("Swing"), Tooltip("when is the swing stopped automatically, between 0 and 1")]
     public float MaxSwingAngle;
+    [TabGroup("Swing")]
+    public float maxYForceOnRelease;
 
     [TabGroup("Swing")]
     public float airSlowDown;
