@@ -7,10 +7,11 @@ using UnityEngine.SceneManagement;
 
 public class UICtrl : MonoBehaviour
 {
-    public UI_Menu EndGameMenu;
+    public UI_EndGameMenu EndGameMenu;
     public UI_InputIndication AttackInputIndication;
     public UI_Settings UI_Settings;
     public UI_Menu PauseMenu;
+    public UI_Scoreboard Scoreboard;
 
     [Header("End Game Menu")]
     [SerializeField] private TextMeshProUGUI _endGameMenuTitle;
@@ -54,7 +55,12 @@ public class UICtrl : MonoBehaviour
 
     public void OpenEndGameMenu(bool hasWon)
     {
-        _endGameMenuTitle.text = hasWon ? "Victory" : "Game Over";
-        EndGameMenu.OpenMenu();
+        if (hasWon) EndGameMenu.Win();
+        else EndGameMenu.Loose();
+        GPCtrl.Instance.Pause = true;
+        Time.timeScale = 0;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        GPCtrl.Instance.CameraThirdPerson.InputProvider.enabled = false;
     }
 }

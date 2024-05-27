@@ -61,13 +61,11 @@ public class GPCtrl : MonoBehaviour
     public void Win()
     {
         Debug.Log("WIN");
-        Pause = true;
         UICtrl.OpenEndGameMenu(true);
     }
 
     public void Loose(EnemyMovement enemy = null)
     {
-        Pause = true;
         UICtrl.OpenEndGameMenu(false);
         if (enemy != null)
         {

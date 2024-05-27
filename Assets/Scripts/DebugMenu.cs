@@ -38,6 +38,8 @@ public class DebugMenu : MonoBehaviour
         DM.Root.Clear();
         DM.Add("Print/HelloWorld", action => Debug.Log("Hello World"));
         DM.Add("Debug/ReloadScene", action => ReloadScene());
+        DM.Add("Debug/Win", action => GPCtrl.Instance.Win());
+        DM.Add("Debug/Loose", action => GPCtrl.Instance.Loose());
         DM.Add("Grapple/StartCurveBoost", () => GPCtrl.Instance.Player.Data.startCurveBoost, v => GPCtrl.Instance.Player.Data.startCurveBoost = v);
         DM.Add("Grapple/EndCurveBoost", () => GPCtrl.Instance.Player.Data.endCurveBoost, v => GPCtrl.Instance.Player.Data.endCurveBoost = v);
         DM.Add("Grapple/EndCurveBoost", () => GPCtrl.Instance.Player.Data.endCurveBoost, v => GPCtrl.Instance.Player.Data.endCurveBoost = v);
