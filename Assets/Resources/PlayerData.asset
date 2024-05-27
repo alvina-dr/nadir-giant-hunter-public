@@ -12,36 +12,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 054f681d922a5d942a9e02d64328c744, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
-  walkRotationSpeed: 7
+  walkRotationSpeed: 15
   airRotationSpeed: 3
   swingCameraFOVAddition: 5
-  swingCameraDistanceAddition: 0.5
+  swingCameraDistanceAddition: 0
   walkSpeed: 15
-  jumpForce: 50
+  jumpForce: 100
   jumpCooldown: 0.25
   airMultiplier: 0.05
   groundDrag: 1
   charaHeight: 1.8
   swingSpeed: 30
   swingMaxSpeed: 100
-  swingAcceleration: 10
+  swingAcceleration: 20
   minSwingDistance: 25
   maxSwingDistance: 200
-  startCurveSpeedBoost: 0
-  endCurveSpeedBoost: 0
-  radiusDetectionIncreaseSpeed: 50
+  startCurveSpeedBoost: 100
+  endCurveSpeedBoost: 500
+  radiusDetectionIncreaseSpeed: 100
   airSlowDown: 5
-  attackDistance: 50
+  attackDistance: 150
   attackStopDistance: 5
-  dragForce: 20
-  weakSpotDetectionDistance: 50
+  dragForce: 15
+  weakSpotDetectionDistance: 150
   doubleSwingBoost: 100
-  doubleSwingLineRendererDuration: 0.5
+  doubleSwingLineRendererDuration: 0.1
   dashForce: 500
   slowDownTime: 0.01
   timeBeforeAutomaticDash: 200
-  dashTime: 1
-  bumpForce: 100
+  dashTime: 0.5
+  bumpForce: 300
   startCurveBoost: 0
   endCurveBoost: 0
   magicSwinging: 0

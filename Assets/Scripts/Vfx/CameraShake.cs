@@ -24,7 +24,7 @@ public class CameraShake : MonoBehaviour
     {
         if (_timer > 0)
         {
-            _timer -= Time.deltaTime;
+            _timer -= Time.unscaledDeltaTime;
 
             if (_timer <= 0) StopShake();
         }
