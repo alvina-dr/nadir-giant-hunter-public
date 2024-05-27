@@ -9,6 +9,7 @@ public class CameraThirdPerson : MonoBehaviour
     public CinemachineFreeLook CinemachineFreeLook;
     public CinemachineTargetGroup CinemachineTargetGroup;
     public CameraShake CameraShake;
+    public CinemachineInputProvider InputProvider;
     //public bool canMoveCamera;
 
     private void Update()
@@ -50,11 +51,14 @@ public class CameraThirdPerson : MonoBehaviour
             if (GPCtrl.Instance.Player.PlayerSwingingLeft.IsSwinging || GPCtrl.Instance.Player.PlayerSwingingRight.IsSwinging || !GPCtrl.Instance.Player.PlayerMovement.Grounded)
             {
                 /*Vector3 orientation = new Vector3(GPCtrl.Instance.Player.Rigibody.velocity.x, 0, GPCtrl.Instance.Player.Rigibody.velocity.z);
-                GPCtrl.Instance.Player.Mesh.rotation = Quaternion.LookRotation(orientation, upVector);*/ 
+                GPCtrl.Instance.Player.Mesh.rotation = Quaternion.LookRotation(orientation, upVector);*/
 
-                GPCtrl.Instance.Player.Mesh.rotation = Quaternion.LookRotation(inputDir, upVector);
+                Vector3 SpeedDir = new Vector3(GPCtrl.Instance.Player.Rigibody.velocity.x, 0, GPCtrl.Instance.Player.Rigibody.velocity.z);
+                GPCtrl.Instance.Player.Mesh.rotation = Quaternion.LookRotation(SpeedDir, upVector);
+
                 GPCtrl.Instance.Player.PlayerSwingingLeft.SwingInfluenceDirection = inputDir;
                 GPCtrl.Instance.Player.PlayerSwingingRight.SwingInfluenceDirection = inputDir;
+
             }
             else
             {
@@ -95,6 +99,6 @@ public class CameraThirdPerson : MonoBehaviour
     public void ActivateFreeLook(bool value)
     {
         return;
-        CinemachineFreeLook.enabled = value;
+        //CinemachineFreeLook.enabled = value;
     }
 }

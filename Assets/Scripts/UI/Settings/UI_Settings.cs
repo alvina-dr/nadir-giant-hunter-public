@@ -6,13 +6,15 @@ using UnityEngine.UI;
 
 public class UI_Settings : MonoBehaviour
 {
-    [SerializeField] private Toggle _toggle;
+    [SerializeField] private Toggle _toggleFullScreen;
+    [SerializeField] private Toggle _toggleCameraShake;
     [SerializeField] private Slider _camSensiSlider;
     [SerializeField] private List<CanvasGroup> _subMenuList;
 
     private void Start()
     {
-        _toggle.isOn = PlayerPrefs.GetInt("Fullscreen") == 0 ? false : true;
+        _toggleFullScreen.isOn = PlayerPrefs.GetInt("Fullscreen") == 0 ? false : true;
+        _toggleCameraShake.isOn = PlayerPrefs.GetInt("CameraShake") == 0 ? false : true;
         _camSensiSlider.value = PlayerPrefs.GetFloat("CamSensi");
     }
 
@@ -22,11 +24,16 @@ public class UI_Settings : MonoBehaviour
         PlayerPrefs.SetInt("Fullscreen", value ? 1 : 0);
     }
 
+    public void SetCameraShake(bool value)
+    {
+        PlayerPrefs.SetInt("CameraShake", value ? 1 : 0);
+    }
+
     public void SelectPage(CanvasGroup group)
     {
         for (int i = 0; i < _subMenuList.Count; i++)
         {
-            if (_subMenuList[i].interactable) HideSubMenu(_subMenuList[i]);
+            if (_subMenuList[i].gameObject.activeSelf) HideSubMenu(_subMenuList[i]);
         }
         ShowSubMenu(group);
     }
@@ -36,9 +43,7 @@ public class UI_Settings : MonoBehaviour
         group.gameObject.SetActive(false);
         group.interactable = false;
         group.blocksRaycasts = false;
-        group.DOFade(0, .3f).OnComplete(() =>
-        {
-        }).SetUpdate(true);
+        group.alpha = 0f;
     }
 
     public void ShowSubMenu(CanvasGroup group)
@@ -49,5 +54,13 @@ public class UI_Settings : MonoBehaviour
             group.blocksRaycasts = true;
             group.interactable = true;
         }).SetUpdate(true);
+    }
+
+    public void ResetMenu()
+    {
+        for (int i = 0; i < _subMenuList.Count; i++)
+        {
+            HideSubMenu(_subMenuList[i]);
+        }
     }
 }

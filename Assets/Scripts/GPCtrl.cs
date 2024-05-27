@@ -29,6 +29,7 @@ public class GPCtrl : MonoBehaviour
     public GeneralData GeneralData;
     public Player Player;
     public UICtrl UICtrl;
+    public EnemySpawner EnemySpawner;
 
     [Header("Camera")]
     public CameraThirdPerson CameraThirdPerson;
@@ -43,33 +44,37 @@ public class GPCtrl : MonoBehaviour
     public bool Pause = false;
     public bool DashPause = false;
     public CustomPassVolume reliefFX;
+    public int NumEnemyKilled = 0;
 
     private void Update()
     {
-        Timer += Time.deltaTime; 
-        if (Timer > GeneralData.levelMaxTime)
-        {
-            //stop monster spawn
-            //if no monster then win
-            if (TargetableSpotList.Count == 0)
-                Win();
-        }
+        Timer += Time.deltaTime;
+        UICtrl.TimerText.text = Timer.ToString();
     }
 
     public void Win()
     {
         Debug.Log("WIN");
+        UICtrl.OpenEndGameMenu(true);
     }
 
     public void Loose(EnemyMovement enemy = null)
     {
-        Pause = true;
-        UICtrl.EndGameMenu.OpenMenu();
+        UICtrl.OpenEndGameMenu(false);
         if (enemy != null)
         {
             GameOverCamera.FocusEnemy(enemy);
         }
         Debug.Log("LOOSE");
+    }
+
+    public void AddKilledEnemy()
+    {
+        NumEnemyKilled++;
+        if (NumEnemyKilled > EnemySpawner.SpawnerData.NumTotalEnemy)
+        {
+            Win();
+        }
     }
 
     public void RestartGame()

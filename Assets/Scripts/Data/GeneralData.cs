@@ -9,4 +9,6 @@ public class GeneralData : ScriptableObject
     public float pitBottomDeathTime;
     public float dashSpotReloadTime;
     public float yHeightGameOver;
+    public int scoreboardSize;
+    public float yHeightPitBottom;
 }

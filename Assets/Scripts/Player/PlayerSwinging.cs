@@ -32,6 +32,7 @@ public class PlayerSwinging : MonoBehaviour
     [HideInInspector]
     public bool IsTrySwing = false;
     public LineRenderer SwingLineRenderer;
+    public SwingRopeFX SwingRopeFX;
     [SerializeField] private LayerMask _layerMask;
 
     private void LateUpdate()
@@ -43,18 +44,11 @@ public class PlayerSwinging : MonoBehaviour
         if (IsSwinging) //Visual effect for swing line
         {
             SwingAnimation(EndSwingLinePoint.position);
-            if (SwingLineRenderer.positionCount == 2)
-            {
-                SwingLineRenderer.SetPosition(0, StartSwingLinePoint.position);
-                if (SwingLineRenderer.GetPosition(1) != EndSwingLinePoint.position)
-                {
-                    SwingLineRenderer.SetPosition(1, Vector3.Lerp(SwingLineRenderer.GetPosition(1), EndSwingLinePoint.position, 0.1f));
-                }
-            }
-        }
-        if (IsSwinging)
-        {
             Swinging();
+            SwingRopeFX.DrawRope(StartSwingLinePoint.position, EndSwingLinePoint.position);
+        } else
+        {
+            //SwingRopeFX.HideRope(StartSwingLinePoint.position);
         }
     }
 
@@ -70,16 +64,13 @@ public class PlayerSwinging : MonoBehaviour
             GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(1).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = Mathf.Lerp(initialValue, factor * Player.Data.swingCameraDistanceAddition, .3f);
             GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(2).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = Mathf.Lerp(initialValue, factor * Player.Data.swingCameraDistanceAddition, .3f);
             float dotVector = Vector3.Dot((EndSwingLinePoint.position - transform.position).normalized, Vector3.up);
-            //Debug.Log("dot vector : " + dotVector);
             if (dotVector > .8f)
             {
-                //Debug.Log("SHAKKEEEE");
-                //GPCtrl.Instance.CameraThirdPerson.CameraShake.ShakeCamera(1 * dotVector, .1f);
+                //GPCtrl.Instance.CameraThirdPerson.CameraShake.ShakeCamera(2 * dotVector, .1f);
+            } else if (IsSwinging)
+            {
+                //GPCtrl.Instance.CameraThirdPerson.CameraShake.StopShake();
             }
-        }
-        if (_side == Side.Right)
-        {
-            Debug.Log("try swing : " + IsTrySwing);
         }
         if (IsTrySwing && !Player.PlayerAttack.IsGrappling && !GPCtrl.Instance.DashPause) TrySwing();
         else if (!IsTrySwing && !Player.PlayerGrappleBoost.IsGrapplingBoost && !GPCtrl.Instance.DashPause) StopSwing();
@@ -102,17 +93,25 @@ public class PlayerSwinging : MonoBehaviour
 
     public void Swinging()
     {
-        Vector3 forceAdded = new Vector3(_swingOriginalDirection.x, Player.Rigibody.velocity.y, _swingOriginalDirection.z);
+        Vector3 forceAdded = new Vector3(_swingOriginalDirection.x, 0, _swingOriginalDirection.z);
         Debug.DrawRay(Player.transform.position, _swingOriginalDirection*5, Color.blue);
 
         Vector3 influenceYPlaned = new Vector3(SwingInfluenceDirection.x, 0, SwingInfluenceDirection.z);
         float dot = Vector3.Dot(_swingOriginalDirection.normalized, influenceYPlaned.normalized);
-        Vector3 influence = SwingInfluenceDirection * (dot <= 0 ? 0 : dot+1);
+        Vector3 influence = SwingInfluenceDirection * (dot <= 0 ? 0 : dot+0.7f);
         Debug.DrawRay(Player.transform.position, influence*5, Color.green);
 
-        Player.Rigibody.AddForce((forceAdded + influence * 3000) * Time.fixedDeltaTime, ForceMode.Force);
-        Player.Rigibody.velocity *= 0.999f;
-        bool hasToStopSwing = Vector3.Dot(Vector3.up, (EndSwingLinePoint.position - Player.transform.position).normalized) <= 0.2f;
+        float delta = Mathf.Max(dot, 0);
+        delta = delta <= 0 ? 0 : delta+0.1f;
+        delta = Mathf.Min(delta, 1);
+        Vector3 mix = Vector3.Lerp(forceAdded * 2000 * Player.Data.SwingBaseOrientationSpeed, influence * 2000 * Player.Data.SwingCameraOrientInfluence, delta);
+        Debug.DrawRay(Player.transform.position, mix * 5, Color.magenta);
+
+        float upDot = Vector3.Dot(Player.Rigibody.velocity.normalized, Player.Orientation.transform.forward);
+        float lengthMult = Vector3.Distance(EndSwingLinePoint.position, StartSwingLinePoint.position) * Player.Data.SwingSpeedLengthMult * (upDot-0.1f);
+        Player.Rigibody.AddForce(mix * (1+lengthMult) * Time.fixedDeltaTime, ForceMode.Force);
+        Player.Rigibody.velocity *= 0.999f * (1+Time.deltaTime);
+        bool hasToStopSwing = Vector3.Dot(Vector3.up, (EndSwingLinePoint.position - Player.transform.position).normalized) <= Player.Data.MaxSwingAngle;
         if (hasToStopSwing)
         {
             IsTrySwing = false;
@@ -151,7 +150,6 @@ public class PlayerSwinging : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(StartSwingLinePoint.position, direction, out hit, Player.Data.maxSwingDistance, _layerMask))
             {
-                Debug.Log("find collision point");
                 StartSwing(hit.transform, hit.point);
             }
         }
@@ -159,7 +157,6 @@ public class PlayerSwinging : MonoBehaviour
 
     public void StartSwing(Transform hitTransform, Vector3 hitPoint)
     {
-        Debug.Log("start swinging");
         //swing direction on the y plane
         _swingOriginalDirection = Player.Mesh.forward;//new Vector3(Player.Rigibody.velocity.normalized.x, 0, Player.Rigibody.velocity.normalized.z);
         Player.PlayerMovement.CanJumpOnceInAir = true;
@@ -179,13 +176,14 @@ public class PlayerSwinging : MonoBehaviour
 
         _springJoint.maxDistance = distanceFromPoint * 0.7f;
         _springJoint.minDistance = 0.5f;
-
         _springJoint.spring = 0;
         _springJoint.damper = 5f;
-        _springJoint.massScale = 4.5f;
-        SwingLineRenderer.positionCount = 2;
-        SwingLineRenderer.SetPosition(1, StartSwingLinePoint.position); //to shoot from the hand of the
-        //Player.Rigibody.velocity = Vector3.zero;
+        _springJoint.massScale = 100f;
+
+        SwingRopeFX.HideRope(StartSwingLinePoint.position);
+
+        Vector3 newVelocity = Vector3.Cross(Player.Mesh.transform.right, (EndSwingLinePoint.position - Player.transform.position).normalized) * Player.Rigibody.velocity.magnitude;
+        Player.Rigibody.velocity = newVelocity;
         if (Player.Data.startCurveBoost)
             Player.Rigibody.AddForce(Vector3.Cross(Player.Mesh.transform.right, (EndSwingLinePoint.position - Player.transform.position).normalized) * Player.Data.startCurveSpeedBoost, ForceMode.Impulse);
     }
@@ -194,7 +192,7 @@ public class PlayerSwinging : MonoBehaviour
     {
         if (_side == Side.Right)
         {
-            Debug.Log("stop swinging");
+            //Debug.Log("stop swinging");
         }
         _swingConeRaycast.radius = _swingConeRaycast.minRadius;
         if (!_springJoint) return;
@@ -203,7 +201,7 @@ public class PlayerSwinging : MonoBehaviour
         Destroy(_springJoint);
         if (destroyVisual)
         {
-            HideLineRenderer();
+            SwingRopeFX.HideRope(StartSwingLinePoint.position);
         }
         IsSwinging = false;
         Player.Animator.SetBool("isSwinging", false);
@@ -214,25 +212,17 @@ public class PlayerSwinging : MonoBehaviour
             Player.Rigibody.AddForce(Vector3.Cross(Player.Mesh.transform.right, (EndSwingLinePoint.position - Player.transform.position).normalized) * Player.Data.endCurveSpeedBoost, ForceMode.Impulse);
             Player.PlayerMovement.CurrentMoveSpeed++;
         }
+        if (Player.Rigibody.velocity.y > Player.Data.maxYForceOnRelease)
+        {
+            Player.Rigibody.velocity = new Vector3(Player.Rigibody.velocity.x, Player.Data.maxYForceOnRelease, Player.Rigibody.velocity.z);
+        }
     }
-
-    public void HideLineRenderer()
-    {
-        SwingLineRenderer.positionCount = 0;
-        EndSwingLinePoint.parent = null;
-    }
-
 
     private void SwingAnimation(Vector3 toLook)
     {
         Vector3 dir = (toLook - BaseSwingAnimation.position).normalized;
         Debug.DrawRay(BaseSwingAnimation.position, dir);
-        //if (_side == Side.Left)
-        //{
-        //    dir = -dir;
-        //}
-        BaseSwingAnimation.right = dir;
-        BaseSwingAnimation.rotation = Quaternion.LookRotation(dir, Vector3.up) * Quaternion.Euler(0, -90, 0);
+        BaseSwingAnimation.up = dir;
     }
 
     #endregion

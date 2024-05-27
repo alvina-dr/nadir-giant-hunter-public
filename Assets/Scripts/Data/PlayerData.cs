@@ -28,11 +28,21 @@ public class PlayerData : ScriptableObject
     public float groundDrag;
     [TabGroup("Movement")]
     public float charaHeight;
+    [TabGroup("Movement")]
+    public float timeBeforeLookingDownAnim;
+    [TabGroup("Movement")]
+    public float speedDivisionFactorVFX;
 
     [TabGroup("Swing")]
     public float swingSpeed;
     [TabGroup("Swing")]
     public float swingMaxSpeed;
+    [TabGroup("Swing")]
+    public float SwingSpeedLengthMult;
+    [TabGroup("Swing"), Tooltip("How much base direction direction is kept during swing")]
+    public float SwingBaseOrientationSpeed;
+    [TabGroup("Swing"), Tooltip("How much looking right and left will affect direction during swing")]
+    public float SwingCameraOrientInfluence;
     [TabGroup("Swing")]
     public float swingAcceleration;
     [TabGroup("Swing")]
@@ -45,6 +55,10 @@ public class PlayerData : ScriptableObject
     public float endCurveSpeedBoost;
     [TabGroup("Swing")]
     public float radiusDetectionIncreaseSpeed;
+    [TabGroup("Swing"), Tooltip("when is the swing stopped automatically, between 0 and 1")]
+    public float MaxSwingAngle;
+    [TabGroup("Swing")]
+    public float maxYForceOnRelease;
 
     [TabGroup("Swing")]
     public float airSlowDown;
@@ -57,6 +71,8 @@ public class PlayerData : ScriptableObject
     public float dragForce;
     [TabGroup("Attack")]
     public float weakSpotDetectionDistance;
+    [TabGroup("Attack")]
+    public float weakSpotReboundForce;
 
     [TabGroup("Double swing boost")]
     public float doubleSwingBoost;
@@ -71,6 +87,7 @@ public class PlayerData : ScriptableObject
     public float timeBeforeAutomaticDash;
     [TabGroup("Dash")]
     public float dashTime;
+
 
     [TabGroup("Bumper")]
     public float bumpForce;

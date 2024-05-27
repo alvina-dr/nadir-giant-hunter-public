@@ -25,6 +25,7 @@ public class Player : MonoBehaviour
     public Transform Orientation;
     public Animator Animator;
     public VisualEffect SparksVFX;
+    public CapsuleCollider Collider;
 
     [Header("Variables")]
     public float currentTimerPitBottom;
@@ -64,6 +65,7 @@ public class Player : MonoBehaviour
         };
         InputManager.Gameplay.Jump.started += function => {
             if (GPCtrl.Instance.Pause) return;
+            if (PlayerAttack.IsGrappling) return;
             if (PlayerSwingingLeft.IsSwinging || PlayerSwingingRight.IsSwinging)
                 PlayerGrappleBoost.Boost();
             else

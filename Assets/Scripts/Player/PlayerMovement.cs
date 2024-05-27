@@ -15,12 +15,15 @@ public class PlayerMovement : MonoBehaviour
     public float PlayerHeight;
     public LayerMask WhatIsGround;
 
+    [Sirenix.OdinInspector.ReadOnly]
     public bool Grounded;
     private bool _readyToJump;
     private float _horizontalInput;
     private float _verticalInput;
     private Vector3 _moveDirection;
+    [Sirenix.OdinInspector.ReadOnly]
     public bool CanJumpOnceInAir;
+    private float _fallingTimer = 0.0f;
 
     //Debug
     [SerializeField, Sirenix.OdinInspector.ReadOnly]
@@ -35,14 +38,23 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         //speed effect
-        Player.SparksVFX.SetVector3("Input Velocity", Player.Rigibody.velocity);
+        Player.SparksVFX.SetVector3("Input Velocity", Player.Rigibody.velocity / Player.Data.speedDivisionFactorVFX);
         Material postProcess = GPCtrl.Instance.GetPostProcessMaterial();
         if (postProcess != null )
         {
             float speed = (Player.Rigibody.velocity.magnitude - 20) / 100;
             if (speed < 0) speed = 0;
-            postProcess.SetFloat("_speed_effect", speed);
-            postProcess.SetVector("_Input_Velocity", Player.Rigibody.velocity);
+            float lerp = Mathf.Lerp(postProcess.GetFloat("_bypass_Input_Velocity_Factor"), speed, 0.1f);
+            postProcess.SetFloat("_bypass_Input_Velocity_Factor", lerp);
+            postProcess.SetVector("_Input_Velocity", Player.Rigibody.velocity / Player.Data.speedDivisionFactorVFX);
+        }
+
+        if (transform.position.y < GPCtrl.Instance.GeneralData.yHeightPitBottom)
+        {
+            GPCtrl.Instance.UICtrl.PlayerLowIndicator.alpha = 1;
+        } else
+        {
+            GPCtrl.Instance.UICtrl.PlayerLowIndicator.alpha = 0;
         }
 
         Grounded = Physics.Raycast(transform.position, Vector3.down, Player.Data.charaHeight * 0.5f + 0.3f, WhatIsGround);
@@ -57,10 +69,13 @@ public class PlayerMovement : MonoBehaviour
 
         if (Player.PlayerSwingingLeft.IsSwinging || Player.PlayerSwingingRight.IsSwinging)
         {
-            //Keep move speed btwn min and max of swing speed AND add an acceleration to it.
-            CurrentMoveSpeed = Mathf.Max(Player.Data.swingSpeed, CurrentMoveSpeed);
-            CurrentMoveSpeed += Player.Data.swingAcceleration * Time.deltaTime;
-            CurrentMoveSpeed = Mathf.Min(Player.Data.swingMaxSpeed, CurrentMoveSpeed);
+            if (!GPCtrl.Instance.Pause)
+            {
+                //Keep move speed btwn min and max of swing speed AND add an acceleration to it.
+                CurrentMoveSpeed = Mathf.Max(Player.Data.swingSpeed, CurrentMoveSpeed);
+                CurrentMoveSpeed += Player.Data.swingAcceleration * Time.deltaTime;
+                CurrentMoveSpeed = Mathf.Min(Player.Data.swingMaxSpeed, CurrentMoveSpeed);
+            }
         }
         else if (Grounded) CurrentMoveSpeed = Player.Data.walkSpeed;//set moveSpeed to WalkSpeed when grounded
 
@@ -84,6 +99,19 @@ public class PlayerMovement : MonoBehaviour
             Player.Animator.SetBool("isWalking", true);
         else if (_moveDirection == Vector3.zero && Grounded)
             Player.Animator.SetBool("isWalking", false);
+
+        if (!GPCtrl.Instance.Pause && !Grounded && !Player.PlayerSwingingLeft.IsSwinging && !Player.PlayerSwingingRight.IsSwinging && !Player.PlayerDash.IsDashing && !Player.PlayerAttack.IsGrappling && Player.Rigibody.velocity.y < -5)
+        {
+            _fallingTimer += Time.deltaTime;
+            if (_fallingTimer > Player.Data.timeBeforeLookingDownAnim)
+            {
+                Player.Animator.SetBool("LongFall", true);
+            }
+        } else
+        {
+            _fallingTimer = 0;
+            Player.Animator.SetBool("LongFall", false);
+        }
     }
 
     private void FixedUpdate()
@@ -99,7 +127,10 @@ public class PlayerMovement : MonoBehaviour
         if (Grounded) // on ground
             Player.Rigibody.AddForce(_moveDirection.normalized * CurrentMoveSpeed * 10f, ForceMode.Force);
         else // in air
+        {
+            
             Player.Rigibody.AddForce(_moveDirection.normalized * CurrentMoveSpeed * 10f * Player.Data.airMultiplier, ForceMode.Force);
+        }
     }
 
     public void Jump()
@@ -108,7 +139,7 @@ public class PlayerMovement : MonoBehaviour
         {
             CanJumpOnceInAir = false;
             _readyToJump = false;
-            Player.Rigibody.velocity = new Vector3(Player.Rigibody.velocity.x, 0f, Player.Rigibody.velocity.z);
+            Player.Rigibody.velocity = new Vector3(Player.Rigibody.velocity.x, Mathf.Max(Player.Rigibody.velocity.y, 0), Player.Rigibody.velocity.z);
             Player.Rigibody.AddForce(transform.up * Player.Data.jumpForce, ForceMode.Impulse);
             Invoke(nameof(ResetJump), Player.Data.jumpCooldown);
             Player.Animator.SetTrigger("Jump");

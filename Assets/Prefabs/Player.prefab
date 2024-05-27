@@ -551,6 +551,7 @@ MonoBehaviour:
   Orientation: {fileID: 6609080969534418957}
   Animator: {fileID: 4801896384869378783}
   SparksVFX: {fileID: 5443287702632640422}
+  Collider: {fileID: 2380919973635274701}
   currentTimerPitBottom: 0
 --- !u!114 &4607573896897719150
 MonoBehaviour:
@@ -568,14 +569,17 @@ MonoBehaviour:
   _swingConeRaycast: {fileID: 7395889314644683301}
   StartSwingLinePoint: {fileID: 9211290519955374413}
   EndSwingLinePoint: {fileID: 5133866373044044127}
-  BaseSwingAnimation: {fileID: 6335537397427112174}
+  BaseSwingAnimation: {fileID: 2906424856931999946}
   _otherPlayerSwinging: {fileID: 5991739102287327260}
   _RotationToAvoid: {x: 19.236, y: -0.11, z: -85.99}
   _MaxAngleFromAvoid: 0
+  _swingOriginalDirection: {x: 0, y: 0, z: 0}
+  SwingInfluenceDirection: {x: 0, y: 0, z: 0}
   IsSwinging: 0
   _side: 1
   IsTrySwing: 0
   SwingLineRenderer: {fileID: 0}
+  SwingRopeFX: {fileID: 0}
   _layerMask:
     serializedVersion: 2
     m_Bits: 51
@@ -595,14 +599,17 @@ MonoBehaviour:
   _swingConeRaycast: {fileID: 2104427182935562414}
   StartSwingLinePoint: {fileID: 7362080779548567662}
   EndSwingLinePoint: {fileID: 3286274834771364795}
-  BaseSwingAnimation: {fileID: 3581901247661803964}
+  BaseSwingAnimation: {fileID: 1278421804651148268}
   _otherPlayerSwinging: {fileID: 4607573896897719150}
   _RotationToAvoid: {x: 19.236, y: -0.11, z: -85.99}
   _MaxAngleFromAvoid: 0
+  _swingOriginalDirection: {x: 0, y: 0, z: 0}
+  SwingInfluenceDirection: {x: 0, y: 0, z: 0}
   IsSwinging: 0
   _side: 0
   IsTrySwing: 0
   SwingLineRenderer: {fileID: 0}
+  SwingRopeFX: {fileID: 0}
   _layerMask:
     serializedVersion: 2
     m_Bits: 51
@@ -643,6 +650,7 @@ MonoBehaviour:
   IsGrappling: 0
   CurrentTargetSpot: {fileID: 0}
   closestTargetableSpotList: []
+  TargetSpotDistance: {x: 0, y: 0, z: 0}
 --- !u!114 &3422433742143200807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -718,7 +726,7 @@ MonoBehaviour:
   positionToSpawn: {fileID: 1460274065303597221}
   meshDestroyDelay: 0.03
   skinnedMeshRenderers:
-  - {fileID: 1537450150095244804}
+  - {fileID: 0}
   materials:
   - {fileID: 2100000, guid: e14f91f30f71bbc4f96e2f56ef77c419, type: 2}
   - {fileID: 2100000, guid: e14f91f30f71bbc4f96e2f56ef77c419, type: 2}
@@ -1091,15 +1099,15 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 3761023284611469200}
   m_SourcePrefab: {fileID: 100100000, guid: 3b7c5e875defd924c9f4e4301b8faaab, type: 3}
---- !u!4 &1460274065303597221 stripped
+--- !u!4 &1278421804651148268 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3b7c5e875defd924c9f4e4301b8faaab,
+  m_CorrespondingSourceObject: {fileID: 176919256351892642, guid: 3b7c5e875defd924c9f4e4301b8faaab,
     type: 3}
   m_PrefabInstance: {fileID: 1425766397230683982}
   m_PrefabAsset: {fileID: 0}
---- !u!137 &1537450150095244804 stripped
-SkinnedMeshRenderer:
-  m_CorrespondingSourceObject: {fileID: -8746192511618000566, guid: 3b7c5e875defd924c9f4e4301b8faaab,
+--- !u!4 &1460274065303597221 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3b7c5e875defd924c9f4e4301b8faaab,
     type: 3}
   m_PrefabInstance: {fileID: 1425766397230683982}
   m_PrefabAsset: {fileID: 0}
@@ -1145,21 +1153,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 5043027637049521611}
---- !u!4 &3581901247661803964 stripped
+--- !u!4 &2906424856931999946 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: -6738459475709616398, guid: 3b7c5e875defd924c9f4e4301b8faaab,
+  m_CorrespondingSourceObject: {fileID: 4295559906399074180, guid: 3b7c5e875defd924c9f4e4301b8faaab,
     type: 3}
   m_PrefabInstance: {fileID: 1425766397230683982}
   m_PrefabAsset: {fileID: 0}
 --- !u!95 &4801896384869378783 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 3b7c5e875defd924c9f4e4301b8faaab,
-    type: 3}
-  m_PrefabInstance: {fileID: 1425766397230683982}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &6335537397427112174 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4910347778502631328, guid: 3b7c5e875defd924c9f4e4301b8faaab,
     type: 3}
   m_PrefabInstance: {fileID: 1425766397230683982}
   m_PrefabAsset: {fileID: 0}

@@ -5,6 +5,7 @@ using Sirenix.OdinInspector;
 
 public class EnemyWeakSpotManagement : MonoBehaviour
 {
+    public EnemyMovement EnemyMovement;
     public List<TargetableSpot> WeakSpotSpawnList;
     [ReadOnly]
     public List<TargetableSpot> WeakSpotList;
@@ -39,6 +40,8 @@ public class EnemyWeakSpotManagement : MonoBehaviour
 
     public void Death()
     {
+        GPCtrl.Instance.AddKilledEnemy();
+        GPCtrl.Instance.EnemySpawner.EnemyList.Remove(EnemyMovement);
         Destroy(gameObject);
     }
 }

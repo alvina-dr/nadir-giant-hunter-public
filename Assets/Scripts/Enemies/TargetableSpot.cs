@@ -33,9 +33,14 @@ public class TargetableSpot : MonoBehaviour
                     vfx.transform.position = transform.position;
                     Enemy.Damage(this);
                 }
-                VisualFX.SendEvent("collision");
+                VisualFX.SendEvent("Destroy");
+                VisualFX.SetBool("kill tentacles", true);
                 StartCoroutine(DestroyAfterDelay());
                 GPCtrl.Instance.TargetableSpotList.Remove(this);
+                Vector3 vector3 = GPCtrl.Instance.Player.PlayerAttack.TargetSpotDistance.normalized;
+                Vector3 newDirection = new Vector3(-vector3.x, vector3.y, -vector3.z) * GPCtrl.Instance.Player.Data.weakSpotReboundForce;
+                GPCtrl.Instance.Player.Rigibody.velocity = Vector3.zero;
+                GPCtrl.Instance.Player.Rigibody.AddForce(newDirection, ForceMode.Impulse);
                 break;
             case SpotType.DashSpot:
                 GPCtrl.Instance.DashPause = true;
@@ -48,8 +53,12 @@ public class TargetableSpot : MonoBehaviour
                 Material material = GPCtrl.Instance.GetPostProcessMaterial();
                 material.DOFloat(1f, "_strength", .2f).SetUpdate(true);
                 break;
+            case SpotType.Bumper:
+                Bump();
+                StartCoroutine(ReloadBumper());
+                GPCtrl.Instance.TargetableSpotList.Remove(this);
+                break;
         }
-
     }
 
     private IEnumerator DashSlowDown()
@@ -62,13 +71,25 @@ public class TargetableSpot : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(GPCtrl.Instance.GeneralData.dashSpotReloadTime);
         GPCtrl.Instance.TargetableSpotList.Add(this);
-        //Mesh.enabled = true;
         VisualFX.SendEvent("OnPlay");
+    }
+
+    private IEnumerator ReloadBumper()
+    {
+        yield return new WaitForSecondsRealtime(1);
+        GPCtrl.Instance.TargetableSpotList.Add(this);
     }
 
     private IEnumerator DestroyAfterDelay()
     {
-        yield return new WaitForSecondsRealtime(1.0f);
+        yield return new WaitForSecondsRealtime(5.0f);
         Destroy(gameObject);
+    }
+    
+    public void Bump()
+    {
+        GPCtrl.Instance.Player.Rigibody.velocity = Vector3.zero;
+        GPCtrl.Instance.Player.Rigibody.AddForce(transform.up * GPCtrl.Instance.Player.Data.bumpForce, ForceMode.Impulse);
+        VisualFX.SendEvent("trigger2");
     }
 }
