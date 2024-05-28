@@ -16,6 +16,7 @@ public class TargetableSpot : MonoBehaviour
     }
     public SpotType SpotCurrentType;
     public VisualEffect VisualFX;
+
     [ShowIf("SpotCurrentType", SpotType.WeakSpot)]
     public EnemyWeakSpotManagement Enemy;
 
@@ -27,6 +28,10 @@ public class TargetableSpot : MonoBehaviour
         switch (SpotCurrentType)
         {
             case SpotType.WeakSpot:
+                DOVirtual.DelayedCall(.2f, () =>
+                {
+                    Time.timeScale = 1;
+                }).SetUpdate(true);
                 if (Enemy != null)
                 {
                     GameObject vfx = Instantiate(Enemy.VFXData.weakSpotExplosion);
@@ -54,6 +59,10 @@ public class TargetableSpot : MonoBehaviour
                 material.DOFloat(1f, "_strength", .2f).SetUpdate(true);
                 break;
             case SpotType.Bumper:
+                DOVirtual.DelayedCall(.1f, () =>
+                {
+                    Time.timeScale = 1;
+                }).SetUpdate(true);
                 Bump();
                 StartCoroutine(ReloadBumper());
                 GPCtrl.Instance.TargetableSpotList.Remove(this);

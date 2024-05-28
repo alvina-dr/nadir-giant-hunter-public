@@ -12,7 +12,11 @@ public class PitBottom : MonoBehaviour
         if (player != null)
         {
             player.currentTimerPitBottom += Time.deltaTime;
-            if (player.currentTimerPitBottom > GPCtrl.Instance.GeneralData.pitBottomDeathTime) GPCtrl.Instance.Loose();
+            if (player.currentTimerPitBottom > GPCtrl.Instance.GeneralData.pitBottomDeathTime)
+            {
+                player.Rigibody.AddForce(Vector3.up * 50, ForceMode.Impulse);
+                //GPCtrl.Instance.Loose();
+            }
         }
     }
 

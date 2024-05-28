@@ -54,28 +54,33 @@ public class PlayerAttack : MonoBehaviour
         CurrentTargetSpot = weakSpot;
         Player.Rigibody.useGravity = false;
         Player.Rigibody.velocity = Vector3.zero;
-
-        //SPRING
-        _springJoint = gameObject.AddComponent<SpringJoint>();
-        _springJoint.autoConfigureConnectedAnchor = false;
-        _springJoint.connectedAnchor = Vector3.zero;
-        _springJoint.connectedBody = _targetRigibody;
-        _springJoint.spring = 30;
-        _springJoint.damper = 0f;
-        _springJoint.massScale = Player.Data.dragForce;
-
-        Player.Animator.SetTrigger("Attack");
-
         Player.SoundData.SFX_Hunter_Attack_Rush.Post(gameObject);
-
-        GPCtrl.Instance.CameraThirdPerson.CameraShake.ShakeCamera(5f, .3f);
-        DOVirtual.DelayedCall( .3f, () =>
+        Time.timeScale = 0;
+        DOVirtual.DelayedCall(.3f, () =>
         {
-            ReachWeakSpot();
-        });
-        //GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(0).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = 2f;
-        //GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(1).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = 2f;
-        //GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(2).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = 2f;
+            Time.timeScale = 1;
+            //SPRING
+            _springJoint = gameObject.AddComponent<SpringJoint>();
+            _springJoint.autoConfigureConnectedAnchor = false;
+            _springJoint.connectedAnchor = Vector3.zero;
+            _springJoint.connectedBody = _targetRigibody;
+            _springJoint.spring = 30;
+            _springJoint.damper = 0f;
+            _springJoint.massScale = Player.Data.dragForce;
+
+            Player.Animator.SetTrigger("Attack");
+
+            GPCtrl.Instance.CameraThirdPerson.CameraShake.ShakeCamera(5f, .3f);
+            DOVirtual.DelayedCall(.3f, () =>
+            {
+                ReachWeakSpot();
+            });
+            GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(0).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = 2f;
+            GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(1).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = 2f;
+            GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(2).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = 2f;
+        }).SetUpdate(true);
+
+
     }
 
     private void Update()
@@ -139,6 +144,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void ReachWeakSpot()
     {
+        GPCtrl.Instance.CameraThirdPerson.CameraShake.ShakeCamera(10f, .1f);
         Destroy(_springJoint);
         //GPCtrl.Instance.CameraLock.CinemachineTargetGroup.RemoveMember(CurrentWeakSpot.transform);
         GPCtrl.Instance.CameraThirdPerson.ActivateFreeLook(true);
@@ -150,15 +156,17 @@ public class PlayerAttack : MonoBehaviour
         Player.Rigibody.useGravity = true;
         Player.SoundData.SFX_Hunter_Attack_Impact.Post(gameObject);
         CurrentTargetSpot.DestroyWeakSpot();
+        if (CurrentTargetSpot.SpotCurrentType == TargetableSpot.SpotType.WeakSpot) Player.DestructionFX.SendEvent("OnPlay");
         CurrentTargetSpot = null;
         Player.Collider.enabled = true;
         _targetRigibody.gameObject.SetActive(false);
         float factor = (Player.PlayerMovement.CurrentMoveSpeed - Player.Data.swingSpeed) / (Player.Data.swingMaxSpeed - Player.Data.swingSpeed);
-        //DOVirtual.Float(1f, factor * Player.Data.swingCameraDistanceAddition, .3f, v =>
-        //{
-        //    GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(0).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = v;
-        //    GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(1).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = v;
-        //    GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(2).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = v;
-        //});
+        Time.timeScale = 0;
+        DOVirtual.Float(1f, factor * Player.Data.swingCameraDistanceAddition, .3f, v =>
+        {
+            GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(0).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = v;
+            GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(1).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = v;
+            GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(2).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = v;
+        }).SetUpdate(true);
     }
 }

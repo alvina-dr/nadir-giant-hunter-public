@@ -26,6 +26,7 @@ public class Player : MonoBehaviour
     public Animator Animator;
     public VisualEffect SparksVFX;
     public CapsuleCollider Collider;
+    public VisualEffect DestructionFX;
 
     [Header("Variables")]
     public float currentTimerPitBottom;
