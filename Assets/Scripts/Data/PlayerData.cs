@@ -32,6 +32,8 @@ public class PlayerData : ScriptableObject
     public float timeBeforeLookingDownAnim;
     [TabGroup("Movement")]
     public float speedDivisionFactorVFX;
+    [TabGroup("Movement")]
+    public float maxSpeedInAir;
 
     [TabGroup("Swing")]
     public float swingSpeed;
