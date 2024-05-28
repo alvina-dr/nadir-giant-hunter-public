@@ -69,6 +69,10 @@ public class PlayerAttack : MonoBehaviour
         Player.SoundData.SFX_Hunter_Attack_Rush.Post(gameObject);
 
         GPCtrl.Instance.CameraThirdPerson.CameraShake.ShakeCamera(5f, .3f);
+        DOVirtual.DelayedCall( .3f, () =>
+        {
+            ReachWeakSpot();
+        });
         //GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(0).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = 2f;
         //GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(1).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = 2f;
         //GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(2).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = 2f;
