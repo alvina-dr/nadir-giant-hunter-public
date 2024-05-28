@@ -522,6 +522,16 @@ ModelImporter:
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1, y: 1, z: 1}
+    - name: RetopoFlow.001
+      parentName: Temp_rig_chara(Clone)
+      position: {x: -0.000000023171305, y: -0.00000012978911, z: 0.000000008413996}
+      rotation: {x: -0.7071068, y: 0.000000009161885, z: -0.0000000012165424, w: 0.7071067}
+      scale: {x: 1.0000001, y: 1, z: 1.0000001}
+    - name: RetopoFlow.002
+      parentName: Temp_rig_chara(Clone)
+      position: {x: -0.000000023171305, y: -0.00000012978911, z: 0.000000008413996}
+      rotation: {x: -0.7071068, y: 0.000000009161885, z: -0.0000000012165424, w: 0.7071067}
+      scale: {x: 1.0000001, y: 1, z: 1.0000001}
     - name: root
       parentName: Temp_rig_chara(Clone)
       position: {x: -0, y: 0, z: 0}
@@ -550,12 +560,12 @@ ModelImporter:
     - name: neck.x
       parentName: spine_03.x
       position: {x: 2.2840732e-10, y: 0.13551793, z: 7.45058e-10}
-      rotation: {x: -0.23264945, y: -0.006541553, z: 0.0015648552, w: 0.9725374}
+      rotation: {x: -0.22992788, y: -0.003449563, z: -0.00097091857, w: 0.97320104}
       scale: {x: 1, y: 1.0000006, z: 1.0000005}
     - name: head.x
       parentName: neck.x
       position: {x: -0.0000000019981614, y: 0.030195374, z: -0.00000013578334}
-      rotation: {x: 0.7063349, y: 0.0047852485, z: -0.0047269613, w: 0.7078459}
+      rotation: {x: 0.20649888, y: 0.0065882397, z: -0.0013556856, w: 0.9784237}
       scale: {x: 1, y: 0.9999997, z: 0.99999994}
     - name: head.x_end
       parentName: head.x
@@ -565,7 +575,7 @@ ModelImporter:
     - name: shoulder.l
       parentName: spine_03.x
       position: {x: -0.04062772, y: -0.0058122897, z: -0.01137403}
-      rotation: {x: -0.58233804, y: 0.41715595, z: 0.40598384, w: 0.5674862}
+      rotation: {x: -0.58233804, y: 0.41715592, z: 0.4059838, w: 0.5674862}
       scale: {x: 1, y: 1.0000001, z: 1}
     - name: arm_stretch.l
       parentName: shoulder.l
@@ -586,7 +596,7 @@ ModelImporter:
     - name: forearm_stretch.l
       parentName: arm_stretch.l
       position: {x: 0.000000019669532, y: 0.27614048, z: -0.000000017322082}
-      rotation: {x: -0.010268268, y: -0.0011554167, z: -0.036101807, w: -0.9992947}
+      rotation: {x: -0.01026827, y: -0.0011554167, z: -0.036101814, w: -0.9992947}
       scale: {x: 1.0000002, y: 1.0000011, z: 1.0000004}
     - name: forearm_twist.l
       parentName: forearm_stretch.l
@@ -611,12 +621,12 @@ ModelImporter:
     - name: c_index2.l
       parentName: c_index1.l
       position: {x: -0.000000028610229, y: 0.025960447, z: 0.00000006601214}
-      rotation: {x: -0.036902707, y: 0.0065519623, z: -0.0085374685, w: 0.9992609}
+      rotation: {x: -0.036902707, y: 0.006551963, z: -0.0085374685, w: 0.99926096}
       scale: {x: 1.0000002, y: 1.0000005, z: 0.99999994}
     - name: c_index3.l
       parentName: c_index2.l
       position: {x: 0.00000004053116, y: 0.030630387, z: -0.000000016987324}
-      rotation: {x: -0.017393384, y: 0.009113171, z: -0.023058435, w: 0.9995412}
+      rotation: {x: -0.017393388, y: 0.009113171, z: -0.023058439, w: 0.9995412}
       scale: {x: 1.0000002, y: 0.9999997, z: 0.9999997}
     - name: c_index3.l_end
       parentName: c_index3.l
@@ -671,7 +681,7 @@ ModelImporter:
     - name: c_ring2.l
       parentName: c_ring1.l
       position: {x: 0.000000028908252, y: 0.03267715, z: -0.000000039637087}
-      rotation: {x: 0.034266125, y: 0.010297206, z: -0.017967418, w: -0.99919814}
+      rotation: {x: 0.03426613, y: 0.010297207, z: -0.01796742, w: -0.9991982}
       scale: {x: 0.99999994, y: 1.0000005, z: 1.0000005}
     - name: c_ring3.l
       parentName: c_ring2.l
@@ -686,12 +696,12 @@ ModelImporter:
     - name: c_thumb1.l
       parentName: hand.l
       position: {x: -0.031358153, y: 0.036531482, z: -0.017297067}
-      rotation: {x: -0.11325432, y: 0.51342547, z: -0.34192818, w: -0.77887934}
+      rotation: {x: -0.11325433, y: 0.51342547, z: -0.3419282, w: -0.7788793}
       scale: {x: 1.0000013, y: 1.0000013, z: 1.0000004}
     - name: c_thumb2.l
       parentName: c_thumb1.l
       position: {x: -0.000000011676675, y: 0.04291601, z: -0.000000009536743}
-      rotation: {x: -0.022609502, y: -0.16857035, z: -0.015819319, w: 0.9853033}
+      rotation: {x: -0.022609502, y: -0.16857037, z: -0.015819319, w: 0.98530334}
       scale: {x: 1.0000006, y: 1.0000006, z: 0.9999998}
     - name: c_thumb3.l
       parentName: c_thumb2.l
@@ -706,12 +716,12 @@ ModelImporter:
     - name: shoulder.r
       parentName: spine_03.x
       position: {x: 0.04062772, y: -0.0058122897, z: -0.011374031}
-      rotation: {x: -0.5823369, y: -0.41715723, z: -0.40598485, w: 0.5674855}
+      rotation: {x: -0.58233696, y: -0.41715726, z: -0.40598488, w: 0.5674856}
       scale: {x: 0.9999998, y: 0.9999999, z: 1.0000001}
     - name: arm_stretch.r
       parentName: shoulder.r
       position: {x: -2.9802322e-10, y: 0.13372098, z: -0.00000020798295}
-      rotation: {x: 0.0091950875, y: -0.040454596, z: 0.16408414, w: -0.98557353}
+      rotation: {x: 0.009195088, y: -0.0404546, z: 0.16408415, w: -0.9855736}
       scale: {x: 1.0000011, y: 1, z: 1.0000012}
     - name: arm_twist.r
       parentName: arm_stretch.r
@@ -742,7 +752,7 @@ ModelImporter:
     - name: hand.r
       parentName: forearm_stretch.r
       position: {x: 0.000000059604645, y: 0.28176397, z: 0.00000007322826}
-      rotation: {x: -0.0160276, y: -0.059829053, z: -0.117264695, w: 0.99116725}
+      rotation: {x: -0.016027601, y: -0.059829056, z: -0.1172647, w: 0.9911673}
       scale: {x: 1.0000011, y: 1.0000011, z: 1.0000014}
     - name: c_index1.r
       parentName: hand.r
@@ -757,7 +767,7 @@ ModelImporter:
     - name: c_index3.r
       parentName: c_index2.r
       position: {x: 0.000000019073486, y: 0.030630361, z: -0.000000024735927}
-      rotation: {x: -0.017394708, y: -0.00911521, z: 0.023056895, w: 0.9995412}
+      rotation: {x: -0.01739471, y: -0.009115211, z: 0.023056896, w: 0.9995413}
       scale: {x: 1.0000002, y: 1.0000006, z: 0.9999997}
     - name: c_index3.r_end
       parentName: c_index3.r
@@ -812,7 +822,7 @@ ModelImporter:
     - name: c_ring2.r
       parentName: c_ring1.r
       position: {x: 0.0000000047683715, y: 0.03267708, z: 0.0000000023469329}
-      rotation: {x: -0.034268998, y: 0.01029679, z: -0.017968325, w: 0.999198}
+      rotation: {x: -0.034269, y: 0.010296791, z: -0.017968327, w: 0.9991981}
       scale: {x: 1, y: 1.0000002, z: 1.0000006}
     - name: c_ring3.r
       parentName: c_ring2.r
@@ -827,12 +837,12 @@ ModelImporter:
     - name: c_thumb1.r
       parentName: hand.r
       position: {x: 0.031358067, y: 0.036531586, z: -0.017296974}
-      rotation: {x: 0.11325434, y: 0.51342547, z: -0.34192762, w: 0.7788794}
+      rotation: {x: 0.113254346, y: 0.5134255, z: -0.34192765, w: 0.77887946}
       scale: {x: 1.000001, y: 1.0000006, z: 1.0000002}
     - name: c_thumb2.r
       parentName: c_thumb1.r
       position: {x: -0.000000032620356, y: 0.042916022, z: 0.0000000667572}
-      rotation: {x: -0.022611195, y: 0.16857542, z: 0.015822623, w: 0.9853023}
+      rotation: {x: -0.022611199, y: 0.16857542, z: 0.015822627, w: 0.9853023}
       scale: {x: 1, y: 1, z: 1.0000006}
     - name: c_thumb3.r
       parentName: c_thumb2.r
@@ -937,16 +947,6 @@ ModelImporter:
       position: {x: -0, y: 0.25548872, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
-    - name: RetopoFlow.002
-      parentName: Temp_rig_chara(Clone)
-      position: {x: -0.000000023171305, y: -0.00000012978911, z: 0.000000008413996}
-      rotation: {x: -0.7071068, y: 0.000000009161885, z: -0.0000000012165424, w: 0.7071067}
-      scale: {x: 1.0000001, y: 1, z: 1.0000001}
-    - name: RetopoFlow.001
-      parentName: Temp_rig_chara(Clone)
-      position: {x: -0.000000023171305, y: -0.00000012978911, z: 0.000000008413996}
-      rotation: {x: -0.7071068, y: 0.000000009161885, z: -0.0000000012165424, w: 0.7071067}
-      scale: {x: 1.0000001, y: 1, z: 1.0000001}
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5
