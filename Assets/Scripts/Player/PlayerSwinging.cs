@@ -207,6 +207,7 @@ public class PlayerSwinging : MonoBehaviour
         Player.Animator.SetBool("isSwinging", false);
         float dotProduct = Vector3.Dot(Player.Rigibody.velocity.normalized, Player.Orientation.transform.forward);
         Player.Animator.SetFloat("SwingEndAngle", Player.Rigibody.velocity.normalized.y);
+        EndSwingLinePoint.transform.parent = null;
 
         if (Player.Data.endCurveBoost && boost)
         {
