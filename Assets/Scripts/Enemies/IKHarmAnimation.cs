@@ -8,6 +8,7 @@ using System;
 using static ak.wwise.core;
 using UnityEngine.UIElements;
 using UnityEditor;
+using NUnit.Framework.Internal;
 
 namespace Enemies
 {
@@ -36,6 +37,8 @@ namespace Enemies
         public string LegMaterialName;
         [ReadOnly]
         public bool IsLegMaterialAnim;
+        [HideInInspector]
+        public float randomizer;
     }
     [Serializable]
     public class IkLegPair {
@@ -53,6 +56,7 @@ namespace Enemies
         [HideInInspector] public Vector3 overrideDir = Vector3.zero;
         [SerializeField] private SkinnedMeshRenderer _skinnedMeshRenderer;
         private Waving _waving;
+        private IKHarmWiggle _ikHarmWiggle;
 
         //Parameters
         [TitleGroup("Parameters")]
@@ -119,6 +123,7 @@ namespace Enemies
         void Start()
         {
             _waving = GetComponent<Waving>();
+            _ikHarmWiggle = GetComponent<IKHarmWiggle>();
             InitTargetsPos();
         }
 
@@ -133,6 +138,8 @@ namespace Enemies
                     leg.LastPosTarg = leg.Target.position;
                     leg.LastPosTargTotDist = 0;
                     leg.MoveTime = 0;
+                    leg.randomizer = UnityEngine.Random.Range(0, 100.0f);
+                    
                 }
             }
             UpdateTargetsPos();
@@ -178,6 +185,17 @@ namespace Enemies
                 }
             }
             CheckEachIkDistances();
+        }
+
+        private void LateUpdate()
+        {
+            for (int i = 0; i < _iksLegPairs.Count; i++)
+            {
+                foreach (Leg leg in _iksLegPairs[i].Legs)
+                {
+                    _ikHarmWiggle.ApplyNoiseToLeg(leg);
+                }
+            }
         }
 
         //Anim
