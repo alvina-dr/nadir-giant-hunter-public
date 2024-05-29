@@ -602,6 +602,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2946941751287643756}
+  - component: {fileID: 2589262748017379381}
   - component: {fileID: 5043027637049521611}
   - component: {fileID: 4607573896897719150}
   - component: {fileID: 5991739102287327260}
@@ -637,6 +638,37 @@ Transform:
   - {fileID: 3286274834771364795}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2589262748017379381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7281324820499622086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 584877325b4fd684786a57a73d1245e3,
+    type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Gameplay
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!114 &5043027637049521611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -667,6 +699,7 @@ MonoBehaviour:
   Collider: {fileID: 2380919973635274701}
   DestructionFX: {fileID: 7777113827547786453}
   currentTimerPitBottom: 0
+  _playerInput: {fileID: 2589262748017379381}
 --- !u!114 &4607573896897719150
 MonoBehaviour:
   m_ObjectHideFlags: 0
