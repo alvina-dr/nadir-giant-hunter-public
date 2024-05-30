@@ -73,7 +73,8 @@ public class PlayerAttack : MonoBehaviour
 
             DOVirtual.DelayedCall(.3f, () =>
             {
-                ReachTargetableSpot();
+                if (CurrentTargetSpot != null)
+                    ReachTargetableSpot();
             });
             GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(0).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = 2f;
             GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(1).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = 2f;
