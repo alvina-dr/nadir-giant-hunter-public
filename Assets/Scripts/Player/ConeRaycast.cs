@@ -21,7 +21,7 @@ public class ConeRaycast : MonoBehaviour
     public float MinRadius;
     public float MaxRadius;
     public float CurrentRadius;
-    [SerializeField] private float _anglePrecision;
+    [SerializeField] private int _anglePrecision;
     [SerializeField] int _radiusPrecision;
 
     private void Update()
@@ -31,7 +31,7 @@ public class ConeRaycast : MonoBehaviour
         for (int j = 0; j < _radiusPrecision; j++)
         {
             radius = (MaxRadius - MinRadius) * (j / (float) _radiusPrecision) + MinRadius;
-            for (int i = 0; i < 360 * _anglePrecision; i++)
+            for (int i = 0; i < _anglePrecision; i++)
             {
                 Vector3 _direction = transform.up * GPCtrl.Instance.Player.Data.maxSwingDistance;
                 switch (orientationMode)
