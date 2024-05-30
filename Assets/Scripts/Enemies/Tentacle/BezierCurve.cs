@@ -16,7 +16,12 @@ public class BezierCurve : MonoBehaviour {
 		return GetVelocity(t).normalized;
 	}
 	
-	public void Reset () {
+	public float GetLength(int precision)
+	{
+		return Bezier.GetLength(points[0], points[1], points[2], points[3], precision);
+    }
+
+    public void Reset () {
 		points = new Vector3[] {
 			new Vector3(1f, 0f, 0f),
 			new Vector3(2f, 0f, 0f),

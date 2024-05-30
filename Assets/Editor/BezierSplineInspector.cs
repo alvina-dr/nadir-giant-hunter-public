@@ -59,7 +59,7 @@ public class BezierSplineInspector : Editor {
 
 	private Vector3 ShowPoint (int index) {
 		Vector3 point = handleTransform.TransformPoint(spline.points[index]);
-		float size = HandleUtility.GetHandleSize(point);
+		/*float size = HandleUtility.GetHandleSize(point);
 		Handles.color = Color.white;
 		if (Handles.Button(point, handleRotation, size * handleSize, size * pickSize, Handles.DotCap)) {
 			selectedIndex = index;
@@ -72,7 +72,7 @@ public class BezierSplineInspector : Editor {
 				EditorUtility.SetDirty(spline);
 				spline.points[index] = handleTransform.InverseTransformPoint(point);
 			}
-		}
+		}*/
 		return point;
 	}
 }

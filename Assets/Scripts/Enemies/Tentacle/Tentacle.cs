@@ -1,17 +1,31 @@
+using Enemies;
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 using UnityEngine.UIElements;
 
 public class Tentacle : MonoBehaviour
 {
     [TabGroup("Components")]
-    public Transform StartTentacle;
+    public Transform StartTentaclePos;
     [TabGroup("Components")]
-    public Transform EndTentacle;
+    public Transform EndTentaclePos;
     [TabGroup("Components")]
     public GameObject TentacleScalePrefab;
+    [TabGroup("Components")]
+    public Transform IkTarget;
+    [TabGroup("Components")]
+    public RigBuilder TentRigBuilder;
+    [TabGroup("Components")]
+    public Animator EnemyAnimator;
+    private GameObject StartTentacleScale;
+    private GameObject EndTentacleScale;
+    private ChainIKConstraint TentacleIKConstraint;
+    private Rigidbody[] rigidbodies;
 
     [TabGroup("Parameters")]
     public bool IsByDensity;
@@ -24,7 +38,6 @@ public class Tentacle : MonoBehaviour
     [TabGroup("Parameters")]
     public float EndTentaclePow;
 
-    private BezierSpline bezierSpline;
 
     private string toDebug;
 
@@ -32,7 +45,8 @@ public class Tentacle : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        TentacleIKConstraint = GetComponent<ChainIKConstraint>();
+        rigidbodies = GetComponentsInChildren<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -41,28 +55,34 @@ public class Tentacle : MonoBehaviour
 
     }
 
-
+    #region TentacleGeneration
     [Button]
     public void GenerateTentacle()
     {
-        float startToEndDist = Vector3.Distance(StartTentacle.position, EndTentacle.position);
-        Vector3 p1 = StartTentacle.position + StartTentacle.forward * StartTentaclePow;
-        Vector3 p2 = EndTentacle.position - EndTentacle.forward * EndTentaclePow;
-        float length = BezierCurve.GetLength(StartTentacle.position, p1, p2, EndTentacle.position, (int)(startToEndDist * 10));
+        float startToEndDist = Vector3.Distance(StartTentaclePos.position, EndTentaclePos.position);
+        Vector3 p1 = StartTentaclePos.position + StartTentaclePos.forward * StartTentaclePow;
+        Vector3 p2 = EndTentaclePos.position - EndTentaclePos.forward * EndTentaclePow;
+        Vector3[] points = new Vector3[] { StartTentaclePos.position, p1, p2 , EndTentaclePos.position };
+        Bezier bezier = new Bezier(points, 1000);
+        float length = bezier.TotalLength;
         int tentacleScaleNum = Mathf.RoundToInt(length * TentacleDensity);
         toDebug = "";
         toDebug += "startToEndDist : " + startToEndDist + "\n";
         toDebug += "tentacles scale num : " + tentacleScaleNum + "\n";
-        Transform lastTentacle = StartTentacle;
+        Transform lastTentacle = StartTentaclePos;
         for (int i = 0; i < tentacleScaleNum; i++)
         {
             GameObject tentacleScale = Instantiate(TentacleScalePrefab, lastTentacle);
             lastTentacle = tentacleScale.transform;
             float delta = (float)i / tentacleScaleNum;
-            tentacleScale.transform.position = BezierCurve.GetPoint(StartTentacle.position, p1, p2, EndTentacle.position, delta);
+            tentacleScale.transform.position = bezier.GetPoint(delta);
             float nextDelta = (float)(i+1) / tentacleScaleNum;
-            Vector3 nextPointPos = BezierCurve.GetPoint(StartTentacle.position, StartTentacle.position + StartTentacle.forward * StartTentaclePow, EndTentacle.position - EndTentacle.forward * EndTentaclePow, EndTentacle.position, nextDelta);
+            Vector3 nextPointPos = bezier.GetPoint(nextDelta);
             tentacleScale.transform.rotation = Quaternion.LookRotation(nextPointPos - tentacleScale.transform.position, Vector3.up);
+            if (i == tentacleScaleNum - 1)
+                EndTentacleScale = tentacleScale;
+            if (i == 0)
+                StartTentacleScale = tentacleScale;
         }
 
     }
@@ -70,8 +90,80 @@ public class Tentacle : MonoBehaviour
     [Button]
     public void ResetTentacle()
     {
-        DestroyImmediate(StartTentacle.GetChild(0).gameObject);
+        EndTentacleScale = null;
+        StartTentacleScale = null;
+        DestroyImmediate(StartTentaclePos.GetChild(0).gameObject);
     }
+    #endregion
+
+    #region IK
+    [Button]
+    public void SetupIKConstraint()
+    {
+        if (!TentacleIKConstraint)
+        {
+            TentacleIKConstraint = GetComponent<ChainIKConstraint>();
+        }
+        TentacleIKConstraint.data.root = StartTentacleScale.transform;
+        TentacleIKConstraint.data.tip = EndTentacleScale.transform;
+        TentacleIKConstraint.data.target = IkTarget;
+        if (Application.isPlaying)
+        {
+            TentRigBuilder.Build();
+        }
+    }
+
+    #endregion
+
+    #region RagDoll
+
+    [Button]
+    public void SetupRagDoll()
+    {
+        SetupRagdollPart(EndTentacleScale);
+    }
+
+    public void SetupRagdollPart(GameObject part)
+    {
+        if (part.transform.parent == StartTentaclePos)
+        {
+            return;
+        }
+        CharacterJoint characterJoint = part.GetComponent<CharacterJoint>();
+        characterJoint.connectedBody = part.transform.parent.GetComponent<Rigidbody>();
+        characterJoint.autoConfigureConnectedAnchor = true;
+        SetupRagdollPart(part.transform.parent.gameObject);
+    }
+
+    public void SetRagdoll(bool isActive)
+    {
+        //Deactivate everything that will impair ragdoll
+        EnemyAnimator.enabled = !isActive;
+
+        foreach (var rigidbody in rigidbodies)
+        {
+            rigidbody.isKinematic = !isActive;
+            if (isActive)
+            {
+                rigidbody.velocity = Vector3.zero;
+            }
+        }
+    }
+    [Button]
+    public void ActivateRagdoll()
+    {
+        SetRagdoll(true);
+    }
+
+    [Button]
+    public void DeactivateRagdoll()
+    {
+        SetRagdoll(false);
+    }
+
+
+    #endregion
+
 
     private void OnGUI()
     {
@@ -82,14 +174,15 @@ public class Tentacle : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        float startToEndDist = Vector3.Distance(StartTentacle.position, EndTentacle.position);
+        Gizmos.color = Color.blue;
+        float startToEndDist = Vector3.Distance(StartTentaclePos.position, EndTentaclePos.position);
         float tentacleScaleNum = startToEndDist * 6;
         Vector3[] points = new Vector3[(int)tentacleScaleNum+1];
         int count = 0;
         foreach (Vector3 point in points)
         {
             float delta = (float)count / (int)tentacleScaleNum;
-            points[count] = BezierCurve.GetPoint(StartTentacle.position, StartTentacle.position + StartTentacle.forward * StartTentaclePow, EndTentacle.position - EndTentacle.forward * EndTentaclePow, EndTentacle.position, delta);
+            points[count] = Bezier.GetPoint(StartTentaclePos.position, StartTentaclePos.position + StartTentaclePos.forward * StartTentaclePow, EndTentaclePos.position - EndTentaclePos.forward * EndTentaclePow, EndTentaclePos.position, delta);
             count++;
         }
         Gizmos.DrawLineStrip(points, false);
