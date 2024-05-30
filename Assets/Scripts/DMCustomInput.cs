@@ -38,7 +38,6 @@ public class DMCustomInput : IDMInput
             if (Input.GetKey(KeyCode.R))
                 return EventKey.Reset;
         }
-
         return EventKey.None;
     }
 }

@@ -105,10 +105,4 @@ public class CameraThirdPerson : MonoBehaviour
             LookDirectionSave = direction;
         }
     }
-
-    public void ActivateFreeLook(bool value)
-    {
-        return;
-        //CinemachineFreeLook.enabled = value;
-    }
 }
