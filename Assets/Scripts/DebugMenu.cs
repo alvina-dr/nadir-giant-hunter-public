@@ -9,11 +9,14 @@ using TMPro;
 
 public class DebugMenu : MonoBehaviour
 {
-    Color _color;
-    float _playerSpeed;
     [SerializeField] TextMeshProUGUI _speedText;
     [SerializeField] TextMeshProUGUI _fpsText;
     float _deltaTime = 0;
+
+    private void Awake()
+    {
+        DM.Input = new DMCustomInput();
+    }
 
     private void Start()
     {
@@ -22,11 +25,6 @@ public class DebugMenu : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
-            if (DM.IsVisible) DM.Back();
-            else DM.Open();
-        }
         _speedText.text = "player speed : " + GPCtrl.Instance.Player.Rigibody.velocity.magnitude.ToString();
         _deltaTime += (Time.unscaledDeltaTime - _deltaTime) * 0.1f;
         float fps = 1.0f / _deltaTime;
@@ -36,16 +34,19 @@ public class DebugMenu : MonoBehaviour
     public void SetupDebugMenu()
     {
         DM.Root.Clear();
-        DM.Add("Print/HelloWorld", action => Debug.Log("Hello World"));
         DM.Add("Debug/ReloadScene", action => ReloadScene());
         DM.Add("Debug/Win", action => GPCtrl.Instance.Win());
         DM.Add("Debug/Loose", action => GPCtrl.Instance.Loose());
         DM.Add("Grapple/StartCurveBoost", () => GPCtrl.Instance.Player.Data.startCurveBoost, v => GPCtrl.Instance.Player.Data.startCurveBoost = v);
         DM.Add("Grapple/EndCurveBoost", () => GPCtrl.Instance.Player.Data.endCurveBoost, v => GPCtrl.Instance.Player.Data.endCurveBoost = v);
-        DM.Add("Grapple/EndCurveBoost", () => GPCtrl.Instance.Player.Data.endCurveBoost, v => GPCtrl.Instance.Player.Data.endCurveBoost = v);
+        DM.Add("Debug/BouncingGround", () => GPCtrl.Instance.GeneralData.debugBouncingGround, v => GPCtrl.Instance.GeneralData.debugBouncingGround = v);
         DM.Add("Values/PlayerSpeed", action => _speedText.gameObject.SetActive(!_speedText.gameObject.activeSelf));
         DM.Add("Values/FPS", action => _fpsText.gameObject.SetActive(!_fpsText.gameObject.activeSelf));
         //DN.Notify("Simple notification", 5f);
+#if UNITY_EDITOR
+        _speedText.gameObject.SetActive(false);
+        _fpsText.gameObject.SetActive(false);
+#endif
     }
 
     #region DEBUG FUNCTIONS
@@ -53,6 +54,5 @@ public class DebugMenu : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
-
     #endregion
 }
