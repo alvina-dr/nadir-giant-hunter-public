@@ -866,7 +866,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7281324820499622086}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 06b33cb7541c2e74fbfced089e9248f4, type: 3}
   m_Name: 
@@ -876,7 +876,7 @@ MonoBehaviour:
   positionToSpawn: {fileID: 1460274065303597221}
   meshDestroyDelay: 0.03
   skinnedMeshRenderers:
-  - {fileID: 0}
+  - {fileID: 948668385044210262}
   materials:
   - {fileID: 2100000, guid: e14f91f30f71bbc4f96e2f56ef77c419, type: 2}
   - {fileID: 2100000, guid: e14f91f30f71bbc4f96e2f56ef77c419, type: 2}
@@ -1195,6 +1195,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -269721734414488079, guid: 3b7c5e875defd924c9f4e4301b8faaab,
         type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -269721734414488079, guid: 3b7c5e875defd924c9f4e4301b8faaab,
+        type: 3}
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
@@ -1247,6 +1252,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1845473359725610304, guid: 3b7c5e875defd924c9f4e4301b8faaab,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1845473359725610304, guid: 3b7c5e875defd924c9f4e4301b8faaab,
         type: 3}
@@ -7061,6 +7071,12 @@ Cloth:
   - {x: 0.6666667, y: 0.16666667, z: 0.16666667}
   - {x: 0.5, y: 0.5, z: 0}
   m_VirtualParticleIndices: 
+--- !u!137 &948668385044210262 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -6997733842791713512, guid: 3b7c5e875defd924c9f4e4301b8faaab,
+    type: 3}
+  m_PrefabInstance: {fileID: 1425766397230683982}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1278421804651148268 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 176919256351892642, guid: 3b7c5e875defd924c9f4e4301b8faaab,

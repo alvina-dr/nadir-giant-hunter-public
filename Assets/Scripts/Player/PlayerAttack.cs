@@ -69,11 +69,11 @@ public class PlayerAttack : MonoBehaviour
             _springJoint.massScale = Player.Data.dragForce;
 
             Player.Animator.SetTrigger("Attack");
-
             GPCtrl.Instance.CameraThirdPerson.CameraShake.ShakeCamera(5f, .3f);
+
             DOVirtual.DelayedCall(.3f, () =>
             {
-                ReachWeakSpot();
+                ReachTargetableSpot();
             });
             GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(0).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = 2f;
             GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(1).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = 2f;
@@ -103,7 +103,7 @@ public class PlayerAttack : MonoBehaviour
         {
             if (Vector3.Distance(transform.position, _targetRigibody.transform.position) < Player.Data.attackStopDistance)
             {
-                ReachWeakSpot();
+                ReachTargetableSpot();
             }
         }
     }
@@ -117,7 +117,7 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-    private void ReachWeakSpot()
+    private void ReachTargetableSpot()
     {
         GPCtrl.Instance.CameraThirdPerson.CameraShake.ShakeCamera(10f, .1f);
         Destroy(_springJoint);
