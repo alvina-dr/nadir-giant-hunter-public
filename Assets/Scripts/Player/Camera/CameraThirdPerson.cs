@@ -15,7 +15,7 @@ public class CameraThirdPerson : MonoBehaviour
     private void Update()
     {
         //if (!canMoveCamera) return;
-
+        if (GPCtrl.Instance.Pause) return;
         //camera mobility depending on grounded or not (can see higher up from below if not on ground, but need to see less high if grounded to avoid clipping with ground)
         if (GPCtrl.Instance.Player.PlayerMovement.Grounded)
         {
