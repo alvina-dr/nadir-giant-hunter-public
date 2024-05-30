@@ -102,13 +102,13 @@ namespace Enemies
         private void OnGUI()
         {
             GUILayout.Box($"NoiseInfluenceMult : \n{NoiseInfluenceMult}");
-            NoiseInfluenceMult = GUILayout.HorizontalSlider(NoiseInfluenceMult, 0, 100.0f);
+            NoiseInfluenceMult = GUILayout.HorizontalSlider(NoiseInfluenceMult, 0, 1000.0f);
             GUILayout.Box($"NoiseTimeInfluenceMult : \n{NoiseTimeInfluenceMult}");
             NoiseTimeInfluenceMult = GUILayout.HorizontalSlider(NoiseTimeInfluenceMult, 0, 1.0f);
             GUILayout.Box($"NoiseSpeed : \n{NoiseSpeed}");
             NoiseSpeed = GUILayout.HorizontalSlider(NoiseSpeed, 0, 10.0f);
             GUILayout.Box($"NoiseInfluenceMult : \n{RandomMult}");
-            RandomMult = GUILayout.HorizontalSlider(RandomMult, 0, 3000);
+            RandomMult = GUILayout.HorizontalSlider(RandomMult, 0, 10000);
             GUIStyle style = GUI.skin.box;
             style.alignment = TextAnchor.MiddleLeft;
             GUILayout.Box($"Noise Transformation : \n{toGui}", style);
