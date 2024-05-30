@@ -80,7 +80,7 @@ public class TargetableSpot : MonoBehaviour
 
     private IEnumerator ReloadDashSpot()
     {
-        yield return new WaitForSecondsRealtime(GPCtrl.Instance.GeneralData.dashSpotReloadTime);
+        yield return new WaitForSeconds(GPCtrl.Instance.GeneralData.dashSpotReloadTime);
         GPCtrl.Instance.TargetableSpotList.Add(this);
         VisualFX.SendEvent("OnPlay");
     }
