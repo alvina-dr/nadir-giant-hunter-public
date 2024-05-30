@@ -46,9 +46,11 @@ public class PlayerSwinging : MonoBehaviour
             SwingAnimation(EndSwingLinePoint.position);
             Swinging();
             SwingRopeFX.DrawRope(StartSwingLinePoint.position, EndSwingLinePoint.position);
-        } else
+            _swingConeRaycast.SearchPoint = false;
+        }
+        else
         {
-            //SwingRopeFX.HideRope(StartSwingLinePoint.position);
+            _swingConeRaycast.SearchPoint = true;
         }
     }
 
@@ -127,9 +129,6 @@ public class PlayerSwinging : MonoBehaviour
             StartSwing(null, _swingConeRaycast.perfectPoint.position);
             return;
         }
-        _swingConeRaycast.searchPoint = true;
-        if (_swingConeRaycast.radius < _swingConeRaycast.maxRadius)
-            _swingConeRaycast.radius += Time.deltaTime * Player.Data.radiusDetectionIncreaseSpeed;
         if (_swingConeRaycast.contactPointList.Count > 0)
         {
             float distance = 1000;
@@ -158,12 +157,11 @@ public class PlayerSwinging : MonoBehaviour
     public void StartSwing(Transform hitTransform, Vector3 hitPoint)
     {
         //swing direction on the y plane
-        _swingOriginalDirection = Player.Mesh.forward;//new Vector3(Player.Rigibody.velocity.normalized.x, 0, Player.Rigibody.velocity.normalized.z);
+        _swingOriginalDirection = Player.Mesh.forward;
         Player.PlayerMovement.CanJumpOnceInAir = true;
         Player.SoundData.SFX_Hunter_Hook_Single_Grappled.Post(EndSwingLinePoint.gameObject);
         Player.SoundData.SFX_Hunter_Hook_Single_Trigger.Post(gameObject);
         IsSwinging = true;
-        _swingConeRaycast.searchPoint = false;
         EndSwingLinePoint.SetParent(hitTransform);
         EndSwingLinePoint.position = hitPoint;
         Player.Animator.SetBool("isSwinging", true);
@@ -190,11 +188,6 @@ public class PlayerSwinging : MonoBehaviour
 
     public void StopSwing(bool boost = true, bool destroyVisual = true)
     {
-        if (_side == Side.Right)
-        {
-            //Debug.Log("stop swinging");
-        }
-        _swingConeRaycast.radius = _swingConeRaycast.minRadius;
         if (!_springJoint) return;
         Player.SoundData.SFX_Hunter_Hook_Single_Trigger.Post(EndSwingLinePoint.gameObject);
         Player.PlayerMovement.CurrentMoveSpeed++;
@@ -227,6 +220,5 @@ public class PlayerSwinging : MonoBehaviour
         Debug.DrawRay(BaseSwingAnimation.position, dir);
         BaseSwingAnimation.up = dir;
     }
-
     #endregion
 }

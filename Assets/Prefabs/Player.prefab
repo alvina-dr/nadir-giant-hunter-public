@@ -82,11 +82,12 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 51
-  searchPoint: 1
-  minRadius: 1
-  maxRadius: 50
-  radius: 20
-  precision: 2
+  SearchPoint: 0
+  MinRadius: 1
+  MaxRadius: 200
+  CurrentRadius: 1
+  _anglePrecision: 1
+  _radiusPrecision: 5
 --- !u!1 &2705870311431261049
 GameObject:
   m_ObjectHideFlags: 0
@@ -314,11 +315,12 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 51
-  searchPoint: 1
-  minRadius: 1
-  maxRadius: 50
-  radius: 20
-  precision: 2
+  SearchPoint: 0
+  MinRadius: 1
+  MaxRadius: 200
+  CurrentRadius: 1
+  _anglePrecision: 1
+  _radiusPrecision: 5
 --- !u!1 &5447474520495628610
 GameObject:
   m_ObjectHideFlags: 0
