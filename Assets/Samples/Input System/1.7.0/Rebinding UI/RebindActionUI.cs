@@ -285,6 +285,8 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
                         UpdateBindingDisplay();
                         CleanUp();
 
+                        OnInputChanged?.Invoke();
+
                         // If there's more composite parts we should bind, initiate a rebind
                         // for the next part.
                         if (allCompositeParts)
@@ -417,6 +419,8 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
         [Tooltip("Event that is triggered when an interactive rebind is complete or has been aborted.")]
         [SerializeField]
         private InteractiveRebindEvent m_RebindStopEvent;
+
+        public static UnityAction OnInputChanged;
 
         private InputActionRebindingExtensions.RebindingOperation m_RebindOperation;
 

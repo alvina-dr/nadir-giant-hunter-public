@@ -16,10 +16,16 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
         private void Start()
         {
             InputSystem.onDeviceChange += SetImage;
+            RebindActionUI.OnInputChanged += SetImage;
             SetImage(null, InputDeviceChange.Added);
         }
 
         public void SetImage(InputDevice inputDevice, InputDeviceChange inputDeviceChange)
+        {
+            SetImage();
+        }
+
+        public void SetImage()
         {
             string inputName = string.Empty;
             if (Gamepad.all.Count > 0)
@@ -31,7 +37,8 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
                 inputName = inputName.Split("/").Last();
                 _image.sprite = _icons.xbox.GetSprite(inputName);
 
-            } else
+            }
+            else
             {
                 for (int i = 0; i < _action.action.bindings.Count; i++)
                 {
@@ -40,13 +47,12 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
                 inputName = inputName.Split("/").Last();
                 _image.sprite = _icons.computer.GetSprite(inputName);
             }
-            Debug.Log(inputName);
-
         }
 
         private void OnDestroy()
         {
             InputSystem.onDeviceChange -= SetImage;
+            RebindActionUI.OnInputChanged -= SetImage;
         }
     }
 }
