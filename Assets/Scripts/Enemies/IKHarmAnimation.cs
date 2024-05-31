@@ -57,6 +57,8 @@ namespace Enemies
         [SerializeField] private SkinnedMeshRenderer _skinnedMeshRenderer;
         private Waving _waving;
         private IKHarmWiggle _ikHarmWiggle;
+        private RigBuilder _rigBuilder;
+        private Animator _animator;
 
         //Parameters
         [TitleGroup("Parameters")]
@@ -124,6 +126,8 @@ namespace Enemies
         {
             _waving = GetComponent<Waving>();
             _ikHarmWiggle = GetComponent<IKHarmWiggle>();
+            _rigBuilder = GetComponent<RigBuilder>();
+            _animator = GetComponent<Animator>();
             InitTargetsPos();
         }
 
@@ -298,7 +302,7 @@ namespace Enemies
             for (int i = 0; i < LegParent.childCount; i += 2)
             {
                 IkLegPair ikLegPair = new IkLegPair();
-                ikLegPair.CurrentLeg = Mathf.RoundToInt(i % 2);
+                ikLegPair.CurrentLeg = Mathf.FloorToInt((i/2) % 2);
                 //FirstLeg
                 ikLegPair.Legs[0] = new Leg();
                 ikLegPair.Legs[1] = new Leg();
@@ -306,17 +310,34 @@ namespace Enemies
                 SetupLeg(ikLegPair.Legs[1], LegParent.GetChild(i+1));
                 _iksLegPairs.Add(ikLegPair);
             }
+            //_rigBuilder.Build();
         }
 
         private void SetupLeg(Leg leg, Transform legParent)
         {
+            if (!_rigBuilder || !_animator)
+            {
+                _rigBuilder = GetComponent<RigBuilder>();
+                _animator = GetComponent<Animator>();
+            }
             leg.UseTwoBonesIk = false;
             leg.ChainIk = legParent.GetComponent<ChainIKConstraint>();
             leg.Target = legParent.Find("Target");
             leg.TargetPos = legParent.Find("TargetPos");
             leg.LastBone = legParent.GetComponent<Tentacle>().EndTentacleScale;
             leg.FirstBone = legParent.GetComponent<Tentacle>().StartTentacleScale;
+            Tentacle tentacle = legParent.GetComponent<Tentacle>();
+            tentacle.TentRigBuilder = _rigBuilder;
+            tentacle.EnemyAnimator = _animator;
+
         }
+
+        [Button]
+        public void ResetLegs()
+        {
+            _iksLegPairs.Clear();
+        }
+
 
         private void OnDrawGizmos()
         {

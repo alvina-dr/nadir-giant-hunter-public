@@ -1,4 +1,5 @@
 using Enemies;
+using Mono.Cecil.Cil;
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
@@ -107,7 +108,7 @@ public class Tentacle : MonoBehaviour
         TentacleIKConstraint.data.root = StartTentacleScale.transform;
         TentacleIKConstraint.data.tip = EndTentacleScale.transform;
         TentacleIKConstraint.data.target = IkTarget;
-        if (Application.isPlaying)
+        if (TentRigBuilder && Application.isPlaying)
         {
             TentRigBuilder.Build();
         }
@@ -123,7 +124,7 @@ public class Tentacle : MonoBehaviour
         SetupRagdollPart(EndTentacleScale);
     }
 
-    public void SetupRagdollPart(GameObject part)
+    private void SetupRagdollPart(GameObject part)
     {
         if (part.transform.parent == StartTentaclePos)
         {

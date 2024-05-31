@@ -1,3 +1,4 @@
+using Enemies;
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,6 +8,9 @@ public class EnemyBuilder : MonoBehaviour
 {
     [TabGroup("Components")]
     public GameObject TentaclePrefab;
+    [TabGroup("Components")]
+    public Transform TentacleParent;
+    private IKHarmAnimation _iKHarmAnimation;
 
     [TabGroup("Parameters"), Tooltip("Need to be even")]
     public int LegNumber;
@@ -20,7 +24,7 @@ public class EnemyBuilder : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        _iKHarmAnimation = GetComponent<IKHarmAnimation>();
     }
 
     // Update is called once per frame
@@ -32,25 +36,68 @@ public class EnemyBuilder : MonoBehaviour
     [Button]
     public void BuildEnemy()
     {
-
-        /*LegNumber = 1 % 2 > 1 ? Mathf.FloorToInt(LegNumber) : LegNumber;
+        if (!_iKHarmAnimation)
+            _iKHarmAnimation = GetComponent<IKHarmAnimation>();
+        LegNumber = LegNumber % 2 > 1 ? LegNumber - 1 : LegNumber;
+        Transform[] ToOrganize = new Transform[LegNumber];
+        int startInd = LegNumber / 2 + ((LegNumber/2) % 2 >= 1 ? 1:2);
         for (int i = 0; i < LegNumber; i++)
         {
+            int index = i;
             float angle = 90;
+            int orgIndex = startInd + 2 * (index % 2 < 1 ? (int)Mathf.Ceil((float)index / 2) : -(int)Mathf.Ceil((float)index / 2));
+            Vector3 pos = transform.position;
             if (i >= LegNumber / 2)
             {
-                angle = 270;
+                angle = -90;
+                index = i - LegNumber / 2;
+                if ((LegNumber / 2) % 2 < 1)
+                {
+                    startInd = LegNumber / 2 + ((LegNumber / 2) % 2 >= 1 ? 1 : 2) - 3;
+                }
+                else
+                {
+                    startInd = LegNumber / 2 + ((LegNumber / 2) % 2 >= 1 ? 1 : 2) - 1;
+                }
+                orgIndex = startInd + 2 * (index % 2 < 1 ? -(int)Mathf.Ceil((float)index / 2) : (int)Mathf.Ceil((float)index / 2));
             }
-
-            angle += i % 2 < 1 ? (i + 1) * LegAngleSpacing : (i) * -LegAngleSpacing;
-            Vector3 pos = transform.position + transform.forward * (i % 2 < 1 ? (i + 1) * LegSpacing : (i) * -LegSpacing);
-            if ((LegNumber / 2) % 2 < 1)
+            if ((LegNumber / 2) % 2 >= 1)
             {
                 angle -= LegAngleSpacing / 2;
-                pos -= transform.forward * (LegSpacing / 2);
+                pos += transform.forward * LegSpacing * (i >= LegNumber / 2 ? -1 : 1);
             }
-            Tentacle tentacle = Instantiate(TentaclePrefab, );
-        }*/
+
+            angle += index % 2 < 1 ? (index + 1) * LegAngleSpacing / 2 : (index) * -LegAngleSpacing / 2;
+            pos += -transform.forward * (index % 2 < 1 ? (index + 1) * LegSpacing : (index) * -LegSpacing) * (i >= LegNumber / 2 ? -1 : 1);
+            
+            GameObject tentacleObj = Instantiate(TentaclePrefab, TentacleParent);
+            ToOrganize[orgIndex-1] = tentacleObj.transform;
+            tentacleObj.name = TentaclePrefab.name + "-" + i;
+            Tentacle tentacle = tentacleObj.GetComponent<Tentacle>();
+            tentacle.transform.position = pos;
+            tentacle.transform.rotation = Quaternion.AngleAxis(angle, Vector3.up);
+            tentacle.GenerateTentacle();
+            tentacle.SetupIKConstraint();
+            tentacle.SetupRagDoll();
+        }
+        for (int i = 0; i < ToOrganize.Length; i++)
+        {
+            ToOrganize[i].SetSiblingIndex(i);
+        }
+        _iKHarmAnimation.SetupLegs(TentacleParent);
+    }
+
+    [Button]
+    public void ResetEnemy()
+    {
+        if (!_iKHarmAnimation)
+            _iKHarmAnimation = GetComponent<IKHarmAnimation>();
+        _iKHarmAnimation.ResetLegs();
+        int count = TentacleParent.childCount;
+        for (int i = 0; i < count; i++)
+        {
+            DestroyImmediate(TentacleParent.GetChild(0).gameObject);
+        }
     }
 
 
@@ -59,22 +106,25 @@ public class EnemyBuilder : MonoBehaviour
     {
         Tentacle tentacle = TentaclePrefab.GetComponent<Tentacle>();
 
-        LegNumber = 1 % 2 > 1 ? Mathf.FloorToInt(LegNumber) : LegNumber;
-        for (int i = 0; i < LegNumber/2; i++)
+        for (int i = 0; i < LegNumber; i++)
         {
+            int index = i;
             float angle = 90;
+            Vector3 pos = transform.position;
             if (i >= LegNumber / 2)
             {
-                angle = 270;
+                angle = -90;
+                index = i - LegNumber/2;
             }
-            
-            angle += i % 2 < 1 ? (i+1)*LegAngleSpacing : (i)*-LegAngleSpacing;
-            Vector3 pos = transform.position + -transform.forward * (i % 2 < 1 ? (i + 1) * LegSpacing : (i) * -LegSpacing);
             if ((LegNumber / 2) % 2 >= 1)
             {
-                angle -= LegAngleSpacing / 2 * (i % 2 < 1 ? -1 : 1);
-                pos += transform.forward * (LegSpacing / 2);
+                angle -= LegAngleSpacing/2;
+                pos += transform.forward * LegSpacing * (i >= LegNumber / 2 ? -1 : 1);
             }
+
+            angle += index % 2 < 1 ? (index + 1)*LegAngleSpacing/2 : (index) *-LegAngleSpacing/2;
+            pos += -transform.forward * (index % 2 < 1 ? (index + 1) * LegSpacing : (index) * -LegSpacing) * (i >= LegNumber / 2 ? -1 : 1);
+            
             GetFourBezierPoint(pos, tentacle, angle, out Vector3 p0, out Vector3 p1, out Vector3 p2, out Vector3 p3);
 
             Gizmos.color = Color.blue;
