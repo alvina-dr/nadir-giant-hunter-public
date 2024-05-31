@@ -80,6 +80,7 @@ GameObject:
   - component: {fileID: 1569876095758888504}
   - component: {fileID: 1817606354086773773}
   - component: {fileID: 850109213883660988}
+  - component: {fileID: 5430290302824891671}
   m_Layer: 5
   m_Name: Keyboard
   m_TagString: Untagged
@@ -180,6 +181,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actions: {fileID: -944628639613478452, guid: 584877325b4fd684786a57a73d1245e3, type: 3}
+--- !u!114 &5430290302824891671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1142538729017211758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84cd9b84e0604a9abafb77712f1df90a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Icons: {fileID: 11400000, guid: 638e6d43cbcbc164cbfcc13fc7136b9e, type: 2}
 --- !u!1 &1602446958645805316
 GameObject:
   m_ObjectHideFlags: 0
@@ -193,6 +207,7 @@ GameObject:
   - component: {fileID: 2761283843750781123}
   - component: {fileID: 3753039784987127755}
   - component: {fileID: 1036536310648384641}
+  - component: {fileID: 4332610604165756451}
   m_Layer: 5
   m_Name: Gamepad
   m_TagString: Untagged
@@ -291,6 +306,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actions: {fileID: -944628639613478452, guid: 584877325b4fd684786a57a73d1245e3, type: 3}
+--- !u!114 &4332610604165756451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1602446958645805316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84cd9b84e0604a9abafb77712f1df90a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Icons: {fileID: 11400000, guid: 638e6d43cbcbc164cbfcc13fc7136b9e, type: 2}
 --- !u!1 &2141683746894831710
 GameObject:
   m_ObjectHideFlags: 0
@@ -1815,7 +1843,7 @@ PrefabInstance:
     - target: {fileID: 5964562951969575536, guid: 261bc7ed2b7010d4bacc42a93e9f12b4,
         type: 3}
       propertyPath: m_text
-      value: Move
+      value: Move Forward
       objectReference: {fileID: 0}
     - target: {fileID: 6610064171153293399, guid: 261bc7ed2b7010d4bacc42a93e9f12b4,
         type: 3}
@@ -3202,7 +3230,7 @@ PrefabInstance:
     - target: {fileID: 4238521033434310852, guid: 261bc7ed2b7010d4bacc42a93e9f12b4,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 21.49
+      value: 87.42
       objectReference: {fileID: 0}
     - target: {fileID: 4238521033434310852, guid: 261bc7ed2b7010d4bacc42a93e9f12b4,
         type: 3}
@@ -6140,7 +6168,7 @@ PrefabInstance:
     - target: {fileID: 5964562951969575536, guid: 261bc7ed2b7010d4bacc42a93e9f12b4,
         type: 3}
       propertyPath: m_text
-      value: Move
+      value: Move Back
       objectReference: {fileID: 0}
     - target: {fileID: 6610064171153293399, guid: 261bc7ed2b7010d4bacc42a93e9f12b4,
         type: 3}
@@ -9249,7 +9277,7 @@ PrefabInstance:
     - target: {fileID: 5964562951969575536, guid: 261bc7ed2b7010d4bacc42a93e9f12b4,
         type: 3}
       propertyPath: m_text
-      value: Move
+      value: Move Right
       objectReference: {fileID: 0}
     - target: {fileID: 6610064171153293399, guid: 261bc7ed2b7010d4bacc42a93e9f12b4,
         type: 3}
@@ -9876,7 +9904,7 @@ PrefabInstance:
     - target: {fileID: 5964562951969575536, guid: 261bc7ed2b7010d4bacc42a93e9f12b4,
         type: 3}
       propertyPath: m_text
-      value: Move
+      value: Move Left
       objectReference: {fileID: 0}
     - target: {fileID: 6610064171153293399, guid: 261bc7ed2b7010d4bacc42a93e9f12b4,
         type: 3}
