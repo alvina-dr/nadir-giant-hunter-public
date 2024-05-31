@@ -22,8 +22,8 @@ public class Tentacle : MonoBehaviour
     public RigBuilder TentRigBuilder;
     [TabGroup("Components")]
     public Animator EnemyAnimator;
-    private GameObject StartTentacleScale;
-    private GameObject EndTentacleScale;
+    public GameObject StartTentacleScale;
+    public GameObject EndTentacleScale;
     private ChainIKConstraint TentacleIKConstraint;
     private Rigidbody[] rigidbodies;
 

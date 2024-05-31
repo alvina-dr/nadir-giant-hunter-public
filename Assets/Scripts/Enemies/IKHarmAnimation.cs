@@ -169,7 +169,7 @@ namespace Enemies
                     if (leg.UseTwoBonesIk && leg.Ik.enabled || !leg.UseTwoBonesIk && leg.ChainIk.enabled)
                     {
                         leg.Target.position = leg.LastPos;
-                        _waving.IkHarmCompensateWave(leg);
+                        //_waving.IkHarmCompensateWave(leg);
                         Debug.DrawRay(leg.LastPos, Vector3.up * 10);
                         Debug.DrawRay(leg.LastPos, Vector3.right * 10);
                     }
@@ -208,7 +208,7 @@ namespace Enemies
             float step = 1 - Mathf.Pow(2 * delta - 1, 2);
             if (delta >= 0.93f && leg.LegMaterialName != "" && !leg.IsLegMaterialAnim) {
                 leg.IsLegMaterialAnim = true;
-                StartCoroutine(StartLegMaterialAnim(leg));
+                //StartCoroutine(StartLegMaterialAnim(leg));
             }
             leg.Target.position += _up * _targetHeightTransition * step;
             
@@ -292,6 +292,31 @@ namespace Enemies
             GetAndApplyNextIkPosition(leg, tryNum+1);
         }
 
+        [Button, Tooltip("Works only with tentacle script")]
+        public void SetupLegs(Transform LegParent)
+        {
+            for (int i = 0; i < LegParent.childCount; i += 2)
+            {
+                IkLegPair ikLegPair = new IkLegPair();
+                ikLegPair.CurrentLeg = Mathf.RoundToInt(i % 2);
+                //FirstLeg
+                ikLegPair.Legs[0] = new Leg();
+                ikLegPair.Legs[1] = new Leg();
+                SetupLeg(ikLegPair.Legs[0], LegParent.GetChild(i));
+                SetupLeg(ikLegPair.Legs[1], LegParent.GetChild(i+1));
+                _iksLegPairs.Add(ikLegPair);
+            }
+        }
+
+        private void SetupLeg(Leg leg, Transform legParent)
+        {
+            leg.UseTwoBonesIk = false;
+            leg.ChainIk = legParent.GetComponent<ChainIKConstraint>();
+            leg.Target = legParent.Find("Target");
+            leg.TargetPos = legParent.Find("TargetPos");
+            leg.LastBone = legParent.GetComponent<Tentacle>().EndTentacleScale;
+            leg.FirstBone = legParent.GetComponent<Tentacle>().StartTentacleScale;
+        }
 
         private void OnDrawGizmos()
         {

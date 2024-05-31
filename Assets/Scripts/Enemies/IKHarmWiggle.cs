@@ -11,11 +11,11 @@ namespace Enemies
 {
     public class IKHarmWiggle : MonoBehaviour
     {
-        string toGui = "";
-        float NoiseInfluenceMult = 0f;
-        float NoiseTimeInfluenceMult = 0f;
-        float NoiseSpeed = 0f;
-        float RandomMult = 0f;
+        public string toGui = "";
+        public float NoiseInfluenceMult = 0f;
+        public float NoiseTimeInfluenceMult = 0f;
+        public float NoiseSpeed = 0f;
+        public float RandomMult = 0f;
 
         //Accumulation of Transformation applied to bone
         private class LegTransformation
