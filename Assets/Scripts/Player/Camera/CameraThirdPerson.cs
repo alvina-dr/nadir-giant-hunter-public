@@ -18,7 +18,7 @@ public class CameraThirdPerson : MonoBehaviour
         //camera mobility depending on grounded or not (can see higher up from below if not on ground, but need to see less high if grounded to avoid clipping with ground)
         if (GPCtrl.Instance.Player.PlayerMovement.Grounded)
         {
-            GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.m_Orbits[2].m_Height = -1;
+            GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.m_Orbits[2].m_Height = -.5f;
         } else
         {
             GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.m_Orbits[2].m_Height = -4;
