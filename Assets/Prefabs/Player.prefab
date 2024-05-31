@@ -407,8 +407,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6248415947163967164}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -8.867573e-12, w: 1}
+  m_LocalPosition: {x: -0, y: -0, z: 0.000079855905}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -702,6 +702,11 @@ MonoBehaviour:
   DestructionFX: {fileID: 7777113827547786453}
   currentTimerPitBottom: 0
   _playerInput: {fileID: 2589262748017379381}
+  CameraConeRaycastParent: {fileID: 0}
+  CameraRightConeRaycast: {fileID: 0}
+  CameraLeftConeRaycast: {fileID: 0}
+  PlayerRightConeRaycast: {fileID: 7395889314644683301}
+  PlayerLeftConeRaycast: {fileID: 2104427182935562414}
 --- !u!114 &4607573896897719150
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -40,12 +40,20 @@ public class Player : MonoBehaviour
     private InputAction _swingLeftAction;
     private InputAction _menuAction;
 
+    [Header("Cone Raycast")]
+    [SerializeField] private Transform CameraConeRaycastParent;
+    [SerializeField] private ConeRaycast CameraRightConeRaycast;
+    [SerializeField] private ConeRaycast CameraLeftConeRaycast;
+    [SerializeField] private ConeRaycast PlayerRightConeRaycast;
+    [SerializeField] private ConeRaycast PlayerLeftConeRaycast;
+
     private void Awake()
     {
         InputManager = new PlayerControls();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         SetupInputActions();
+        SetConeRaycast(Data.coneRaycastOnPlayer);
     }
 
     private void OnEnable()
@@ -62,6 +70,20 @@ public class Player : MonoBehaviour
     private void Update()
     {
         UpdateInputs();
+        //CameraConeRaycastParent.transform.forward = Camera.main.transform.forward;
+    }
+
+    public void SetConeRaycast(bool onPlayer)
+    {
+        if (onPlayer)
+        {
+            PlayerSwingingLeft.SetConeRaycast(PlayerLeftConeRaycast);
+            PlayerSwingingRight.SetConeRaycast(PlayerRightConeRaycast);
+        } else
+        {
+            PlayerSwingingLeft.SetConeRaycast(CameraLeftConeRaycast);
+            PlayerSwingingRight.SetConeRaycast(CameraRightConeRaycast);
+        }
     }
 
     void SetupInputActions()

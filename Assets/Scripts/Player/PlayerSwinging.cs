@@ -228,6 +228,7 @@ public class PlayerSwinging : MonoBehaviour
     public void StopSwing(bool boost = true, bool destroyVisual = true)
     {
         if (!_springJoint) return;
+        Debug.Log("stop swing");
         Player.SoundData.SFX_Hunter_Hook_Single_Trigger.Post(EndSwingLinePoint.gameObject);
         Player.PlayerMovement.CurrentMoveSpeed++;
         Destroy(_springJoint);
@@ -258,6 +259,11 @@ public class PlayerSwinging : MonoBehaviour
         Vector3 dir = (toLook - BaseSwingAnimation.position).normalized;
         Debug.DrawRay(BaseSwingAnimation.position, dir);
         BaseSwingAnimation.up = dir;
+    }
+
+    public void SetConeRaycast(ConeRaycast coneRaycast)
+    {
+        _swingConeRaycast = coneRaycast;
     }
     #endregion
 }

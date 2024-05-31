@@ -72,6 +72,7 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
             public Sprite leftClick;
             public Sprite rightClick;
             public Sprite middleClick;
+            public Sprite eKey;
 
             public Sprite GetSprite(string controlPath)
             {
@@ -80,6 +81,7 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
                     case "leftButton": return leftClick;
                     case "rightButton": return rightClick;
                     case "middleButton": return middleClick;
+                    case "e": return eKey;
                 }
                 return null;
             }
