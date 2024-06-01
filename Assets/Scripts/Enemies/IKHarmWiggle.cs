@@ -16,6 +16,7 @@ namespace Enemies
         public float NoiseTimeInfluenceMult = 0f;
         public float NoiseSpeed = 0f;
         public float RandomMult = 0f;
+        public int BoneIndex = 0;
 
         //Accumulation of Transformation applied to bone
         private class LegTransformation
@@ -48,9 +49,9 @@ namespace Enemies
         private void GetLegBoneNum(Transform legBone, LegTransformation legTransformation, Leg leg)
         {
             legTransformation.LegBoneCount++;
-            if (legBone.childCount > 0 && legBone.GetChild(0).gameObject != leg.LastBone)
+            if (legBone.childCount > 0 && legBone.GetChild(BoneIndex).gameObject != leg.LastBone)
             {
-                GetLegBoneNum(legBone.GetChild(0), legTransformation, leg);
+                GetLegBoneNum(legBone.GetChild(BoneIndex), legTransformation, leg);
             }
         }
 
@@ -58,9 +59,9 @@ namespace Enemies
         {
             CompensanteTransformation(transformed, legTransformation);
             AddNoiseTransformation(transformed, legTransformation, leg);
-            if (transformed.childCount > 0 && transformed.GetChild(0).gameObject != leg.LastBone)
+            if (transformed.childCount > 0 && transformed.GetChild(BoneIndex).gameObject != leg.LastBone)
             {
-                ApplyNoiseToTransformAndChild(transformed.GetChild(0), legTransformation, leg);
+                ApplyNoiseToTransformAndChild(transformed.GetChild(BoneIndex), legTransformation, leg);
             }
         }
 
@@ -102,7 +103,7 @@ namespace Enemies
         private void OnGUI()
         {
             GUILayout.Box($"NoiseInfluenceMult : \n{NoiseInfluenceMult}");
-            NoiseInfluenceMult = GUILayout.HorizontalSlider(NoiseInfluenceMult, 0, 1000.0f);
+            NoiseInfluenceMult = GUILayout.HorizontalSlider(NoiseInfluenceMult, 0, 100000.0f);
             GUILayout.Box($"NoiseTimeInfluenceMult : \n{NoiseTimeInfluenceMult}");
             NoiseTimeInfluenceMult = GUILayout.HorizontalSlider(NoiseTimeInfluenceMult, 0, 1.0f);
             GUILayout.Box($"NoiseSpeed : \n{NoiseSpeed}");

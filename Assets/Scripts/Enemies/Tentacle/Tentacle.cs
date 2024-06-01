@@ -1,6 +1,7 @@
 using Enemies;
 using Mono.Cecil.Cil;
 using Sirenix.OdinInspector;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -8,6 +9,23 @@ using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 using UnityEngine.UIElements;
+
+[Serializable]
+public class TentacleScaleAnim
+{
+    public AnimationCurve Curve;
+    public TentacleScale.DeltaType DeltaType;
+    public Vector2 CursorRange;
+    [PropertyRange(-1, 2)]
+    public float CursorPosition;
+    public float AnimationTime;
+    public float AnimationScale;
+    public bool isAnimationReverse;
+    public bool DoAnimationLoop;
+    public bool DoAnimationOnStart;
+    [ReadOnly]
+    public bool IsAnimating;
+}
 
 public class Tentacle : MonoBehaviour
 {
@@ -26,6 +44,7 @@ public class Tentacle : MonoBehaviour
     public GameObject StartTentacleScale;
     public GameObject EndTentacleScale;
     private ChainIKConstraint TentacleIKConstraint;
+    private TentacleScale [] tentacleScales;
     private Rigidbody[] rigidbodies;
 
     [TabGroup("Parameters")]
@@ -39,6 +58,9 @@ public class Tentacle : MonoBehaviour
     [TabGroup("Parameters")]
     public float EndTentaclePow;
 
+    [TabGroup("ScaleAnim")]
+    public List<TentacleScaleAnim> TentacleScaleAnimations = new List<TentacleScaleAnim>();
+
 
     private string toDebug;
 
@@ -48,12 +70,14 @@ public class Tentacle : MonoBehaviour
     {
         TentacleIKConstraint = GetComponent<ChainIKConstraint>();
         rigidbodies = GetComponentsInChildren<Rigidbody>();
+        RetrieveAllTentacleScales();
+        StartAnimationsOnStart();
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        SendTentacleScaleAnimData();
     }
 
     #region TentacleGeneration
@@ -85,7 +109,7 @@ public class Tentacle : MonoBehaviour
             if (i == 0)
                 StartTentacleScale = tentacleScale;
         }
-
+        RetrieveAllTentacleScales();
     }
 
     [Button]
@@ -95,6 +119,12 @@ public class Tentacle : MonoBehaviour
         StartTentacleScale = null;
         DestroyImmediate(StartTentaclePos.GetChild(0).gameObject);
     }
+
+    public void RetrieveAllTentacleScales()
+    {
+        tentacleScales = GetComponentsInChildren<TentacleScale>();
+    }
+
     #endregion
 
     #region IK
@@ -162,6 +192,67 @@ public class Tentacle : MonoBehaviour
         SetRagdoll(false);
     }
 
+
+    #endregion
+
+
+    #region TentacleScaleAnimation
+
+    private void SendTentacleScaleAnimData()
+    {
+        for (int i = 0; i < tentacleScales.Length; i++)
+        {
+            TentacleScale tentacleScale = tentacleScales[i];
+            foreach (TentacleScaleAnim anim in TentacleScaleAnimations)
+            {
+                float tentacleDeltaAdd = (i/(float)tentacleScales.Length);
+                float delta = anim.Curve.Evaluate(anim.CursorPosition+ tentacleDeltaAdd*anim.AnimationScale);
+                tentacleScale.AddDelta(delta, anim.DeltaType);
+            }
+        }
+    }
+
+    public void StartAnimationsOnStart()
+    {
+        foreach (TentacleScaleAnim anim in TentacleScaleAnimations)
+        {
+            if (!anim.DoAnimationOnStart)
+            {
+                continue;
+            }
+            StartCoroutine(TentacleAnimation(anim));
+        }
+    }
+
+    [Button]
+    public void StartTentacleAnimationByIndex(int index)
+    {
+        if (TentacleScaleAnimations[index].IsAnimating)
+            return;
+        StartCoroutine(TentacleAnimation(TentacleScaleAnimations[index]));
+    }
+
+    private IEnumerator TentacleAnimation(TentacleScaleAnim anim)
+    {
+        float startTime = Time.time;
+        float endTime = Time.time + anim.AnimationTime;
+
+        
+        float delta = 0;
+        while (Time.time < endTime || anim.DoAnimationLoop)
+        {
+            delta += Time.deltaTime / anim.AnimationTime;
+            float cursorPos = Mathf.Lerp(anim.CursorRange.x, anim.CursorRange.y, anim.isAnimationReverse ? delta : 1 - delta);
+            anim.CursorPosition = cursorPos;
+            yield return 0;
+            if (anim.DoAnimationLoop && Time.time >= endTime)
+            {
+                delta = 0;
+                startTime = Time.time;
+                endTime = Time.time + anim.AnimationTime;
+            }
+        }
+    }
 
     #endregion
 

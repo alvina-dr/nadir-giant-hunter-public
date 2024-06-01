@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 1964233951629742683}
   - component: {fileID: 8026370801767234394}
   - component: {fileID: 3331922111833744880}
-  m_Layer: 0
+  - component: {fileID: 8846026056384193585}
+  m_Layer: 7
   m_Name: TentacleScale
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,6 +108,32 @@ CharacterJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &8846026056384193585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4075955535380523172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec1309a0954f8a641a19eb7009ebc887, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TentacleRenderer: {fileID: 2036835761234486026}
+  ScaleMaxAdded: {x: 0.2, y: 0, z: 0.2}
+  ScaleDelta: 0
+  RotationAxisSpeed: {x: 100, y: 0, z: 0}
+  RotationSpeedDelta: 0.437
+  RotationMax: {x: 0, y: 0, z: 0}
+  RotationDelta: 0
+  MatParameterName: 
+  MatParameterDelta: 0
+  MatColorName: _BaseColor
+  MatBaseColor: {r: 1, g: 1, b: 1, a: 1}
+  MatSecColor: {r: 1, g: 0, b: 0, a: 1}
+  MatColorDelta: 0
+  _DebugDelta: 0
 --- !u!1001 &830314848500006798
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -133,42 +160,47 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: a242287e3d4d0a34ebcbbdf8563288ea,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071068
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a242287e3d4d0a34ebcbbdf8563288ea,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.70710677
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a242287e3d4d0a34ebcbbdf8563288ea,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a242287e3d4d0a34ebcbbdf8563288ea,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a242287e3d4d0a34ebcbbdf8563288ea,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 90
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a242287e3d4d0a34ebcbbdf8563288ea,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -90
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a242287e3d4d0a34ebcbbdf8563288ea,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: -90
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: a242287e3d4d0a34ebcbbdf8563288ea,
         type: 3}
       propertyPath: m_Name
       value: tentacle-cylinder-test
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a242287e3d4d0a34ebcbbdf8563288ea,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -209,6 +241,12 @@ BoxCollider:
 --- !u!4 &869027095008663653 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: a242287e3d4d0a34ebcbbdf8563288ea,
+    type: 3}
+  m_PrefabInstance: {fileID: 830314848500006798}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &2036835761234486026 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: a242287e3d4d0a34ebcbbdf8563288ea,
     type: 3}
   m_PrefabInstance: {fileID: 830314848500006798}
   m_PrefabAsset: {fileID: 0}

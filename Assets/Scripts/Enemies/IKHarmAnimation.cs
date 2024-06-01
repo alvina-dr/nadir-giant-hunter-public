@@ -25,6 +25,8 @@ namespace Enemies
         public GameObject LastBone;
         public GameObject FirstBone;
         [HideInInspector]
+        public Tentacle tentacle;
+        [HideInInspector]
         public Vector3 LastPosTarg;
         [HideInInspector]
         public float LastPosTargTotDist;
@@ -34,9 +36,9 @@ namespace Enemies
         public Vector3 LastPos;
         [HideInInspector]
         public float MaxLength;
-        public string LegMaterialName;
         [ReadOnly]
-        public bool IsLegMaterialAnim;
+        public bool DidLegJustTouchedGround = false;
+        public List<int> ScalesAnimIndexOnGroundTouched = new List<int>();
         [HideInInspector]
         public float randomizer;
     }
@@ -210,24 +212,28 @@ namespace Enemies
             leg.LastPos = Vector3.Lerp(leg.LastPos, leg.LastPosTarg, Time.deltaTime * leg.MoveTime * deltaP);
             float delta = 1f - Vector3.Distance(leg.LastPos, leg.LastPosTarg) / leg.LastPosTargTotDist;
             float step = 1 - Mathf.Pow(2 * delta - 1, 2);
-            if (delta >= 0.93f && leg.LegMaterialName != "" && !leg.IsLegMaterialAnim) {
-                leg.IsLegMaterialAnim = true;
-                //StartCoroutine(StartLegMaterialAnim(leg));
+            if (delta >= 0.86f && !leg.DidLegJustTouchedGround) {
+                leg.DidLegJustTouchedGround = true;
+                LegTouchedGround(leg);
+                StartCoroutine(GroundTouchCoolDown(leg));
             }
             leg.Target.position += _up * _targetHeightTransition * step;
             
         }
 
-        IEnumerator StartLegMaterialAnim(Leg leg)
+        private void LegTouchedGround(Leg leg)
         {
-            float delta = _LegMaterialAnimTime / (float)_LegMaterialAnimIterations;
-            for (int i = 0; i < _LegMaterialAnimIterations; i++)
+            foreach (int index in leg.ScalesAnimIndexOnGroundTouched)
             {
-                float step = i/ (float)_LegMaterialAnimIterations;
-                _skinnedMeshRenderer.materials[1].SetFloat(leg.LegMaterialName, step);
-                yield return new WaitForSeconds(delta);
+                leg.tentacle.StartTentacleAnimationByIndex(index);
             }
-            leg.IsLegMaterialAnim = false;
+        }
+
+        IEnumerator GroundTouchCoolDown(Leg leg)
+        {
+            
+            yield return new WaitForSecondsRealtime(1f);
+            leg.DidLegJustTouchedGround = false;
         }
 
         private void CheckEachIkDistances()
@@ -310,7 +316,10 @@ namespace Enemies
                 SetupLeg(ikLegPair.Legs[1], LegParent.GetChild(i+1));
                 _iksLegPairs.Add(ikLegPair);
             }
-            //_rigBuilder.Build();
+            if (Application.isPlaying)
+            {
+                _rigBuilder.Build();
+            }
         }
 
         private void SetupLeg(Leg leg, Transform legParent)
@@ -326,9 +335,11 @@ namespace Enemies
             leg.TargetPos = legParent.Find("TargetPos");
             leg.LastBone = legParent.GetComponent<Tentacle>().EndTentacleScale;
             leg.FirstBone = legParent.GetComponent<Tentacle>().StartTentacleScale;
+            leg.ScalesAnimIndexOnGroundTouched.Add(0);
             Tentacle tentacle = legParent.GetComponent<Tentacle>();
             tentacle.TentRigBuilder = _rigBuilder;
             tentacle.EnemyAnimator = _animator;
+            leg.tentacle = tentacle;
 
         }
 

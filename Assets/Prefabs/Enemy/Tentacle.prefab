@@ -156,6 +156,49 @@ MonoBehaviour:
   TentacleNum: 0
   StartTentaclePow: 19.49
   EndTentaclePow: 2
+  TentacleScaleAnimations:
+  - Curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 0.5
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 0.99999976
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    DeltaType: 0
+    CursorRange: {x: -1, y: 1}
+    CursorPosition: -1
+    AnimationTime: 0.5
+    AnimationScale: 1
+    isAnimationReverse: 1
+    DoAnimationLoop: 0
+    DoAnimationOnStart: 0
+    IsAnimating: 0
 --- !u!114 &329551947704417483
 MonoBehaviour:
   m_ObjectHideFlags: 0
