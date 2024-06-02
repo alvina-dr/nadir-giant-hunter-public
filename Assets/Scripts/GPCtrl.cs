@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Sirenix.OdinInspector;
 using UnityEngine.Rendering.HighDefinition;
+using Enemies;
 
 public class GPCtrl : MonoBehaviour
 {
