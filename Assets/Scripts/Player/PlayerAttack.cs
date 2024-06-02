@@ -69,18 +69,17 @@ public class PlayerAttack : MonoBehaviour
             _springJoint.massScale = Player.Data.dragForce;
 
             Player.Animator.SetTrigger("Attack");
-
             GPCtrl.Instance.CameraThirdPerson.CameraShake.ShakeCamera(5f, .3f);
+
             DOVirtual.DelayedCall(.3f, () =>
             {
-                ReachWeakSpot();
+                if (CurrentTargetSpot != null)
+                    ReachTargetableSpot();
             });
             GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(0).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = 2f;
             GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(1).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = 2f;
             GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(2).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = 2f;
         }).SetUpdate(true);
-
-
     }
 
     private void Update()
@@ -99,36 +98,13 @@ public class PlayerAttack : MonoBehaviour
                 {
                     GPCtrl.Instance.UICtrl.AttackInputIndicator.ShowIndicatorAt(closestTargetableSpotList[0].transform.position);
                 }
-                GPCtrl.Instance.CameraThirdPerson.ActivateFreeLook(false);
-                //GPCtrl.Instance.CameraLock.CinemachineVirtualCamera.transform.forward = closestWeakSpotList[0].transform.position - transform.position;
-
-                //if (GPCtrl.Instance.CameraLock.CinemachineTargetGroup.m_Targets.Length == 1)
-                //{
-                //    //GPCtrl.Instance.CameraLock.CinemachineTargetGroup.AddMember(closestWeakSpotList[0].transform, 0.8f, 4.5f);
-                //}
-
             }
-            else
-            {
-                //if (GPCtrl.Instance.CameraLock.CinemachineTargetGroup.m_Targets.Length > 1)
-                //{
-                GPCtrl.Instance.CameraThirdPerson.ActivateFreeLook(true);
-                //GPCtrl.Instance.CameraLock.CinemachineTargetGroup.RemoveMember(GPCtrl.Instance.CameraLock.CinemachineTargetGroup.m_Targets[1].target);
-                //}
-            }
-        } else
-        {
-            //if (GPCtrl.Instance.CameraLock.CinemachineTargetGroup.m_Targets.Length > 1)
-            //{
-            //GPCtrl.Instance.CameraLock.CinemachineTargetGroup.RemoveMember(GPCtrl.Instance.CameraLock.CinemachineTargetGroup.m_Targets[1].target);
-            GPCtrl.Instance.CameraThirdPerson.ActivateFreeLook(true);
-            //}
         }
         if (IsGrappling && _springJoint != null && _targetRigibody.gameObject.activeSelf)
         {
             if (Vector3.Distance(transform.position, _targetRigibody.transform.position) < Player.Data.attackStopDistance)
             {
-                ReachWeakSpot();
+                ReachTargetableSpot();
             }
         }
     }
@@ -142,12 +118,10 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-    private void ReachWeakSpot()
+    private void ReachTargetableSpot()
     {
         GPCtrl.Instance.CameraThirdPerson.CameraShake.ShakeCamera(10f, .1f);
         Destroy(_springJoint);
-        //GPCtrl.Instance.CameraLock.CinemachineTargetGroup.RemoveMember(CurrentWeakSpot.transform);
-        GPCtrl.Instance.CameraThirdPerson.ActivateFreeLook(true);
         _springJoint = null;
         IsGrappling = false;
         Player.PlayerSwingingLeft.SwingRopeFX.HideRope(Player.PlayerSwingingLeft.StartSwingLinePoint.position);

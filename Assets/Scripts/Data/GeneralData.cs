@@ -11,4 +11,7 @@ public class GeneralData : ScriptableObject
     public float yHeightGameOver;
     public int scoreboardSize;
     public float yHeightPitBottom;
+
+    [Header("DEBUG")]
+    public bool debugBouncingGround;
 }

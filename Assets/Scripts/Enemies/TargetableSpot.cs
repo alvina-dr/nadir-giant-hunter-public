@@ -30,6 +30,7 @@ public class TargetableSpot : MonoBehaviour
             case SpotType.WeakSpot:
                 DOVirtual.DelayedCall(.2f, () =>
                 {
+                    if (GPCtrl.Instance.Pause) return;
                     Time.timeScale = 1;
                 }).SetUpdate(true);
                 if (Enemy != null)
@@ -61,6 +62,7 @@ public class TargetableSpot : MonoBehaviour
             case SpotType.Bumper:
                 DOVirtual.DelayedCall(.1f, () =>
                 {
+                    if (GPCtrl.Instance.Pause) return;
                     Time.timeScale = 1;
                 }).SetUpdate(true);
                 Bump();
@@ -78,7 +80,7 @@ public class TargetableSpot : MonoBehaviour
 
     private IEnumerator ReloadDashSpot()
     {
-        yield return new WaitForSecondsRealtime(GPCtrl.Instance.GeneralData.dashSpotReloadTime);
+        yield return new WaitForSeconds(GPCtrl.Instance.GeneralData.dashSpotReloadTime);
         GPCtrl.Instance.TargetableSpotList.Add(this);
         VisualFX.SendEvent("OnPlay");
     }

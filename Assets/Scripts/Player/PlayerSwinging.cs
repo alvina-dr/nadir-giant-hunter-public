@@ -1,9 +1,7 @@
 using Cinemachine;
-using JetBrains.Annotations;
-using System.Collections;
-using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using System.Drawing;
 
 public class PlayerSwinging : MonoBehaviour
 {
@@ -34,6 +32,7 @@ public class PlayerSwinging : MonoBehaviour
     public LineRenderer SwingLineRenderer;
     public SwingRopeFX SwingRopeFX;
     [SerializeField] private LayerMask _layerMask;
+    private Vector3 _bestSwingPoint;
 
     private void LateUpdate()
     {
@@ -46,9 +45,11 @@ public class PlayerSwinging : MonoBehaviour
             SwingAnimation(EndSwingLinePoint.position);
             Swinging();
             SwingRopeFX.DrawRope(StartSwingLinePoint.position, EndSwingLinePoint.position);
-        } else
+            _swingConeRaycast.SearchPoint = false;
+        }
+        else
         {
-            //SwingRopeFX.HideRope(StartSwingLinePoint.position);
+            _swingConeRaycast.SearchPoint = true;
         }
     }
 
@@ -72,8 +73,60 @@ public class PlayerSwinging : MonoBehaviour
                 //GPCtrl.Instance.CameraThirdPerson.CameraShake.StopShake();
             }
         }
+
         if (IsTrySwing && !Player.PlayerAttack.IsGrappling && !GPCtrl.Instance.DashPause) TrySwing();
         else if (!IsTrySwing && !Player.PlayerGrappleBoost.IsGrapplingBoost && !GPCtrl.Instance.DashPause) StopSwing();
+
+        CalculateBestSwingingPoint();
+
+        if (_bestSwingPoint != Vector3.zero)
+        {
+            if (_side == Side.Left)
+            {
+                GPCtrl.Instance.UICtrl.SwingLeftIndicator.ShowIndicatorAt(_bestSwingPoint);
+            } else
+            {
+                GPCtrl.Instance.UICtrl.SwingRightIndicator.ShowIndicatorAt(_bestSwingPoint);
+            }
+        } else
+        {
+            if (_side == Side.Left)
+            {
+                GPCtrl.Instance.UICtrl.SwingLeftIndicator.HideIndicator();
+            }
+            else
+            {
+                GPCtrl.Instance.UICtrl.SwingRightIndicator.HideIndicator();
+            }
+        }
+
+    }
+
+    public void CalculateBestSwingingPoint()
+    {
+        if (_swingConeRaycast.contactPointList.Count > 0)
+        {
+            float distance = 1000;
+
+            //Get point closest to perfect point
+            Vector3 point = Vector3.zero;
+            for (int i = 0; i < _swingConeRaycast.contactPointList.Count; i++)
+            {
+                float currentDistance = Vector3.Distance(_swingConeRaycast.perfectPoint.position, _swingConeRaycast.contactPointList[i]);
+                if (currentDistance < distance)
+                {
+                    point = _swingConeRaycast.contactPointList[i];
+                    distance = currentDistance;
+                }
+            }
+            if (point == Vector3.zero)
+            {
+                _bestSwingPoint = Vector3.zero;
+            } else
+            {
+                _bestSwingPoint = point;
+            }
+        }
     }
 
     public void CalculateUpVector()
@@ -94,18 +147,18 @@ public class PlayerSwinging : MonoBehaviour
     public void Swinging()
     {
         Vector3 forceAdded = new Vector3(_swingOriginalDirection.x, 0, _swingOriginalDirection.z);
-        Debug.DrawRay(Player.transform.position, _swingOriginalDirection*5, Color.blue);
+        Debug.DrawRay(Player.transform.position, _swingOriginalDirection*5, UnityEngine.Color.blue);
 
         Vector3 influenceYPlaned = new Vector3(SwingInfluenceDirection.x, 0, SwingInfluenceDirection.z);
         float dot = Vector3.Dot(_swingOriginalDirection.normalized, influenceYPlaned.normalized);
         Vector3 influence = SwingInfluenceDirection * (dot <= 0 ? 0 : dot+0.7f);
-        Debug.DrawRay(Player.transform.position, influence*5, Color.green);
+        Debug.DrawRay(Player.transform.position, influence*5, UnityEngine.Color.green);
 
         float delta = Mathf.Max(dot, 0);
         delta = delta <= 0 ? 0 : delta+0.1f;
         delta = Mathf.Min(delta, 1);
         Vector3 mix = Vector3.Lerp(forceAdded * 2000 * Player.Data.SwingBaseOrientationSpeed, influence * 2000 * Player.Data.SwingCameraOrientInfluence, delta);
-        Debug.DrawRay(Player.transform.position, mix * 5, Color.magenta);
+        Debug.DrawRay(Player.transform.position, mix * 5, UnityEngine.Color.magenta);
 
         float upDot = Vector3.Dot(Player.Rigibody.velocity.normalized, Player.Orientation.transform.forward);
         float lengthMult = Vector3.Distance(EndSwingLinePoint.position, StartSwingLinePoint.position) * Player.Data.SwingSpeedLengthMult * (upDot-0.1f);
@@ -122,31 +175,16 @@ public class PlayerSwinging : MonoBehaviour
     public void TrySwing()
     {
         if (_springJoint) return;
+
         if (Player.Data.magicSwinging) //MAGIC SWINGING
         {
             StartSwing(null, _swingConeRaycast.perfectPoint.position);
             return;
         }
-        _swingConeRaycast.searchPoint = true;
-        if (_swingConeRaycast.radius < _swingConeRaycast.maxRadius)
-            _swingConeRaycast.radius += Time.deltaTime * Player.Data.radiusDetectionIncreaseSpeed;
-        if (_swingConeRaycast.contactPointList.Count > 0)
-        {
-            float distance = 1000;
-            Vector3 point = Vector3.zero;
-            //Get point closest to perfect point
-            for (int i = 0; i < _swingConeRaycast.contactPointList.Count; i++)
-            {
-                float currentDistance = Vector3.Distance(_swingConeRaycast.perfectPoint.position, _swingConeRaycast.contactPointList[i]);
-                if (currentDistance < distance)
-                {
-                    point = _swingConeRaycast.contactPointList[i];
-                    distance = currentDistance;
-                }
-            }
-            if (point == Vector3.zero) return;
 
-            Vector3 direction = point - StartSwingLinePoint.position;
+        if (_bestSwingPoint != Vector3.zero) //NORMAL SWINGING
+        {
+            Vector3 direction = _bestSwingPoint - StartSwingLinePoint.position;
             RaycastHit hit;
             if (Physics.Raycast(StartSwingLinePoint.position, direction, out hit, Player.Data.maxSwingDistance, _layerMask))
             {
@@ -158,12 +196,11 @@ public class PlayerSwinging : MonoBehaviour
     public void StartSwing(Transform hitTransform, Vector3 hitPoint)
     {
         //swing direction on the y plane
-        _swingOriginalDirection = Player.Mesh.forward;//new Vector3(Player.Rigibody.velocity.normalized.x, 0, Player.Rigibody.velocity.normalized.z);
+        _swingOriginalDirection = Player.Mesh.forward;
         Player.PlayerMovement.CanJumpOnceInAir = true;
         Player.SoundData.SFX_Hunter_Hook_Single_Grappled.Post(EndSwingLinePoint.gameObject);
         Player.SoundData.SFX_Hunter_Hook_Single_Trigger.Post(gameObject);
         IsSwinging = true;
-        _swingConeRaycast.searchPoint = false;
         EndSwingLinePoint.SetParent(hitTransform);
         EndSwingLinePoint.position = hitPoint;
         Player.Animator.SetBool("isSwinging", true);
@@ -190,12 +227,8 @@ public class PlayerSwinging : MonoBehaviour
 
     public void StopSwing(bool boost = true, bool destroyVisual = true)
     {
-        if (_side == Side.Right)
-        {
-            //Debug.Log("stop swinging");
-        }
-        _swingConeRaycast.radius = _swingConeRaycast.minRadius;
         if (!_springJoint) return;
+        Debug.Log("stop swing");
         Player.SoundData.SFX_Hunter_Hook_Single_Trigger.Post(EndSwingLinePoint.gameObject);
         Player.PlayerMovement.CurrentMoveSpeed++;
         Destroy(_springJoint);
@@ -228,5 +261,9 @@ public class PlayerSwinging : MonoBehaviour
         BaseSwingAnimation.up = dir;
     }
 
+    public void SetConeRaycast(ConeRaycast coneRaycast)
+    {
+        _swingConeRaycast = coneRaycast;
+    }
     #endregion
 }

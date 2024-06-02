@@ -95,6 +95,6 @@ public class UI_Scoreboard : MonoBehaviour
 
     static int SortByScore(ScoreboardEntry p1, ScoreboardEntry p2)
     {
-        return -p1.timer.CompareTo(p2.timer);
+        return p1.timer.CompareTo(p2.timer);
     }
 }
