@@ -165,7 +165,7 @@ public class PlayerSwinging : MonoBehaviour
         Player.Rigibody.AddForce(mix * (1+lengthMult) * Time.fixedDeltaTime, ForceMode.Force);
         Player.Rigibody.velocity *= 0.999f * (1+Time.deltaTime);
         bool hasToStopSwing = Vector3.Dot(Vector3.up, (EndSwingLinePoint.position - Player.transform.position).normalized) <= Player.Data.MaxSwingAngle;
-        if (hasToStopSwing)
+        if (hasToStopSwing && Player.Data.coneRaycastOnPlayer)
         {
             IsTrySwing = false;
             StopSwing();
@@ -204,13 +204,13 @@ public class PlayerSwinging : MonoBehaviour
         EndSwingLinePoint.SetParent(hitTransform);
         EndSwingLinePoint.position = hitPoint;
         Player.Animator.SetBool("isSwinging", true);
+
         _springJoint = gameObject.AddComponent<SpringJoint>();
         _springJoint.autoConfigureConnectedAnchor = false;
         _springJoint.connectedAnchor = EndSwingLinePoint.position;
         _springJoint.enableCollision = true;
         float distanceFromPoint = Vector3.Distance(StartSwingLinePoint.position, EndSwingLinePoint.position) + 10;
         if (distanceFromPoint < Player.Data.minSwingDistance) distanceFromPoint = Player.Data.minSwingDistance;
-
         _springJoint.maxDistance = distanceFromPoint * 0.7f;
         _springJoint.minDistance = 0.5f;
         _springJoint.spring = 0;
@@ -221,8 +221,10 @@ public class PlayerSwinging : MonoBehaviour
 
         Vector3 newVelocity = Vector3.Cross(Player.Mesh.transform.right, (EndSwingLinePoint.position - Player.transform.position).normalized) * Player.Rigibody.velocity.magnitude;
         Player.Rigibody.velocity = newVelocity;
+        Debug.Log("falling timer : " + Player.PlayerMovement.FallingTimer);
+        Player.PlayerMovement.CurrentMoveSpeed += Player.PlayerMovement.FallingTimer;
         if (Player.Data.startCurveBoost)
-            Player.Rigibody.AddForce(Vector3.Cross(Player.Mesh.transform.right, (EndSwingLinePoint.position - Player.transform.position).normalized) * Player.Data.startCurveSpeedBoost, ForceMode.Impulse);
+            Player.Rigibody.AddForce(Vector3.Cross(Player.Mesh.transform.right, (EndSwingLinePoint.position - Player.transform.position).normalized) * (Player.Data.startCurveSpeedBoost + Player.PlayerMovement.FallingTimer * 1000f), ForceMode.Impulse);
     }
 
     public void StopSwing(bool boost = true, bool destroyVisual = true)
