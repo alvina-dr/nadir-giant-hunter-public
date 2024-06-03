@@ -9,6 +9,7 @@ using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 using UnityEngine.UIElements;
+using static ak.wwise.core;
 
 namespace Enemies
 {
@@ -18,7 +19,7 @@ namespace Enemies
         public AnimationCurve Curve;
         public TentacleScale.DeltaType DeltaType;
         public Vector2 CursorRange;
-        [PropertyRange(-1, 2)]
+        [PropertyRange(-3, 3)]
         public float CursorPosition;
         public float AnimationTime;
         public float AnimationScale;
@@ -43,6 +44,8 @@ namespace Enemies
         public RigBuilder TentRigBuilder;
         [TabGroup("Components")]
         public Animator EnemyAnimator;
+        [TabGroup("Components")]
+        public Leg leg;
         public GameObject StartTentacleScale;
         public GameObject EndTentacleScale;
         private ChainIKConstraint TentacleIKConstraint;
@@ -59,6 +62,8 @@ namespace Enemies
         public float StartTentaclePow;
         [TabGroup("Parameters")]
         public float EndTentaclePow;
+        [TabGroup("Parameters"), PropertyRange(0f, 1f)]
+        public float deltaGrounded;
 
         [TabGroup("ScaleAnim")]
         public List<TentacleScaleAnim> TentacleScaleAnimations = new List<TentacleScaleAnim>();
@@ -79,6 +84,7 @@ namespace Enemies
         // Update is called once per frame
         void Update()
         {
+            deltaGrounded = leg.GroundedDelta;
             SendTentacleScaleAnimData();
         }
 

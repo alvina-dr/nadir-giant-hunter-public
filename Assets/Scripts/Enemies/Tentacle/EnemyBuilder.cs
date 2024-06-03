@@ -17,7 +17,7 @@ namespace Enemies
         [TabGroup("Parameters"), Tooltip("Need to be even")]
         public int LegNumber;
         [TabGroup("Parameters")]
-        public float LegSpacing;
+        public Vector2 LegSpacing;
         [TabGroup("Parameters")]
         public float LegAngleSpacing;
 
@@ -49,10 +49,12 @@ namespace Enemies
                 float angle = 90;
                 int orgIndex = startInd + 2 * (index % 2 < 1 ? (int)Mathf.Ceil((float)index / 2) : -(int)Mathf.Ceil((float)index / 2));
                 Vector3 pos = transform.position;
+                pos += transform.right * LegSpacing.x;
                 if (i >= LegNumber / 2)
                 {
                     angle = -90;
                     index = i - LegNumber / 2;
+                    pos -= transform.right * LegSpacing.x;
                     if ((LegNumber / 2) % 2 < 1)
                     {
                         startInd = LegNumber / 2 + ((LegNumber / 2) % 2 >= 1 ? 1 : 2) - 3;
@@ -66,11 +68,11 @@ namespace Enemies
                 if ((LegNumber / 2) % 2 >= 1)
                 {
                     angle -= LegAngleSpacing / 2;
-                    pos += transform.forward * LegSpacing * (i >= LegNumber / 2 ? -1 : 1);
+                    pos += transform.forward * LegSpacing.y * (i >= LegNumber / 2 ? -1 : 1);
                 }
 
                 angle += index % 2 < 1 ? (index + 1) * LegAngleSpacing / 2 : (index) * -LegAngleSpacing / 2;
-                pos += -transform.forward * (index % 2 < 1 ? (index + 1) * LegSpacing : (index) * -LegSpacing) * (i >= LegNumber / 2 ? -1 : 1);
+                pos += -transform.forward * (index % 2 < 1 ? (index + 1) * LegSpacing.y : (index) * -LegSpacing.y) * (i >= LegNumber / 2 ? -1 : 1);
             
                 GameObject tentacleObj = Instantiate(TentaclePrefab, TentacleParent);
                 ToOrganize[orgIndex-1] = tentacleObj.transform;
@@ -113,19 +115,21 @@ namespace Enemies
                 int index = i;
                 float angle = 90;
                 Vector3 pos = transform.position;
+                pos += transform.right * LegSpacing.x;
                 if (i >= LegNumber / 2)
                 {
                     angle = -90;
                     index = i - LegNumber/2;
+                    pos -= transform.right * LegSpacing.x*2;
                 }
                 if ((LegNumber / 2) % 2 >= 1)
                 {
                     angle -= LegAngleSpacing/2;
-                    pos += transform.forward * LegSpacing * (i >= LegNumber / 2 ? -1 : 1);
+                    pos += transform.forward * LegSpacing.y * (i >= LegNumber / 2 ? -1 : 1);
                 }
 
                 angle += index % 2 < 1 ? (index + 1)*LegAngleSpacing/2 : (index) *-LegAngleSpacing/2;
-                pos += -transform.forward * (index % 2 < 1 ? (index + 1) * LegSpacing : (index) * -LegSpacing) * (i >= LegNumber / 2 ? -1 : 1);
+                pos += -transform.forward * (index % 2 < 1 ? (index + 1) * LegSpacing.y : (index) * -LegSpacing.y) * (i >= LegNumber / 2 ? -1 : 1);
             
                 GetFourBezierPoint(pos, tentacle, angle, out Vector3 p0, out Vector3 p1, out Vector3 p2, out Vector3 p3);
 

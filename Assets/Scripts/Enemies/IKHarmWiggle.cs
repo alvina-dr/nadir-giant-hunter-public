@@ -1,19 +1,23 @@
 using JetBrains.Annotations;
+using Sirenix.OdinInspector;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using TreeEditor;
-using Unity.VisualScripting;
 using UnityEngine;
-using static ak.wwise.core;
 
 namespace Enemies
 {
     public class IKHarmWiggle : MonoBehaviour
     {
-        public string toGui = "";
+        private string toGui = "";
+        public AnimationCurve NoiseInflGrounded;
+        public AnimationCurve NoiseInflUngrounded;
+        [PropertyRange(0f, 1f)]
+        public float deltaGrounded;
         public float NoiseInfluenceMult = 0f;
         public float NoiseTimeInfluenceMult = 0f;
+        public float LegSpeedInfluence = 0f;
         public float NoiseSpeed = 0f;
         public float RandomMult = 0f;
         public int BoneIndex = 0;
@@ -80,11 +84,12 @@ namespace Enemies
         {
             int currentBoneNum = legTransformation.PreTransformations.Count;
             float delta = currentBoneNum / (float)legTransformation.LegBoneCount;
-            float noiseInfluence = -1 + Mathf.Clamp(delta * 2, 0, 1) + Mathf.Clamp(2 - delta * 2, 0, 1);
+            float noiseInfluence = Mathf.Lerp(NoiseInflUngrounded.Evaluate(delta), NoiseInflGrounded.Evaluate(delta), leg.GroundedDelta);
+            deltaGrounded = leg.GroundedDelta;
             Vector3 transformation = Vector3.zero;
             if (currentBoneNum > 1)
             {
-                transformation.x = Mathf.PerlinNoise1D(NoiseTimeInfluenceMult * (Time.time * NoiseSpeed + legTransformation.cummuledDistance + leg.randomizer * RandomMult))-0.5f;
+                transformation.x = Mathf.PerlinNoise1D(NoiseTimeInfluenceMult * (Time.time * NoiseSpeed + legTransformation.cummuledDistance + leg.randomizer * RandomMult)) -0.5f;
                 transformation.y = Mathf.PerlinNoise1D(NoiseTimeInfluenceMult * (Time.time * NoiseSpeed + legTransformation.cummuledDistance+1000 + leg.randomizer * RandomMult)) - 0.5f;
                 transformation.z = Mathf.PerlinNoise1D(NoiseTimeInfluenceMult * (Time.time * NoiseSpeed + legTransformation.cummuledDistance+2000 + leg.randomizer * RandomMult)) - 0.5f;
                 transformation *= noiseInfluence * NoiseInfluenceMult;
@@ -97,10 +102,10 @@ namespace Enemies
                 transformation = transformed.position - oldPos;
             }
             legTransformation.Transformations.Add(transformation);
-            toGui += currentBoneNum + " : " + noiseInfluence + " | \n   "+ transformation +"\n";
+            //toGui += currentBoneNum + " : " + noiseInfluence + " | \n   "+ transformation +"\n";
         }
 
-        private void OnGUI()
+        /*private void OnGUI()
         {
             GUILayout.Box($"NoiseInfluenceMult : \n{NoiseInfluenceMult}");
             NoiseInfluenceMult = GUILayout.HorizontalSlider(NoiseInfluenceMult, 0, 100000.0f);
@@ -114,7 +119,7 @@ namespace Enemies
             style.alignment = TextAnchor.MiddleLeft;
             GUILayout.Box($"Noise Transformation : \n{toGui}", style);
 
-        }
+        }*/
     }
 }
 

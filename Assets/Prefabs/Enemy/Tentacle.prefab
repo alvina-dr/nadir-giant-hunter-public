@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 2274649088487997673}
   serializedVersion: 2
   m_LocalRotation: {x: -0.2588165, y: -0, z: -0, w: 0.9659265}
-  m_LocalPosition: {x: 0, y: 57.9, z: 44.2}
+  m_LocalPosition: {x: 0, y: 25.9, z: 28.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -56,7 +56,7 @@ Transform:
   m_GameObject: {fileID: 2854355013705945553}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 50.1}
+  m_LocalPosition: {x: 0, y: 0, z: 24.08}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -87,7 +87,7 @@ Transform:
   m_GameObject: {fileID: 3395456922490607871}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 50.099995}
+  m_LocalPosition: {x: 0, y: 0, z: 24.07999}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -149,6 +149,24 @@ MonoBehaviour:
   IkTarget: {fileID: 6181371400866471383}
   TentRigBuilder: {fileID: 0}
   EnemyAnimator: {fileID: 0}
+  leg:
+    UseTwoBonesIk: 1
+    Ik: {fileID: 0}
+    ChainIk: {fileID: 0}
+    Target: {fileID: 0}
+    TargetPos: {fileID: 0}
+    LastBone: {fileID: 0}
+    FirstBone: {fileID: 0}
+    tentacle: {fileID: 0}
+    LastPosTarg: {x: 0, y: 0, z: 0}
+    LastPosTargTotDist: 0
+    MoveTime: 0
+    LastPos: {x: 0, y: 0, z: 0}
+    MaxLength: 0
+    DidLegJustTouchedGround: 0
+    GroundedDelta: 1
+    ScalesAnimIndexOnGroundTouched: 
+    randomizer: 0
   StartTentacleScale: {fileID: 0}
   EndTentacleScale: {fileID: 0}
   IsByDensity: 1
@@ -156,6 +174,7 @@ MonoBehaviour:
   TentacleNum: 0
   StartTentaclePow: 50.7
   EndTentaclePow: 2
+  deltaGrounded: 0
   TentacleScaleAnimations:
   - Curve:
       serializedVersion: 2

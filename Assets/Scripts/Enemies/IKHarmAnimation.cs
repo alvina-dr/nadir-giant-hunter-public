@@ -38,6 +38,8 @@ namespace Enemies
         public float MaxLength;
         [ReadOnly]
         public bool DidLegJustTouchedGround = false;
+        public float GroundedDelta = 1;
+        public float LegSpeed;
         public List<int> ScalesAnimIndexOnGroundTouched = new List<int>();
         [HideInInspector]
         public float randomizer;
@@ -92,6 +94,8 @@ namespace Enemies
         private Vector2 _lengthBeforeUpdateOffSet;
         [TabGroup("Parameters/A", "Metrics"), SerializeField]
         private float _targetHeightTransition = 1;
+        [TabGroup("Parameters/A", "Metrics"), SerializeField]
+        private AnimationCurve _heightStepCurve;
         [TabGroup("Parameters/A", "Metrics"), MinMaxSlider(0, 20), SerializeField]
         private Vector2 _moveSpeed;
         [TabGroup("Parameters/A", "Metrics"), SerializeField]
@@ -180,9 +184,13 @@ namespace Enemies
                         Debug.DrawRay(leg.LastPos, Vector3.right * 10);
                     }
 
-                    if (Vector3.Distance(leg.LastPos, leg.LastPosTarg) > 1f)
+                    if (Vector3.Distance(leg.Target.position, leg.LastPosTarg) > 0.01f)
                     {
                         TransitionLastPos(leg);
+                    }
+                    else
+                    {
+                        leg.GroundedDelta = 1;
                     }
                     if (doAlignTipToLast)
                     {
@@ -211,8 +219,12 @@ namespace Enemies
             float deltaP = 1.1f - Vector3.Distance(leg.LastPos, leg.LastPosTarg) / leg.LastPosTargTotDist;
             leg.LastPos = Vector3.Lerp(leg.LastPos, leg.LastPosTarg, Time.deltaTime * leg.MoveTime * deltaP);
             float delta = 1f - Vector3.Distance(leg.LastPos, leg.LastPosTarg) / leg.LastPosTargTotDist;
-            float step = 1 - Mathf.Pow(2 * delta - 1, 2);
-            if (delta >= 0.86f && !leg.DidLegJustTouchedGround) {
+            float step = _heightStepCurve.Evaluate(delta);
+            leg.GroundedDelta = 1-step;
+            leg.LegSpeed = step;
+
+            if (delta >= 0.99f && !leg.DidLegJustTouchedGround)
+            {
                 leg.DidLegJustTouchedGround = true;
                 LegTouchedGround(leg);
                 StartCoroutine(GroundTouchCoolDown(leg));
@@ -220,6 +232,7 @@ namespace Enemies
             leg.Target.position += _up * _targetHeightTransition * step;
             
         }
+
 
         private void LegTouchedGround(Leg leg)
         {
@@ -339,6 +352,7 @@ namespace Enemies
             Tentacle tentacle = legParent.GetComponent<Tentacle>();
             tentacle.TentRigBuilder = _rigBuilder;
             tentacle.EnemyAnimator = _animator;
+            tentacle.leg = leg;
             leg.tentacle = tentacle;
 
         }

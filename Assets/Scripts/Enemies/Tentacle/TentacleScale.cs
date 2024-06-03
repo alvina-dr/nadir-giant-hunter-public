@@ -125,12 +125,15 @@ namespace Enemies
 
         private void ApplyRotation()
         {
-            if (transform.parent != null) 
+            TentacleRenderer.transform.rotation = Quaternion.EulerRotation(_baseRotation);
+            if (transform.parent != null && transform.parent.name != "Start" && (transform.parent.position - transform.position)!=Vector3.zero)
+            {
                 TentacleRenderer.transform.rotation = Quaternion.LookRotation(transform.parent.position - transform.position, Vector3.up);
-            TentacleRenderer.transform.localRotation *= Quaternion.AngleAxis(-90, Vector3.right);
-            //TentacleRenderer.transform.localEulerAngles = Vector3.Lerp(_baseRotation, _baseRotation+RotationMax, RotationDelta + _GlobalDelta + _DebugDelta);
-            TentacleRenderer.transform.localRotation *= Quaternion.AngleAxis(lastAngle + RotationSpeedDelta, Vector3.up);
-            lastAngle = lastAngle + RotationSpeedDelta;
+                TentacleRenderer.transform.localRotation *= Quaternion.AngleAxis(-90, Vector3.right);
+                //TentacleRenderer.transform.localEulerAngles = Vector3.Lerp(_baseRotation, _baseRotation+RotationMax, RotationDelta + _GlobalDelta + _DebugDelta);
+            }
+            //TentacleRenderer.transform.localRotation *= Quaternion.AngleAxis(lastAngle + RotationSpeedDelta, Vector3.up);
+            //lastAngle = lastAngle + RotationSpeedDelta;
             //TentacleRenderer.transform.localEulerAngles += RotationAxisSpeed * ;
         }
 
