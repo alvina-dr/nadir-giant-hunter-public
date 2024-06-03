@@ -70,6 +70,7 @@ public class PlayerAttack : MonoBehaviour
 
             Player.Animator.SetTrigger("Attack");
             GPCtrl.Instance.CameraThirdPerson.CameraShake.ShakeCamera(5f, .3f);
+            DataHolder.Instance.RumbleManager.PulseFor(10f, 10f, .3f);
 
             DOVirtual.DelayedCall(.3f, () =>
             {

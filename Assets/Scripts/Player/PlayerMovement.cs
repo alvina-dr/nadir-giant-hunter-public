@@ -148,6 +148,7 @@ public class PlayerMovement : MonoBehaviour
             Player.Animator.SetBool("Grounded", false);
             Player.SoundData.SFX_Hunter_Jump.Post(Player.gameObject);
             Player.SparksVFX.SendEvent("Jump");
+            DataHolder.Instance.RumbleManager.PulseFor(5f, 5f, .1f);
         }
     }
 
@@ -203,5 +204,6 @@ public class PlayerMovement : MonoBehaviour
         Player.Rigibody.AddForce(transform.up * Player.Data.jumpForce + wallNormal * Player.Data.jumpForce, ForceMode.Impulse);
         Player.SoundData.SFX_Hunter_Jump.Post(Player.gameObject);
         Player.SparksVFX.SendEvent("Jump");
+        DataHolder.Instance.RumbleManager.PulseFor(5f, 5f, .1f);
     }
 }
