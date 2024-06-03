@@ -185,4 +185,23 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        //WALL JUMP
+        if (!Grounded && collision.contacts[0].normal.y < 0.1f && collision.contacts[0].normal.y > -0.5f)
+        {
+            //Debug.DrawRay(collision.contacts[0].point, collision.contacts[0].normal * 5, Color.red, 15f);
+            WallJump(collision.contacts[0].normal);
+        }
+    }
+
+    public void WallJump(Vector3 wallNormal)
+    {
+        CanJumpOnceInAir = true;
+        Player.Rigibody.velocity = new Vector3(Player.Rigibody.velocity.x, Mathf.Max(Player.Rigibody.velocity.y, 0), Player.Rigibody.velocity.z);
+        Player.Rigibody.AddForce(transform.up * Player.Data.jumpForce + wallNormal * Player.Data.jumpForce, ForceMode.Impulse);
+        Player.SoundData.SFX_Hunter_Jump.Post(Player.gameObject);
+        Player.SparksVFX.SendEvent("Jump");
+    }
 }
