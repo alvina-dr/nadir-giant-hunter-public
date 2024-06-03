@@ -41,6 +41,9 @@ public class EnemySpawner : MonoBehaviour
         if (EnemyList.Count > 0)
         {
             GPCtrl.Instance.UICtrl.MonsterHighIndicator.ShowIndicatorAt(EnemyList[0].transform.position);
+        } else
+        {
+            GPCtrl.Instance.UICtrl.MonsterHighIndicator.HideIndicator();
         }
     }
 
