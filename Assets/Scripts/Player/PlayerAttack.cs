@@ -96,7 +96,14 @@ public class PlayerAttack : MonoBehaviour
             {
                 if (!GPCtrl.Instance.DashPause)
                 {
-                    GPCtrl.Instance.UICtrl.AttackInputIndicator.ShowIndicatorAt(closestTargetableSpotList[0].transform.position);
+                    TargetableSpot weakSpot = closestTargetableSpotList[0];
+                    Vector3 direction = weakSpot.transform.position - transform.position;
+                    RaycastHit hit;
+                    if (Physics.Raycast(transform.position, direction, out hit, Player.Data.attackDistance))
+                    {
+                        if (hit.transform.gameObject != weakSpot.gameObject) return;
+                        GPCtrl.Instance.UICtrl.AttackInputIndicator.ShowIndicatorAt(closestTargetableSpotList[0].transform.position);
+                    }
                 }
             }
         }

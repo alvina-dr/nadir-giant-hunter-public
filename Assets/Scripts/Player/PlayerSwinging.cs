@@ -221,7 +221,6 @@ public class PlayerSwinging : MonoBehaviour
 
         Vector3 newVelocity = Vector3.Cross(Player.Mesh.transform.right, (EndSwingLinePoint.position - Player.transform.position).normalized) * Player.Rigibody.velocity.magnitude;
         Player.Rigibody.velocity = newVelocity;
-        Debug.Log("falling timer : " + Player.PlayerMovement.FallingTimer);
         Player.PlayerMovement.CurrentMoveSpeed += Player.PlayerMovement.FallingTimer;
         if (Player.Data.startCurveBoost)
             Player.Rigibody.AddForce(Vector3.Cross(Player.Mesh.transform.right, (EndSwingLinePoint.position - Player.transform.position).normalized) * (Player.Data.startCurveSpeedBoost + Player.PlayerMovement.FallingTimer * 1000f), ForceMode.Impulse);
@@ -230,7 +229,6 @@ public class PlayerSwinging : MonoBehaviour
     public void StopSwing(bool boost = true, bool destroyVisual = true)
     {
         if (!_springJoint) return;
-        Debug.Log("stop swing");
         Player.SoundData.SFX_Hunter_Hook_Single_Trigger.Post(EndSwingLinePoint.gameObject);
         Player.PlayerMovement.CurrentMoveSpeed++;
         Destroy(_springJoint);
