@@ -161,17 +161,19 @@ public class PlayerMovement : MonoBehaviour
     private void SpeedControl()
     {
         if (Player.PlayerDash.IsDashing || Player.PlayerAttack.IsGrappling) return;
-        //if (!Player.PlayerSwingingLeft.IsSwinging && !Player.PlayerSwingingRight.IsSwinging)
-        //{
-        //    //Vector3 flatVel = new Vector3(Player.Rigibody.velocity.x, 0f, Player.Rigibody.velocity.z);
-        //    //if (flatVel.magnitude > Player.Data.maxSpeedInAir) // limit velocity if needed
-        //    //{
-        //    //    Vector3 limitedVel = flatVel.normalized * Player.Data.maxSpeedInAir * Time.deltaTime * 60;
-        //    //    //Debug.Log(limitedVel.x + limitedVel.z);
-        //    //    Player.Rigibody.velocity = new Vector3(limitedVel.x, Player.Rigibody.velocity.y, limitedVel.z);
-        //    //}
+        if (!Player.PlayerSwingingLeft.IsSwinging && !Player.PlayerSwingingRight.IsSwinging)
+        {
+            if (Grounded) return;
+            Vector3 flatVel = new Vector3(Player.Rigibody.velocity.x, 0f, Player.Rigibody.velocity.z);
+            if (flatVel.magnitude > Player.Data.maxSpeedInAir) // limit velocity if needed
+            {
+                Vector3 limitedVel = flatVel.normalized * Player.Data.maxSpeedInAir * Time.deltaTime * 60;
+                //Debug.Log(limitedVel.x + limitedVel.z);
+                Player.Rigibody.velocity = new Vector3(limitedVel.x, Player.Rigibody.velocity.y, limitedVel.z);
+            }
 
-        //} else
+        }
+        else
         {
             Vector3 flatVel = new Vector3(Player.Rigibody.velocity.x, 0f, Player.Rigibody.velocity.z);
             if (flatVel.magnitude > CurrentMoveSpeed) // limit velocity if needed
