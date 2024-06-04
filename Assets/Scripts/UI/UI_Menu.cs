@@ -23,7 +23,6 @@ public class UI_Menu : MonoBehaviour
     public void GoBack()
     {
         DataHolder.Instance._sfxGoBack.Post(DataHolder.Instance.gameObject);
-        CloseMenu(true);
     }
 
     public void OpenMenu(bool animated = true)
