@@ -32,7 +32,7 @@ public class UI_Scoreboard : MonoBehaviour
     public UI_ScoreEntry scoreEntryPrefab;
     public Transform scoreEntryLayout;
 
-    private void Start()
+    private void Awake()
     {
         if (scoreList.entries.Count == 0)
         {
@@ -65,7 +65,7 @@ public class UI_Scoreboard : MonoBehaviour
         {
             InstantiateScoreboardEntry(scoreList.entries[i], i);
         }
-        Menu.OpenMenu();
+        Menu.OpenMenu(true);
     }
 
     public void HideScoreboard()
