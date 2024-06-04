@@ -3863,15 +3863,15 @@
     ],
     "m_VertexContext": {
         "m_Position": {
-            "x": 5817.99951171875,
-            "y": 1673.9998779296875
+            "x": 5547.0,
+            "y": 1610.9998779296875
         },
         "m_Blocks": []
     },
     "m_FragmentContext": {
         "m_Position": {
             "x": 5760.99951171875,
-            "y": 1900.9998779296875
+            "y": 2055.0
         },
         "m_Blocks": [
             {
@@ -10484,6 +10484,13 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.Rendering.HighDefinition.ShaderGraph.HDFullscreenData",
+    "m_ObjectId": "4f2e3cfdea074085bff898e8bf13bd99",
+    "m_ShowOnlyHDStencilBits": true
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.PropertyNode",
     "m_ObjectId": "4f3cc131972642a894f4a38438c9e082",
     "m_Group": {
@@ -14182,10 +14189,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 679.0,
-            "y": 1843.0,
+            "x": 670.0000610351563,
+            "y": 1803.0001220703125,
             "width": 160.0,
-            "height": 136.0001220703125
+            "height": 136.0
         }
     },
     "m_Slots": [
@@ -14940,6 +14947,33 @@
     "m_CustomColors": {
         "m_SerializableColors": []
     }
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.Rendering.Fullscreen.ShaderGraph.FullscreenData",
+    "m_ObjectId": "7cec8f274db94733a2a3e1e88404ffd9",
+    "m_Version": 0,
+    "m_fullscreenMode": 0,
+    "m_BlendMode": 0,
+    "m_SrcColorBlendMode": 0,
+    "m_DstColorBlendMode": 1,
+    "m_ColorBlendOperation": 0,
+    "m_SrcAlphaBlendMode": 0,
+    "m_DstAlphaBlendMode": 1,
+    "m_AlphaBlendOperation": 0,
+    "m_EnableStencil": false,
+    "m_StencilReference": 0,
+    "m_StencilReadMask": 255,
+    "m_StencilWriteMask": 255,
+    "m_StencilCompareFunction": 8,
+    "m_StencilPassOperation": 0,
+    "m_StencilFailOperation": 0,
+    "m_StencilDepthFailOperation": 0,
+    "m_DepthWrite": false,
+    "m_depthWriteMode": 0,
+    "m_AllowMaterialOverride": false,
+    "m_DepthTestMode": 0
 }
 
 {
@@ -16152,10 +16186,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 6071.99951171875,
-            "y": 1831.9998779296875,
+            "x": 6309.00048828125,
+            "y": 1878.0,
             "width": 208.0,
-            "height": 374.0001220703125
+            "height": 374.0
         }
     },
     "m_Slots": [
@@ -16209,13 +16243,6 @@
     "m_StageCapability": 3,
     "m_Value": false,
     "m_DefaultValue": false
-}
-
-{
-    "m_SGVersion": 0,
-    "m_Type": "UnityEditor.Rendering.HighDefinition.ShaderGraph.HDFullscreenData",
-    "m_ObjectId": "8d0e82208eae438d9a0c15743b07cb02",
-    "m_ShowOnlyHDStencilBits": true
 }
 
 {
@@ -16543,33 +16570,6 @@
         "b": 0.0,
         "a": 1.0
     }
-}
-
-{
-    "m_SGVersion": 0,
-    "m_Type": "UnityEditor.Rendering.Fullscreen.ShaderGraph.FullscreenData",
-    "m_ObjectId": "91d2d971aa924bb4ac3484e39f885814",
-    "m_Version": 0,
-    "m_fullscreenMode": 0,
-    "m_BlendMode": 0,
-    "m_SrcColorBlendMode": 0,
-    "m_DstColorBlendMode": 1,
-    "m_ColorBlendOperation": 0,
-    "m_SrcAlphaBlendMode": 0,
-    "m_DstAlphaBlendMode": 1,
-    "m_AlphaBlendOperation": 0,
-    "m_EnableStencil": false,
-    "m_StencilReference": 0,
-    "m_StencilReadMask": 255,
-    "m_StencilWriteMask": 255,
-    "m_StencilCompareFunction": 8,
-    "m_StencilPassOperation": 0,
-    "m_StencilFailOperation": 0,
-    "m_StencilDepthFailOperation": 0,
-    "m_DepthWrite": false,
-    "m_depthWriteMode": 0,
-    "m_AllowMaterialOverride": false,
-    "m_DepthTestMode": 0
 }
 
 {
@@ -23057,10 +23057,10 @@
     },
     "m_Datas": [
         {
-            "m_Id": "91d2d971aa924bb4ac3484e39f885814"
+            "m_Id": "7cec8f274db94733a2a3e1e88404ffd9"
         },
         {
-            "m_Id": "8d0e82208eae438d9a0c15743b07cb02"
+            "m_Id": "4f2e3cfdea074085bff898e8bf13bd99"
         }
     ],
     "m_CustomEditorGUI": "",
