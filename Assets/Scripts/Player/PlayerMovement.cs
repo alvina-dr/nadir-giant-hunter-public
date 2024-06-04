@@ -23,7 +23,8 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 _moveDirection;
     [Sirenix.OdinInspector.ReadOnly]
     public bool CanJumpOnceInAir;
-    private float _fallingTimer = 0.0f;
+    [Sirenix.OdinInspector.ReadOnly]
+    public float FallingTimer = 0.0f;
 
     //Debug
     [SerializeField, Sirenix.OdinInspector.ReadOnly]
@@ -102,14 +103,14 @@ public class PlayerMovement : MonoBehaviour
 
         if (!GPCtrl.Instance.Pause && !Grounded && !Player.PlayerSwingingLeft.IsSwinging && !Player.PlayerSwingingRight.IsSwinging && !Player.PlayerDash.IsDashing && !Player.PlayerAttack.IsGrappling && Player.Rigibody.velocity.y < -5)
         {
-            _fallingTimer += Time.deltaTime;
-            if (_fallingTimer > Player.Data.timeBeforeLookingDownAnim)
+            FallingTimer += Time.deltaTime;
+            if (FallingTimer > Player.Data.timeBeforeLookingDownAnim)
             {
                 Player.Animator.SetBool("LongFall", true);
             }
         } else
         {
-            _fallingTimer = 0;
+            FallingTimer = 0;
             Player.Animator.SetBool("LongFall", false);
         }
     }
@@ -147,6 +148,7 @@ public class PlayerMovement : MonoBehaviour
             Player.Animator.SetBool("Grounded", false);
             Player.SoundData.SFX_Hunter_Jump.Post(Player.gameObject);
             Player.SparksVFX.SendEvent("Jump");
+            DataHolder.Instance.RumbleManager.PulseFor(5f, 5f, .1f);
         }
     }
 
@@ -183,5 +185,25 @@ public class PlayerMovement : MonoBehaviour
                 Player.Rigibody.velocity = new Vector3(limitedVel.x, Player.Rigibody.velocity.y, limitedVel.z);
             }
         }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        //WALL JUMP
+        if (!Grounded && collision.contacts[0].normal.y < 0.1f && collision.contacts[0].normal.y > -0.5f)
+        {
+            //Debug.DrawRay(collision.contacts[0].point, collision.contacts[0].normal * 5, Color.red, 15f);
+            WallJump(collision.contacts[0].normal);
+        }
+    }
+
+    public void WallJump(Vector3 wallNormal)
+    {
+        CanJumpOnceInAir = true;
+        Player.Rigibody.velocity = new Vector3(Player.Rigibody.velocity.x, Mathf.Max(Player.Rigibody.velocity.y, 0), Player.Rigibody.velocity.z);
+        Player.Rigibody.AddForce(transform.up * Player.Data.jumpForce + wallNormal * Player.Data.jumpForce, ForceMode.Impulse);
+        Player.SoundData.SFX_Hunter_Jump.Post(Player.gameObject);
+        Player.SparksVFX.SendEvent("Jump");
+        DataHolder.Instance.RumbleManager.PulseFor(5f, 5f, .1f);
     }
 }

@@ -68,9 +68,18 @@ public class PlayerSwinging : MonoBehaviour
             if (dotVector > .8f)
             {
                 //GPCtrl.Instance.CameraThirdPerson.CameraShake.ShakeCamera(2 * dotVector, .1f);
-            } else if (IsSwinging)
+            }
+            else if (IsSwinging)
             {
                 //GPCtrl.Instance.CameraThirdPerson.CameraShake.StopShake();
+            }
+
+            if (dotVector > .3f)
+            {
+                //DataHolder.Instance.RumbleManager.PulseFor(10f, 10f, .3f);
+            } else
+            {
+                //DataHolder.Instance.RumbleManager.StopPulse();
             }
         }
 
@@ -151,21 +160,21 @@ public class PlayerSwinging : MonoBehaviour
 
         Vector3 influenceYPlaned = new Vector3(SwingInfluenceDirection.x, 0, SwingInfluenceDirection.z);
         float dot = Vector3.Dot(_swingOriginalDirection.normalized, influenceYPlaned.normalized);
-        Vector3 influence = SwingInfluenceDirection * (dot <= 0 ? 0 : dot+0.7f);
+        Vector3 influence = SwingInfluenceDirection * (dot <= 0 ? 0 : dot + 0.7f);
         Debug.DrawRay(Player.transform.position, influence*5, UnityEngine.Color.green);
 
         float delta = Mathf.Max(dot, 0);
-        delta = delta <= 0 ? 0 : delta+0.1f;
+        delta = delta <= 0 ? 0 : delta + 0.1f;
         delta = Mathf.Min(delta, 1);
         Vector3 mix = Vector3.Lerp(forceAdded * 2000 * Player.Data.SwingBaseOrientationSpeed, influence * 2000 * Player.Data.SwingCameraOrientInfluence, delta);
         Debug.DrawRay(Player.transform.position, mix * 5, UnityEngine.Color.magenta);
 
         float upDot = Vector3.Dot(Player.Rigibody.velocity.normalized, Player.Orientation.transform.forward);
-        float lengthMult = Vector3.Distance(EndSwingLinePoint.position, StartSwingLinePoint.position) * Player.Data.SwingSpeedLengthMult * (upDot-0.1f);
-        Player.Rigibody.AddForce(mix * (1+lengthMult) * Time.fixedDeltaTime, ForceMode.Force);
-        Player.Rigibody.velocity *= 0.999f * (1+Time.deltaTime);
+        float lengthMult = Vector3.Distance(EndSwingLinePoint.position, StartSwingLinePoint.position) * Player.Data.SwingSpeedLengthMult * (upDot - 0.1f);
+        Player.Rigibody.AddForce(mix * (1 + lengthMult) * Time.fixedDeltaTime, ForceMode.Force);
+        Player.Rigibody.velocity *= 0.999f * (1 + Time.deltaTime);
         bool hasToStopSwing = Vector3.Dot(Vector3.up, (EndSwingLinePoint.position - Player.transform.position).normalized) <= Player.Data.MaxSwingAngle;
-        if (hasToStopSwing)
+        if (hasToStopSwing && Player.Data.coneRaycastOnPlayer)
         {
             IsTrySwing = false;
             StopSwing();
@@ -204,13 +213,14 @@ public class PlayerSwinging : MonoBehaviour
         EndSwingLinePoint.SetParent(hitTransform);
         EndSwingLinePoint.position = hitPoint;
         Player.Animator.SetBool("isSwinging", true);
+        DataHolder.Instance.RumbleManager.PulseFor(5f, 5f, .1f);
+
         _springJoint = gameObject.AddComponent<SpringJoint>();
         _springJoint.autoConfigureConnectedAnchor = false;
         _springJoint.connectedAnchor = EndSwingLinePoint.position;
         _springJoint.enableCollision = true;
         float distanceFromPoint = Vector3.Distance(StartSwingLinePoint.position, EndSwingLinePoint.position) + 10;
         if (distanceFromPoint < Player.Data.minSwingDistance) distanceFromPoint = Player.Data.minSwingDistance;
-
         _springJoint.maxDistance = distanceFromPoint * 0.7f;
         _springJoint.minDistance = 0.5f;
         _springJoint.spring = 0;
@@ -221,14 +231,14 @@ public class PlayerSwinging : MonoBehaviour
 
         Vector3 newVelocity = Vector3.Cross(Player.Mesh.transform.right, (EndSwingLinePoint.position - Player.transform.position).normalized) * Player.Rigibody.velocity.magnitude;
         Player.Rigibody.velocity = newVelocity;
+        Player.PlayerMovement.CurrentMoveSpeed += Player.PlayerMovement.FallingTimer;
         if (Player.Data.startCurveBoost)
-            Player.Rigibody.AddForce(Vector3.Cross(Player.Mesh.transform.right, (EndSwingLinePoint.position - Player.transform.position).normalized) * Player.Data.startCurveSpeedBoost, ForceMode.Impulse);
+            Player.Rigibody.AddForce(Vector3.Cross(Player.Mesh.transform.right, (EndSwingLinePoint.position - Player.transform.position).normalized) * (Player.Data.startCurveSpeedBoost + Player.PlayerMovement.FallingTimer * 1000f), ForceMode.Impulse);
     }
 
     public void StopSwing(bool boost = true, bool destroyVisual = true)
     {
         if (!_springJoint) return;
-        Debug.Log("stop swing");
         Player.SoundData.SFX_Hunter_Hook_Single_Trigger.Post(EndSwingLinePoint.gameObject);
         Player.PlayerMovement.CurrentMoveSpeed++;
         Destroy(_springJoint);
@@ -253,6 +263,7 @@ public class PlayerSwinging : MonoBehaviour
         Vector3 flatSpeed = new Vector3(Player.Rigibody.velocity.x, 0, Player.Rigibody.velocity.z).normalized;
         //Player.Rigibody.AddForce(flatSpeed * Player.Data.endCurveSpeedBoost * Player.PlayerMovement.CurrentMoveSpeed / 10, ForceMode.Impulse); // 
         Player.Rigibody.AddForce(Camera.main.transform.forward * Player.Data.endCurveSpeedBoost, ForceMode.Impulse);
+        DataHolder.Instance.RumbleManager.PulseFor(5f, 5f, .1f);
     }
 
     private void SwingAnimation(Vector3 toLook)
