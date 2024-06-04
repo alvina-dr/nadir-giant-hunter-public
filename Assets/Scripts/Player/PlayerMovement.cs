@@ -142,15 +142,13 @@ public class PlayerMovement : MonoBehaviour
             _readyToJump = false;
             Player.Rigibody.velocity = new Vector3(Player.Rigibody.velocity.x, Mathf.Max(Player.Rigibody.velocity.y, 0), Player.Rigibody.velocity.z);
             Vector3 input = new Vector3(Player.MoveAction.ReadValue<Vector2>().x, 0, Player.MoveAction.ReadValue<Vector2>().y);
-            if (input != Vector3.zero)
+            if (input != Vector3.zero && !Grounded)
             {
                 if (input.z > 0 && Camera.main.transform.forward.y < -.3f)
                 {
-                    Debug.Log("GOING DOWN");
                     Player.Rigibody.AddForce(Vector3.down * Player.Data.jumpForce, ForceMode.Impulse);
                 } else
                 {
-                    Debug.Log("Jumping to direction");
                     Player.Rigibody.AddForce((input + transform.up).normalized * Player.Data.jumpForce, ForceMode.Impulse);
                 }
             } else

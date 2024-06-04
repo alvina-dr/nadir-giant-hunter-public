@@ -1,7 +1,6 @@
 using Cinemachine;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using System.Drawing;
 
 public class PlayerSwinging : MonoBehaviour
 {
@@ -33,6 +32,7 @@ public class PlayerSwinging : MonoBehaviour
     public SwingRopeFX SwingRopeFX;
     [SerializeField] private LayerMask _layerMask;
     private Vector3 _bestSwingPoint;
+    private bool _inFirstPartOfSwinging = true;
 
     private void LateUpdate()
     {
@@ -81,6 +81,8 @@ public class PlayerSwinging : MonoBehaviour
             {
                 //DataHolder.Instance.RumbleManager.StopPulse();
             }
+
+            if (dotVector > 0.5f) _inFirstPartOfSwinging = false;
         }
 
         if (IsTrySwing && !Player.PlayerAttack.IsGrappling && !GPCtrl.Instance.DashPause) TrySwing();
@@ -108,7 +110,6 @@ public class PlayerSwinging : MonoBehaviour
                 GPCtrl.Instance.UICtrl.SwingRightIndicator.HideIndicator();
             }
         }
-
     }
 
     public void CalculateBestSwingingPoint()
@@ -174,7 +175,7 @@ public class PlayerSwinging : MonoBehaviour
         Player.Rigibody.AddForce(mix * (1 + lengthMult) * Time.fixedDeltaTime, ForceMode.Force);
         Player.Rigibody.velocity *= 0.999f * (1 + Time.deltaTime);
         bool hasToStopSwing = Vector3.Dot(Vector3.up, (EndSwingLinePoint.position - Player.transform.position).normalized) <= Player.Data.MaxSwingAngle;
-        if (hasToStopSwing && Player.Data.coneRaycastOnPlayer)
+        if (hasToStopSwing && !_inFirstPartOfSwinging)
         {
             IsTrySwing = false;
             StopSwing();
@@ -214,6 +215,7 @@ public class PlayerSwinging : MonoBehaviour
         EndSwingLinePoint.position = hitPoint;
         Player.Animator.SetBool("isSwinging", true);
         DataHolder.Instance.RumbleManager.PulseFor(5f, 5f, .1f);
+        _inFirstPartOfSwinging = true;
 
         _springJoint = gameObject.AddComponent<SpringJoint>();
         _springJoint.autoConfigureConnectedAnchor = false;
