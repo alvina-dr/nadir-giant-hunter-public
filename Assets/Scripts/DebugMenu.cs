@@ -44,8 +44,8 @@ public class DebugMenu : MonoBehaviour
         DM.Add("Values/FPS", action => _fpsText.gameObject.SetActive(!_fpsText.gameObject.activeSelf));
         //DN.Notify("Simple notification", 5f);
 #if UNITY_EDITOR
-        _speedText.gameObject.SetActive(false);
-        _fpsText.gameObject.SetActive(false);
+        _speedText.gameObject.SetActive(true);
+        _fpsText.gameObject.SetActive(true);
 #endif
     }
 
