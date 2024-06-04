@@ -63,7 +63,8 @@ public class CameraThirdPerson : MonoBehaviour
                 GPCtrl.Instance.Player.Mesh.rotation = Quaternion.LookRotation(orientation, upVector);*/
 
                 Vector3 SpeedDir = new Vector3(GPCtrl.Instance.Player.Rigibody.velocity.x, 0, GPCtrl.Instance.Player.Rigibody.velocity.z);
-                GPCtrl.Instance.Player.Mesh.rotation = Quaternion.LookRotation(SpeedDir, GPCtrl.Instance.Player.Mesh.up);
+                if (SpeedDir != Vector3.zero)
+                    GPCtrl.Instance.Player.Mesh.rotation = Quaternion.LookRotation(SpeedDir, GPCtrl.Instance.Player.Mesh.up);
 
                 GPCtrl.Instance.Player.PlayerSwingingLeft.SwingInfluenceDirection = inputDir;
                 GPCtrl.Instance.Player.PlayerSwingingRight.SwingInfluenceDirection = inputDir;

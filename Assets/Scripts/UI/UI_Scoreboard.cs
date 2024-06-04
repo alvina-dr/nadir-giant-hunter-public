@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using System.Linq;
 using DG.Tweening;
+using System;
 
 public class UI_Scoreboard : MonoBehaviour
 {
@@ -45,7 +46,9 @@ public class UI_Scoreboard : MonoBehaviour
 
     public void AddScoreButton()
     {
-        AddScoreToScoreboard(inputField.text, GPCtrl.Instance.Timer);
+        double timerText = Math.Round(GPCtrl.Instance.Timer, 2, MidpointRounding.AwayFromZero);
+
+        AddScoreToScoreboard(inputField.text, (float)timerText);
         ShowScoreboard();
     }
 
