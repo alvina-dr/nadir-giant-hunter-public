@@ -39,6 +39,7 @@ public class Player : MonoBehaviour
     private InputAction _swingRightAction;
     private InputAction _swingLeftAction;
     private InputAction _menuAction;
+    public InputAction MoveAction;
 
     [Header("Cone Raycast")]
     [SerializeField] private Transform CameraConeRaycastParent;
@@ -93,6 +94,7 @@ public class Player : MonoBehaviour
         _swingRightAction = _playerInput.actions["SwingRight"];
         _swingLeftAction = _playerInput.actions["SwingLeft"];
         _menuAction = _playerInput.actions["Menu"];
+        MoveAction = _playerInput.actions["Move"];
     }
 
     void UpdateInputs()

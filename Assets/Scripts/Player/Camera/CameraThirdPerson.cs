@@ -35,8 +35,8 @@ public class CameraThirdPerson : MonoBehaviour
         Vector3 viewDir = GPCtrl.Instance.Player.transform.position - new Vector3(transform.position.x, GPCtrl.Instance.Player.transform.position.y, transform.position.z);
         GPCtrl.Instance.Player.Orientation.forward = viewDir.normalized;
 
-        float inputHorizontal = GPCtrl.Instance.Player.InputManager.Gameplay.Move.ReadValue<Vector2>().x;
-        float inputVertical = GPCtrl.Instance.Player.InputManager.Gameplay.Move.ReadValue<Vector2>().y;
+        float inputHorizontal = GPCtrl.Instance.Player.MoveAction.ReadValue<Vector2>().x;
+        float inputVertical = GPCtrl.Instance.Player.MoveAction.ReadValue<Vector2>().y;
         Vector3 inputDir = GPCtrl.Instance.Player.Orientation.forward * inputVertical + GPCtrl.Instance.Player.Orientation.right * inputHorizontal;
 
         //isn't attack grappling and is moving

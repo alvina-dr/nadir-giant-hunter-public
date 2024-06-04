@@ -230,9 +230,10 @@ public class PlayerSwinging : MonoBehaviour
         SwingRopeFX.HideRope(StartSwingLinePoint.position);
 
         Vector3 newVelocity = Vector3.Cross(Player.Mesh.transform.right, (EndSwingLinePoint.position - Player.transform.position).normalized) * Player.Rigibody.velocity.magnitude;
+        //float dot = Vector3.Dot(Player.Mesh.transform.right, (EndSwingLinePoint.position - Player.transform.position).normalized);
         Player.Rigibody.velocity = newVelocity;
         Player.PlayerMovement.CurrentMoveSpeed += Player.PlayerMovement.FallingTimer;
-        if (Player.Data.startCurveBoost)
+        if (Player.Data.startCurveBoost && EndSwingLinePoint.position.y > Player.transform.position.y)
             Player.Rigibody.AddForce(Vector3.Cross(Player.Mesh.transform.right, (EndSwingLinePoint.position - Player.transform.position).normalized) * (Player.Data.startCurveSpeedBoost + Player.PlayerMovement.FallingTimer * 1000f), ForceMode.Impulse);
     }
 
