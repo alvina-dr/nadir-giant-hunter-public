@@ -54,9 +54,9 @@ public class EnemySpawner : MonoBehaviour
         {
             //schedule the set toward the next spawning timer 
             SpawningTimer nextSpawningTimer = SpawnerData.spawningTimers[_currentSpawningTimerIndex+1];
-            Debug.Log("will wait : " + (nextSpawningTimer.TimerStart - SpawnerData.spawningTimers[_currentSpawningTimerIndex].TimerStart));
+            //Debug.Log("will wait : " + (nextSpawningTimer.TimerStart - SpawnerData.spawningTimers[_currentSpawningTimerIndex].TimerStart));
             yield return new WaitForSecondsRealtime(nextSpawningTimer.TimerStart - SpawnerData.spawningTimers[_currentSpawningTimerIndex].TimerStart);
-            Debug.Log("Incremented");
+            //Debug.Log("Incremented");
             _currentSpawningTimerIndex++;
             StartCoroutine(WaitForNextSpawningTimer());
         }
