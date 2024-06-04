@@ -12,28 +12,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 054f681d922a5d942a9e02d64328c744, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
-  walkRotationSpeed: 7
+  walkRotationSpeed: 15
   airRotationSpeed: 3
-  walkSpeed: 7
-  jumpForce: 25
+  swingCameraFOVAddition: 0
+  swingCameraDistanceAddition: 0.1
+  walkSpeed: 35
+  jumpForce: 300
   jumpCooldown: 0.25
-  airMultiplier: 0.4
-  groundDrag: 3
+  airMultiplier: 0.2
+  groundDrag: 1
   charaHeight: 1.8
-  swingSpeed: 15
-  swingMaxSpeed: 30
-  swingAcceleration: 1.5
+  timeBeforeLookingDownAnim: 0.3
+  speedDivisionFactorVFX: 5
+  maxSpeedInAir: 600
+  swingSpeed: 50
+  swingMaxSpeed: 350
+  SwingSpeedLengthMult: 0.003
+  SwingBaseOrientationSpeed: 0
+  SwingCameraOrientInfluence: 100
+  swingAcceleration: 20
   minSwingDistance: 25
-  maxSwingDistance: 90
-  startCurveSpeedBoost: 100
-  endCurveSpeedBoost: 20
-  radiusDetectionIncreaseSpeed: 6
-  fovAddition: 20
-  airSlowDown: 0.999
-  attackDistance: 20
-  attackStopDistance: 2
-  dragForce: 10
-  doubleSwingBoost: 50
-  doubleSwingLineRendererDuration: 0.5
-  startCurveBoost: 0
-  endCurveBoost: 0
+  maxSwingDistance: 5000
+  startCurveSpeedBoost: 10
+  endCurveSpeedBoost: 100
+  radiusDetectionIncreaseSpeed: 1000
+  MaxSwingAngle: 0.2
+  maxYForceOnRelease: 550
+  coneRaycastOnPlayer: 0
+  airSlowDown: 500
+  attackDistance: 500
+  attackStopDistance: 5
+  dragForce: 100
+  weakSpotDetectionDistance: 500
+  weakSpotReboundForce: 300
+  doubleSwingBoost: 500
+  doubleSwingLineRendererDuration: 0.1
+  dashForce: 1000
+  slowDownTime: 0.01
+  timeBeforeAutomaticDash: 1000
+  dashTime: 1
+  bumpForce: 1100
+  startCurveBoost: 1
+  endCurveBoost: 1
+  magicSwinging: 0

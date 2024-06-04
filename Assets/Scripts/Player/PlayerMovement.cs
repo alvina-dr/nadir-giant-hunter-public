@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
+using Sirenix.OdinInspector;
 using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
@@ -13,11 +15,20 @@ public class PlayerMovement : MonoBehaviour
     public float PlayerHeight;
     public LayerMask WhatIsGround;
 
-    private bool _grounded;
+    [Sirenix.OdinInspector.ReadOnly]
+    public bool Grounded;
     private bool _readyToJump;
     private float _horizontalInput;
     private float _verticalInput;
     private Vector3 _moveDirection;
+    [Sirenix.OdinInspector.ReadOnly]
+    public bool CanJumpOnceInAir;
+    [Sirenix.OdinInspector.ReadOnly]
+    public float FallingTimer = 0.0f;
+
+    //Debug
+    [SerializeField, Sirenix.OdinInspector.ReadOnly]
+    private float _CurrentSpeed;
 
     private void Start()
     {
@@ -27,10 +38,30 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        _grounded = Physics.Raycast(transform.position, Vector3.down, Player.Data.charaHeight * 0.5f + 0.3f, WhatIsGround);
+        //speed effect
+        Player.SparksVFX.SetVector3("Input Velocity", Player.Rigibody.velocity / Player.Data.speedDivisionFactorVFX);
+        Material postProcess = GPCtrl.Instance.GetPostProcessMaterial();
+        if (postProcess != null )
+        {
+            float speed = (Player.Rigibody.velocity.magnitude - 150) / 100;
+            if (speed < 0) speed = 0;
+            float lerp = Mathf.Lerp(postProcess.GetFloat("_bypass_Input_Velocity_Factor"), speed, 0.1f);
+            postProcess.SetFloat("_bypass_Input_Velocity_Factor", lerp);
+            postProcess.SetVector("_Input_Velocity", Player.Rigibody.velocity / Player.Data.speedDivisionFactorVFX);
+        }
+
+        if (transform.position.y < GPCtrl.Instance.GeneralData.yHeightPitBottom)
+        {
+            GPCtrl.Instance.UICtrl.PlayerLowIndicator.alpha = 1;
+        } else
+        {
+            GPCtrl.Instance.UICtrl.PlayerLowIndicator.alpha = 0;
+        }
+
+        Grounded = Physics.Raycast(transform.position, Vector3.down, Player.Data.charaHeight * 0.5f + 0.3f, WhatIsGround);
         _horizontalInput = Player.InputManager.Gameplay.Move.ReadValue<Vector2>().x;
         _verticalInput = Player.InputManager.Gameplay.Move.ReadValue<Vector2>().y;
-        if (Player.PlayerAttack.IsGrappling)
+        if (Player.PlayerAttack.IsGrappling || Player.PlayerDash.IsDashing || GPCtrl.Instance.Pause || GPCtrl.Instance.DashPause)
         {
             _horizontalInput = 0;
             _verticalInput = 0;
@@ -39,16 +70,24 @@ public class PlayerMovement : MonoBehaviour
 
         if (Player.PlayerSwingingLeft.IsSwinging || Player.PlayerSwingingRight.IsSwinging)
         {
-            if (CurrentMoveSpeed < Player.Data.swingSpeed) CurrentMoveSpeed = Player.Data.swingSpeed;
-            CurrentMoveSpeed += Player.Data.swingAcceleration * Time.deltaTime;
-            if (CurrentMoveSpeed >= Player.Data.swingMaxSpeed) CurrentMoveSpeed = Player.Data.swingMaxSpeed;
+            if (!GPCtrl.Instance.Pause)
+            {
+                //Keep move speed btwn min and max of swing speed AND add an acceleration to it.
+                CurrentMoveSpeed = Mathf.Max(Player.Data.swingSpeed, CurrentMoveSpeed);
+                CurrentMoveSpeed += Player.Data.swingAcceleration * Time.deltaTime;
+                CurrentMoveSpeed = Mathf.Min(Player.Data.swingMaxSpeed, CurrentMoveSpeed);
+            }
         }
-        else if (_grounded) CurrentMoveSpeed = Player.Data.walkSpeed;
+        else if (Grounded) CurrentMoveSpeed = Player.Data.walkSpeed;//set moveSpeed to WalkSpeed when grounded
 
-        if (_grounded)
+        _CurrentSpeed = Player.Rigibody.velocity.magnitude;
+
+        //Set drag depending on groundState and animation
+        if (Grounded)
         {
             Player.Rigibody.drag = Player.Data.groundDrag;
             Player.Animator.SetBool("Grounded", true);
+            CanJumpOnceInAir = true;
         }
         else
         {
@@ -56,9 +95,24 @@ public class PlayerMovement : MonoBehaviour
             Player.Animator.SetBool("Grounded", false);
         }
 
-        if (_moveDirection != Vector3.zero && _grounded)
+        //walk Animation
+        if (_moveDirection != Vector3.zero && Grounded)
             Player.Animator.SetBool("isWalking", true);
-        else if (_moveDirection == Vector3.zero && _grounded) Player.Animator.SetBool("isWalking", false);
+        else if (_moveDirection == Vector3.zero && Grounded)
+            Player.Animator.SetBool("isWalking", false);
+
+        if (!GPCtrl.Instance.Pause && !Grounded && !Player.PlayerSwingingLeft.IsSwinging && !Player.PlayerSwingingRight.IsSwinging && !Player.PlayerDash.IsDashing && !Player.PlayerAttack.IsGrappling && Player.Rigibody.velocity.y < -5)
+        {
+            FallingTimer += Time.deltaTime;
+            if (FallingTimer > Player.Data.timeBeforeLookingDownAnim)
+            {
+                Player.Animator.SetBool("LongFall", true);
+            }
+        } else
+        {
+            FallingTimer = 0;
+            Player.Animator.SetBool("LongFall", false);
+        }
     }
 
     private void FixedUpdate()
@@ -68,25 +122,47 @@ public class PlayerMovement : MonoBehaviour
 
     private void MovePlayer()
     {
-        _moveDirection = Player.Orientation.forward * _verticalInput + Player.Orientation.right * _horizontalInput; // calculate movement direction
+        if (Player.PlayerAttack.IsGrappling) return;
+        _moveDirection = Player.Orientation.forward * _verticalInput + Player.Orientation.right * _horizontalInput; // calculate input movement direction
 
-        if (_grounded) // on ground
+        //add force from input and player velo with certain force (air control when in air)
+        if (Grounded) // on ground
             Player.Rigibody.AddForce(_moveDirection.normalized * CurrentMoveSpeed * 10f, ForceMode.Force);
         else // in air
+        {
             Player.Rigibody.AddForce(_moveDirection.normalized * CurrentMoveSpeed * 10f * Player.Data.airMultiplier, ForceMode.Force);
+        }
     }
 
-    public void Jump(InputAction.CallbackContext context)
+    public void Jump()
     {
-        if (_readyToJump && _grounded)
+        if (_readyToJump && CanJumpOnceInAir && !Player.PlayerAttack.IsGrappling)
         {
+            CanJumpOnceInAir = false;
             _readyToJump = false;
-            Player.Rigibody.velocity = new Vector3(Player.Rigibody.velocity.x, 0f, Player.Rigibody.velocity.z);
-            Player.Rigibody.AddForce(transform.up * Player.Data.jumpForce, ForceMode.Impulse);
+            Player.Rigibody.velocity = new Vector3(Player.Rigibody.velocity.x, Mathf.Max(Player.Rigibody.velocity.y, 0), Player.Rigibody.velocity.z);
+            Vector3 input = new Vector3(Player.MoveAction.ReadValue<Vector2>().x, 0, Player.MoveAction.ReadValue<Vector2>().y);
+            if (input != Vector3.zero)
+            {
+                if (input.z > 0 && Camera.main.transform.forward.y < -.3f)
+                {
+                    Debug.Log("GOING DOWN");
+                    Player.Rigibody.AddForce(Vector3.down * Player.Data.jumpForce, ForceMode.Impulse);
+                } else
+                {
+                    Debug.Log("Jumping to direction");
+                    Player.Rigibody.AddForce((input + transform.up).normalized * Player.Data.jumpForce, ForceMode.Impulse);
+                }
+            } else
+            {
+                Player.Rigibody.AddForce(transform.up * Player.Data.jumpForce, ForceMode.Impulse);
+            }
             Invoke(nameof(ResetJump), Player.Data.jumpCooldown);
             Player.Animator.SetTrigger("Jump");
             Player.Animator.SetBool("Grounded", false);
-            Player.SoundData.SFX_Hunter_Jump.Post(gameObject);
+            Player.SoundData.SFX_Hunter_Jump.Post(Player.gameObject);
+            Player.SparksVFX.SendEvent("Jump");
+            DataHolder.Instance.RumbleManager.PulseFor(5f, 5f, .1f);
         }
     }
 
@@ -95,13 +171,53 @@ public class PlayerMovement : MonoBehaviour
         _readyToJump = true;
     }
 
+    /// <summary>
+    /// Clamp the speed of the player when is not dashing to the currentMoveSpeed value
+    /// </summary>
     private void SpeedControl()
     {
-        Vector3 flatVel = new Vector3(Player.Rigibody.velocity.x, 0f, Player.Rigibody.velocity.z);
-        if (flatVel.magnitude > CurrentMoveSpeed) // limit velocity if needed
+        if (Player.PlayerDash.IsDashing || Player.PlayerAttack.IsGrappling) return;
+        if (!Player.PlayerSwingingLeft.IsSwinging && !Player.PlayerSwingingRight.IsSwinging)
         {
-            Vector3 limitedVel = flatVel.normalized * CurrentMoveSpeed;
-            Player.Rigibody.velocity = new Vector3(limitedVel.x, Player.Rigibody.velocity.y, limitedVel.z);
+            if (Grounded) return;
+            Vector3 flatVel = new Vector3(Player.Rigibody.velocity.x, 0f, Player.Rigibody.velocity.z);
+            if (flatVel.magnitude > Player.Data.maxSpeedInAir) // limit velocity if needed
+            {
+                Vector3 limitedVel = flatVel.normalized * Player.Data.maxSpeedInAir * Time.deltaTime * 60;
+                //Debug.Log(limitedVel.x + limitedVel.z);
+                Player.Rigibody.velocity = new Vector3(limitedVel.x, Player.Rigibody.velocity.y, limitedVel.z);
+            }
+
         }
+        else
+        {
+            Vector3 flatVel = new Vector3(Player.Rigibody.velocity.x, 0f, Player.Rigibody.velocity.z);
+            if (flatVel.magnitude > CurrentMoveSpeed) // limit velocity if needed
+            {
+                Vector3 limitedVel = flatVel.normalized * CurrentMoveSpeed * Time.deltaTime * 60;
+                //Debug.Log(limitedVel.x + limitedVel.z);
+                Player.Rigibody.velocity = new Vector3(limitedVel.x, Player.Rigibody.velocity.y, limitedVel.z);
+            }
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        //WALL JUMP
+        if (!Grounded && collision.contacts[0].normal.y < 0.1f && collision.contacts[0].normal.y > -0.5f)
+        {
+            //Debug.DrawRay(collision.contacts[0].point, collision.contacts[0].normal * 5, Color.red, 15f);
+            WallJump(collision.contacts[0].normal);
+        }
+    }
+
+    public void WallJump(Vector3 wallNormal)
+    {
+        CanJumpOnceInAir = true;
+        Player.Rigibody.velocity = new Vector3(Player.Rigibody.velocity.x, Mathf.Max(Player.Rigibody.velocity.y, 0), Player.Rigibody.velocity.z);
+        Player.Rigibody.AddForce(transform.up * Player.Data.jumpForce + wallNormal * Player.Data.jumpForce, ForceMode.Impulse);
+        Player.SoundData.SFX_Hunter_Jump.Post(Player.gameObject);
+        Player.SparksVFX.SendEvent("Jump");
+        DataHolder.Instance.RumbleManager.PulseFor(5f, 5f, .1f);
     }
 }
