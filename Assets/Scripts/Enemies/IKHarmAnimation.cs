@@ -6,16 +6,23 @@ using Sirenix.OdinInspector;
 using DG.Tweening;
 using System;
 using static ak.wwise.core;
+using UnityEngine.UIElements;
+using UnityEditor;
 
 namespace Enemies
 {
     [Serializable]
     public class Leg
     {
+        public bool UseTwoBonesIk = true;
+        [ShowIf("UseTwoBonesIk")]
         public TwoBoneIKConstraint Ik;
+        [HideIf("UseTwoBonesIk")]
+        public ChainIKConstraint ChainIk;
         public Transform Target;
         public Transform TargetPos;
-        public GameObject Model;
+        public GameObject LastBone;
+        public GameObject FirstBone;
         [HideInInspector]
         public Vector3 LastPosTarg;
         [HideInInspector]
@@ -26,6 +33,9 @@ namespace Enemies
         public Vector3 LastPos;
         [HideInInspector]
         public float MaxLength;
+        public string LegMaterialName;
+        [ReadOnly]
+        public bool IsLegMaterialAnim;
     }
     [Serializable]
     public class IkLegPair {
@@ -38,17 +48,22 @@ namespace Enemies
     {
         //Components
         [TitleGroup("Components")]
-        [SerializeField] private List<IkLegPair> _iksLegPairs = new List<IkLegPair>();
+        public List<IkLegPair> _iksLegPairs = new List<IkLegPair>();
+        public Vector3 TargetPosition;
         [HideInInspector] public Vector3 overrideDir = Vector3.zero;
+        [SerializeField] private SkinnedMeshRenderer _skinnedMeshRenderer;
+        private Waving _waving;
 
         //Parameters
         [TitleGroup("Parameters")]
+        [TabGroup("Parameters/A", "General"), SerializeField]
+        private bool doAlignTipToLast;
         [TabGroup("Parameters/A", "Raycast"), SerializeField]
         private float _nextTargetRaycastLength = 1;
         [TabGroup("Parameters/A", "Raycast"), SerializeField]
         private float _nextTargetRaycastOriginY = 1;
         [TabGroup("Parameters/A", "Raycast"), SerializeField]
-        private float _nextTargetRaycastY = 1;
+        private float _nextTargetRaycastAnticipation = 1;
         [TabGroup("Parameters/A", "Raycast"), SerializeField]
         private float _checkCoolDown = 0.5f;
         [TabGroup("Parameters/A", "Raycast"), SerializeField]
@@ -57,6 +72,7 @@ namespace Enemies
         private float _raycastTryWeight = 1;
         [TabGroup("Parameters/A", "Raycast"), SerializeField]
         private LayerMask _raycastLayerMask;
+
 
         [TabGroup("Parameters/A", "Metrics"), SerializeField]
         private float _maxLengthBeforeUpdate = 1;
@@ -68,9 +84,17 @@ namespace Enemies
         private Vector2 _lengthBeforeUpdateOffSet;
         [TabGroup("Parameters/A", "Metrics"), SerializeField]
         private float _targetHeightTransition = 1;
-        [TabGroup("Parameters/A", "Metrics"), MinMaxSlider(0, 50), SerializeField]
+        [TabGroup("Parameters/A", "Metrics"), MinMaxSlider(0, 20), SerializeField]
         private Vector2 _moveSpeed;
+        [TabGroup("Parameters/A", "Metrics"), SerializeField]
+        private Vector3 _localUp;
+        [TabGroup("Parameters/A", "Metrics"), SerializeField, ReadOnly]
+        private Vector3 _up;
 
+        [TabGroup("Parameters/A", "LegMaterialAnim"), SerializeField]
+        private float _LegMaterialAnimTime;
+        [TabGroup("Parameters/A", "LegMaterialAnim"), SerializeField]
+        private int _LegMaterialAnimIterations;
 
         //Debug
         [TitleGroup("Debug")]
@@ -87,19 +111,14 @@ namespace Enemies
         [TabGroup("Debug/A", "Gizmos"), ShowIf("_showGizmos"), SerializeField]
         private Color _gizmosMetricsColor = Color.red;
 
-
         //Variables
         [TabGroup("Debug/A", "Metrics"), ReadOnly, SerializeField]
         private Vector3 _overideDirDebug;
 
-
-        private List<Vector3> _ikTargetsLastPosTarg = new List<Vector3>();
-        private List<float> _ikTargetsLastPosTargTotDist = new List<float>();
-        private List<float> _moveTimes = new List<float>();
-
         // Start is called before the first frame update
         void Start()
         {
+            _waving = GetComponent<Waving>();
             InitTargetsPos();
         }
 
@@ -130,21 +149,31 @@ namespace Enemies
             }
         }
 
+
         // Update is called once per frame
         void Update()
         {
+            _up = transform.forward * _localUp.z + transform.right * _localUp.x + transform.up * _localUp.y;
             for (int i = 0; i < _iksLegPairs.Count; i++)
             {
                 foreach (Leg leg in _iksLegPairs[i].Legs)
                 {
-                    if (leg.Ik.enabled)
+
+                    if (leg.UseTwoBonesIk && leg.Ik.enabled || !leg.UseTwoBonesIk && leg.ChainIk.enabled)
                     {
                         leg.Target.position = leg.LastPos;
+                        _waving.IkHarmCompensateWave(leg);
+                        Debug.DrawRay(leg.LastPos, Vector3.up * 10);
+                        Debug.DrawRay(leg.LastPos, Vector3.right * 10);
                     }
 
-                    if (Vector3.Distance(leg.LastPos, leg.LastPosTarg) > 0.1f)
+                    if (Vector3.Distance(leg.LastPos, leg.LastPosTarg) > 1f)
                     {
                         TransitionLastPos(leg);
+                    }
+                    if (doAlignTipToLast)
+                    {
+                        leg.Target.rotation = leg.LastBone.transform.parent.rotation;
                     }
                 }
             }
@@ -155,24 +184,47 @@ namespace Enemies
 
         public void TransitionLastPos(Leg leg)
         {
-            leg.LastPos = Vector3.Lerp(leg.LastPos, leg.LastPosTarg, Time.deltaTime * leg.MoveTime);
-            float delta = 1 - Vector3.Distance(leg.LastPos, leg.LastPosTarg) / leg.LastPosTargTotDist;
-            float step = -(Mathf.Pow(2 * delta - 1, 2)) + 1;
-            leg.Target.position += new Vector3(0, _targetHeightTransition * step, 0);
+            float deltaP = 1.1f - Vector3.Distance(leg.LastPos, leg.LastPosTarg) / leg.LastPosTargTotDist;
+            leg.LastPos = Vector3.Lerp(leg.LastPos, leg.LastPosTarg, Time.deltaTime * leg.MoveTime * deltaP);
+            float delta = 1f - Vector3.Distance(leg.LastPos, leg.LastPosTarg) / leg.LastPosTargTotDist;
+            float step = 1 - Mathf.Pow(2 * delta - 1, 2);
+            if (delta >= 0.93f && leg.LegMaterialName != "" && !leg.IsLegMaterialAnim) {
+                leg.IsLegMaterialAnim = true;
+                StartCoroutine(StartLegMaterialAnim(leg));
+            }
+            leg.Target.position += _up * _targetHeightTransition * step;
+            
         }
 
-
+        IEnumerator StartLegMaterialAnim(Leg leg)
+        {
+            float delta = _LegMaterialAnimTime / (float)_LegMaterialAnimIterations;
+            for (int i = 0; i < _LegMaterialAnimIterations; i++)
+            {
+                float step = i/ (float)_LegMaterialAnimIterations;
+                _skinnedMeshRenderer.materials[1].SetFloat(leg.LegMaterialName, step);
+                yield return new WaitForSeconds(delta);
+            }
+            leg.IsLegMaterialAnim = false;
+        }
 
         private void CheckEachIkDistances()
         {
             foreach (IkLegPair legPair in _iksLegPairs)
             {
-                
-                if (Vector3.Distance(legPair.Legs[0].LastPos, legPair.Legs[0].LastPosTarg) > 0.1f)
+                if (Vector3.Distance(legPair.Legs[0].LastPos, legPair.Legs[0].TargetPos.position) > legPair.Legs[0].MaxLength*1.5f)
+                {
+                    legPair.CurrentLeg = legPair.CurrentLeg == 0 ? 1 : 0;
+                }
+                if (Vector3.Distance(legPair.Legs[1].LastPos, legPair.Legs[1].TargetPos.position) > legPair.Legs[1].MaxLength * 1.5f)
+                {
+                    legPair.CurrentLeg = legPair.CurrentLeg == 0 ? 1 : 0;
+                }
+                if (Vector3.Distance(legPair.Legs[0].LastPos, legPair.Legs[0].LastPosTarg) > 1f)
                 {
                     continue;
                 }
-                if (Vector3.Distance(legPair.Legs[1].LastPos, legPair.Legs[1].LastPosTarg) > 0.1f)
+                if (Vector3.Distance(legPair.Legs[1].LastPos, legPair.Legs[1].LastPosTarg) > 1f)
                 {
                     continue;
                 }
@@ -182,63 +234,29 @@ namespace Enemies
                     GetAndApplyNextIkPosition(legPair.Legs[legPair.CurrentLeg], 0);
                     legPair.Legs[legPair.CurrentLeg].MaxLength = _maxLengthBeforeUpdate;
                     legPair.CurrentLeg = legPair.CurrentLeg == 0 ? 1 : 0;
-                    //legPair.Legs[legPair.CurrentLeg].MaxLength += _iksDiff;
                 }
             }
-
-
-            /*float dist = Vector3.Distance(_ikTargetsLastPos[_currentIK], _ikTargetsPositions[_currentIK].position);
-            if (dist >= _ikTargetsMaxLength[_currentIK])
-            {
-
-                GetAndApplyNextIkPosition(_currentIK, 0);
-                _ikTargetsMaxLength[_currentIK] = _maxLengthBeforeUpdate + UnityEngine.Random.Range(_lengthBeforeUpdateOffSet.x, _lengthBeforeUpdateOffSet.y);
-
-                _currentIK++;
-                //Resets _lastmoved to -1 if is at end index
-                _currentIK = _currentIK == _ikTargetsLastPos.Count ? 0 : _currentIK;
-                _ikTargetsMaxLength[_currentIK] += _iksDiff;
-                _ikTargetsMaxLength[_currentIK] = Mathf.Min(_ikTargetsMaxLength[_currentIK], _maxLengthBeforeUpdate + _iksMaxDiff);
-
-            }*/
-
-
-            /*for (int i = 0; i < _ikTargets.Count; i++)
-            {
-                float dist = Vector3.Distance(_ikTargetsLastPos[i], _ikTargetsPositions[i].position);
-                if (dist >= _ikTargetsMaxLength[i] && _currentIK == i)
-                {
-                    _currentIK++;
-                    //Resets _lastmoved to -1 if is at end index
-                    _currentIK = _currentIK == _ikTargetsLastPos.Count ? 0 : _currentIK;
-
-                    GetAndApplyNextIkPosition(i, 0);
-                    _ikTargetsMaxLength[i] = _maxLengthBeforeUpdate + UnityEngine.Random.Range(_lengthBeforeUpdateOffSet.x, _lengthBeforeUpdateOffSet.y);
-                    _ikTargetsMaxLength[_currentIK] = _maxLengthBeforeUpdate + UnityEngine.Random.Range(_lengthBeforeUpdateOffSet.x, _lengthBeforeUpdateOffSet.y);
-                    for (int j = 0; j < _ikTargets.Count; j++)
-                    {
-                        if(_ikTargets[j] == _ikTargets[i] && j != _currentIK)
-                        {
-                            continue;
-                        }
-                        _ikTargetsMaxLength[j] += _iksDiff;
-                        _ikTargetsMaxLength[j] = Mathf.Min(_ikTargetsMaxLength[j], _maxLengthBeforeUpdate + _iksMaxDiff);
-                    }
-                    
-                }
-            }*/
         }
 
         private void GetAndApplyNextIkPosition(Leg leg, int tryNum)
         {
-            Vector3 toAdd = (leg.TargetPos.position - leg.Target.position) * 0.3f;
-            Ray ray = new Ray(leg.TargetPos.position + toAdd + Vector3.up * _nextTargetRaycastOriginY, Vector3.down);
+
+            Vector3 toAdd = (leg.TargetPos.position - leg.Target.position)* _nextTargetRaycastAnticipation;
+            Vector3 pos = leg.TargetPos.position + _up * _nextTargetRaycastOriginY;
+            Vector3 projectedPoint = ProjectPositionOnPlane(pos+toAdd, _up, pos);
+
+            Ray ray = new Ray(projectedPoint, -_up);
+
+            Debug.DrawRay(leg.TargetPos.position  + _up * _nextTargetRaycastOriginY, -_up * _nextTargetRaycastLength);
 
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit,_nextTargetRaycastLength, _raycastLayerMask))
             {
-                leg.Ik.enabled = true;
-                leg.Model.SetActive(true);
+                if (leg.UseTwoBonesIk)
+                    leg.Ik.enabled = true;
+                else
+                    leg.ChainIk.enabled = true;
+                //leg.Model.SetActive(true);
                 leg.LastPosTarg = hit.point;
                 leg.LastPosTargTotDist = Vector3.Distance(leg.LastPos, leg.LastPosTarg);
                 leg.MoveTime = UnityEngine.Random.Range(_moveSpeed.x, _moveSpeed.y);
@@ -246,8 +264,11 @@ namespace Enemies
             }
             if (tryNum == _raycastTries)
             {
-                leg.Ik.enabled = false;
-                leg.Model.SetActive(false);
+                if (leg.UseTwoBonesIk)
+                    leg.Ik.enabled = false;
+                else
+                    leg.ChainIk.enabled = false;
+                //leg.Model.SetActive(false);
                 return;
             }
             GetAndApplyNextIkPosition(leg, tryNum+1);
@@ -260,6 +281,7 @@ namespace Enemies
             {
                 return;
             }
+            Vector3 up = transform.forward * _localUp.z + transform.right * _localUp.x + transform.up * _localUp.y;
             for (int i = 0; i < _iksLegPairs.Count; i++)
             {
                 foreach (Leg leg in _iksLegPairs[i].Legs)
@@ -267,11 +289,17 @@ namespace Enemies
                     if (_showGizmosRaycast)
                     {
                         Gizmos.color = _gizmosRaycastColor;
-                        Vector3 pos = leg.TargetPos.position + Vector3.up * _nextTargetRaycastOriginY;
-                        Gizmos.DrawLine(pos, pos + Vector3.down * _nextTargetRaycastY);
+                        Vector3 toAdd = (leg.TargetPos.position - leg.Target.position) * _nextTargetRaycastAnticipation;
+
+                        Vector3 pos = leg.TargetPos.position + up * _nextTargetRaycastOriginY;
+                        Vector3 projectedPoint = ProjectPositionOnPlane(pos+toAdd, up, pos);
+                        Gizmos.DrawLine(pos, pos - up * _nextTargetRaycastLength);
+                        Gizmos.color = Color.white;
+                        Gizmos.DrawLine(projectedPoint, projectedPoint - up * _nextTargetRaycastLength);
+                        Gizmos.DrawWireCube(leg.TargetPos.position, Vector3.one * 3);
                         if (_showGizmosDir)
                         {
-                            Gizmos.DrawLine(leg.Target.position + Vector3.up * 2, leg.Target.position + Vector3.up * 2 + overrideDir);
+                            Gizmos.DrawLine(leg.Target.position + up * 2, leg.Target.position + up * 2 + overrideDir);
                         }
                     }
                     if (_showGizmosMetrics)
@@ -280,7 +308,7 @@ namespace Enemies
                         if (Application.isPlaying)
                         {
                             Gizmos.color = Color.green;
-                            if (Vector3.Distance(leg.LastPos, leg.LastPosTarg) > 0.1f)
+                            if (Vector3.Distance(leg.LastPos, leg.LastPosTarg) > 1f)
                             {
                                 Gizmos.color = Color.magenta;
                             }
@@ -290,9 +318,15 @@ namespace Enemies
                         Gizmos.DrawWireSphere(leg.Target.position, _maxLengthBeforeUpdate + _lengthBeforeUpdateOffSet.y);
                     }
                     Gizmos.color = _gizmosMetricsColor;
-                    Gizmos.DrawWireCube(leg.Target.position + Vector3.up * _targetHeightTransition, new Vector3(0.1f, 0, 0.1f));
+                    Gizmos.DrawWireCube(leg.Target.position + up * _targetHeightTransition, new Vector3(0.1f, 0, 0.1f));
                 }
             }
+        }
+
+        private Vector3 ProjectPositionOnPlane(Vector3 position, Vector3 normal, Vector3 planePoint)
+        {
+            Plane plane = new Plane(normal, planePoint);
+            return plane.ClosestPointOnPlane(position);
         }
 
     }

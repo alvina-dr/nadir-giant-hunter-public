@@ -119,7 +119,8 @@ MonoBehaviour:
       materialQuality: 0
   m_RenderPipelineResources: {fileID: 11400000, guid: 3ce144cff5783da45aa5d4fdc2da14b7,
     type: 2}
-  m_RenderPipelineRayTracingResources: {fileID: 0}
+  m_RenderPipelineRayTracingResources: {fileID: 11400000, guid: ba6e7f30e5cffc249a8bf7ee5756c196,
+    type: 2}
   beforeTransparentCustomPostProcesses: []
   beforePostProcessCustomPostProcesses: []
   afterPostProcessBlursCustomPostProcesses: []
@@ -176,25 +177,39 @@ MonoBehaviour:
     m_ObsoleteSerializedBakingSets: []
     sceneToBakingSet:
       m_Keys:
+      - bf18e911065cbe84db165d7f089cb4a3
       - f566dc6ff7015a54c86c0e0d7ac2244a
       - 4a244370f623cf844883c38f81b433ef
+      - 4b49328eca495394bb06dfb9c2ae5b13
+      - b49dfb81ffae9824ebe0d0be8b888ab3
       m_Values:
+      - {fileID: 11400000, guid: 146eab6e5bc22664d8a5c611fc08cc0e, type: 2}
       - {fileID: 11400000, guid: 9519c691284f16041b62bcd539901bf6, type: 2}
       - {fileID: 11400000, guid: 2d9684ddb8082184e82c688eec03a939, type: 2}
+      - {fileID: 11400000, guid: be97868bf15804f418738f4834b3a8f7, type: 2}
+      - {fileID: 11400000, guid: 031baa8c0323aab48926923fbcc4e556, type: 2}
     bakingSets:
+    - {fileID: 11400000, guid: 146eab6e5bc22664d8a5c611fc08cc0e, type: 2}
     - {fileID: 11400000, guid: 9519c691284f16041b62bcd539901bf6, type: 2}
     - {fileID: 11400000, guid: 2d9684ddb8082184e82c688eec03a939, type: 2}
+    - {fileID: 11400000, guid: be97868bf15804f418738f4834b3a8f7, type: 2}
+    - {fileID: 11400000, guid: 031baa8c0323aab48926923fbcc4e556, type: 2}
     sceneBounds:
       m_Keys:
       - 4a244370f623cf844883c38f81b433ef
+      - b49dfb81ffae9824ebe0d0be8b888ab3
       m_Values:
       - m_Center: {x: 0, y: 0, z: 0}
         m_Extent: {x: 162, y: 81, z: 162}
+      - m_Center: {x: 0, y: 0, z: 0}
+        m_Extent: {x: 8100, y: 8100, z: 8100}
     hasProbeVolumes:
       m_Keys:
       - f566dc6ff7015a54c86c0e0d7ac2244a
       - 4a244370f623cf844883c38f81b433ef
-      m_Values: 0000
+      - bf18e911065cbe84db165d7f089cb4a3
+      - b49dfb81ffae9824ebe0d0be8b888ab3
+      m_Values: 00000000
   m_Version: 10
   m_ShaderStrippingSetting:
     m_Version: 0
