@@ -8,8 +8,10 @@ namespace Enemies
     [CreateAssetMenu(fileName = "EnemyData", menuName ="ScriptableObjects/EnemyData")]
     public class EnemyData : ScriptableObject
     {
-        public float MoveSpeed;
         public float DistanceToGround;
+        public float InitialSpeed;
+        public float FinalSpeed;
+        public float FinalSpeedHeight;
 
     }
 }
