@@ -42,6 +42,7 @@ public class EnemyWeakSpotManagement : MonoBehaviour
     {
         GPCtrl.Instance.AddKilledEnemy();
         GPCtrl.Instance.EnemySpawner.EnemyList.Remove(EnemyMovement);
+        EnemyMovement.Data.SFX_Giant_Roar_Danger.Post(GPCtrl.Instance.Player.gameObject);
         Destroy(gameObject);
     }
 }

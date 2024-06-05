@@ -16,6 +16,7 @@ public class EnemyMovement : MonoBehaviour
     [TitleGroup("Debug")]
     [SerializeField, ReadOnly]
     private Vector3 _positionWanted;
+    private bool playedWarningSound = false;
 
     void Start()
     {
@@ -28,6 +29,12 @@ public class EnemyMovement : MonoBehaviour
         if (transform.position.y > GPCtrl.Instance.GeneralData.yHeightGameOver)
         {
             GPCtrl.Instance.Loose(this);
+        }
+        if (transform.position.y > GPCtrl.Instance.GeneralData.yHeightPitWarning && !playedWarningSound)
+        {
+            playedWarningSound = true;
+            Data.SFX_Giant_Roar_Danger.Post(GPCtrl.Instance.Player.gameObject);
+            Debug.Log("PLAY ROAR SOUND");
         }
     }
 
