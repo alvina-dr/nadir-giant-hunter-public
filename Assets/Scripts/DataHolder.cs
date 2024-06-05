@@ -16,9 +16,14 @@ public class DataHolder : MonoBehaviour
         else
         {
             Instance = this;
+            DontDestroyOnLoad(this.gameObject);
         }
     }
 #endregion
 
     public RumbleManager RumbleManager;
+
+    [Header("SFX")]
+    public AK.Wwise.Event _sfxGoBack;
+
 }

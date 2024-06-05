@@ -54,7 +54,7 @@ public class PlayerAttack : MonoBehaviour
         CurrentTargetSpot = weakSpot;
         Player.Rigibody.useGravity = false;
         Player.Rigibody.velocity = Vector3.zero;
-        Player.SoundData.SFX_Hunter_Attack_Rush.Post(gameObject);
+        Player.SoundData.SFX_Hunter_Interaction.Post(gameObject);
         Time.timeScale = 0;
         DOVirtual.DelayedCall(.3f, () =>
         {
@@ -136,7 +136,6 @@ public class PlayerAttack : MonoBehaviour
         Player.PlayerSwingingRight.SwingRopeFX.HideRope(Player.PlayerSwingingRight.StartSwingLinePoint.position);
         Player.Rigibody.velocity = Vector3.zero;
         Player.Rigibody.useGravity = true;
-        Player.SoundData.SFX_Hunter_Attack_Impact.Post(gameObject);
         CurrentTargetSpot.DestroyWeakSpot();
         if (CurrentTargetSpot.SpotCurrentType == TargetableSpot.SpotType.WeakSpot) Player.DestructionFX.SendEvent("OnPlay");
         CurrentTargetSpot = null;

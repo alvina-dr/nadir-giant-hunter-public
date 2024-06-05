@@ -130,7 +130,6 @@ public class PlayerMovement : MonoBehaviour
             Player.Rigibody.AddForce(_moveDirection.normalized * CurrentMoveSpeed * 10f, ForceMode.Force);
         else // in air
         {
-            
             Player.Rigibody.AddForce(_moveDirection.normalized * CurrentMoveSpeed * 10f * Player.Data.airMultiplier, ForceMode.Force);
         }
     }
@@ -142,7 +141,20 @@ public class PlayerMovement : MonoBehaviour
             CanJumpOnceInAir = false;
             _readyToJump = false;
             Player.Rigibody.velocity = new Vector3(Player.Rigibody.velocity.x, Mathf.Max(Player.Rigibody.velocity.y, 0), Player.Rigibody.velocity.z);
-            Player.Rigibody.AddForce(transform.up * Player.Data.jumpForce, ForceMode.Impulse);
+            Vector3 input = new Vector3(Player.MoveAction.ReadValue<Vector2>().x, 0, Player.MoveAction.ReadValue<Vector2>().y);
+            if (input != Vector3.zero && !Grounded)
+            {
+                if (input.z > 0 && Camera.main.transform.forward.y < -.3f)
+                {
+                    Player.Rigibody.AddForce(Vector3.down * Player.Data.jumpForce, ForceMode.Impulse);
+                } else
+                {
+                    Player.Rigibody.AddForce((input + transform.up).normalized * Player.Data.jumpForce, ForceMode.Impulse);
+                }
+            } else
+            {
+                Player.Rigibody.AddForce(transform.up * Player.Data.jumpForce, ForceMode.Impulse);
+            }
             Invoke(nameof(ResetJump), Player.Data.jumpCooldown);
             Player.Animator.SetTrigger("Jump");
             Player.Animator.SetBool("Grounded", false);

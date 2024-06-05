@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
+    [TitleGroup("Components")]
     public EnemyData Data;
     [TitleGroup("Components")]
     public Transform toGo;
@@ -16,6 +17,7 @@ public class EnemyMovement : MonoBehaviour
     [TitleGroup("Debug")]
     [SerializeField, ReadOnly]
     private Vector3 _positionWanted;
+    private bool playedWarningSound = false;
 
     void Start()
     {
@@ -29,6 +31,12 @@ public class EnemyMovement : MonoBehaviour
         {
             GPCtrl.Instance.Loose(this);
         }
+        if (transform.position.y > GPCtrl.Instance.GeneralData.yHeightPitWarning && !playedWarningSound)
+        {
+            playedWarningSound = true;
+            Data.SFX_Giant_Roar_Danger.Post(GPCtrl.Instance.Player.gameObject);
+            Debug.Log("PLAY ROAR SOUND");
+        }
     }
 
     void FixedUpdate()
@@ -39,12 +47,13 @@ public class EnemyMovement : MonoBehaviour
 
     private void Move()
     {
-        _positionWanted += _direction * Data.MoveSpeed * Time.fixedDeltaTime;
+        float moveSpeed = Mathf.Lerp(Data.InitialSpeed, Data.FinalSpeed, Mathf.Min(transform.position.y / Data.FinalSpeedHeight, 1));
+        _positionWanted += _direction * moveSpeed * Time.fixedDeltaTime;
         if (toGo!=null)
         {
             _positionWanted = toGo.position;
         }
-        transform.position += (_positionWanted - transform.position).normalized * Data.MoveSpeed * Time.fixedDeltaTime;
+        transform.position += (_positionWanted - transform.position).normalized * moveSpeed * Time.fixedDeltaTime;
         GetDown();
     }
 
