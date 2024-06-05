@@ -82,7 +82,7 @@ namespace Enemies
                 tentacle.transform.rotation = Quaternion.AngleAxis(angle, Vector3.up);
                 tentacle.GenerateTentacle();
                 tentacle.SetupIKConstraint();
-                tentacle.SetupRagDoll();
+                //tentacle.SetupRagDoll();
             }
             for (int i = 0; i < ToOrganize.Length; i++)
             {

@@ -1,11 +1,9 @@
 using Enemies;
-using Mono.Cecil.Cil;
 using Sirenix.OdinInspector;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 using UnityEngine.UIElements;
@@ -59,6 +57,9 @@ namespace Enemies
         [TabGroup("Parameters"), HideIf("IsByDensity")]
         public int TentacleNum;
         [TabGroup("Parameters")]
+        public float RotationOffset;
+        private float _currentRotationOffset;
+        [TabGroup("Parameters")]
         public float StartTentaclePow;
         [TabGroup("Parameters")]
         public float EndTentaclePow;
@@ -103,6 +104,7 @@ namespace Enemies
             toDebug += "startToEndDist : " + startToEndDist + "\n";
             toDebug += "tentacles scale num : " + tentacleScaleNum + "\n";
             Transform lastTentacle = StartTentaclePos;
+            _currentRotationOffset = 0;
             for (int i = 0; i < tentacleScaleNum; i++)
             {
                 GameObject tentacleScale = Instantiate(TentacleScalePrefab, lastTentacle);
@@ -112,10 +114,14 @@ namespace Enemies
                 float nextDelta = (float)(i+1) / tentacleScaleNum;
                 Vector3 nextPointPos = bezier.GetPoint(nextDelta);
                 tentacleScale.transform.rotation = Quaternion.LookRotation(nextPointPos - tentacleScale.transform.position, Vector3.up);
+                tentacleScale.transform.GetChild(0).GetChild(0).localRotation *= Quaternion.AngleAxis(_currentRotationOffset+RotationOffset, Vector3.forward);
+                _currentRotationOffset += RotationOffset;
                 if (i == tentacleScaleNum - 1)
                     EndTentacleScale = tentacleScale;
                 if (i == 0)
                     StartTentacleScale = tentacleScale;
+                TentacleScale tentacle = tentacleScale.GetComponent<TentacleScale>();
+                tentacle.CurrentFrame = i % tentacle.FrameEco;
             }
             RetrieveAllTentacleScales();
         }

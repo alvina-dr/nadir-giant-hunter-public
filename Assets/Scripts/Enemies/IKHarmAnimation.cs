@@ -43,6 +43,8 @@ namespace Enemies
         public List<int> ScalesAnimIndexOnGroundTouched = new List<int>();
         [HideInInspector]
         public float randomizer;
+        //PERFORMANCE
+        public float CurrentFrame = 0;
     }
     [Serializable]
     public class IkLegPair {
@@ -127,6 +129,10 @@ namespace Enemies
         [TabGroup("Debug/A", "Metrics"), ReadOnly, SerializeField]
         private Vector3 _overideDirDebug;
 
+        //PERFORMANCE
+        public int CurrentFrame = 0;
+        public int FrameEco = 5;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -175,13 +181,16 @@ namespace Enemies
             {
                 foreach (Leg leg in _iksLegPairs[i].Legs)
                 {
-
+                    leg.CurrentFrame++;
+                    if (leg.CurrentFrame < FrameEco)
+                    {
+                        continue;
+                    }
+                    leg.CurrentFrame = 0;
                     if (leg.UseTwoBonesIk && leg.Ik.enabled || !leg.UseTwoBonesIk && leg.ChainIk.enabled)
                     {
                         leg.Target.position = leg.LastPos;
                         //_waving.IkHarmCompensateWave(leg);
-                        Debug.DrawRay(leg.LastPos, Vector3.up * 10);
-                        Debug.DrawRay(leg.LastPos, Vector3.right * 10);
                     }
 
                     if (Vector3.Distance(leg.Target.position, leg.LastPosTarg) > 0.01f)
@@ -251,6 +260,12 @@ namespace Enemies
 
         private void CheckEachIkDistances()
         {
+            CurrentFrame++;
+            if (CurrentFrame < FrameEco)
+            {
+                return;
+            }
+            CurrentFrame = 0;
             foreach (IkLegPair legPair in _iksLegPairs)
             {
                 if (Vector3.Distance(legPair.Legs[0].LastPos, legPair.Legs[0].TargetPos.position) > legPair.Legs[0].MaxLength*1.5f)

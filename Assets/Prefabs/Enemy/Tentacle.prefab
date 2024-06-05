@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 2274649088487997673}
   serializedVersion: 2
   m_LocalRotation: {x: -0.2588165, y: -0, z: -0, w: 0.9659265}
-  m_LocalPosition: {x: 0, y: 25.9, z: 28.4}
+  m_LocalPosition: {x: 0, y: 22.87, z: 21.03}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -56,7 +56,7 @@ Transform:
   m_GameObject: {fileID: 2854355013705945553}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 24.08}
+  m_LocalPosition: {x: 0, y: 0, z: 15.65}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -87,7 +87,7 @@ Transform:
   m_GameObject: {fileID: 3395456922490607871}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 24.07999}
+  m_LocalPosition: {x: 0, y: 0, z: 15.649998}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -165,6 +165,7 @@ MonoBehaviour:
     MaxLength: 0
     DidLegJustTouchedGround: 0
     GroundedDelta: 1
+    LegSpeed: 0
     ScalesAnimIndexOnGroundTouched: 
     randomizer: 0
   StartTentacleScale: {fileID: 0}
@@ -172,7 +173,8 @@ MonoBehaviour:
   IsByDensity: 1
   TentacleDensity: 1.2
   TentacleNum: 0
-  StartTentaclePow: 50.7
+  RotationOffset: 30
+  StartTentaclePow: 21.24
   EndTentaclePow: 2
   deltaGrounded: 0
   TentacleScaleAnimations:
@@ -217,6 +219,84 @@ MonoBehaviour:
     isAnimationReverse: 1
     DoAnimationLoop: 0
     DoAnimationOnStart: 0
+    IsAnimating: 0
+  - Curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 0.16881587
+        value: 0.2499789
+        inSlope: -0.014807948
+        outSlope: -0.014807948
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.1397357
+      - serializedVersion: 3
+        time: 0.3485941
+        value: 0.00040978193
+        inSlope: 0.0041742222
+        outSlope: 0.0041742222
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.5
+        value: 0.24734312
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 0.65144455
+        value: -0.0007434413
+        inSlope: -0.03710772
+        outSlope: -0.03710772
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.8240486
+        value: 0.24629861
+        inSlope: 0.04714918
+        outSlope: 0.04714918
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.12863247
+        outWeight: 0.546648
+      - serializedVersion: 3
+        time: 0.99999976
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 1
+      m_PostInfinity: 1
+      m_RotationOrder: 4
+    DeltaType: 0
+    CursorRange: {x: 0, y: 1}
+    CursorPosition: -0.24531186
+    AnimationTime: 4
+    AnimationScale: 0.4
+    isAnimationReverse: 1
+    DoAnimationLoop: 1
+    DoAnimationOnStart: 1
     IsAnimating: 0
 --- !u!114 &329551947704417483
 MonoBehaviour:
