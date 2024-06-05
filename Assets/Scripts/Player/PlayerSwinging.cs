@@ -251,7 +251,8 @@ public class PlayerSwinging : MonoBehaviour
             Player.Rigibody.velocity = new Vector3(Player.Rigibody.velocity.x, Player.Data.maxYForceOnRelease, Player.Rigibody.velocity.z);
         }
         Vector3 flatSpeed = new Vector3(Player.Rigibody.velocity.x, 0, Player.Rigibody.velocity.z).normalized;
-        Player.Rigibody.AddForce(flatSpeed * Player.Data.endCurveSpeedBoost * Player.PlayerMovement.CurrentMoveSpeed / 10, ForceMode.Impulse);
+        //Player.Rigibody.AddForce(flatSpeed * Player.Data.endCurveSpeedBoost * Player.PlayerMovement.CurrentMoveSpeed / 10, ForceMode.Impulse); // 
+        Player.Rigibody.AddForce(Camera.main.transform.forward * Player.Data.endCurveSpeedBoost, ForceMode.Impulse);
     }
 
     private void SwingAnimation(Vector3 toLook)
