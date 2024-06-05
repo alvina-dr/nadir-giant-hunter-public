@@ -15,32 +15,16 @@ MonoBehaviour:
   EnemyPrefab: {fileID: 6621249812686024313, guid: 37fcea3c9f56e5e45b2f440ccd893f1a,
     type: 3}
   spawningTimers:
-  - TimerStart: 1
+  - TimerStart: 0
     MaxEnemiesSpawned: 2
-    SpawnCoolDown: 5
+    SpawnCoolDown: 0
     DoSpawnOnlyOnePerLine: 1
-  - TimerStart: 30
+  - TimerStart: 60
+    MaxEnemiesSpawned: 3
+    SpawnCoolDown: 0
+    DoSpawnOnlyOnePerLine: 1
+  - TimerStart: 120
     MaxEnemiesSpawned: 4
-    SpawnCoolDown: 10
-    DoSpawnOnlyOnePerLine: 1
-  - TimerStart: 240
-    MaxEnemiesSpawned: 6
-    SpawnCoolDown: 10
-    DoSpawnOnlyOnePerLine: 0
-  - TimerStart: 0
-    MaxEnemiesSpawned: 0
     SpawnCoolDown: 0
     DoSpawnOnlyOnePerLine: 0
-  - TimerStart: 0
-    MaxEnemiesSpawned: 0
-    SpawnCoolDown: 0
-    DoSpawnOnlyOnePerLine: 0
-  - TimerStart: 0
-    MaxEnemiesSpawned: 0
-    SpawnCoolDown: 0
-    DoSpawnOnlyOnePerLine: 0
-  - TimerStart: 0
-    MaxEnemiesSpawned: 0
-    SpawnCoolDown: 0
-    DoSpawnOnlyOnePerLine: 0
-  NumTotalEnemy: 10
+  NumTotalEnemy: 30
