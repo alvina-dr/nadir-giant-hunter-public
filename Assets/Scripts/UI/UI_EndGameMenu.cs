@@ -12,6 +12,9 @@ public class UI_EndGameMenu : MonoBehaviour
     [SerializeField] private UI_Button _buttonNext;
     [SerializeField] private UI_Button _buttonTryAgain;
     [SerializeField] private UI_Button _buttonMainMenu;
+    [SerializeField] private AK.Wwise.Event _sfxWin;
+    [SerializeField] private AK.Wwise.Event _sfxLoose;
+
     public void Win()
     {
         _resultText.text = "Victory";
@@ -22,6 +25,7 @@ public class UI_EndGameMenu : MonoBehaviour
         _buttonMainMenu.gameObject.SetActive(false);
         _menu.ChangeGamepadFirstFocus(_nameInputField.gameObject);
         _menu.OpenMenu();
+        _sfxWin.Post(DataHolder.Instance.gameObject);
     }
 
     public void Loose()
@@ -33,5 +37,6 @@ public class UI_EndGameMenu : MonoBehaviour
         _buttonMainMenu.gameObject.SetActive(true);
         _menu.ChangeGamepadFirstFocus(_buttonTryAgain.gameObject);
         _menu.OpenMenu();
+        _sfxLoose.Post(DataHolder.Instance.gameObject);
     }
 }

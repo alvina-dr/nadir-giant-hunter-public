@@ -16,6 +16,7 @@ public class TargetableSpot : MonoBehaviour
     }
     public SpotType SpotCurrentType;
     public VisualEffect VisualFX;
+
     [ShowIf("SpotCurrentType", SpotType.WeakSpot)]
     public EnemyWeakSpotManagement Enemy;
 
@@ -27,6 +28,11 @@ public class TargetableSpot : MonoBehaviour
         switch (SpotCurrentType)
         {
             case SpotType.WeakSpot:
+                DOVirtual.DelayedCall(.2f, () =>
+                {
+                    if (GPCtrl.Instance.Pause) return;
+                    Time.timeScale = 1;
+                }).SetUpdate(true);
                 if (Enemy != null)
                 {
                     GameObject vfx = Instantiate(Enemy.VFXData.weakSpotExplosion);
@@ -41,6 +47,7 @@ public class TargetableSpot : MonoBehaviour
                 Vector3 newDirection = new Vector3(-vector3.x, vector3.y, -vector3.z) * GPCtrl.Instance.Player.Data.weakSpotReboundForce;
                 GPCtrl.Instance.Player.Rigibody.velocity = Vector3.zero;
                 GPCtrl.Instance.Player.Rigibody.AddForce(newDirection, ForceMode.Impulse);
+                GPCtrl.Instance.Player.SoundData.SFX_Giant_Hit_ByHunter.Post(gameObject);
                 break;
             case SpotType.DashSpot:
                 GPCtrl.Instance.DashPause = true;
@@ -52,10 +59,17 @@ public class TargetableSpot : MonoBehaviour
                 GPCtrl.Instance.TargetableSpotList.Remove(this);
                 Material material = GPCtrl.Instance.GetPostProcessMaterial();
                 material.DOFloat(1f, "_strength", .2f).SetUpdate(true);
+                GPCtrl.Instance.Player.SoundData.SFX_Hunter_Dash_Trigger.Post(GPCtrl.Instance.Player.gameObject);
                 break;
             case SpotType.Bumper:
+                DOVirtual.DelayedCall(.1f, () =>
+                {
+                    if (GPCtrl.Instance.Pause) return;
+                    Time.timeScale = 1;
+                }).SetUpdate(true);
                 Bump();
                 StartCoroutine(ReloadBumper());
+                GPCtrl.Instance.Player.SoundData.SFX_Hunter_Bumper_Trigger.Post(gameObject);
                 GPCtrl.Instance.TargetableSpotList.Remove(this);
                 break;
         }
@@ -69,7 +83,7 @@ public class TargetableSpot : MonoBehaviour
 
     private IEnumerator ReloadDashSpot()
     {
-        yield return new WaitForSecondsRealtime(GPCtrl.Instance.GeneralData.dashSpotReloadTime);
+        yield return new WaitForSeconds(GPCtrl.Instance.GeneralData.dashSpotReloadTime);
         GPCtrl.Instance.TargetableSpotList.Add(this);
         VisualFX.SendEvent("OnPlay");
     }

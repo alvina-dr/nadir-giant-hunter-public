@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using System.Linq;
 using DG.Tweening;
+using System;
 
 public class UI_Scoreboard : MonoBehaviour
 {
@@ -31,7 +32,7 @@ public class UI_Scoreboard : MonoBehaviour
     public UI_ScoreEntry scoreEntryPrefab;
     public Transform scoreEntryLayout;
 
-    private void Start()
+    private void Awake()
     {
         if (scoreList.entries.Count == 0)
         {
@@ -45,7 +46,9 @@ public class UI_Scoreboard : MonoBehaviour
 
     public void AddScoreButton()
     {
-        AddScoreToScoreboard(inputField.text, GPCtrl.Instance.Timer);
+        double timerText = Math.Round(GPCtrl.Instance.Timer, 2, MidpointRounding.AwayFromZero);
+
+        AddScoreToScoreboard(inputField.text, (float)timerText);
         ShowScoreboard();
     }
 
@@ -62,7 +65,7 @@ public class UI_Scoreboard : MonoBehaviour
         {
             InstantiateScoreboardEntry(scoreList.entries[i], i);
         }
-        Menu.OpenMenu();
+        Menu.OpenMenu(true);
     }
 
     public void HideScoreboard()
@@ -95,6 +98,6 @@ public class UI_Scoreboard : MonoBehaviour
 
     static int SortByScore(ScoreboardEntry p1, ScoreboardEntry p2)
     {
-        return -p1.timer.CompareTo(p2.timer);
+        return p1.timer.CompareTo(p2.timer);
     }
 }

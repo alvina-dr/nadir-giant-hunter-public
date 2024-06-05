@@ -117,7 +117,9 @@ public class EnemySpawner : MonoBehaviour
         foreach(Transform enemySpawnPoint in _enemiesSpawnPoints)
         {
             Gizmos.DrawWireSphere(enemySpawnPoint.position, 5);
-            Gizmos.DrawLine(enemySpawnPoint.position, enemySpawnPoint.position+Vector3.up*500);
+            Gizmos.DrawLine(enemySpawnPoint.position, enemySpawnPoint.position+Vector3.up*10000);
         }
+        float height = SpawnerData.EnemyPrefab.GetComponent<EnemyMovement>().Data.FinalSpeedHeight;
+        Gizmos.DrawWireCube(new Vector3(transform.position.x, height, transform.position.z), new Vector3(1000,0,1000));
     }
 }
