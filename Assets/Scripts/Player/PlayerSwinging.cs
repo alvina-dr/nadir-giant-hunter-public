@@ -234,8 +234,11 @@ public class PlayerSwinging : MonoBehaviour
         //float dot = Vector3.Dot(Player.Mesh.transform.right, (EndSwingLinePoint.position - Player.transform.position).normalized);
         Player.Rigibody.velocity = newVelocity;
         Player.PlayerMovement.CurrentMoveSpeed += Player.PlayerMovement.FallingTimer;
-        if (Player.Data.startCurveBoost && EndSwingLinePoint.position.y > Player.transform.position.y)
+        if (Player.Data.startCurveBoost && EndSwingLinePoint.position.y > Player.transform.position.y - 20)
+        {
             Player.Rigibody.AddForce(Vector3.Cross(Player.Mesh.transform.right, (EndSwingLinePoint.position - Player.transform.position).normalized) * (Player.Data.startCurveSpeedBoost + Player.PlayerMovement.FallingTimer * 1000f), ForceMode.Impulse);
+            Debug.Log("START BOOST");
+        }
     }
 
     public void StopSwing(bool boost = true, bool destroyVisual = true)
