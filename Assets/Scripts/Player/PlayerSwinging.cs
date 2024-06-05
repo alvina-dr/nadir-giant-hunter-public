@@ -208,8 +208,7 @@ public class PlayerSwinging : MonoBehaviour
         //swing direction on the y plane
         _swingOriginalDirection = Player.Mesh.forward;
         Player.PlayerMovement.CanJumpOnceInAir = true;
-        Player.SoundData.SFX_Hunter_Hook_Single_Grappled.Post(EndSwingLinePoint.gameObject);
-        Player.SoundData.SFX_Hunter_Hook_Single_Trigger.Post(gameObject);
+        Player.SoundData.SFX_Hunter_Grapple_Trigger.Post(gameObject);
         IsSwinging = true;
         EndSwingLinePoint.SetParent(hitTransform);
         EndSwingLinePoint.position = hitPoint;
@@ -235,14 +234,17 @@ public class PlayerSwinging : MonoBehaviour
         //float dot = Vector3.Dot(Player.Mesh.transform.right, (EndSwingLinePoint.position - Player.transform.position).normalized);
         Player.Rigibody.velocity = newVelocity;
         Player.PlayerMovement.CurrentMoveSpeed += Player.PlayerMovement.FallingTimer;
-        if (Player.Data.startCurveBoost && EndSwingLinePoint.position.y > Player.transform.position.y)
+        if (Player.Data.startCurveBoost && EndSwingLinePoint.position.y > Player.transform.position.y - 20)
+        {
             Player.Rigibody.AddForce(Vector3.Cross(Player.Mesh.transform.right, (EndSwingLinePoint.position - Player.transform.position).normalized) * (Player.Data.startCurveSpeedBoost + Player.PlayerMovement.FallingTimer * 1000f), ForceMode.Impulse);
+            Debug.Log("START BOOST");
+        }
     }
 
     public void StopSwing(bool boost = true, bool destroyVisual = true)
     {
         if (!_springJoint) return;
-        Player.SoundData.SFX_Hunter_Hook_Single_Trigger.Post(EndSwingLinePoint.gameObject);
+        Player.SoundData.SFX_Hunter_Grapple_Release.Post(EndSwingLinePoint.gameObject);
         Player.PlayerMovement.CurrentMoveSpeed++;
         Destroy(_springJoint);
         if (destroyVisual)

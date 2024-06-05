@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class UI_MainMenu : MonoBehaviour
 {
     [SerializeField] private UI_Menu _mainMenu;
+    [SerializeField] private AK.Wwise.Event _sfxStartGame;
 
     private void Awake()
     {
@@ -35,6 +36,7 @@ public class UI_MainMenu : MonoBehaviour
 
     public void StartGame()
     {
+        _sfxStartGame.Post(DataHolder.Instance.gameObject);
         SceneManager.LoadScene("Game");
     }
 

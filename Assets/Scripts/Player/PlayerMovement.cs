@@ -34,6 +34,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Player.Rigibody.freezeRotation = true;
         _readyToJump = true;
+        Player.SoundData.SFX_Hunter_Movement_AirSpeed.Post(gameObject);
     }
 
     private void Update()
@@ -49,6 +50,8 @@ public class PlayerMovement : MonoBehaviour
             postProcess.SetFloat("_bypass_Input_Velocity_Factor", lerp);
             postProcess.SetVector("_Input_Velocity", Player.Rigibody.velocity / Player.Data.speedDivisionFactorVFX);
         }
+
+        AkSoundEngine.SetRTPCValue("RTPC_Speed", _CurrentSpeed);
 
         if (transform.position.y < GPCtrl.Instance.GeneralData.yHeightPitBottom)
         {

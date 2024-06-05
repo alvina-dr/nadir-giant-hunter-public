@@ -30,6 +30,8 @@ public class PlayerDash : MonoBehaviour
         Material material = GPCtrl.Instance.GetPostProcessMaterial();
         material.DOFloat(0f, "_strength", .2f).SetUpdate(true);
         Player.Meshtrail.ShowTrail();
+        GPCtrl.Instance.Player.SoundData.SFX_Hunter_Dash_Trigger.Stop(Player.gameObject);
+        GPCtrl.Instance.Player.SoundData.SFX_Hunter_Dash_Release.Post(gameObject);
         GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(0).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = 1f;
         GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(1).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = 1f;
         GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(2).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = 1f;
