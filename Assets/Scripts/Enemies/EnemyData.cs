@@ -3,10 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 
-[CreateAssetMenu(fileName = "EnemyData", menuName ="ScriptableObjects/EnemyData")]
-public class EnemyData : ScriptableObject
+namespace Enemies
 {
-    public float MoveSpeed;
-    public float DistanceToGround;
+    [CreateAssetMenu(fileName = "EnemyData", menuName ="ScriptableObjects/EnemyData")]
+    public class EnemyData : ScriptableObject
+    {
+        public float DistanceToGround;
+        public float InitialSpeed;
+        public float FinalSpeed;
+        public float FinalSpeedHeight;
 
+    }
 }
