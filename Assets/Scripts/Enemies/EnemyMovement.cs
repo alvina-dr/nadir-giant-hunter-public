@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
+    [TitleGroup("Components")]
     public EnemyData Data;
     [TitleGroup("Components")]
     public Transform toGo;
@@ -46,12 +47,13 @@ public class EnemyMovement : MonoBehaviour
 
     private void Move()
     {
-        _positionWanted += _direction * Data.MoveSpeed * Time.fixedDeltaTime;
+        float moveSpeed = Mathf.Lerp(Data.InitialSpeed, Data.FinalSpeed, Mathf.Min(transform.position.y / Data.FinalSpeedHeight, 1));
+        _positionWanted += _direction * moveSpeed * Time.fixedDeltaTime;
         if (toGo!=null)
         {
             _positionWanted = toGo.position;
         }
-        transform.position += (_positionWanted - transform.position).normalized * Data.MoveSpeed * Time.fixedDeltaTime;
+        transform.position += (_positionWanted - transform.position).normalized * moveSpeed * Time.fixedDeltaTime;
         GetDown();
     }
 

@@ -41,9 +41,6 @@ public class EnemySpawner : MonoBehaviour
         if (EnemyList.Count > 0)
         {
             GPCtrl.Instance.UICtrl.MonsterHighIndicator.ShowIndicatorAt(EnemyList[0].transform.position);
-        } else
-        {
-            GPCtrl.Instance.UICtrl.MonsterHighIndicator.HideIndicator();
         }
     }
 
@@ -54,9 +51,9 @@ public class EnemySpawner : MonoBehaviour
         {
             //schedule the set toward the next spawning timer 
             SpawningTimer nextSpawningTimer = SpawnerData.spawningTimers[_currentSpawningTimerIndex+1];
-            //Debug.Log("will wait : " + (nextSpawningTimer.TimerStart - SpawnerData.spawningTimers[_currentSpawningTimerIndex].TimerStart));
+            Debug.Log("will wait : " + (nextSpawningTimer.TimerStart - SpawnerData.spawningTimers[_currentSpawningTimerIndex].TimerStart));
             yield return new WaitForSecondsRealtime(nextSpawningTimer.TimerStart - SpawnerData.spawningTimers[_currentSpawningTimerIndex].TimerStart);
-            //Debug.Log("Incremented");
+            Debug.Log("Incremented");
             _currentSpawningTimerIndex++;
             StartCoroutine(WaitForNextSpawningTimer());
         }
@@ -120,7 +117,9 @@ public class EnemySpawner : MonoBehaviour
         foreach(Transform enemySpawnPoint in _enemiesSpawnPoints)
         {
             Gizmos.DrawWireSphere(enemySpawnPoint.position, 5);
-            Gizmos.DrawLine(enemySpawnPoint.position, enemySpawnPoint.position+Vector3.up*500);
+            Gizmos.DrawLine(enemySpawnPoint.position, enemySpawnPoint.position+Vector3.up*10000);
         }
+        float height = SpawnerData.EnemyPrefab.GetComponent<EnemyMovement>().Data.FinalSpeedHeight;
+        Gizmos.DrawWireCube(new Vector3(transform.position.x, height, transform.position.z), new Vector3(1000,0,1000));
     }
 }
