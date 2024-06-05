@@ -55,7 +55,7 @@ public class PlayerAttack : MonoBehaviour
         Player.Rigibody.useGravity = false;
         Player.Rigibody.velocity = Vector3.zero;
         Player.SoundData.SFX_Hunter_Interaction.Post(gameObject);
-        Time.timeScale = 0;
+        Time.timeScale = 0.1f;
         DOVirtual.DelayedCall(.3f, () =>
         {
             Time.timeScale = 1;
@@ -136,13 +136,13 @@ public class PlayerAttack : MonoBehaviour
         Player.PlayerSwingingRight.SwingRopeFX.HideRope(Player.PlayerSwingingRight.StartSwingLinePoint.position);
         Player.Rigibody.velocity = Vector3.zero;
         Player.Rigibody.useGravity = true;
+        Time.timeScale = 0.1f;
         CurrentTargetSpot.DestroyWeakSpot();
         if (CurrentTargetSpot.SpotCurrentType == TargetableSpot.SpotType.WeakSpot) Player.DestructionFX.SendEvent("OnPlay");
         CurrentTargetSpot = null;
         Player.Collider.enabled = true;
         _targetRigibody.gameObject.SetActive(false);
         float factor = (Player.PlayerMovement.CurrentMoveSpeed - Player.Data.swingSpeed) / (Player.Data.swingMaxSpeed - Player.Data.swingSpeed);
-        Time.timeScale = 0;
         DOVirtual.Float(1f, factor * Player.Data.swingCameraDistanceAddition, .3f, v =>
         {
             GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(0).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = v;

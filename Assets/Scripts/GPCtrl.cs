@@ -44,12 +44,14 @@ public class GPCtrl : MonoBehaviour
     public float Timer;
     [ReadOnly]
     public bool Pause = false;
+    public bool GameOver = false;
     public bool DashPause = false;
     public CustomPassVolume reliefFX;
     public int NumEnemyKilled = 0;
 
     private void Update()
     {
+        if (GameOver) return;
         Timer += Time.deltaTime;
         double timerText = Math.Round(GPCtrl.Instance.Timer, 2, MidpointRounding.AwayFromZero);
         UICtrl.TimerText.text = timerText.ToString();
@@ -58,11 +60,13 @@ public class GPCtrl : MonoBehaviour
     public void Win()
     {
         Debug.Log("WIN");
+        GameOver = true;
         UICtrl.OpenEndGameMenu(true);
     }
 
     public void Loose(EnemyMovement enemy = null)
     {
+        GameOver = true;
         Player.SoundData.SFX_Hunter_Death.Post(Player.gameObject);
         UICtrl.OpenEndGameMenu(false);
         if (enemy != null)

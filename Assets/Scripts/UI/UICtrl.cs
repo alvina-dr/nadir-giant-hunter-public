@@ -38,7 +38,7 @@ public class UICtrl : MonoBehaviour
     public void ClosePauseMenu()
     {
         GPCtrl.Instance.Pause = false;
-        Time.timeScale = 1;
+        if (!GPCtrl.Instance.DashPause) Time.timeScale = 1;
         PauseMenu.CloseMenu();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -47,6 +47,7 @@ public class UICtrl : MonoBehaviour
 
     public void CallPause()
     {
+        if (GPCtrl.Instance.GameOver) return;
         if (GPCtrl.Instance.Pause) ClosePauseMenu();
         else OpenPauseMenu();
     }
