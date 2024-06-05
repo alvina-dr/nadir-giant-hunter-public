@@ -5,8 +5,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Sirenix.OdinInspector;
 using UnityEngine.Rendering.HighDefinition;
-using static UnityEngine.Rendering.DebugUI;
-using System;
 
 public class GPCtrl : MonoBehaviour
 {
@@ -51,8 +49,7 @@ public class GPCtrl : MonoBehaviour
     private void Update()
     {
         Timer += Time.deltaTime;
-        double timerText = Math.Round(GPCtrl.Instance.Timer, 2, MidpointRounding.AwayFromZero);
-        UICtrl.TimerText.text = timerText.ToString();
+        UICtrl.TimerText.text = Timer.ToString();
     }
 
     public void Win()
@@ -63,7 +60,6 @@ public class GPCtrl : MonoBehaviour
 
     public void Loose(EnemyMovement enemy = null)
     {
-        Player.SoundData.SFX_Hunter_Death.Post(Player.gameObject);
         UICtrl.OpenEndGameMenu(false);
         if (enemy != null)
         {

@@ -30,13 +30,10 @@ public class PlayerDash : MonoBehaviour
         Material material = GPCtrl.Instance.GetPostProcessMaterial();
         material.DOFloat(0f, "_strength", .2f).SetUpdate(true);
         Player.Meshtrail.ShowTrail();
-        GPCtrl.Instance.Player.SoundData.SFX_Hunter_Dash_Trigger.Stop(Player.gameObject);
-        GPCtrl.Instance.Player.SoundData.SFX_Hunter_Dash_Release.Post(gameObject);
         GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(0).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = 1f;
         GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(1).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = 1f;
         GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(2).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = 1f;
         GPCtrl.Instance.CameraThirdPerson.CameraShake.ShakeCamera(5f, .3f);
-        DataHolder.Instance.RumbleManager.PulseFor(7f, 7f, .3f);
         float factor = (Player.PlayerMovement.CurrentMoveSpeed - Player.Data.swingSpeed) / (Player.Data.swingMaxSpeed - Player.Data.swingSpeed);
         DOVirtual.Float(1f, factor * Player.Data.swingCameraDistanceAddition, Player.Data.dashTime, v =>
         {

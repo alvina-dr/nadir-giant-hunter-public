@@ -17,8 +17,6 @@ public class UICtrl : MonoBehaviour
     public UI_InputIndication AttackInputIndicator;
     public UI_InputIndication MonsterHighIndicator;
     public CanvasGroup PlayerLowIndicator;
-    public UI_InputIndication SwingRightIndicator;
-    public UI_InputIndication SwingLeftIndicator;
 
     [Header("In game UI")]
     public TextMeshProUGUI TimerText;

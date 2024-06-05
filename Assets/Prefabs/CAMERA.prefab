@@ -139,40 +139,6 @@ MonoBehaviour:
   m_MaximumFOV: 60
   m_MinimumOrthoSize: 1
   m_MaximumOrthoSize: 5000
---- !u!1 &688893115547720805
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2170923578428922005}
-  m_Layer: 2
-  m_Name: ConeRaycast
-  m_TagString: Player
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2170923578428922005
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 688893115547720805}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0.0016791257, y: -0.95735127, z: -0.28890303, w: 0.003296963}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 516365828217261500}
-  - {fileID: 522817657904389478}
-  - {fileID: 2858002146876802275}
-  m_Father: {fileID: 7763139289796435826}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1119535768742139713
 GameObject:
   m_ObjectHideFlags: 0
@@ -756,37 +722,6 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 6545948140428713754}
---- !u!1 &2450351176755493534
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2858002146876802275}
-  m_Layer: 2
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2858002146876802275
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2450351176755493534}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2170923578428922005}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2714083716183255330
 GameObject:
   m_ObjectHideFlags: 0
@@ -838,94 +773,6 @@ MonoBehaviour:
   - target: {fileID: 0}
     weight: 1
     radius: 4.5
---- !u!1 &3171744632779604833
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8251951536454571249}
-  m_Layer: 2
-  m_Name: PerfectPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8251951536454571249
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3171744632779604833}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 150, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 516365828217261500}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &3202252360881553130
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 522817657904389478}
-  - component: {fileID: 7247584283717636759}
-  m_Layer: 2
-  m_Name: ConeRaycastLeft
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &522817657904389478
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3202252360881553130}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0.42101005, y: -0.03683362, z: 0.07898997, w: 0.90285903}
-  m_LocalPosition: {x: -0.3, y: 1, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 4419826904564590896}
-  m_Father: {fileID: 2170923578428922005}
-  m_LocalEulerAnglesHint: {x: 50, y: 0, z: 10}
---- !u!114 &7247584283717636759
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3202252360881553130}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b64f1b6c72d8972418c00d8e44c7aa55, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  contactPointList: []
-  orientationMode: 0
-  perfectPoint: {fileID: 4419826904564590896}
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 51
-  SearchPoint: 0
-  MinRadius: 1
-  MaxRadius: 200
-  CurrentRadius: 1
-  _anglePrecision: 180
-  _radiusPrecision: 4
 --- !u!1 &3702566035670704831
 GameObject:
   m_ObjectHideFlags: 0
@@ -1005,37 +852,6 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 2409328727052758970}
---- !u!1 &4189449164343400862
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4419826904564590896}
-  m_Layer: 2
-  m_Name: PerfectPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4419826904564590896
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4189449164343400862}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 150, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 522817657904389478}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4621703913034214735
 GameObject:
   m_ObjectHideFlags: 0
@@ -1349,6 +1165,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5696876307003449193}
+  - component: {fileID: 7793035782069652414}
   - component: {fileID: 2154868776637024702}
   - component: {fileID: 2204764063099714349}
   - component: {fileID: 508450122630835153}
@@ -1380,6 +1197,20 @@ Transform:
   - {fileID: 5471791396287884084}
   m_Father: {fileID: 8648787738928888980}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7793035782069652414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5258096268107281352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54c2ca5670f9dd548a791fd5546e237f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  XYaxis: {fileID: 7463689358503220397, guid: 48e7446a99692d644b6b365de90deb42, type: 3}
+  inputProvider: {fileID: 7822116918285005003}
 --- !u!114 &2154868776637024702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1544,7 +1375,7 @@ MonoBehaviour:
   m_MinimumDistanceFromTarget: 3
   m_AvoidObstacles: 1
   m_DistanceLimit: 0
-  m_MinimumOcclusionTime: 0.1
+  m_MinimumOcclusionTime: 1
   m_CameraRadius: 1
   m_Strategy: 2
   m_MaximumEffort: 4
@@ -1603,7 +1434,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7059612253633923077}
-  - {fileID: 2170923578428922005}
   m_Father: {fileID: 8648787738928888980}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &7506730359537656312
@@ -2123,63 +1953,6 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 689963367933864582}
---- !u!1 &7259512906407627840
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 516365828217261500}
-  - component: {fileID: 3955281233684269443}
-  m_Layer: 2
-  m_Name: ConeRaycastRight
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &516365828217261500
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7259512906407627840}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0.42101005, y: 0.03683362, z: -0.07898997, w: 0.90285903}
-  m_LocalPosition: {x: 0.3, y: 1, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 8251951536454571249}
-  m_Father: {fileID: 2170923578428922005}
-  m_LocalEulerAnglesHint: {x: 50, y: 0, z: -10}
---- !u!114 &3955281233684269443
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7259512906407627840}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b64f1b6c72d8972418c00d8e44c7aa55, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  contactPointList: []
-  orientationMode: 0
-  perfectPoint: {fileID: 8251951536454571249}
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 51
-  SearchPoint: 0
-  MinRadius: 1
-  MaxRadius: 200
-  CurrentRadius: 1
-  _anglePrecision: 180
-  _radiusPrecision: 4
 --- !u!1 &7297650462582798324
 GameObject:
   m_ObjectHideFlags: 0

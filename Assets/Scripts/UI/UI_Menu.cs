@@ -6,24 +6,11 @@ using DG.Tweening;
 using UnityEngine.InputSystem;
 using System.Linq;
 using UnityEngine.InputSystem.Controls;
-using UnityEngine.Events;
-using UnityEngine.InputSystem.UI;
 
 public class UI_Menu : MonoBehaviour
 {
     [SerializeField] private GameObject _gamepadFocus;
     [SerializeField] private CanvasGroup _canvasGroup;
-    public UnityEvent GoBackEvent;
-
-    private void Awake()
-    {
-        GoBackEvent.AddListener(GoBack);
-    }
-
-    public void GoBack()
-    {
-        DataHolder.Instance._sfxGoBack.Post(DataHolder.Instance.gameObject);
-    }
 
     public void OpenMenu(bool animated = true)
     {
@@ -69,17 +56,6 @@ public class UI_Menu : MonoBehaviour
         if (EventSystem.current.currentSelectedGameObject == null && gamepadButtonPressed)
         {
             EventSystem.current.SetSelectedGameObject(_gamepadFocus);
-        }
-
-        if (_canvasGroup.interactable)
-        {
-            var uiModule = (InputSystemUIInputModule)EventSystem.current.currentInputModule;
-            var cancel = uiModule.cancel.action;
-
-            if (cancel.WasPressedThisFrame())
-            {
-                GoBackEvent?.Invoke();
-            }
         }
     }
 }

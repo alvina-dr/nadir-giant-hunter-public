@@ -23,8 +23,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 _moveDirection;
     [Sirenix.OdinInspector.ReadOnly]
     public bool CanJumpOnceInAir;
-    [Sirenix.OdinInspector.ReadOnly]
-    public float FallingTimer = 0.0f;
+    private float _fallingTimer = 0.0f;
 
     //Debug
     [SerializeField, Sirenix.OdinInspector.ReadOnly]
@@ -34,7 +33,6 @@ public class PlayerMovement : MonoBehaviour
     {
         Player.Rigibody.freezeRotation = true;
         _readyToJump = true;
-        Player.SoundData.SFX_Hunter_Movement_AirSpeed.Post(gameObject);
     }
 
     private void Update()
@@ -50,8 +48,6 @@ public class PlayerMovement : MonoBehaviour
             postProcess.SetFloat("_bypass_Input_Velocity_Factor", lerp);
             postProcess.SetVector("_Input_Velocity", Player.Rigibody.velocity / Player.Data.speedDivisionFactorVFX);
         }
-
-        AkSoundEngine.SetRTPCValue("RTPC_Speed", _CurrentSpeed);
 
         if (transform.position.y < GPCtrl.Instance.GeneralData.yHeightPitBottom)
         {
@@ -106,14 +102,14 @@ public class PlayerMovement : MonoBehaviour
 
         if (!GPCtrl.Instance.Pause && !Grounded && !Player.PlayerSwingingLeft.IsSwinging && !Player.PlayerSwingingRight.IsSwinging && !Player.PlayerDash.IsDashing && !Player.PlayerAttack.IsGrappling && Player.Rigibody.velocity.y < -5)
         {
-            FallingTimer += Time.deltaTime;
-            if (FallingTimer > Player.Data.timeBeforeLookingDownAnim)
+            _fallingTimer += Time.deltaTime;
+            if (_fallingTimer > Player.Data.timeBeforeLookingDownAnim)
             {
                 Player.Animator.SetBool("LongFall", true);
             }
         } else
         {
-            FallingTimer = 0;
+            _fallingTimer = 0;
             Player.Animator.SetBool("LongFall", false);
         }
     }
@@ -133,6 +129,7 @@ public class PlayerMovement : MonoBehaviour
             Player.Rigibody.AddForce(_moveDirection.normalized * CurrentMoveSpeed * 10f, ForceMode.Force);
         else // in air
         {
+            
             Player.Rigibody.AddForce(_moveDirection.normalized * CurrentMoveSpeed * 10f * Player.Data.airMultiplier, ForceMode.Force);
         }
     }
@@ -144,26 +141,12 @@ public class PlayerMovement : MonoBehaviour
             CanJumpOnceInAir = false;
             _readyToJump = false;
             Player.Rigibody.velocity = new Vector3(Player.Rigibody.velocity.x, Mathf.Max(Player.Rigibody.velocity.y, 0), Player.Rigibody.velocity.z);
-            Vector3 input = new Vector3(Player.MoveAction.ReadValue<Vector2>().x, 0, Player.MoveAction.ReadValue<Vector2>().y);
-            if (input != Vector3.zero && !Grounded)
-            {
-                if (input.z > 0 && Camera.main.transform.forward.y < -.3f)
-                {
-                    Player.Rigibody.AddForce(Vector3.down * Player.Data.jumpForce, ForceMode.Impulse);
-                } else
-                {
-                    Player.Rigibody.AddForce((input + transform.up).normalized * Player.Data.jumpForce, ForceMode.Impulse);
-                }
-            } else
-            {
-                Player.Rigibody.AddForce(transform.up * Player.Data.jumpForce, ForceMode.Impulse);
-            }
+            Player.Rigibody.AddForce(transform.up * Player.Data.jumpForce, ForceMode.Impulse);
             Invoke(nameof(ResetJump), Player.Data.jumpCooldown);
             Player.Animator.SetTrigger("Jump");
             Player.Animator.SetBool("Grounded", false);
             Player.SoundData.SFX_Hunter_Jump.Post(Player.gameObject);
             Player.SparksVFX.SendEvent("Jump");
-            DataHolder.Instance.RumbleManager.PulseFor(5f, 5f, .1f);
         }
     }
 
@@ -178,47 +161,11 @@ public class PlayerMovement : MonoBehaviour
     private void SpeedControl()
     {
         if (Player.PlayerDash.IsDashing || Player.PlayerAttack.IsGrappling) return;
-        if (!Player.PlayerSwingingLeft.IsSwinging && !Player.PlayerSwingingRight.IsSwinging)
+        Vector3 flatVel = new Vector3(Player.Rigibody.velocity.x, 0f, Player.Rigibody.velocity.z);
+        if (flatVel.magnitude > CurrentMoveSpeed) // limit velocity if needed
         {
-            if (Grounded) return;
-            Vector3 flatVel = new Vector3(Player.Rigibody.velocity.x, 0f, Player.Rigibody.velocity.z);
-            if (flatVel.magnitude > Player.Data.maxSpeedInAir) // limit velocity if needed
-            {
-                Vector3 limitedVel = flatVel.normalized * Player.Data.maxSpeedInAir * Time.deltaTime * 60;
-                //Debug.Log(limitedVel.x + limitedVel.z);
-                Player.Rigibody.velocity = new Vector3(limitedVel.x, Player.Rigibody.velocity.y, limitedVel.z);
-            }
-
+            Vector3 limitedVel = flatVel.normalized * CurrentMoveSpeed;
+            Player.Rigibody.velocity = new Vector3(limitedVel.x, Player.Rigibody.velocity.y, limitedVel.z);
         }
-        else
-        {
-            Vector3 flatVel = new Vector3(Player.Rigibody.velocity.x, 0f, Player.Rigibody.velocity.z);
-            if (flatVel.magnitude > CurrentMoveSpeed) // limit velocity if needed
-            {
-                Vector3 limitedVel = flatVel.normalized * CurrentMoveSpeed * Time.deltaTime * 60;
-                //Debug.Log(limitedVel.x + limitedVel.z);
-                Player.Rigibody.velocity = new Vector3(limitedVel.x, Player.Rigibody.velocity.y, limitedVel.z);
-            }
-        }
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        //WALL JUMP
-        if (!Grounded && collision.contacts[0].normal.y < 0.1f && collision.contacts[0].normal.y > -0.5f)
-        {
-            //Debug.DrawRay(collision.contacts[0].point, collision.contacts[0].normal * 5, Color.red, 15f);
-            WallJump(collision.contacts[0].normal);
-        }
-    }
-
-    public void WallJump(Vector3 wallNormal)
-    {
-        CanJumpOnceInAir = true;
-        Player.Rigibody.velocity = new Vector3(Player.Rigibody.velocity.x, Mathf.Max(Player.Rigibody.velocity.y, 0), Player.Rigibody.velocity.z);
-        Player.Rigibody.AddForce(transform.up * Player.Data.jumpForce + wallNormal * Player.Data.jumpForce, ForceMode.Impulse);
-        Player.SoundData.SFX_Hunter_Jump.Post(Player.gameObject);
-        Player.SparksVFX.SendEvent("Jump");
-        DataHolder.Instance.RumbleManager.PulseFor(5f, 5f, .1f);
     }
 }
