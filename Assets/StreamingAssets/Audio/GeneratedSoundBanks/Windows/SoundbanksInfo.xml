@@ -9,7 +9,7 @@
 	</RootPaths>
 	<DialogueEvents/>
 	<SoundBanks>
-		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{81069DDA-C1AE-9F6D-56FE-A0471DCAB448}">
+		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{D4C78C1F-5B01-4A23-9AB2-13BA3AF1C637}">
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 			<Plugins>
@@ -46,16 +46,16 @@
 				</AuxBus>
 			</AuxBusses>
 			<GameParameters>
-				<GameParameter Id="640949982" Name="Speed"/>
-				<GameParameter Id="681025064" Name="Depth"/>
 				<GameParameter Id="822163944" Name="SS_Air_RPM"/>
 				<GameParameter Id="1029930033" Name="SS_Air_Fury"/>
 				<GameParameter Id="1351367891" Name="SS_Air_Fear"/>
+				<GameParameter Id="1381474336" Name="RTPC_Speed"/>
 				<GameParameter Id="2648548617" Name="SS_Air_Month"/>
 				<GameParameter Id="3002758120" Name="SS_Air_Freefall"/>
 				<GameParameter Id="3074696722" Name="SS_Air_Size"/>
 				<GameParameter Id="3203397129" Name="SS_Air_TimeOfDay"/>
 				<GameParameter Id="3223843150" Name="Volume_AMB"/>
+				<GameParameter Id="3273125198" Name="RTPC_Depth"/>
 				<GameParameter Id="3673881719" Name="Volume_SFX"/>
 				<GameParameter Id="3695994288" Name="Volume_Master"/>
 				<GameParameter Id="3715662592" Name="SS_Air_Storm"/>
@@ -193,7 +193,7 @@
 				</AcousticTexture>
 			</AcousticTextures>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{402B9FBF-89DF-3A84-5BEA-DE35E1FA5EA5}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{F577D3CC-7D20-780D-3E39-A6BF019A2978}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
@@ -649,10 +649,10 @@
 				</Event>
 			</Events>
 			<GameParameters>
-				<GameParameter Id="640949982" Name="Speed"/>
-				<GameParameter Id="681025064" Name="Depth"/>
+				<GameParameter Id="1381474336" Name="RTPC_Speed"/>
+				<GameParameter Id="3273125198" Name="RTPC_Depth"/>
 			</GameParameters>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{99BF767A-B06C-6D9D-5C90-455075E21F62}</FileHash>
+	<FileHash>{86CE000E-6E15-9AEB-E1B4-D7F63AC3BEB5}</FileHash>
 </SoundBanksInfo>
