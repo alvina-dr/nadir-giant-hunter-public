@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 4370.055, g: 4334.1997, b: 4025.1782, a: 1}
+  m_IndirectSpecularColor: {r: 3921.9185, g: 2756.6292, b: 2284.9573, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -13746,6 +13746,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1028275757}
     m_Modifications:
+    - target: {fileID: 1739144824126332758, guid: 13914760e10fca94e9866091414c6649,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1739144824126332758, guid: 13914760e10fca94e9866091414c6649,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Name
+      value: effect strength
+      objectReference: {fileID: 0}
+    - target: {fileID: 1739144824126332758, guid: 13914760e10fca94e9866091414c6649,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1739144824126332758, guid: 13914760e10fca94e9866091414c6649,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Overridden
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2430428524241029713, guid: 13914760e10fca94e9866091414c6649,
         type: 3}
       propertyPath: m_Name
