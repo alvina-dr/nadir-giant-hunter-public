@@ -52,7 +52,8 @@ public class GPCtrl : MonoBehaviour
     private void Update()
     {
         if (GameOver) return;
-        Timer += Time.deltaTime;
+        if (Pause) return;
+        Timer += Time.unscaledDeltaTime;
         double timerText = Math.Round(GPCtrl.Instance.Timer, 2, MidpointRounding.AwayFromZero);
         UICtrl.TimerText.text = timerText.ToString();
     }
