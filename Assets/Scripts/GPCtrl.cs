@@ -25,7 +25,6 @@ public class GPCtrl : MonoBehaviour
             TargetableSpotList = FindObjectsByType<TargetableSpot>(FindObjectsSortMode.InstanceID).ToList();
         }
     }
-
     #endregion
 
     public GeneralData GeneralData;
@@ -44,13 +43,16 @@ public class GPCtrl : MonoBehaviour
     public float Timer;
     [ReadOnly]
     public bool Pause = false;
+    public bool GameOver = false;
     public bool DashPause = false;
     public CustomPassVolume reliefFX;
     public int NumEnemyKilled = 0;
 
     private void Update()
     {
-        Timer += Time.deltaTime;
+        if (GameOver) return;
+        if (Pause) return;
+        Timer += Time.unscaledDeltaTime;
         double timerText = Math.Round(GPCtrl.Instance.Timer, 2, MidpointRounding.AwayFromZero);
         UICtrl.TimerText.text = timerText.ToString();
     }
@@ -58,11 +60,13 @@ public class GPCtrl : MonoBehaviour
     public void Win()
     {
         Debug.Log("WIN");
+        GameOver = true;
         UICtrl.OpenEndGameMenu(true);
     }
 
     public void Loose(EnemyMovement enemy = null)
     {
+        GameOver = true;
         Player.SoundData.SFX_Hunter_Death.Post(Player.gameObject);
         UICtrl.OpenEndGameMenu(false);
         if (enemy != null)
@@ -101,5 +105,14 @@ public class GPCtrl : MonoBehaviour
         }
         Debug.LogError("Custom error : No full screen pass material found in post process.");
         return null;
+    }
+
+    private void OnDestroy()
+    {
+        Material material = GetPostProcessMaterial();
+        if (material != null)
+        {
+            material.SetFloat("_strength", 0);
+        }
     }
 }

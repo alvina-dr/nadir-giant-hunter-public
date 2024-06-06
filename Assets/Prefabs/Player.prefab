@@ -701,7 +701,16 @@ MonoBehaviour:
   Collider: {fileID: 2380919973635274701}
   DestructionFX: {fileID: 7777113827547786453}
   currentTimerPitBottom: 0
-  _playerInput: {fileID: 2589262748017379381}
+  PlayerInput: {fileID: 2589262748017379381}
+  MoveAction:
+    m_Name: Move
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 6254c29d-fbec-48fb-8b2b-342125449339
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
   CameraConeRaycastParent: {fileID: 0}
   CameraRightConeRaycast: {fileID: 0}
   CameraLeftConeRaycast: {fileID: 0}
@@ -1725,7 +1734,7 @@ Cloth:
   m_CollisionMassScale: 4.31
   m_UseContinuousCollision: 1
   m_UseVirtualParticles: 1
-  m_SolverFrequency: 600
+  m_SolverFrequency: 240
   m_SleepThreshold: 12.63
   m_Coefficients:
   - maxDistance: 0

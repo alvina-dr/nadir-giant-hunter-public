@@ -25,6 +25,7 @@ MonoBehaviour:
   timeBeforeLookingDownAnim: 0.3
   speedDivisionFactorVFX: 5
   maxSpeedInAir: 600
+  speedEffectMin: 300
   swingSpeed: 50
   swingMaxSpeed: 350
   SwingSpeedLengthMult: 0.003
@@ -36,7 +37,7 @@ MonoBehaviour:
   startCurveSpeedBoost: 10
   endCurveSpeedBoost: 50
   radiusDetectionIncreaseSpeed: 1000
-  MaxSwingAngle: 0.1
+  MaxSwingAngle: -0.5
   maxYForceOnRelease: 500
   coneRaycastOnPlayer: 0
   airSlowDown: 500
@@ -44,12 +45,12 @@ MonoBehaviour:
   attackStopDistance: 5
   dragForce: 100
   weakSpotDetectionDistance: 500
-  weakSpotReboundForce: 300
+  weakSpotReboundForce: 500
   doubleSwingBoost: 500
   doubleSwingLineRendererDuration: 0.1
   dashForce: 1500
-  slowDownTime: 0.01
-  timeBeforeAutomaticDash: 1000
+  slowDownTime: 0
+  timeBeforeAutomaticDash: 10000
   dashTime: 1
   bumpForce: 1100
   startCurveBoost: 1

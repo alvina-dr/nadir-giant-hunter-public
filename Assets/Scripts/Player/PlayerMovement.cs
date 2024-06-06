@@ -44,7 +44,7 @@ public class PlayerMovement : MonoBehaviour
         Material postProcess = GPCtrl.Instance.GetPostProcessMaterial();
         if (postProcess != null )
         {
-            float speed = (Player.Rigibody.velocity.magnitude - 150) / 100;
+            float speed = (Player.Rigibody.velocity.magnitude - Player.Data.speedEffectMin) / 100;
             if (speed < 0) speed = 0;
             float lerp = Mathf.Lerp(postProcess.GetFloat("_bypass_Input_Velocity_Factor"), speed, 0.1f);
             postProcess.SetFloat("_bypass_Input_Velocity_Factor", lerp);
@@ -62,8 +62,8 @@ public class PlayerMovement : MonoBehaviour
         }
 
         Grounded = Physics.Raycast(transform.position, Vector3.down, Player.Data.charaHeight * 0.5f + 0.3f, WhatIsGround);
-        _horizontalInput = Player.InputManager.Gameplay.Move.ReadValue<Vector2>().x;
-        _verticalInput = Player.InputManager.Gameplay.Move.ReadValue<Vector2>().y;
+        _horizontalInput = Player.PlayerInput.actions["Move"].ReadValue<Vector2>().x;
+        _verticalInput = Player.PlayerInput.actions["Move"].ReadValue<Vector2>().y;
         if (Player.PlayerAttack.IsGrappling || Player.PlayerDash.IsDashing || GPCtrl.Instance.Pause || GPCtrl.Instance.DashPause)
         {
             _horizontalInput = 0;

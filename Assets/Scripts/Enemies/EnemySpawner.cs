@@ -40,7 +40,7 @@ public class EnemySpawner : MonoBehaviour
     {
         if (EnemyList.Count > 0)
         {
-            GPCtrl.Instance.UICtrl.MonsterHighIndicator.ShowIndicatorAt(EnemyList[0].transform.position);
+            GPCtrl.Instance.UICtrl.MonsterHighIndicator.ShowIndicatorAt(EnemyList[0].EnemyWeakSpotManagement.WeakSpotList[0].transform.position);
         }
     }
 
