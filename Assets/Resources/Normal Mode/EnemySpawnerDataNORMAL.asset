@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 83430b9cec0e9484fb7d72799361fa39, type: 3}
-  m_Name: EnemySpawnerData
+  m_Name: EnemySpawnerDataNORMAL
   m_EditorClassIdentifier: 
   EnemyPrefab: {fileID: 6621249812686024313, guid: 37fcea3c9f56e5e45b2f440ccd893f1a,
     type: 3}
@@ -19,12 +19,12 @@ MonoBehaviour:
     MaxEnemiesSpawned: 2
     SpawnCoolDown: 0
     DoSpawnOnlyOnePerLine: 1
-  - TimerStart: 60
+  - TimerStart: 120
     MaxEnemiesSpawned: 3
     SpawnCoolDown: 0
     DoSpawnOnlyOnePerLine: 1
-  - TimerStart: 120
+  - TimerStart: 240
     MaxEnemiesSpawned: 4
     SpawnCoolDown: 0
-    DoSpawnOnlyOnePerLine: 0
-  NumTotalEnemy: 30
+    DoSpawnOnlyOnePerLine: 1
+  NumTotalEnemy: 50
