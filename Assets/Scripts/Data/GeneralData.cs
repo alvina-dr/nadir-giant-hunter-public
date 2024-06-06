@@ -15,6 +15,9 @@ public class GeneralData : ScriptableObject
     public float yHeightPitWarning;
     public float yHeightPitBottom;
 
+    [Header("Optimisation")]
+    public int ConeRaycastFrameUpdate;
+
     [Header("DEBUG")]
     public bool debugBouncingGround;
 }
