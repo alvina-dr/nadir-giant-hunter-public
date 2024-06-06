@@ -25,7 +25,6 @@ public class GPCtrl : MonoBehaviour
             TargetableSpotList = FindObjectsByType<TargetableSpot>(FindObjectsSortMode.InstanceID).ToList();
         }
     }
-
     #endregion
 
     public GeneralData GeneralData;
