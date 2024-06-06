@@ -59,6 +59,7 @@ public class TargetableSpot : MonoBehaviour
                 GPCtrl.Instance.TargetableSpotList.Remove(this);
                 Material material = GPCtrl.Instance.GetPostProcessMaterial();
                 material.DOFloat(1f, "_strength", .2f).SetUpdate(true);
+                VisualFX.SetFloat("effect strength", 0);
                 GPCtrl.Instance.Player.SoundData.SFX_Hunter_Dash_Trigger.Post(GPCtrl.Instance.Player.gameObject);
                 break;
             case SpotType.Bumper:
@@ -85,6 +86,7 @@ public class TargetableSpot : MonoBehaviour
     {
         yield return new WaitForSeconds(GPCtrl.Instance.GeneralData.dashSpotReloadTime);
         GPCtrl.Instance.TargetableSpotList.Add(this);
+        VisualFX.SetFloat("effect strength", 1f);
         VisualFX.SendEvent("OnPlay");
     }
 

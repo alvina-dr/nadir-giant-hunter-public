@@ -9,7 +9,7 @@
 	</RootPaths>
 	<DialogueEvents/>
 	<SoundBanks>
-		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{81069DDA-C1AE-9F6D-56FE-A0471DCAB448}">
+		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{D4C78C1F-5B01-4A23-9AB2-13BA3AF1C637}">
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 			<Plugins>
@@ -46,16 +46,16 @@
 				</AuxBus>
 			</AuxBusses>
 			<GameParameters>
-				<GameParameter Id="640949982" Name="Speed"/>
-				<GameParameter Id="681025064" Name="Depth"/>
 				<GameParameter Id="822163944" Name="SS_Air_RPM"/>
 				<GameParameter Id="1029930033" Name="SS_Air_Fury"/>
 				<GameParameter Id="1351367891" Name="SS_Air_Fear"/>
+				<GameParameter Id="1381474336" Name="RTPC_Speed"/>
 				<GameParameter Id="2648548617" Name="SS_Air_Month"/>
 				<GameParameter Id="3002758120" Name="SS_Air_Freefall"/>
 				<GameParameter Id="3074696722" Name="SS_Air_Size"/>
 				<GameParameter Id="3203397129" Name="SS_Air_TimeOfDay"/>
 				<GameParameter Id="3223843150" Name="Volume_AMB"/>
+				<GameParameter Id="3273125198" Name="RTPC_Depth"/>
 				<GameParameter Id="3673881719" Name="Volume_SFX"/>
 				<GameParameter Id="3695994288" Name="Volume_Master"/>
 				<GameParameter Id="3715662592" Name="SS_Air_Storm"/>
@@ -193,7 +193,7 @@
 				</AcousticTexture>
 			</AcousticTextures>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{9DCFEA81-8141-2961-675B-852F39988443}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{F577D3CC-7D20-780D-3E39-A6BF019A2978}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
@@ -215,15 +215,23 @@
 				</File>
 				<File Id="81940875" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Monster Within - Bearer - attack_grab_vox - Pitch 42.wav</ShortName>
-					<CachePath>SFX/Monster Within - Bearer - attack_grab_vox - Pitch 42_B2DF1727.wem</CachePath>
+					<CachePath>SFX/Monster Within - Bearer - attack_grab_vox - Pitch 42_1833DE54.wem</CachePath>
 				</File>
 				<File Id="97425483" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>SFX_Hunter_Death_01.wav</ShortName>
 					<CachePath>SFX/SFX_Hunter_Death_01_818F3B66.wem</CachePath>
 				</File>
+				<File Id="106104104" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>SFX_Hunter_Bumper_Trigger_03.wav</ShortName>
+					<CachePath>SFX/SFX_Hunter_Bumper_Trigger_03_818F3B66.wem</CachePath>
+				</File>
 				<File Id="123268208" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>AMB_Rift_Bed_High.wav</ShortName>
 					<CachePath>SFX/AMB_Rift_Bed_High_FBC78EF0.wem</CachePath>
+				</File>
+				<File Id="124955634" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>SFX_Hunter_Attack_A_04.wav</ShortName>
+					<CachePath>SFX/SFX_Hunter_Attack_A_04_818F3B66.wem</CachePath>
 				</File>
 				<File Id="155669719" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>SFX_Hunter_Dash_Release.wav</ShortName>
@@ -249,9 +257,9 @@
 					<ShortName>AMB_DeathZone_Enter.wav</ShortName>
 					<CachePath>SFX/AMB_DeathZone_Enter_818F3B66.wem</CachePath>
 				</File>
-				<File Id="231358445" Language="SFX" Streaming="false" Location="Memory">
-					<ShortName>Cartoon, Boing, Jump, Spring SND11765.wav</ShortName>
-					<CachePath>SFX/Cartoon, Boing, Jump, Spring SND11765_818F3B66.wem</CachePath>
+				<File Id="224828170" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>SFX_Hunter_Attack_A_03.wav</ShortName>
+					<CachePath>SFX/SFX_Hunter_Attack_A_03_818F3B66.wem</CachePath>
 				</File>
 				<File Id="246383415" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>UI_General_GoBack.wav</ShortName>
@@ -277,6 +285,10 @@
 					<ShortName>SFX_Hunter_Grapple_Trigger_1.wav</ShortName>
 					<CachePath>SFX/SFX_Hunter_Grapple_Trigger_1_818F3B66.wem</CachePath>
 				</File>
+				<File Id="421721158" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>SFX_Hunter_Attack_A_05.wav</ShortName>
+					<CachePath>SFX/SFX_Hunter_Attack_A_05_818F3B66.wem</CachePath>
+				</File>
 				<File Id="450849102" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>AMB_Dash.wav</ShortName>
 					<CachePath>SFX/AMB_Dash_FBC78EF0.wem</CachePath>
@@ -293,9 +305,17 @@
 					<ShortName>UI_General_Click.wav</ShortName>
 					<CachePath>SFX/UI_General_Click_818F3B66.wem</CachePath>
 				</File>
+				<File Id="570129085" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>SFX_Hunter_Bumper_Trigger_04.wav</ShortName>
+					<CachePath>SFX/SFX_Hunter_Bumper_Trigger_04_818F3B66.wem</CachePath>
+				</File>
 				<File Id="572398160" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>AMB_Slowmo.wav</ShortName>
 					<CachePath>SFX/AMB_Slowmo_818F3B66.wem</CachePath>
+				</File>
+				<File Id="573571160" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>SFX_Hunter_Bumper_Trigger_01.wav</ShortName>
+					<CachePath>SFX/SFX_Hunter_Bumper_Trigger_01_818F3B66.wem</CachePath>
 				</File>
 				<File Id="600920398" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Cloth, Handle, Jacket, Leather, Foley, Movement, Shaking SND60047.wav</ShortName>
@@ -304,6 +324,22 @@
 				<File Id="606123432" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>SFX_Hunter_Attack_Rush.wav</ShortName>
 					<CachePath>SFX/SFX_Hunter_Attack_Rush_818F3B66.wem</CachePath>
+				</File>
+				<File Id="621668147" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>SFX_Hunter_Attack_A_06.wav</ShortName>
+					<CachePath>SFX/SFX_Hunter_Attack_A_06_818F3B66.wem</CachePath>
+				</File>
+				<File Id="627464470" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>SFX_Hunter_Bumper_Trigger_02.wav</ShortName>
+					<CachePath>SFX/SFX_Hunter_Bumper_Trigger_02_818F3B66.wem</CachePath>
+				</File>
+				<File Id="628261641" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>SFX_Hunter_Attack_A_02.wav</ShortName>
+					<CachePath>SFX/SFX_Hunter_Attack_A_02_818F3B66.wem</CachePath>
+				</File>
+				<File Id="629378330" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>SFX_Hunter_Attack_A_01.wav</ShortName>
+					<CachePath>SFX/SFX_Hunter_Attack_A_01_818F3B66.wem</CachePath>
 				</File>
 				<File Id="649477524" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>AMB_Bumper.wav</ShortName>
@@ -340,10 +376,6 @@
 				<File Id="826332131" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>SFX_Hunter_Grapple_Trigger_2.wav</ShortName>
 					<CachePath>SFX/SFX_Hunter_Grapple_Trigger_2_818F3B66.wem</CachePath>
-				</File>
-				<File Id="878833675" Language="SFX" Streaming="false" Location="Memory">
-					<ShortName>SFX_Giant_Hit_ByPlayer.wav</ShortName>
-					<CachePath>SFX/SFX_Giant_Hit_ByPlayer_818F3B66.wem</CachePath>
 				</File>
 				<File Id="961482243" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>UI_Gameplay_Timer_Critical.wav</ShortName>
@@ -399,18 +431,26 @@
 						<MediaRef Id="572398160"/>
 					</MediaRefs>
 				</Event>
-				<Event Id="3711688498" Name="Play_SFX_Bumper_Trigger" DurationType="OneShot" DurationMin="0.9789792" DurationMax="0.9789792">
+				<Event Id="3711688498" Name="Play_SFX_Bumper_Trigger" DurationType="OneShot" DurationMin="2.9719453" DurationMax="3.7444165">
 					<MediaRefs>
-						<MediaRef Id="231358445"/>
+						<MediaRef Id="106104104"/>
+						<MediaRef Id="570129085"/>
+						<MediaRef Id="573571160"/>
+						<MediaRef Id="627464470"/>
 					</MediaRefs>
 					<AuxBusRefs>
 						<AuxBusRef Id="2518605955" Name="RVB_Up"/>
 						<AuxBusRef Id="4116390784" Name="RVB_Down"/>
 					</AuxBusRefs>
 				</Event>
-				<Event Id="981365070" Name="Play_SFX_Giant_Hit_ByPlayer" DurationType="OneShot" DurationMin="3" DurationMax="3">
+				<Event Id="981365070" Name="Play_SFX_Giant_Hit_ByPlayer" DurationType="OneShot" DurationMin="1.9679569" DurationMax="2.4794703">
 					<MediaRefs>
-						<MediaRef Id="878833675"/>
+						<MediaRef Id="124955634"/>
+						<MediaRef Id="224828170"/>
+						<MediaRef Id="421721158"/>
+						<MediaRef Id="621668147"/>
+						<MediaRef Id="628261641"/>
+						<MediaRef Id="629378330"/>
 					</MediaRefs>
 					<AuxBusRefs>
 						<AuxBusRef Id="2518605955" Name="RVB_Up"/>
@@ -482,7 +522,7 @@
 						<AuxBusRef Id="4116390784" Name="RVB_Down"/>
 					</AuxBusRefs>
 				</Event>
-				<Event Id="632899503" Name="Play_SFX_Hunter_Death" DurationType="OneShot" DurationMin="0" DurationMax="0">
+				<Event Id="632899503" Name="Play_SFX_Hunter_Death" DurationType="OneShot" DurationMin="1.8415625" DurationMax="2.1920626">
 					<MediaRefs>
 						<MediaRef Id="97425483"/>
 						<MediaRef Id="253426672"/>
@@ -609,10 +649,10 @@
 				</Event>
 			</Events>
 			<GameParameters>
-				<GameParameter Id="640949982" Name="Speed"/>
-				<GameParameter Id="681025064" Name="Depth"/>
+				<GameParameter Id="1381474336" Name="RTPC_Speed"/>
+				<GameParameter Id="3273125198" Name="RTPC_Depth"/>
 			</GameParameters>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{611ABE8E-8306-2FDA-09E7-E64E560DBB69}</FileHash>
+	<FileHash>{86CE000E-6E15-9AEB-E1B4-D7F63AC3BEB5}</FileHash>
 </SoundBanksInfo>
