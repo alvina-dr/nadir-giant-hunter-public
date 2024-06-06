@@ -107,4 +107,13 @@ public class GPCtrl : MonoBehaviour
         Debug.LogError("Custom error : No full screen pass material found in post process.");
         return null;
     }
+
+    private void OnDestroy()
+    {
+        Material material = GetPostProcessMaterial();
+        if (material != null)
+        {
+            material.SetFloat("_strength", 0);
+        }
+    }
 }
