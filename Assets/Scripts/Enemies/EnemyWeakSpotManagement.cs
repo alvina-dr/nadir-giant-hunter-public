@@ -31,6 +31,7 @@ public class EnemyWeakSpotManagement : MonoBehaviour
 
     public void Damage(TargetableSpot weakSpot)
     {
+        weakSpot.transform.parent = null;
         WeakSpotList.Remove(weakSpot);
         if (WeakSpotList.Count == 0)
         {

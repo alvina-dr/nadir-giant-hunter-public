@@ -8,7 +8,7 @@ using DG.Tweening;
 using TMPro;
 using AK.Wwise;
 
-public class UI_Button : MonoBehaviour, ISelectHandler, IDeselectHandler
+public class UI_Button : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] private TextMeshProUGUI _textMeshProUGUI;
     [SerializeField] private Image _image;
@@ -39,5 +39,15 @@ public class UI_Button : MonoBehaviour, ISelectHandler, IDeselectHandler
     private void OnClick()
     {
         _sfxClick.Post(DataHolder.Instance.gameObject);
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        OnSelect(eventData);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        OnDeselect(eventData);
     }
 }
