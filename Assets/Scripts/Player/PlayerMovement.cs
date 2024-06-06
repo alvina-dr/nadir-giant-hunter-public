@@ -44,7 +44,7 @@ public class PlayerMovement : MonoBehaviour
         Material postProcess = GPCtrl.Instance.GetPostProcessMaterial();
         if (postProcess != null )
         {
-            float speed = (Player.Rigibody.velocity.magnitude - 150) / 100;
+            float speed = (Player.Rigibody.velocity.magnitude - Player.Data.speedEffectMin) / 100;
             if (speed < 0) speed = 0;
             float lerp = Mathf.Lerp(postProcess.GetFloat("_bypass_Input_Velocity_Factor"), speed, 0.1f);
             postProcess.SetFloat("_bypass_Input_Velocity_Factor", lerp);

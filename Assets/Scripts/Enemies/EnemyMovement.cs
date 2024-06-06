@@ -9,6 +9,8 @@ public class EnemyMovement : MonoBehaviour
     public EnemyData Data;
     [TitleGroup("Components")]
     public Transform toGo;
+    [TitleGroup("Components")]
+    public EnemyWeakSpotManagement EnemyWeakSpotManagement;
 
     [TitleGroup("Parameters")]
     public LayerMask GroundLayer;

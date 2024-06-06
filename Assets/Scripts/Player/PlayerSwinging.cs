@@ -90,16 +90,18 @@ public class PlayerSwinging : MonoBehaviour
 
         CalculateBestSwingingPoint();
 
-        if (_bestSwingPoint != Vector3.zero)
+        if (_bestSwingPoint != Vector3.zero && !IsSwinging)
         {
             if (_side == Side.Left)
             {
                 GPCtrl.Instance.UICtrl.SwingLeftIndicator.ShowIndicatorAt(_bestSwingPoint);
-            } else
+            }
+            else
             {
                 GPCtrl.Instance.UICtrl.SwingRightIndicator.ShowIndicatorAt(_bestSwingPoint);
             }
-        } else
+        }
+        else
         {
             if (_side == Side.Left)
             {

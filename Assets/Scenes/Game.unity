@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 4635.2817, g: 4818.8696, b: 4734.231, a: 1}
+  m_IndirectSpecularColor: {r: 4370.055, g: 4334.1997, b: 4025.1782, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -9742,8 +9742,8 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
---- !u!4 &439016733
   m_IsActive: 0
+--- !u!4 &439016733
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -47195,6 +47195,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RumbleManager: {fileID: 1780111237}
+  _sfxGoBack:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
 --- !u!4 &1780111239
 Transform:
   m_ObjectHideFlags: 0
@@ -57296,7 +57300,7 @@ PrefabInstance:
     - target: {fileID: 2314835390014168199, guid: 8fc895de432ed764c8de29a2e3b805bb,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 2314835390014168199, guid: 8fc895de432ed764c8de29a2e3b805bb,
         type: 3}
@@ -58701,7 +58705,7 @@ PrefabInstance:
     - target: {fileID: 6195198491409396999, guid: 8fc895de432ed764c8de29a2e3b805bb,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 6195198491409396999, guid: 8fc895de432ed764c8de29a2e3b805bb,
         type: 3}
@@ -59251,7 +59255,7 @@ PrefabInstance:
     - target: {fileID: 8024589707599560899, guid: 8fc895de432ed764c8de29a2e3b805bb,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 8024589707599560899, guid: 8fc895de432ed764c8de29a2e3b805bb,
         type: 3}
@@ -96866,3 +96870,4 @@ SceneRoots:
   - {fileID: 748199803}
   - {fileID: 400863041}
   - {fileID: 4224808183987975544}
+  - {fileID: 1780111239}
