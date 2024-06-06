@@ -40,6 +40,12 @@ public class UI_MainMenu : MonoBehaviour
         SceneManager.LoadScene("Game");
     }
 
+    public void StartGameWithTuto()
+    {
+        _sfxStartGame.Post(DataHolder.Instance.gameObject);
+        SceneManager.LoadScene("Tutoriel");
+    }
+
     public void QuitGame()
     {
         Application.Quit();
