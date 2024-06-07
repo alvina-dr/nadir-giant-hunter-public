@@ -93,6 +93,7 @@ namespace Enemies
 
         private void LateUpdate()
         {
+            /*Profiler.BeginSample("TentacleScaleLateUpd");
             CurrentFrame++;
             if (CurrentFrame < FrameEco)
             {
@@ -110,6 +111,9 @@ namespace Enemies
             RotationDelta = 0;
             MatParameterDelta = 0;
             MatColorDelta = 0;
+
+            
+            Profiler.EndSample();*/
         }
 
         public void AddGlobalDelta(float delta)

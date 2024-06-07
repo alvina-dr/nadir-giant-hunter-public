@@ -3,9 +3,14 @@ using Sirenix.OdinInspector;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst;
+using Unity.Collections;
+using Unity.Jobs;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
+using UnityEngine.Profiling;
 using UnityEngine.UIElements;
 using static ak.wwise.core;
 
@@ -24,7 +29,7 @@ namespace Enemies
         public bool isAnimationReverse;
         public bool DoAnimationLoop;
         public bool DoAnimationOnStart;
-        [ReadOnly]
+        [Sirenix.OdinInspector.ReadOnly]
         public bool IsAnimating;
     }
 
@@ -47,7 +52,8 @@ namespace Enemies
         public GameObject StartTentacleScale;
         public GameObject EndTentacleScale;
         private ChainIKConstraint TentacleIKConstraint;
-        private TentacleScale [] tentacleScales;
+        [HideInInspector]
+        public TentacleScale[] tentacleScales;
         private Rigidbody[] rigidbodies;
 
         [TabGroup("Parameters")]
@@ -87,6 +93,11 @@ namespace Enemies
         {
             deltaGrounded = leg.GroundedDelta;
             SendTentacleScaleAnimData();
+        }
+
+        private void LateUpdate()
+        {
+
         }
 
         #region TentacleGeneration
@@ -225,6 +236,10 @@ namespace Enemies
                 }
             }
         }
+
+        
+
+
 
         public void StartAnimationsOnStart()
         {

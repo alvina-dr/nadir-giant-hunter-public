@@ -13,6 +13,8 @@ namespace Enemies
         [TabGroup("Components")]
         public Transform TentacleParent;
         private IKHarmAnimation _iKHarmAnimation;
+        [ReadOnly]
+        public List<Tentacle> Tentacles = new List<Tentacle>();
 
         [TabGroup("Parameters"), Tooltip("Need to be even")]
         public int LegNumber;
@@ -83,6 +85,7 @@ namespace Enemies
                 tentacle.GenerateTentacle();
                 tentacle.SetupIKConstraint();
                 //tentacle.SetupRagDoll();
+                Tentacles.Add(tentacle);
             }
             for (int i = 0; i < ToOrganize.Length; i++)
             {
@@ -97,6 +100,7 @@ namespace Enemies
             if (!_iKHarmAnimation)
                 _iKHarmAnimation = GetComponent<IKHarmAnimation>();
             _iKHarmAnimation.ResetLegs();
+            Tentacles.Clear();
             int count = TentacleParent.childCount;
             for (int i = 0; i < count; i++)
             {

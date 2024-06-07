@@ -9,6 +9,7 @@ using static ak.wwise.core;
 using UnityEngine.UIElements;
 using UnityEditor;
 using NUnit.Framework.Internal;
+using UnityEngine.Profiling;
 
 namespace Enemies
 {
@@ -176,6 +177,7 @@ namespace Enemies
         // Update is called once per frame
         void Update()
         {
+            Profiler.BeginSample("IKAnimUpdate");
             _up = transform.forward * _localUp.z + transform.right * _localUp.x + transform.up * _localUp.y;
             for (int i = 0; i < _iksLegPairs.Count; i++)
             {
@@ -208,6 +210,7 @@ namespace Enemies
                 }
             }
             CheckEachIkDistances();
+            Profiler.EndSample();
         }
 
         private void LateUpdate()
