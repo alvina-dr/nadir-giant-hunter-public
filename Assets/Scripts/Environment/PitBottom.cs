@@ -12,6 +12,11 @@ public class PitBottom : MonoBehaviour
         if (player != null)
         {
             player.currentTimerPitBottom += Time.deltaTime;
+            Material postProcess = GPCtrl.Instance.GetPostProcessMaterial();
+            if (postProcess != null)
+            {
+                postProcess.SetFloat("_Hit_by_Abyss_Time", player.currentTimerPitBottom / GPCtrl.Instance.GeneralData.pitBottomDeathTime);
+            }
             if (player.currentTimerPitBottom > GPCtrl.Instance.GeneralData.pitBottomDeathTime)
             {
                 if (GPCtrl.Instance.GeneralData.debugBouncingGround)
