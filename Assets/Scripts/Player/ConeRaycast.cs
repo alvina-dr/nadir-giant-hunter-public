@@ -23,13 +23,20 @@ public class ConeRaycast : MonoBehaviour
     public float CurrentRadius;
     [SerializeField] private int _anglePrecision;
     [SerializeField] int _radiusPrecision;
+    private int frameCounter;
 
     private void Update()
     {
-        contactPointList.Clear();
+        frameCounter++;
+        if (frameCounter == _radiusPrecision) {
+            contactPointList.Clear();
+            frameCounter = 0;
+        }
+        //Debug.Log("frame : " + frameCounter);
         float radius;
         for (int j = 0; j < _radiusPrecision; j++)
         {
+            if (frameCounter != j) return;
             radius = (MaxRadius - MinRadius) * (j / (float) _radiusPrecision) + MinRadius;
             for (int i = 0; i < _anglePrecision; i++)
             {
