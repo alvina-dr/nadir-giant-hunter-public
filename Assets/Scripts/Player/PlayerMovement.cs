@@ -52,6 +52,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         AkSoundEngine.SetRTPCValue("RTPC_Speed", _CurrentSpeed);
+        AkSoundEngine.SetRTPCValue("RTPC_Depth", transform.position.y);
 
         if (transform.position.y < GPCtrl.Instance.GeneralData.yHeightPitBottom)
         {
