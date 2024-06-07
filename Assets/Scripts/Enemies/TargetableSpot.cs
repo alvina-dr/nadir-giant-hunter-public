@@ -26,6 +26,7 @@ public class TargetableSpot : MonoBehaviour
 
     public void DestroyWeakSpot()
     {
+        Material postprocess = GPCtrl.Instance.GetPostProcessMaterial();
         switch (SpotCurrentType)
         {
             case SpotType.WeakSpot:
@@ -33,6 +34,7 @@ public class TargetableSpot : MonoBehaviour
                 {
                     if (GPCtrl.Instance.Pause) return;
                     Time.timeScale = 1;
+                    if (postprocess != null) postprocess.SetFloat("_Timefactor_Hitframe_Attack_Weakspot", Time.deltaTime);
                 }).SetUpdate(true);
                 if (Enemy != null)
                 {
@@ -43,7 +45,6 @@ public class TargetableSpot : MonoBehaviour
                 VisualFX.SendEvent("Destroy");
                 VisualFX.SetBool("kill tentacles", true);
                 //VisualFX.SetFloat("lerp from 0 to 1 during attack dash", 0);
-
                 DOVirtual.Float(1f, 0, .3f, v =>
                 {
                     VisualFX.SetFloat("lerp from 0 to 1 during attack dash", v);
@@ -59,6 +60,8 @@ public class TargetableSpot : MonoBehaviour
             case SpotType.DashSpot:
                 GPCtrl.Instance.DashPause = true;
                 Time.timeScale = GPCtrl.Instance.Player.Data.slowDownTime;
+                if (postprocess != null) postprocess.SetFloat("_Timefactor_Hitframe_Attack_Dashspot", 1);
+                if (postprocess != null) postprocess.SetFloat("_Timefactor_Hitframe_Input_Dashspot", Time.deltaTime);
                 StartCoroutine(DashSlowDown());
                 StartCoroutine(ReloadDashSpot());
                 GPCtrl.Instance.Player.PlayerDash.CurrentDashSpot = this;
@@ -74,6 +77,7 @@ public class TargetableSpot : MonoBehaviour
                 {
                     if (GPCtrl.Instance.Pause) return;
                     Time.timeScale = 1;
+                    if (postprocess != null) postprocess.SetFloat("_Timefactor_Hitframe_Attack_Bumper", Time.deltaTime);
                 }).SetUpdate(true);
                 Bump();
                 StartCoroutine(ReloadBumper());

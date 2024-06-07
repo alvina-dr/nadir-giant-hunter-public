@@ -138,6 +138,19 @@ public class PlayerAttack : MonoBehaviour
         Player.Rigibody.velocity = Vector3.zero;
         Player.Rigibody.useGravity = true;
         Time.timeScale = 0.1f;
+        Material postprocess = GPCtrl.Instance.GetPostProcessMaterial();
+        switch (CurrentTargetSpot.SpotCurrentType)
+        {
+            case TargetableSpot.SpotType.WeakSpot:
+                if (postprocess != null) postprocess.SetFloat("_Timefactor_Hitframe_Input_Weakspot", Time.deltaTime);
+                break;
+            case TargetableSpot.SpotType.DashSpot:
+                if (postprocess != null) postprocess.SetFloat("_Timefactor_Hitframe_Input_Dashspot", Time.deltaTime);
+                break;
+            case TargetableSpot.SpotType.Bumper:
+                if (postprocess != null) postprocess.SetFloat("_Timefactor_Hitframe_Input_Bumper", Time.deltaTime);
+                break;
+        }
         CurrentTargetSpot.DestroyWeakSpot();
         CurrentTargetSpot = null;
         Player.Collider.enabled = true;
