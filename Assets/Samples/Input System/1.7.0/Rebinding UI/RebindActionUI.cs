@@ -219,16 +219,17 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
 
             ResetBinding(action, bindingIndex);
 
-            //if (action.bindings[bindingIndex].isComposite)
-            //{
-            //    // It's a composite. Remove overrides from part bindings.
-            //    for (var i = bindingIndex + 1; i < action.bindings.Count && action.bindings[i].isPartOfComposite; ++i)
-            //        action.RemoveBindingOverride(i);
-            //}
-            //else
-            //{
-            //    action.RemoveBindingOverride(bindingIndex);
-            //}
+            if (action.bindings[bindingIndex].isComposite)
+            {
+                // It's a composite. Remove overrides from part bindings.
+                for (var i = bindingIndex + 1; i < action.bindings.Count && action.bindings[i].isPartOfComposite; ++i)
+                    action.RemoveBindingOverride(i);
+            }
+            else
+            {
+                action.RemoveBindingOverride(bindingIndex);
+            }
+
             UpdateBindingDisplay();
         }
 
@@ -238,14 +239,27 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
             string oldOverridePath = newBinding.overridePath;
 
             action.RemoveBindingOverride(bindingIndex);
+            int currentIndex = -1;
 
             foreach (InputAction otherAction in action.actionMap.actions)
             {
+                currentIndex++;
+                InputBinding currentBinding = action.actionMap.bindings[currentIndex];
+
                 if (otherAction == action)
                 {
-                    continue;
+                    if (newBinding.isPartOfComposite)
+                    {
+                        if (currentBinding.overridePath == newBinding.path)
+                        {
+                            otherAction.ApplyBindingOverride(currentIndex, oldOverridePath);
+                        }
+                    }
+                    else
+                    {
+                        continue;
+                    }
                 }
-
                 for (int i = 0; i < otherAction.bindings.Count; i++)
                 {
                     InputBinding binding = otherAction.bindings[i];
@@ -364,18 +378,32 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
         private bool CheckDuplicateBindings(InputAction action, int bindingIndex, bool allCompositeParts = false)
         {
             InputBinding newBinding = action.bindings[bindingIndex];
+            int currentIndex = -1;
 
             foreach (InputBinding binding in action.actionMap.bindings)
             {
+                currentIndex++;
+
                 if (binding.action == newBinding.action)
                 {
-                    continue;
+                    if (binding.isPartOfComposite && currentIndex != bindingIndex)
+                    {
+                        if (binding.effectivePath == newBinding.effectivePath)
+                        {
+                            return true;
+                        }
+                    }
+                    else
+                    {
+                        continue;
+                    }
                 }
 
                 if (binding.effectivePath == newBinding.effectivePath)
                 {
                     return true;
                 }
+
             }
 
             if (allCompositeParts)
@@ -384,7 +412,7 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
                 {
                     if (action.bindings[i].effectivePath == newBinding.overridePath)
                     {
-                        Debug.Log("Duplicate binding found : " + newBinding);
+                        //Debug.Log("Duplicate binding found: " + newBinding.effectivePath);
                         return true;
                     }
                 }
@@ -497,14 +525,14 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
 
         // We want the label for the action name to update in edit mode, too, so
         // we kick that off from here.
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
         protected void OnValidate()
         {
             UpdateActionLabel();
             UpdateBindingDisplay();
         }
 
-        #endif
+#endif
 
         private void UpdateActionLabel()
         {
@@ -514,7 +542,8 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
                 if (m_OverRideActionLabel)
                 {
                     m_ActionLabel.text = m_ActionLabelString;
-                } else
+                }
+                else
                 {
                     m_ActionLabel.text = action != null ? action.name : string.Empty;
                     m_ActionLabelString = string.Empty;

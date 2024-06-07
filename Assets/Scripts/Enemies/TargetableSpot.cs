@@ -1,3 +1,4 @@
+using Cinemachine;
 using DG.Tweening;
 using Sirenix.OdinInspector;
 using System.Collections;
@@ -41,6 +42,12 @@ public class TargetableSpot : MonoBehaviour
                 }
                 VisualFX.SendEvent("Destroy");
                 VisualFX.SetBool("kill tentacles", true);
+                //VisualFX.SetFloat("lerp from 0 to 1 during attack dash", 0);
+
+                DOVirtual.Float(1f, 0, .3f, v =>
+                {
+                    VisualFX.SetFloat("lerp from 0 to 1 during attack dash", v);
+                }).SetUpdate(true); 
                 StartCoroutine(DestroyAfterDelay());
                 GPCtrl.Instance.TargetableSpotList.Remove(this);
                 Vector3 vector3 = GPCtrl.Instance.Player.PlayerAttack.TargetSpotDistance.normalized;
