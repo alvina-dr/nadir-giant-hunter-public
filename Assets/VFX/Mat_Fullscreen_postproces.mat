@@ -232,6 +232,7 @@ Material:
     - _HeightPoMAmplitude: 2
     - _HeightTessAmplitude: 2
     - _HeightTessCenter: 0.5
+    - _Hit_By_Abyss: 0
     - _Hit_by_Abyss_Time: 1.0066658
     - _InvTilingScale: 1
     - _Ior: 1.5
@@ -280,16 +281,22 @@ Material:
     - _SubsurfaceMask: 1
     - _SupportDecals: 1
     - _SurfaceType: 0
+    - _THA_Bumper_Visualization: 0
+    - _THA_Dspot_Visualization: 0
+    - _THA_Wspot_Visualization: 0
+    - _THI_Bumper_visualization: 0
+    - _THI_Dspot_Visualization: 0
+    - _THI_Wspot_Visualization: 0
     - _TexWorldScale: 1
     - _TexWorldScaleEmissive: 1
     - _Thickness: 1
-    - _Timefactor_Dashspot_Timestop: 0
-    - _Timefactor_Hitframe_Attack_Bumper: 0.0007501488
+    - _Timefactor_Dashspot_Timestop: 1
+    - _Timefactor_Hitframe_Attack_Bumper: 1
     - _Timefactor_Hitframe_Attack_Dashspot: 1
-    - _Timefactor_Hitframe_Attack_Weakspot: 0.00072696997
-    - _Timefactor_Hitframe_Input_Bumper: 0.007653798
-    - _Timefactor_Hitframe_Input_Dashspot: 0.008356399
-    - _Timefactor_Hitframe_Input_Weakspot: 0.0080625
+    - _Timefactor_Hitframe_Attack_Weakspot: 1
+    - _Timefactor_Hitframe_Input_Bumper: 0.1
+    - _Timefactor_Hitframe_Input_Dashspot: 1
+    - _Timefactor_Hitframe_Input_Weakspot: 1
     - _TransmissionEnable: 1
     - _TransmissionMask: 1
     - _TransparentBackfaceEnable: 0
@@ -313,6 +320,7 @@ Material:
     - _bypass_Input_Velocity_Factor: 6e-45
     - _bypass_effect_strength: 0
     - _bypass_input_velocity: 1
+    - _effect_strength: 0
     - _enable: 1
     - _gradient: 0
     - _scan_effect: 1
@@ -332,7 +340,7 @@ Material:
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissiveColor: {r: 0, g: 0, b: 0, a: 1}
     - _EmissiveColorLDR: {r: 0, g: 0, b: 0, a: 1}
-    - _Input_Velocity: {r: 0, g: 0, b: 0, a: 0}
+    - _Input_Velocity: {r: -0.00000003236309, g: -0.001953125, b: 0, a: 0}
     - _InvPrimScale: {r: 1, g: 1, b: 0, a: 0}
     - _IridescenceThicknessRemap: {r: 0, g: 1, b: 0, a: 0}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
