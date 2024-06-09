@@ -14,7 +14,7 @@ public class PlayerAttack : MonoBehaviour
     [HideInInspector]
     public bool IsGrappling = false;
     public TargetableSpot CurrentTargetSpot;
-    public List<TargetableSpot> closestTargetableSpotList = new List<TargetableSpot>();
+    public List<TargetableSpot> ClosestTargetableSpotList = new List<TargetableSpot>();
     public Vector3 TargetSpotDistance = Vector3.zero;
 
     public void Attack()
@@ -86,25 +86,32 @@ public class PlayerAttack : MonoBehaviour
 
     private void Update()
     {
-        closestTargetableSpotList = GPCtrl.Instance.TargetableSpotList;
-        closestTargetableSpotList.Sort(delegate (TargetableSpot a, TargetableSpot b)
+        GPCtrl.Instance.UICtrl.AttackInputIndicator.SetupAppearance(true, false);
+        GPCtrl.Instance.UICtrl.MonsterHighIndicator.SetupAppearance(false, true);
+        ClosestTargetableSpotList = GPCtrl.Instance.TargetableSpotList;
+        ClosestTargetableSpotList.Sort(delegate (TargetableSpot a, TargetableSpot b)
         {
             return Vector3.Distance(this.transform.position, a.transform.position).CompareTo(Vector3.Distance(this.transform.position, b.transform.position));
         });
         if (GPCtrl.Instance.UICtrl != null)
             GPCtrl.Instance.UICtrl.AttackInputIndicator.HideIndicator();
-        if (closestTargetableSpotList.Count > 0 ) {
-            if (Vector3.Distance(transform.position, closestTargetableSpotList[0].transform.position) < Player.Data.weakSpotDetectionDistance)
+        if (ClosestTargetableSpotList.Count > 0 ) {
+            if (Vector3.Distance(transform.position, ClosestTargetableSpotList[0].transform.position) < Player.Data.weakSpotDetectionDistance)
             {
                 if (!GPCtrl.Instance.DashPause)
                 {
-                    TargetableSpot weakSpot = closestTargetableSpotList[0];
+                    TargetableSpot weakSpot = ClosestTargetableSpotList[0];
                     Vector3 direction = weakSpot.transform.position - transform.position;
                     RaycastHit hit;
                     if (Physics.Raycast(transform.position, direction, out hit, Player.Data.attackDistance))
                     {
                         if (hit.transform.gameObject != weakSpot.gameObject) return;
-                        GPCtrl.Instance.UICtrl.AttackInputIndicator.ShowIndicatorAt(closestTargetableSpotList[0].transform.position);
+                        if (GPCtrl.Instance.EnemySpawner.EnemyList.Count > 0 && weakSpot == GPCtrl.Instance.EnemySpawner.EnemyList[0].EnemyWeakSpotManagement.WeakSpotList[0])
+                        {
+                            GPCtrl.Instance.UICtrl.AttackInputIndicator.SetupAppearance(true, true);
+                            GPCtrl.Instance.UICtrl.MonsterHighIndicator.SetupAppearance(false, false);
+                        }
+                        GPCtrl.Instance.UICtrl.AttackInputIndicator.ShowIndicatorAt(ClosestTargetableSpotList[0].transform.position);
                     }
                 }
             }

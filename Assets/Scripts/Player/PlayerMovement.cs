@@ -78,7 +78,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 //Keep move speed btwn min and max of swing speed AND add an acceleration to it.
                 CurrentMoveSpeed = Mathf.Max(Player.Data.swingSpeed, CurrentMoveSpeed);
-                CurrentMoveSpeed += Player.Data.swingAcceleration * Time.deltaTime;
+                CurrentMoveSpeed += Player.Data.swingAcceleration * Time.fixedDeltaTime;
                 CurrentMoveSpeed = Mathf.Min(Player.Data.swingMaxSpeed, CurrentMoveSpeed);
             }
         }
@@ -185,7 +185,7 @@ public class PlayerMovement : MonoBehaviour
             Vector3 flatVel = new Vector3(Player.Rigibody.velocity.x, 0f, Player.Rigibody.velocity.z);
             if (flatVel.magnitude > Player.Data.maxSpeedInAir) // limit velocity if needed
             {
-                Vector3 limitedVel = flatVel.normalized * Player.Data.maxSpeedInAir * Time.deltaTime * 60;
+                Vector3 limitedVel = flatVel.normalized * Player.Data.maxSpeedInAir * Time.fixedDeltaTime * 60;
                 //Debug.Log(limitedVel.x + limitedVel.z);
                 Player.Rigibody.velocity = new Vector3(limitedVel.x, Player.Rigibody.velocity.y, limitedVel.z);
             }
@@ -196,7 +196,7 @@ public class PlayerMovement : MonoBehaviour
             Vector3 flatVel = new Vector3(Player.Rigibody.velocity.x, 0f, Player.Rigibody.velocity.z);
             if (flatVel.magnitude > CurrentMoveSpeed) // limit velocity if needed
             {
-                Vector3 limitedVel = flatVel.normalized * CurrentMoveSpeed * Time.deltaTime * 60;
+                Vector3 limitedVel = flatVel.normalized * CurrentMoveSpeed * Time.fixedDeltaTime * 60;
                 //Debug.Log(limitedVel.x + limitedVel.z);
                 Player.Rigibody.velocity = new Vector3(limitedVel.x, Player.Rigibody.velocity.y, limitedVel.z);
             }

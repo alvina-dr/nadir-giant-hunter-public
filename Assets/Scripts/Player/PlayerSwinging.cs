@@ -175,7 +175,7 @@ public class PlayerSwinging : MonoBehaviour
         float upDot = Vector3.Dot(Player.Rigibody.velocity.normalized, Player.Orientation.transform.forward);
         float lengthMult = Vector3.Distance(EndSwingLinePoint.position, StartSwingLinePoint.position) * Player.Data.SwingSpeedLengthMult * (upDot - 0.1f);
         Player.Rigibody.AddForce(mix * (1 + lengthMult) * Time.fixedDeltaTime, ForceMode.Force);
-        Player.Rigibody.velocity *= 0.999f * (1 + Time.deltaTime);
+        Player.Rigibody.velocity *= 0.999f * (1 + Time.fixedDeltaTime);
         bool hasToStopSwing = Vector3.Dot(Vector3.up, (EndSwingLinePoint.position - Player.transform.position).normalized) <= Player.Data.MaxSwingAngle;
         if (hasToStopSwing && !_inFirstPartOfSwinging)
         {
