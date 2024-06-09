@@ -34,6 +34,11 @@ public class PitBottom : MonoBehaviour
         if (player != null)
         {
             player.currentTimerPitBottom = 0;
+            Material postProcess = GPCtrl.Instance.GetPostProcessMaterial();
+            if (postProcess != null)
+            {
+                postProcess.SetFloat("_Hit_by_Abyss_Time", 0);
+            }
         }
     }
 }

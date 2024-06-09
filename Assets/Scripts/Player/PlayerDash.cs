@@ -28,7 +28,8 @@ public class PlayerDash : MonoBehaviour
         Player.Rigibody.AddForce(Player.Data.dashForce * Camera.main.transform.forward.normalized, ForceMode.Impulse);
         StartCoroutine(PrintSpeed());
         Material material = GPCtrl.Instance.GetPostProcessMaterial();
-        material.DOFloat(0f, "_strength", .2f).SetUpdate(true);
+        if (material != null) material.DOFloat(0f, "_strength", .2f).SetUpdate(true);
+        if (material != null) material.SetFloat("_Timefactor_Dashspot_Timestop", Time.timeScale);
         Player.Meshtrail.ShowTrail();
         GPCtrl.Instance.Player.SoundData.SFX_Hunter_Dash_Trigger.Stop(Player.gameObject);
         GPCtrl.Instance.Player.SoundData.SFX_Hunter_Dash_Release.Post(gameObject);
