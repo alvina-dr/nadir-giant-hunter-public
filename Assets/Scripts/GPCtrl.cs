@@ -113,6 +113,7 @@ public class GPCtrl : MonoBehaviour
         if (material != null)
         {
             material.SetFloat("_strength", 0);
+            material.SetFloat("_Hit_by_Abyss_Time", 0);
         }
     }
 }

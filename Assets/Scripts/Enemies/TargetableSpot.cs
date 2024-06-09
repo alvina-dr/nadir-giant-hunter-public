@@ -60,9 +60,7 @@ public class TargetableSpot : MonoBehaviour
             case SpotType.DashSpot:
                 GPCtrl.Instance.DashPause = true;
                 Time.timeScale = GPCtrl.Instance.Player.Data.slowDownTime;
-                if (postprocess != null) postprocess.SetFloat("_Timefactor_Hitframe_Input_Dashspot", 1); //end of input hitframe
-                if (postprocess != null) postprocess.SetFloat("_Timefactor_Hitframe_Attack_Dashspot", 0); //start attack hitframe
-                if (postprocess != null) postprocess.DOFloat(1, "_Timefactor_Hitframe_Attack_Dashspot", .3f); //end attack hitframe
+                if (postprocess != null) postprocess.SetFloat("_Timefactor_Hitframe_Attack_Dashspot", 1); //end of attack hitframe
                 if (postprocess != null) postprocess.SetFloat("_Timefactor_Dashspot_Timestop", Time.timeScale); //start dash slow mo
                 StartCoroutine(DashSlowDown());
                 StartCoroutine(ReloadDashSpot());
@@ -75,6 +73,8 @@ public class TargetableSpot : MonoBehaviour
                 GPCtrl.Instance.Player.SoundData.SFX_Hunter_Dash_Trigger.Post(GPCtrl.Instance.Player.gameObject);
                 break;
             case SpotType.Bumper:
+                Time.timeScale = 1;
+
                 DOVirtual.DelayedCall(.1f, () =>
                 {
                     if (GPCtrl.Instance.Pause) return;

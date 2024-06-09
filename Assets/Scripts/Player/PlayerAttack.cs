@@ -57,9 +57,34 @@ public class PlayerAttack : MonoBehaviour
         Player.SoundData.SFX_Hunter_Interaction.Post(gameObject);
         if (CurrentTargetSpot.SpotCurrentType == TargetableSpot.SpotType.WeakSpot) Player.DestructionFX.SendEvent("OnPlay");
         Time.timeScale = 0.1f;
+        Material postprocess = GPCtrl.Instance.GetPostProcessMaterial();
+        switch (targetableSpot.SpotCurrentType) //activate input hitframe
+        {
+            case TargetableSpot.SpotType.WeakSpot:
+                if (postprocess != null) postprocess.SetFloat("_Timefactor_Hitframe_Input_Weakspot", Time.timeScale);
+                break;
+            case TargetableSpot.SpotType.DashSpot:
+                if (postprocess != null) postprocess.SetFloat("_Timefactor_Hitframe_Input_Dashspot", Time.timeScale);
+                break;
+            case TargetableSpot.SpotType.Bumper:
+                if (postprocess != null) postprocess.SetFloat("_Timefactor_Hitframe_Input_Bumper", Time.timeScale);
+                break;
+        }
         DOVirtual.DelayedCall(.3f, () =>
         {
             Time.timeScale = 1;
+            switch (targetableSpot.SpotCurrentType) //deactivate input hitframe
+            {
+                case TargetableSpot.SpotType.WeakSpot:
+                    if (postprocess != null) postprocess.SetFloat("_Timefactor_Hitframe_Input_Weakspot", Time.timeScale);
+                    break;
+                case TargetableSpot.SpotType.DashSpot:
+                    if (postprocess != null) postprocess.SetFloat("_Timefactor_Hitframe_Input_Dashspot", Time.timeScale);
+                    break;
+                case TargetableSpot.SpotType.Bumper:
+                    if (postprocess != null) postprocess.SetFloat("_Timefactor_Hitframe_Input_Bumper", Time.timeScale);
+                    break;
+            }
             //SPRING
             _springJoint = gameObject.AddComponent<SpringJoint>();
             _springJoint.autoConfigureConnectedAnchor = false;
@@ -151,13 +176,13 @@ public class PlayerAttack : MonoBehaviour
         switch (CurrentTargetSpot.SpotCurrentType)
         {
             case TargetableSpot.SpotType.WeakSpot:
-                if (postprocess != null) postprocess.SetFloat("_Timefactor_Hitframe_Input_Weakspot", Time.timeScale);
+                if (postprocess != null) postprocess.SetFloat("_Timefactor_Hitframe_Attack_Weakspot", Time.timeScale);
                 break;
             case TargetableSpot.SpotType.DashSpot:
-                if (postprocess != null) postprocess.SetFloat("_Timefactor_Hitframe_Input_Dashspot", Time.timeScale);
+                if (postprocess != null) postprocess.SetFloat("_Timefactor_Hitframe_Attack_Dashspot", Time.timeScale);
                 break;
             case TargetableSpot.SpotType.Bumper:
-                if (postprocess != null) postprocess.SetFloat("_Timefactor_Hitframe_Input_Bumper", Time.timeScale);
+                if (postprocess != null) postprocess.SetFloat("_Timefactor_Hitframe_Attack_Bumper", Time.timeScale);
                 break;
         }
         CurrentTargetSpot.DestroyWeakSpot();
