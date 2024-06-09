@@ -1,11 +1,37 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UI_InputIndication : MonoBehaviour
 {
     [SerializeField] private Image _img;
+    enum IndicatorType
+    {
+        TargetableSpot = 0,
+        WarningHighMonster = 1,
+        SwingPoint = 2
+    }
+    [SerializeField] private IndicatorType IndicatorCurrentType;
+
+    private void Awake()
+    {
+        _img.material = new Material(_img.material);
+        switch(IndicatorCurrentType)
+        {
+            case IndicatorType.TargetableSpot:
+                _img.material.SetFloat("_Warning_Monster_High_Visibility", 0f);
+                _img.material.SetFloat("_Lock_Visibility", 1f);
+                break;
+            case IndicatorType.WarningHighMonster:
+                _img.material.SetFloat("_Warning_Monster_High_Visibility", 1f);
+                _img.material.SetFloat("_Lock_Visibility", 0f);
+                break;
+            case IndicatorType.SwingPoint:
+                break;
+        }
+    }
 
     public void ShowIndicatorAt(Vector3 worldPosition)
     {
@@ -37,5 +63,11 @@ public class UI_InputIndication : MonoBehaviour
     public void HideIndicator()
     {
         transform.localScale = Vector3.zero;
+    }
+
+    public void SetupAppearance(bool lockVisible, bool highMonsterVisible)
+    {
+        _img.material.SetFloat("_Lock_Visibility", lockVisible ? 1 : 0);
+        _img.material.SetFloat("_Warning_Monster_High_Visibility", highMonsterVisible ? 1 : 0);
     }
 }
