@@ -34,7 +34,7 @@ public class TargetableSpot : MonoBehaviour
                 {
                     if (GPCtrl.Instance.Pause) return;
                     Time.timeScale = 1;
-                    if (postprocess != null) postprocess.SetFloat("_Timefactor_Hitframe_Attack_Weakspot", Time.deltaTime);
+                    if (postprocess != null) postprocess.SetFloat("_Timefactor_Hitframe_Attack_Weakspot", Time.timeScale);
                 }).SetUpdate(true);
                 if (Enemy != null)
                 {
@@ -60,8 +60,10 @@ public class TargetableSpot : MonoBehaviour
             case SpotType.DashSpot:
                 GPCtrl.Instance.DashPause = true;
                 Time.timeScale = GPCtrl.Instance.Player.Data.slowDownTime;
-                if (postprocess != null) postprocess.SetFloat("_Timefactor_Hitframe_Attack_Dashspot", 1);
-                if (postprocess != null) postprocess.SetFloat("_Timefactor_Hitframe_Input_Dashspot", Time.deltaTime);
+                if (postprocess != null) postprocess.SetFloat("_Timefactor_Hitframe_Input_Dashspot", 1); //end of input hitframe
+                if (postprocess != null) postprocess.SetFloat("_Timefactor_Hitframe_Attack_Dashspot", 0); //start attack hitframe
+                if (postprocess != null) postprocess.DOFloat(1, "_Timefactor_Hitframe_Attack_Dashspot", .3f); //end attack hitframe
+                if (postprocess != null) postprocess.SetFloat("_Timefactor_Dashspot_Timestop", Time.timeScale); //start dash slow mo
                 StartCoroutine(DashSlowDown());
                 StartCoroutine(ReloadDashSpot());
                 GPCtrl.Instance.Player.PlayerDash.CurrentDashSpot = this;
@@ -77,7 +79,7 @@ public class TargetableSpot : MonoBehaviour
                 {
                     if (GPCtrl.Instance.Pause) return;
                     Time.timeScale = 1;
-                    if (postprocess != null) postprocess.SetFloat("_Timefactor_Hitframe_Attack_Bumper", Time.deltaTime);
+                    if (postprocess != null) postprocess.SetFloat("_Timefactor_Hitframe_Attack_Bumper", Time.timeScale);
                 }).SetUpdate(true);
                 Bump();
                 StartCoroutine(ReloadBumper());

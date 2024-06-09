@@ -142,13 +142,13 @@ public class PlayerAttack : MonoBehaviour
         switch (CurrentTargetSpot.SpotCurrentType)
         {
             case TargetableSpot.SpotType.WeakSpot:
-                if (postprocess != null) postprocess.SetFloat("_Timefactor_Hitframe_Input_Weakspot", Time.deltaTime);
+                if (postprocess != null) postprocess.SetFloat("_Timefactor_Hitframe_Input_Weakspot", Time.timeScale);
                 break;
             case TargetableSpot.SpotType.DashSpot:
-                if (postprocess != null) postprocess.SetFloat("_Timefactor_Hitframe_Input_Dashspot", Time.deltaTime);
+                if (postprocess != null) postprocess.SetFloat("_Timefactor_Hitframe_Input_Dashspot", Time.timeScale);
                 break;
             case TargetableSpot.SpotType.Bumper:
-                if (postprocess != null) postprocess.SetFloat("_Timefactor_Hitframe_Input_Bumper", Time.deltaTime);
+                if (postprocess != null) postprocess.SetFloat("_Timefactor_Hitframe_Input_Bumper", Time.timeScale);
                 break;
         }
         CurrentTargetSpot.DestroyWeakSpot();
