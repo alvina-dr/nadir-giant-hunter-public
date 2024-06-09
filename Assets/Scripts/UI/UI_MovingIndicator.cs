@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UI_InputIndication : MonoBehaviour
+public class UI_MovingIndicator : MonoBehaviour
 {
     [SerializeField] private Image _img;
     enum IndicatorType

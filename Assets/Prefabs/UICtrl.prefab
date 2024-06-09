@@ -1440,6 +1440,9 @@ MonoBehaviour:
   PlayerLowIndicator: {fileID: 937561948707245167}
   SwingRightIndicator: {fileID: 2735988860678821058}
   SwingLeftIndicator: {fileID: 2925681260073000892}
+  AttackInput: {fileID: 6142515770079473150}
+  SwingLeftInput: {fileID: 1137566657621037412}
+  SwingRightInput: {fileID: 5240280494954081995}
   TimerText: {fileID: 4837289253934119722}
   _endGameMenuTitle: {fileID: 7210796229741836039}
 --- !u!223 &1588596820946456509
@@ -1704,6 +1707,7 @@ GameObject:
   - component: {fileID: 7015908020403286883}
   - component: {fileID: 5739293133520849026}
   - component: {fileID: 7498743959805570348}
+  - component: {fileID: 1137566657621037412}
   - component: {fileID: 3151732806012339545}
   m_Layer: 5
   m_Name: SwingLeftInput
@@ -1752,7 +1756,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.19607843}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.09803922}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1769,6 +1773,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1137566657621037412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6553910929710617808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db945ccceb6903a4ab73776419bd65e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _image: {fileID: 7498743959805570348}
 --- !u!114 &3151732806012339545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1932,6 +1949,7 @@ GameObject:
   - component: {fileID: 8666649224925280369}
   - component: {fileID: 3037785197310802362}
   - component: {fileID: 996611585796574031}
+  - component: {fileID: 6142515770079473150}
   - component: {fileID: 1674355249221030350}
   m_Layer: 5
   m_Name: InteractionInput
@@ -1980,7 +1998,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.19607843}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.09803922}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1997,6 +2015,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6142515770079473150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6918330781647582217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db945ccceb6903a4ab73776419bd65e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _image: {fileID: 996611585796574031}
 --- !u!114 &1674355249221030350
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2414,6 +2445,7 @@ GameObject:
   - component: {fileID: 1342127950443966330}
   - component: {fileID: 363312339531763361}
   - component: {fileID: 5759968994626870768}
+  - component: {fileID: 5240280494954081995}
   - component: {fileID: 2436723358801548257}
   m_Layer: 5
   m_Name: SwingRightInput
@@ -2462,7 +2494,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.19607843}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.09803922}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2479,6 +2511,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5240280494954081995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8308262793429253528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db945ccceb6903a4ab73776419bd65e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _image: {fileID: 5759968994626870768}
 --- !u!114 &2436723358801548257
 MonoBehaviour:
   m_ObjectHideFlags: 0

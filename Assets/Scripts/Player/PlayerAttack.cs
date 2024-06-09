@@ -88,6 +88,7 @@ public class PlayerAttack : MonoBehaviour
     {
         GPCtrl.Instance.UICtrl.AttackInputIndicator.SetupAppearance(true, false);
         GPCtrl.Instance.UICtrl.MonsterHighIndicator.SetupAppearance(false, true);
+        GPCtrl.Instance.UICtrl.AttackInput.SetVisible(false);
         ClosestTargetableSpotList = GPCtrl.Instance.TargetableSpotList;
         ClosestTargetableSpotList.Sort(delegate (TargetableSpot a, TargetableSpot b)
         {
@@ -106,6 +107,7 @@ public class PlayerAttack : MonoBehaviour
                     if (Physics.Raycast(transform.position, direction, out hit, Player.Data.attackDistance))
                     {
                         if (hit.transform.gameObject != weakSpot.gameObject) return;
+                        GPCtrl.Instance.UICtrl.AttackInput.SetVisible(true);
                         if (GPCtrl.Instance.EnemySpawner.EnemyList.Count > 0 && weakSpot == GPCtrl.Instance.EnemySpawner.EnemyList[0].EnemyWeakSpotManagement.WeakSpotList[0])
                         {
                             GPCtrl.Instance.UICtrl.AttackInputIndicator.SetupAppearance(true, true);

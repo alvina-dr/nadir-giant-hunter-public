@@ -1,6 +1,7 @@
 using Cinemachine;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using DG.Tweening;
 
 public class PlayerSwinging : MonoBehaviour
 {
@@ -95,10 +96,12 @@ public class PlayerSwinging : MonoBehaviour
             if (_side == Side.Left)
             {
                 GPCtrl.Instance.UICtrl.SwingLeftIndicator.ShowIndicatorAt(_bestSwingPoint);
+                GPCtrl.Instance.UICtrl.SwingLeftInput.SetVisible(true);
             }
             else
             {
                 GPCtrl.Instance.UICtrl.SwingRightIndicator.ShowIndicatorAt(_bestSwingPoint);
+                GPCtrl.Instance.UICtrl.SwingRightInput.SetVisible(true);
             }
         }
         else
@@ -106,10 +109,12 @@ public class PlayerSwinging : MonoBehaviour
             if (_side == Side.Left)
             {
                 GPCtrl.Instance.UICtrl.SwingLeftIndicator.HideIndicator();
+                GPCtrl.Instance.UICtrl.SwingLeftInput.SetVisible(false);
             }
             else
             {
                 GPCtrl.Instance.UICtrl.SwingRightIndicator.HideIndicator();
+                GPCtrl.Instance.UICtrl.SwingRightInput.SetVisible(false);
             }
         }
     }
