@@ -103,6 +103,14 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_127e38c063004cf2960179c7e71bef2e_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: d1918e311c8deb1429fda263c395bdbd, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_29fd5fb35e104f86b0d41707d1ddeefd_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 63f32c60b122a034497961ed287208dc, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_761c892df1a5492ca8d10033b1fc00fe_Texture_1_Texture2D:
         m_Texture: {fileID: 2800000, guid: c1a81c7b3095718448ee20952e3f23af, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -121,6 +129,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_dcd195659ca84503b9fa7b3f3f4f61eb_Texture_1_Texture2D:
         m_Texture: {fileID: 2800000, guid: bec5c7c44540e99458f061f069c981a8, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_f6e63ac5995b413380be1ea6b75a0a7e_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: a487882138304074c8e3269f23960ac9, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecularColorMap:
@@ -220,7 +232,7 @@ Material:
     - _HeightPoMAmplitude: 2
     - _HeightTessAmplitude: 2
     - _HeightTessCenter: 0.5
-    - _Hit_by_Abyss_Time: 0.22666651
+    - _Hit_by_Abyss_Time: 1.0066658
     - _InvTilingScale: 1
     - _Ior: 1.5
     - _IridescenceMask: 1
@@ -272,12 +284,12 @@ Material:
     - _TexWorldScaleEmissive: 1
     - _Thickness: 1
     - _Timefactor_Dashspot_Timestop: 0
-    - _Timefactor_Hitframe_Attack_Bumper: 0.0011003684
+    - _Timefactor_Hitframe_Attack_Bumper: 0.0006638464
     - _Timefactor_Hitframe_Attack_Dashspot: 1
-    - _Timefactor_Hitframe_Attack_Weakspot: 0.0025854167
-    - _Timefactor_Hitframe_Input_Bumper: 0.011427998
-    - _Timefactor_Hitframe_Input_Dashspot: 0.012737904
-    - _Timefactor_Hitframe_Input_Weakspot: 0.0212017
+    - _Timefactor_Hitframe_Attack_Weakspot: 0.00089302723
+    - _Timefactor_Hitframe_Input_Bumper: 0.0063562994
+    - _Timefactor_Hitframe_Input_Dashspot: 0.014821598
+    - _Timefactor_Hitframe_Input_Weakspot: 0.0073482995
     - _TransmissionEnable: 1
     - _TransmissionMask: 1
     - _TransparentBackfaceEnable: 0
@@ -296,18 +308,19 @@ Material:
     - _ZTestGBuffer: 4
     - _ZTestTransparent: 4
     - _ZWrite: 1
+    - _black: 0.116
     - _bypass_Input_Velocity: 1
-    - _bypass_Input_Velocity_Factor: 5.780002
+    - _bypass_Input_Velocity_Factor: 8.537691
     - _bypass_effect_strength: 0
     - _bypass_input_velocity: 1
-    - _enable: 1
-    - _gradient: 1
+    - _enable: 0
+    - _gradient: 0
     - _scan_effect: 1
     - _scanline_distance: 10
     - _scanline_intensity: 200
     - _scanline_quantity: 6.41
-    - _scanline_speed: 0.13
-    - _scanline_width: 0.0031
+    - _scanline_speed: 0.94
+    - _scanline_width: 0.00193
     - _speed_effect: 3.846002
     - _strength: 0
     m_Colors:
@@ -319,7 +332,7 @@ Material:
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissiveColor: {r: 0, g: 0, b: 0, a: 1}
     - _EmissiveColorLDR: {r: 0, g: 0, b: 0, a: 1}
-    - _Input_Velocity: {r: 0, g: 175.6, b: 0, a: 0}
+    - _Input_Velocity: {r: -2.1025991, g: -223.22685, b: 58.418495, a: 0}
     - _InvPrimScale: {r: 1, g: 1, b: 0, a: 0}
     - _IridescenceThicknessRemap: {r: 0, g: 1, b: 0, a: 0}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
