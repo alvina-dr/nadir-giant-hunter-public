@@ -50,6 +50,8 @@ public class GPCtrl : MonoBehaviour
 
     private void Update()
     {
+        Material postProcess = GetPostProcessMaterial();
+        if (postProcess != null) postProcess.SetFloat("_unscaled_time", Time.unscaledDeltaTime);
         if (GameOver) return;
         if (Pause) return;
         Timer += Time.unscaledDeltaTime;
