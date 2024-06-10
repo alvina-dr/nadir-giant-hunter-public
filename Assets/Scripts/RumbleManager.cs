@@ -11,6 +11,12 @@ public class RumbleManager : MonoBehaviour
     public void PulseFor(float lowFrequency, float highFrequency, float duration)
     {
         pad = Gamepad.current;
+        if (!PlayerPrefs.HasKey("Vibration")) PlayerPrefs.SetInt("Vibration", 1);
+        if (PlayerPrefs.GetInt("Vibration") == 0)
+        {
+            pad.SetMotorSpeeds(0, 0);
+            return;
+        }
 
         if (pad != null)
         {
@@ -25,6 +31,13 @@ public class RumbleManager : MonoBehaviour
     public void StartPulse(float lowFrequency, float highFrequency)
     {
         pad = Gamepad.current;
+
+        if (!PlayerPrefs.HasKey("Vibration")) PlayerPrefs.SetInt("Vibration", 1);
+        if (PlayerPrefs.GetInt("Vibration") == 0)
+        {
+            pad.SetMotorSpeeds(0, 0);
+            return;
+        }
 
         if (pad != null)
         {
