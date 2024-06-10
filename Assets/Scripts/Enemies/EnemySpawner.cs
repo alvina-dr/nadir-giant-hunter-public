@@ -78,6 +78,7 @@ public class EnemySpawner : MonoBehaviour
             return;
         }
         GameObject enemy = Instantiate(SpawnerData.EnemyPrefab);
+        EnemyMovement enemyMovement = enemy.GetComponent<EnemyMovement>();
         enemy.transform.parent = _enemiesParent;
 
         //Set enemy's transform
@@ -85,16 +86,30 @@ public class EnemySpawner : MonoBehaviour
         enemy.transform.position = pos.position;
         enemy.transform.rotation = pos.rotation;
 
+        //difficulty choice
+        switch (DataHolder.Instance.CurrentDifficulty)
+        {
+            case DataHolder.DifficultyMode.Easy:
+                enemyMovement.Data = GPCtrl.Instance.EasyEnemyData;
+                break;
+            case DataHolder.DifficultyMode.Normal:
+                enemyMovement.Data = GPCtrl.Instance.NormalEnemyData;
+                break;
+            case DataHolder.DifficultyMode.Hard:
+                enemyMovement.Data = GPCtrl.Instance.HardEnemyData;
+                break;
+        }
+
         //Depending on doSpawnOnlyOnePerLine, set the "_enemies" list
         if (SpawnerData.spawningTimers[_currentSpawningTimerIndex].DoSpawnOnlyOnePerLine)
         {
             _enemies[SpawnPointIndex] = enemy;
-            EnemyList.Add(enemy.GetComponent<EnemyMovement>());
+            EnemyList.Add(enemyMovement);
         }
         else
         {
             _enemies.Add(enemy);
-            EnemyList.Add(enemy.GetComponent<EnemyMovement>());
+            EnemyList.Add(enemyMovement);
         }
     }
 
