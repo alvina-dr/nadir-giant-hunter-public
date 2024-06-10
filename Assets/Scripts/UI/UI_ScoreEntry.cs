@@ -12,7 +12,7 @@ public class UI_ScoreEntry : MonoBehaviour
     public void SetScoreEntry(UI_Scoreboard.ScoreboardEntry scoreEntry, int rank)
     {
         _textName.text = scoreEntry.name.ToString();
-        _textTimer.text = scoreEntry.timer.ToString();
+        _textTimer.text = DataHolder.Instance.ConvertTimeToMinutes(scoreEntry.timer);
         _textRank.text = rank.ToString();
     }
 }
