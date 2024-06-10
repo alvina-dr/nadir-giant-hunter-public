@@ -70,4 +70,9 @@ public class UI_MovingIndicator : MonoBehaviour
         _img.material.SetFloat("_Lock_Visibility", lockVisible ? 1 : 0);
         _img.material.SetFloat("_Warning_Monster_High_Visibility", highMonsterVisible ? 1 : 0);
     }
+
+    public void SetUnscaledTime()
+    {
+        _img.material.SetFloat("_unscaled_time", _img.material.GetFloat("_unscaled_time") + Time.unscaledDeltaTime); ;
+    }
 }

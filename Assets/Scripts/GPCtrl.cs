@@ -52,6 +52,7 @@ public class GPCtrl : MonoBehaviour
     {
         Material postProcess = GetPostProcessMaterial();
         if (postProcess != null) postProcess.SetFloat("_unscaled_time", postProcess.GetFloat("_unscaled_time") + Time.unscaledDeltaTime);
+        UICtrl.MonsterHighIndicator.SetUnscaledTime();
         if (GameOver) return;
         if (Pause) return;
         Timer += Time.unscaledDeltaTime;
