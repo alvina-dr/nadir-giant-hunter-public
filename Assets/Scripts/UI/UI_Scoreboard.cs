@@ -46,9 +46,7 @@ public class UI_Scoreboard : MonoBehaviour
 
     public void AddScoreButton()
     {
-        double timerText = Math.Round(GPCtrl.Instance.Timer, 2, MidpointRounding.AwayFromZero);
-
-        AddScoreToScoreboard(inputField.text, (float)timerText);
+        AddScoreToScoreboard(inputField.text, GPCtrl.Instance.Timer);
         ShowScoreboard();
     }
 

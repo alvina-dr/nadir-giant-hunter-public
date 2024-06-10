@@ -21,7 +21,7 @@ public class UI_EndGameMenu : MonoBehaviour
     {
         _resultText.text = "Victory";
         _scoreText.gameObject.SetActive(true);
-        _scoreText.text = Math.Round(GPCtrl.Instance.Timer, 2, MidpointRounding.AwayFromZero).ToString();
+        _scoreText.text = DataHolder.Instance.ConvertTimeToMinutes(GPCtrl.Instance.Timer);
         _buttonNext.gameObject.SetActive(true);
         //if score high enough to be in leaderboard then don't show those buttons
         _nameInputField.gameObject.SetActive(true);

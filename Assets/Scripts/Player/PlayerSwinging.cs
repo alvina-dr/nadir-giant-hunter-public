@@ -86,7 +86,7 @@ public class PlayerSwinging : MonoBehaviour
             if (dotVector > 0.5f) _inFirstPartOfSwinging = false;
         }
 
-        if (IsTrySwing && !Player.PlayerAttack.IsGrappling && !GPCtrl.Instance.DashPause) TrySwing();
+        if (IsTrySwing && !Player.PlayerAttack.IsGrappling && !GPCtrl.Instance.DashPause && !Player.PlayerDash.IsDashing) TrySwing();
         else if (!IsTrySwing && !Player.PlayerGrappleBoost.IsGrapplingBoost && !GPCtrl.Instance.DashPause) StopSwing();
 
         CalculateBestSwingingPoint();

@@ -75,4 +75,23 @@ public class UI_MovingIndicator : MonoBehaviour
     {
         _img.material.SetFloat("_unscaled_time", _img.material.GetFloat("_unscaled_time") + Time.unscaledDeltaTime); ;
     }
+
+    public void SetTargetableSpotType(TargetableSpot.SpotType spotType)
+    {
+        _img.material.SetInt("_Lock_Weakspot", 0);
+        _img.material.SetInt("_Lock_Dashspot", 0);
+        _img.material.SetInt("_Lock_Bumper", 0);
+        switch (spotType)
+        {
+            case TargetableSpot.SpotType.WeakSpot:
+                _img.material.SetInt("_Lock_Weakspot", 1);
+                break;
+            case TargetableSpot.SpotType.DashSpot:
+                _img.material.SetInt("_Lock_Dashspot", 1);
+                break;
+            case TargetableSpot.SpotType.Bumper:
+                _img.material.SetInt("_Lock_Bumper", 1);
+                break;
+        }
+    }
 }
