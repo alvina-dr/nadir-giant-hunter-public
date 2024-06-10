@@ -144,6 +144,8 @@ public class PlayerAttack : MonoBehaviour
                             GPCtrl.Instance.UICtrl.MonsterHighIndicator.SetupAppearance(false, false);
                         }
                         GPCtrl.Instance.UICtrl.AttackInputIndicator.ShowIndicatorAt(ClosestTargetableSpotList[0].transform.position);
+                        GPCtrl.Instance.UICtrl.AttackInputIndicator.SetTargetableSpotType(weakSpot.SpotCurrentType);
+                        GPCtrl.Instance.UICtrl.MonsterHighIndicator.SetTargetableSpotType(weakSpot.SpotCurrentType);
                         switch (weakSpot.SpotCurrentType)
                         {
                             case TargetableSpot.SpotType.WeakSpot:
