@@ -30,7 +30,7 @@ public class UI_EndGameMenu : MonoBehaviour
 
     public void Loose()
     {
-        _resultText.text = "Game over";
+        _resultText.text = "Mission failed";
         _buttonNext.gameObject.SetActive(false);
         _nameInputField.gameObject.SetActive(false);
         _buttonTryAgain.gameObject.SetActive(true);
