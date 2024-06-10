@@ -23,6 +23,18 @@ public class GPCtrl : MonoBehaviour
         {
             Instance = this;
             TargetableSpotList = FindObjectsByType<TargetableSpot>(FindObjectsSortMode.InstanceID).ToList();
+            switch (DataHolder.Instance.CurrentDifficulty) 
+            {
+                case DataHolder.DifficultyMode.Easy:
+                    EnemySpawner.SpawnerData = EasySpawnerData;
+                    break;
+                case DataHolder.DifficultyMode.Normal:
+                    EnemySpawner.SpawnerData = NormalSpawnerData;
+                    break;
+                case DataHolder.DifficultyMode.Hard:
+                    EnemySpawner.SpawnerData = HardSpawnerData;
+                    break;
+            }
         }
     }
     #endregion
@@ -37,6 +49,14 @@ public class GPCtrl : MonoBehaviour
     public CameraLock CameraLock;
     public GameOverCamera GameOverCamera;
 
+    [Header("Difficulty")]
+    public EnemySpawnerData EasySpawnerData;
+    public EnemyData EasyEnemyData;
+    public EnemySpawnerData NormalSpawnerData;
+    public EnemyData NormalEnemyData;
+    public EnemySpawnerData HardSpawnerData;
+    public EnemyData HardEnemyData;
+
     [ReadOnly]
     public List<TargetableSpot> TargetableSpotList;
     [ReadOnly]
@@ -50,6 +70,9 @@ public class GPCtrl : MonoBehaviour
 
     private void Update()
     {
+        Material postProcess = GetPostProcessMaterial();
+        if (postProcess != null) postProcess.SetFloat("_unscaled_time", postProcess.GetFloat("_unscaled_time") + Time.unscaledDeltaTime);
+        UICtrl.MonsterHighIndicator.SetUnscaledTime();
         if (GameOver) return;
         if (Pause) return;
         Timer += Time.unscaledDeltaTime;
@@ -114,6 +137,12 @@ public class GPCtrl : MonoBehaviour
         {
             material.SetFloat("_strength", 0);
             material.SetFloat("_Hit_by_Abyss_Time", 0);
+            material.SetFloat("_Timefactor_Hitframe_Attack_Bumper", 1);
+            material.SetFloat("_Timefactor_Hitframe_Attack_Dashspot", 1);
+            material.SetFloat("_Timefactor_Hitframe_Attack_Dashspot", 1);
+            material.SetFloat("_Timefactor_Hitframe_Input_Bumper", 1);
+            material.SetFloat("_Timefactor_Hitframe_Input_Dashspot", 1);
+            material.SetFloat("_Timefactor_Hitframe_Input_Dashspot", 1);
         }
     }
 }
