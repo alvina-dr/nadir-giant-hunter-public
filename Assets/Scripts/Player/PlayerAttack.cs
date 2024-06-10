@@ -138,7 +138,7 @@ public class PlayerAttack : MonoBehaviour
                     {
                         if (hit.transform.gameObject != weakSpot.gameObject) return;
                         GPCtrl.Instance.UICtrl.AttackInput.SetVisible(true);
-                        if (GPCtrl.Instance.EnemySpawner.EnemyList.Count > 0 && weakSpot == GPCtrl.Instance.EnemySpawner.EnemyList[0].EnemyWeakSpotManagement.WeakSpotList[0])
+                        if (GPCtrl.Instance.EnemySpawner != null && GPCtrl.Instance.EnemySpawner.EnemyList.Count > 0 && weakSpot == GPCtrl.Instance.EnemySpawner.EnemyList[0].EnemyWeakSpotManagement.WeakSpotList[0])
                         {
                             GPCtrl.Instance.UICtrl.AttackInputIndicator.SetupAppearance(true, true);
                             GPCtrl.Instance.UICtrl.MonsterHighIndicator.SetupAppearance(false, false);
