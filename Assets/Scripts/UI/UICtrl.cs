@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
@@ -14,11 +15,16 @@ public class UICtrl : MonoBehaviour
     public UI_Scoreboard Scoreboard;
 
     [Header("Indicators")]
-    public UI_InputIndication AttackInputIndicator;
-    public UI_InputIndication MonsterHighIndicator;
+    public UI_MovingIndicator AttackInputIndicator;
+    public UI_MovingIndicator MonsterHighIndicator;
     public CanvasGroup PlayerLowIndicator;
-    public UI_InputIndication SwingRightIndicator;
-    public UI_InputIndication SwingLeftIndicator;
+    public UI_MovingIndicator SwingRightIndicator;
+    public UI_MovingIndicator SwingLeftIndicator;
+
+    [Header("Input")]
+    public UI_InputIndicator AttackInput;
+    public UI_InputIndicator SwingLeftInput;
+    public UI_InputIndicator SwingRightInput;
 
     [Header("In game UI")]
     public TextMeshProUGUI TimerText;

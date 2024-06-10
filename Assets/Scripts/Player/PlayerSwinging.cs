@@ -1,6 +1,7 @@
 using Cinemachine;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using DG.Tweening;
 
 public class PlayerSwinging : MonoBehaviour
 {
@@ -95,10 +96,12 @@ public class PlayerSwinging : MonoBehaviour
             if (_side == Side.Left)
             {
                 GPCtrl.Instance.UICtrl.SwingLeftIndicator.ShowIndicatorAt(_bestSwingPoint);
+                GPCtrl.Instance.UICtrl.SwingLeftInput.SetVisible(true);
             }
             else
             {
                 GPCtrl.Instance.UICtrl.SwingRightIndicator.ShowIndicatorAt(_bestSwingPoint);
+                GPCtrl.Instance.UICtrl.SwingRightInput.SetVisible(true);
             }
         }
         else
@@ -106,10 +109,12 @@ public class PlayerSwinging : MonoBehaviour
             if (_side == Side.Left)
             {
                 GPCtrl.Instance.UICtrl.SwingLeftIndicator.HideIndicator();
+                GPCtrl.Instance.UICtrl.SwingLeftInput.SetVisible(false);
             }
             else
             {
                 GPCtrl.Instance.UICtrl.SwingRightIndicator.HideIndicator();
+                GPCtrl.Instance.UICtrl.SwingRightInput.SetVisible(false);
             }
         }
     }
@@ -175,7 +180,7 @@ public class PlayerSwinging : MonoBehaviour
         float upDot = Vector3.Dot(Player.Rigibody.velocity.normalized, Player.Orientation.transform.forward);
         float lengthMult = Vector3.Distance(EndSwingLinePoint.position, StartSwingLinePoint.position) * Player.Data.SwingSpeedLengthMult * (upDot - 0.1f);
         Player.Rigibody.AddForce(mix * (1 + lengthMult) * Time.fixedDeltaTime, ForceMode.Force);
-        Player.Rigibody.velocity *= 0.999f * (1 + Time.deltaTime);
+        Player.Rigibody.velocity *= 0.999f * (1 + Time.fixedDeltaTime);
         bool hasToStopSwing = Vector3.Dot(Vector3.up, (EndSwingLinePoint.position - Player.transform.position).normalized) <= Player.Data.MaxSwingAngle;
         if (hasToStopSwing && !_inFirstPartOfSwinging)
         {

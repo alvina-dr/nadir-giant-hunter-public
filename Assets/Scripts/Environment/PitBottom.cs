@@ -12,6 +12,11 @@ public class PitBottom : MonoBehaviour
         if (player != null)
         {
             player.currentTimerPitBottom += Time.deltaTime;
+            Material postProcess = GPCtrl.Instance.GetPostProcessMaterial();
+            if (postProcess != null)
+            {
+                postProcess.SetFloat("_Hit_by_Abyss_Time", Mathf.Min(player.currentTimerPitBottom / GPCtrl.Instance.GeneralData.pitBottomDeathTime, 1.0f));
+            }
             if (player.currentTimerPitBottom > GPCtrl.Instance.GeneralData.pitBottomDeathTime)
             {
                 if (GPCtrl.Instance.GeneralData.debugBouncingGround)
@@ -29,6 +34,11 @@ public class PitBottom : MonoBehaviour
         if (player != null)
         {
             player.currentTimerPitBottom = 0;
+            Material postProcess = GPCtrl.Instance.GetPostProcessMaterial();
+            if (postProcess != null)
+            {
+                postProcess.SetFloat("_Hit_by_Abyss_Time", 0);
+            }
         }
     }
 }

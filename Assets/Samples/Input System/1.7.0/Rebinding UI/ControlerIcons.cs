@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace UnityEngine.InputSystem.Samples.RebindUI
 {
-    [CreateAssetMenu(fileName = "ControlerIcons", menuName = "ScriptableObjects/ControlerIcons", order = 1)]
+    [CreateAssetMenu(fileName = "ControlerIcons", menuName = "ScriptableObject/ControlerIcons", order = 1)]
     public class ControlerIcons : ScriptableObject
     {
         public GamepadIcons xbox;
@@ -100,6 +100,10 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
             public Sprite zKey;
             public Sprite escapeKey;
             public Sprite spaceKey;
+            public Sprite upArrowKey;
+            public Sprite downArrowKey;
+            public Sprite leftArrowKey;
+            public Sprite rightArrowKey;
 
             public Sprite GetSprite(string controlPath)
             {
@@ -136,6 +140,10 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
                     case "z": return zKey;
                     case "escape": return escapeKey;
                     case "space": return spaceKey;
+                    case "upArrow": return upArrowKey;
+                    case "downArrow": return downArrowKey;
+                    case "leftArrow": return leftArrowKey;
+                    case "rightArrow": return rightArrowKey;
                 }
                 return null;
             }

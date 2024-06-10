@@ -1,3 +1,4 @@
+using Cinemachine;
 using DG.Tweening;
 using Sirenix.OdinInspector;
 using System.Collections;
@@ -25,6 +26,7 @@ public class TargetableSpot : MonoBehaviour
 
     public void DestroyWeakSpot()
     {
+        Material postprocess = GPCtrl.Instance.GetPostProcessMaterial();
         switch (SpotCurrentType)
         {
             case SpotType.WeakSpot:
@@ -32,6 +34,7 @@ public class TargetableSpot : MonoBehaviour
                 {
                     if (GPCtrl.Instance.Pause) return;
                     Time.timeScale = 1;
+                    if (postprocess != null) postprocess.SetFloat("_Timefactor_Hitframe_Attack_Weakspot", Time.timeScale);
                 }).SetUpdate(true);
                 if (Enemy != null)
                 {
@@ -41,6 +44,11 @@ public class TargetableSpot : MonoBehaviour
                 }
                 VisualFX.SendEvent("Destroy");
                 VisualFX.SetBool("kill tentacles", true);
+                //VisualFX.SetFloat("lerp from 0 to 1 during attack dash", 0);
+                DOVirtual.Float(1f, 0, .3f, v =>
+                {
+                    VisualFX.SetFloat("lerp from 0 to 1 during attack dash", v);
+                }).SetUpdate(true); 
                 StartCoroutine(DestroyAfterDelay());
                 GPCtrl.Instance.TargetableSpotList.Remove(this);
                 Vector3 vector3 = GPCtrl.Instance.Player.PlayerAttack.TargetSpotDistance.normalized;
@@ -52,6 +60,8 @@ public class TargetableSpot : MonoBehaviour
             case SpotType.DashSpot:
                 GPCtrl.Instance.DashPause = true;
                 Time.timeScale = GPCtrl.Instance.Player.Data.slowDownTime;
+                if (postprocess != null) postprocess.SetFloat("_Timefactor_Hitframe_Attack_Dashspot", 1); //end of attack hitframe
+                if (postprocess != null) postprocess.SetFloat("_Timefactor_Dashspot_Timestop", Time.timeScale); //start dash slow mo
                 StartCoroutine(DashSlowDown());
                 StartCoroutine(ReloadDashSpot());
                 GPCtrl.Instance.Player.PlayerDash.CurrentDashSpot = this;
@@ -63,10 +73,13 @@ public class TargetableSpot : MonoBehaviour
                 GPCtrl.Instance.Player.SoundData.SFX_Hunter_Dash_Trigger.Post(GPCtrl.Instance.Player.gameObject);
                 break;
             case SpotType.Bumper:
+                Time.timeScale = 1;
+
                 DOVirtual.DelayedCall(.1f, () =>
                 {
                     if (GPCtrl.Instance.Pause) return;
                     Time.timeScale = 1;
+                    if (postprocess != null) postprocess.SetFloat("_Timefactor_Hitframe_Attack_Bumper", Time.timeScale);
                 }).SetUpdate(true);
                 Bump();
                 StartCoroutine(ReloadBumper());
