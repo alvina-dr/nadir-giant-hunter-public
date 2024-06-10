@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -33,5 +34,16 @@ public class DataHolder : MonoBehaviour
 
     [Header("SFX")]
     public AK.Wwise.Event _sfxGoBack;
+
+    public string ConvertTimeToMinutes(float time)
+    {
+        string minutes = TimeSpan.FromSeconds(time).Minutes.ToString();
+        string seconds = TimeSpan.FromSeconds(time).Seconds.ToString();
+        if (seconds.Length == 1) seconds = "0" + seconds;
+        string miliseconds = TimeSpan.FromSeconds(time).Milliseconds.ToString();
+        if (miliseconds.Length > 2) miliseconds.Substring(0, 2);
+        if (miliseconds.Length == 2) miliseconds += "0";
+        return (minutes + ":" + seconds + ":" + miliseconds);
+    }
 
 }

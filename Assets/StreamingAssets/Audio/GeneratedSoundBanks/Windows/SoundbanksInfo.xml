@@ -9,7 +9,7 @@
 	</RootPaths>
 	<DialogueEvents/>
 	<SoundBanks>
-		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{D4C78C1F-5B01-4A23-9AB2-13BA3AF1C637}">
+		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{F3EA71FE-0996-DC52-219A-BA790B6CD820}">
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 			<Plugins>
@@ -193,7 +193,7 @@
 				</AcousticTexture>
 			</AcousticTextures>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{83EFD460-2D2A-10FE-0741-3CA6B1849451}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{3E62CF4E-D73A-239F-653F-B1663BA8028B}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
@@ -297,6 +297,10 @@
 					<ShortName>SFX_Hunter_Attack_B_03.wav</ShortName>
 					<CachePath>SFX/SFX_Hunter_Attack_B_03_818F3B66.wem</CachePath>
 				</File>
+				<File Id="389253893" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>SFX_Hunter_Cloth_01.wav</ShortName>
+					<CachePath>SFX/SFX_Hunter_Cloth_01_FBC78EF0.wem</CachePath>
+				</File>
 				<File Id="421721158" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>SFX_Hunter_Attack_A_05.wav</ShortName>
 					<CachePath>SFX/SFX_Hunter_Attack_A_05_818F3B66.wem</CachePath>
@@ -372,6 +376,10 @@
 				<File Id="761855284" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Monster Within - Large Beast - Death03 - Pitch 61.wav</ShortName>
 					<CachePath>SFX/Monster Within - Large Beast - Death03 - Pitch 61_818F3B66.wem</CachePath>
+				</File>
+				<File Id="785035288" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>SFX_Hunter_Cloth_02.wav</ShortName>
+					<CachePath>SFX/SFX_Hunter_Cloth_02_FBC78EF0.wem</CachePath>
 				</File>
 				<File Id="785393921" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>SFX_Giant_Hit_IntoAbyss.wav</ShortName>
@@ -526,7 +534,19 @@
 				<Event Id="2701940102" Name="Play_SFX_Hunter_AirSpeed" DurationType="Infinite">
 					<MediaRefs>
 						<MediaRef Id="12280489"/>
+						<MediaRef Id="389253893"/>
+						<MediaRef Id="785035288"/>
 						<MediaRef Id="787829447"/>
+					</MediaRefs>
+					<AuxBusRefs>
+						<AuxBusRef Id="2518605955" Name="RVB_Up"/>
+						<AuxBusRef Id="4116390784" Name="RVB_Down"/>
+					</AuxBusRefs>
+				</Event>
+				<Event Id="4219705481" Name="Play_SFX_Hunter_Clothes" DurationType="Infinite">
+					<MediaRefs>
+						<MediaRef Id="389253893"/>
+						<MediaRef Id="785035288"/>
 					</MediaRefs>
 					<AuxBusRefs>
 						<AuxBusRef Id="2518605955" Name="RVB_Up"/>
@@ -684,5 +704,5 @@
 			</GameParameters>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{6C4943A4-D746-8D2C-7763-EE95753907CA}</FileHash>
+	<FileHash>{E94DBD55-E44D-DA6E-7EA9-D98A8CCCE3E7}</FileHash>
 </SoundBanksInfo>
