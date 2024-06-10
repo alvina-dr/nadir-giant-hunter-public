@@ -1,1 +1,0 @@
-For HDRP, use a package with the name Desert_HDRP in the HDRP folder
