@@ -23,6 +23,18 @@ public class GPCtrl : MonoBehaviour
         {
             Instance = this;
             TargetableSpotList = FindObjectsByType<TargetableSpot>(FindObjectsSortMode.InstanceID).ToList();
+            switch (DataHolder.Instance.CurrentDifficulty) 
+            {
+                case DataHolder.DifficultyMode.Easy:
+                    EnemySpawner.SpawnerData = EasySpawnerData;
+                    break;
+                case DataHolder.DifficultyMode.Normal:
+                    EnemySpawner.SpawnerData = NormalSpawnerData;
+                    break;
+                case DataHolder.DifficultyMode.Hard:
+                    EnemySpawner.SpawnerData = HardSpawnerData;
+                    break;
+            }
         }
     }
     #endregion
@@ -36,6 +48,14 @@ public class GPCtrl : MonoBehaviour
     public CameraThirdPerson CameraThirdPerson;
     public CameraLock CameraLock;
     public GameOverCamera GameOverCamera;
+
+    [Header("Difficulty")]
+    public EnemySpawnerData EasySpawnerData;
+    public EnemyData EasyEnemyData;
+    public EnemySpawnerData NormalSpawnerData;
+    public EnemyData NormalEnemyData;
+    public EnemySpawnerData HardSpawnerData;
+    public EnemyData HardEnemyData;
 
     [ReadOnly]
     public List<TargetableSpot> TargetableSpotList;
