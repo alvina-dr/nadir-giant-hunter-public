@@ -45,5 +45,4 @@ public class DataHolder : MonoBehaviour
         if (miliseconds.Length == 2) miliseconds += "0";
         return (minutes + ":" + seconds + ":" + miliseconds);
     }
-
 }
