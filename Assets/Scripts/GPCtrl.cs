@@ -139,7 +139,7 @@ public class GPCtrl : MonoBehaviour
             material.SetFloat("_Hit_by_Abyss_Time", 0);
             material.SetFloat("_Timefactor_Hitframe_Attack_Bumper", 1);
             material.SetFloat("_Timefactor_Hitframe_Attack_Dashspot", 1);
-            material.SetFloat("_Timefactor_Hitframe_Attack_WeakSpot", 1);
+            material.SetFloat("_Timefactor_Hitframe_Attack_Weakspot", 1);
             material.SetFloat("_Timefactor_Hitframe_Input_Bumper", 1);
             material.SetFloat("_Timefactor_Hitframe_Input_Dashspot", 1);
             material.SetFloat("_Timefactor_Hitframe_Input_Weakspot", 1);
