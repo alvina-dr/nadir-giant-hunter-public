@@ -42,6 +42,7 @@ public class DataHolder : MonoBehaviour
         if (seconds.Length == 1) seconds = "0" + seconds;
         string miliseconds = TimeSpan.FromSeconds(time).Milliseconds.ToString();
         if (miliseconds.Length > 2) miliseconds.Substring(0, 2);
+        if (miliseconds.Length == 2) miliseconds += "0";
         return (minutes + ":" + seconds + ":" + miliseconds);
     }
 
