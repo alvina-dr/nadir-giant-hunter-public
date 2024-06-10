@@ -111,9 +111,14 @@ public class PlayerAttack : MonoBehaviour
 
     private void Update()
     {
+        //UI setup
         GPCtrl.Instance.UICtrl.AttackInputIndicator.SetupAppearance(true, false);
         GPCtrl.Instance.UICtrl.MonsterHighIndicator.SetupAppearance(false, true);
         GPCtrl.Instance.UICtrl.AttackInput.SetVisible(false);
+        GPCtrl.Instance.UICtrl.WeakSpotContextUI.gameObject.SetActive(false);
+        GPCtrl.Instance.UICtrl.BumperContextUI.gameObject.SetActive(false);
+        GPCtrl.Instance.UICtrl.DashContextUI.gameObject.SetActive(false);
+
         ClosestTargetableSpotList = GPCtrl.Instance.TargetableSpotList;
         ClosestTargetableSpotList.Sort(delegate (TargetableSpot a, TargetableSpot b)
         {
@@ -139,6 +144,18 @@ public class PlayerAttack : MonoBehaviour
                             GPCtrl.Instance.UICtrl.MonsterHighIndicator.SetupAppearance(false, false);
                         }
                         GPCtrl.Instance.UICtrl.AttackInputIndicator.ShowIndicatorAt(ClosestTargetableSpotList[0].transform.position);
+                        switch (weakSpot.SpotCurrentType)
+                        {
+                            case TargetableSpot.SpotType.WeakSpot:
+                                GPCtrl.Instance.UICtrl.WeakSpotContextUI.gameObject.SetActive(true);
+                                break;
+                            case TargetableSpot.SpotType.DashSpot:
+                                GPCtrl.Instance.UICtrl.DashContextUI.gameObject.SetActive(true);
+                                break;
+                            case TargetableSpot.SpotType.Bumper:
+                                GPCtrl.Instance.UICtrl.BumperContextUI.gameObject.SetActive(true);
+                                break;
+                        }
                     }
                 }
             }
