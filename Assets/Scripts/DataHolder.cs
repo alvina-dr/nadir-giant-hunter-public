@@ -6,6 +6,14 @@ public class DataHolder : MonoBehaviour
 {
     #region Singleton
     public static DataHolder Instance;
+    public enum DifficultyMode
+    {
+        Easy = 0,
+        Normal = 1,
+        Hard = 2
+    }
+
+    public DifficultyMode CurrentDifficulty;
 
     private void Awake()
     {
