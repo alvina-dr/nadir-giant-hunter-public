@@ -25,6 +25,9 @@ public class UICtrl : MonoBehaviour
     public UI_InputIndicator AttackInput;
     public UI_InputIndicator SwingLeftInput;
     public UI_InputIndicator SwingRightInput;
+    public Image WeakSpotContextUI;
+    public Image BumperContextUI;
+    public Image DashContextUI;
 
     [Header("In game UI")]
     public TextMeshProUGUI TimerText;

@@ -111,9 +111,14 @@ public class PlayerAttack : MonoBehaviour
 
     private void Update()
     {
+        //UI setup
         GPCtrl.Instance.UICtrl.AttackInputIndicator.SetupAppearance(true, false);
         GPCtrl.Instance.UICtrl.MonsterHighIndicator.SetupAppearance(false, true);
         GPCtrl.Instance.UICtrl.AttackInput.SetVisible(false);
+        GPCtrl.Instance.UICtrl.WeakSpotContextUI.gameObject.SetActive(false);
+        GPCtrl.Instance.UICtrl.BumperContextUI.gameObject.SetActive(false);
+        GPCtrl.Instance.UICtrl.DashContextUI.gameObject.SetActive(false);
+
         ClosestTargetableSpotList = GPCtrl.Instance.TargetableSpotList;
         ClosestTargetableSpotList.Sort(delegate (TargetableSpot a, TargetableSpot b)
         {
@@ -133,12 +138,26 @@ public class PlayerAttack : MonoBehaviour
                     {
                         if (hit.transform.gameObject != weakSpot.gameObject) return;
                         GPCtrl.Instance.UICtrl.AttackInput.SetVisible(true);
-                        if (GPCtrl.Instance.EnemySpawner.EnemyList.Count > 0 && weakSpot == GPCtrl.Instance.EnemySpawner.EnemyList[0].EnemyWeakSpotManagement.WeakSpotList[0])
+                        if (GPCtrl.Instance.EnemySpawner != null && GPCtrl.Instance.EnemySpawner.EnemyList.Count > 0 && weakSpot == GPCtrl.Instance.EnemySpawner.EnemyList[0].EnemyWeakSpotManagement.WeakSpotList[0])
                         {
                             GPCtrl.Instance.UICtrl.AttackInputIndicator.SetupAppearance(true, true);
                             GPCtrl.Instance.UICtrl.MonsterHighIndicator.SetupAppearance(false, false);
                         }
                         GPCtrl.Instance.UICtrl.AttackInputIndicator.ShowIndicatorAt(ClosestTargetableSpotList[0].transform.position);
+                        GPCtrl.Instance.UICtrl.AttackInputIndicator.SetTargetableSpotType(weakSpot.SpotCurrentType);
+                        GPCtrl.Instance.UICtrl.MonsterHighIndicator.SetTargetableSpotType(weakSpot.SpotCurrentType);
+                        switch (weakSpot.SpotCurrentType)
+                        {
+                            case TargetableSpot.SpotType.WeakSpot:
+                                GPCtrl.Instance.UICtrl.WeakSpotContextUI.gameObject.SetActive(true);
+                                break;
+                            case TargetableSpot.SpotType.DashSpot:
+                                GPCtrl.Instance.UICtrl.DashContextUI.gameObject.SetActive(true);
+                                break;
+                            case TargetableSpot.SpotType.Bumper:
+                                GPCtrl.Instance.UICtrl.BumperContextUI.gameObject.SetActive(true);
+                                break;
+                        }
                     }
                 }
             }
