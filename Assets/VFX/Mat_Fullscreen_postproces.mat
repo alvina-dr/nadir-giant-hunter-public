@@ -127,6 +127,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: c1a81c7b3095718448ee20952e3f23af, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_d3c4a254c4f6427b9a2d7c6281fb2a55_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 4981ee5141854cda9978c35fafbb2298, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_dcd195659ca84503b9fa7b3f3f4f61eb_Texture_1_Texture2D:
         m_Texture: {fileID: 2800000, guid: bec5c7c44540e99458f061f069c981a8, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -232,7 +236,7 @@ Material:
     - _HeightPoMAmplitude: 2
     - _HeightTessAmplitude: 2
     - _HeightTessCenter: 0.5
-    - _Hit_By_Abyss: 0
+    - _Hit_By_Abyss: 1
     - _Hit_by_Abyss_Time: 0
     - _InvTilingScale: 1
     - _Ior: 1.5
@@ -281,12 +285,12 @@ Material:
     - _SubsurfaceMask: 1
     - _SupportDecals: 1
     - _SurfaceType: 0
-    - _THA_Bumper_Visualization: 0
+    - _THA_Bumper_Visualization: 1
     - _THA_Dspot_Visualization: 0
-    - _THA_Wspot_Visualization: 0
-    - _THI_Bumper_visualization: 0
+    - _THA_Wspot_Visualization: 1
+    - _THI_Bumper_visualization: 1
     - _THI_Dspot_Visualization: 0
-    - _THI_Wspot_Visualization: 0
+    - _THI_Wspot_Visualization: 1
     - _TexWorldScale: 1
     - _TexWorldScaleEmissive: 1
     - _Thickness: 1
@@ -294,9 +298,9 @@ Material:
     - _Timefactor_Hitframe_Attack_Bumper: 1
     - _Timefactor_Hitframe_Attack_Dashspot: 1
     - _Timefactor_Hitframe_Attack_Weakspot: 1
-    - _Timefactor_Hitframe_Input_Bumper: 0.1
+    - _Timefactor_Hitframe_Input_Bumper: 1
     - _Timefactor_Hitframe_Input_Dashspot: 1
-    - _Timefactor_Hitframe_Input_Weakspot: 0.1
+    - _Timefactor_Hitframe_Input_Weakspot: 1
     - _TransmissionEnable: 1
     - _TransmissionMask: 1
     - _TransparentBackfaceEnable: 0
@@ -317,7 +321,7 @@ Material:
     - _ZWrite: 1
     - _black: 0.245
     - _bypass_Input_Velocity: 1
-    - _bypass_Input_Velocity_Factor: 6e-45
+    - _bypass_Input_Velocity_Factor: 1.8853316
     - _bypass_effect_strength: 0
     - _bypass_input_velocity: 1
     - _effect_strength: 0
@@ -341,7 +345,7 @@ Material:
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissiveColor: {r: 0, g: 0, b: 0, a: 1}
     - _EmissiveColorLDR: {r: 0, g: 0, b: 0, a: 1}
-    - _Input_Velocity: {r: 9.38912, g: -30.816248, b: -1.9415624, a: 0}
+    - _Input_Velocity: {r: 70.416336, g: 0.91313756, b: -67.72954, a: 0}
     - _InvPrimScale: {r: 1, g: 1, b: 0, a: 0}
     - _IridescenceThicknessRemap: {r: 0, g: 1, b: 0, a: 0}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
