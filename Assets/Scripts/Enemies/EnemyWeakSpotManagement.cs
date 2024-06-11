@@ -43,6 +43,12 @@ public class EnemyWeakSpotManagement : MonoBehaviour
     {
         GPCtrl.Instance.AddKilledEnemy();
         GPCtrl.Instance.EnemySpawner.EnemyList.Remove(EnemyMovement);
+        if (GPCtrl.Instance.Player.PlayerSwingingLeft.EndSwingLinePoint.parent != null)
+            Debug.Log("end swing line point left : " + GPCtrl.Instance.Player.PlayerSwingingLeft.EndSwingLinePoint.parent.name);
+        if (GPCtrl.Instance.Player.PlayerSwingingRight.EndSwingLinePoint.parent != null)
+            Debug.Log("end swing line point right : " + GPCtrl.Instance.Player.PlayerSwingingRight.EndSwingLinePoint.parent.name);
+        GPCtrl.Instance.Player.PlayerSwingingLeft.EndSwingLinePoint.parent = null;
+        GPCtrl.Instance.Player.PlayerSwingingRight.EndSwingLinePoint.parent = null;
         EnemyMovement.Data.SFX_Giant_Roar_Danger.Post(GPCtrl.Instance.Player.gameObject);
         Destroy(gameObject);
     }
