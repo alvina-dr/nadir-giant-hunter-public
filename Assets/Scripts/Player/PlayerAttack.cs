@@ -185,7 +185,6 @@ public class PlayerAttack : MonoBehaviour
         GPCtrl.Instance.CameraThirdPerson.CameraShake.ShakeCamera(10f, .1f);
         Destroy(_springJoint);
         _springJoint = null;
-        IsGrappling = false;
         Player.PlayerSwingingLeft.SwingRopeFX.HideRope(Player.PlayerSwingingLeft.StartSwingLinePoint.position);
         Player.PlayerSwingingRight.SwingRopeFX.HideRope(Player.PlayerSwingingRight.StartSwingLinePoint.position);
         Player.Rigibody.velocity = Vector3.zero;
@@ -206,6 +205,7 @@ public class PlayerAttack : MonoBehaviour
         }
         CurrentTargetSpot.DestroyWeakSpot();
         CurrentTargetSpot = null;
+        IsGrappling = false;
         Player.Collider.enabled = true;
         _targetRigibody.gameObject.SetActive(false);
         float factor = (Player.PlayerMovement.CurrentMoveSpeed - Player.Data.swingSpeed) / (Player.Data.swingMaxSpeed - Player.Data.swingSpeed);

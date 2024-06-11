@@ -5,6 +5,7 @@ using DG.Tweening;
 using UnityEngine.UI;
 using static UI_Scoreboard;
 using TMPro;
+using System;
 
 public class UI_ScoreboardManager : MonoBehaviour
 {
@@ -13,14 +14,19 @@ public class UI_ScoreboardManager : MonoBehaviour
     [SerializeField] private UI_Scoreboard NormalScoreboard;
     [SerializeField] private UI_Scoreboard HardScoreboard;
     public TMP_InputField inputField;
+    [SerializeField] private List<UI_Button> _buttonList;
 
     public void SelectPage(CanvasGroup group)
     {
+        int index = 0;
         for (int i = 0; i < _subMenuList.Count; i++)
         {
             if (_subMenuList[i].gameObject.activeSelf) HideSubMenu(_subMenuList[i]);
+            if (_subMenuList[i] == group) index = i;
         }
         ShowSubMenu(group);
+        ResetNavbar();
+        _buttonList[index].Activate();
     }
 
     public void HideSubMenu(CanvasGroup group)
@@ -47,6 +53,7 @@ public class UI_ScoreboardManager : MonoBehaviour
         {
             HideSubMenu(_subMenuList[i]);
         }
+        ResetNavbar();
     }
 
     public void AddScoreButton()
@@ -74,5 +81,13 @@ public class UI_ScoreboardManager : MonoBehaviour
                 break;
         }
         SelectPage(_subMenuList[(int)DataHolder.Instance.CurrentDifficulty]);
+    }
+
+    public void ResetNavbar()
+    {
+        for (int i = 0; i < _buttonList.Count; i++)
+        {
+            _buttonList[i].Deactivate();
+        }
     }
 }
