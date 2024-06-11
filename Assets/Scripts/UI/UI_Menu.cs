@@ -32,7 +32,8 @@ public class UI_Menu : MonoBehaviour
         {
             _canvasGroup.interactable = true;
             _canvasGroup.blocksRaycasts = true;
-            EventSystem.current.SetSelectedGameObject(_gamepadFocus);
+            if (Gamepad.current != null & Gamepad.all.Count > 0)
+                EventSystem.current.SetSelectedGameObject(_gamepadFocus);
         }).SetUpdate(true);
 
     }
@@ -64,7 +65,7 @@ public class UI_Menu : MonoBehaviour
     void Update()
     {
         //to get back focus for gamepad after you use the mouse
-        if (Gamepad.current == null) return;
+        if (Gamepad.current == null || Gamepad.all.Count == 0) return;
         var gamepadButtonPressed = Gamepad.current.allControls.Any(x => x is ButtonControl button && x.IsPressed() && !x.synthetic);
         if (EventSystem.current.currentSelectedGameObject == null && gamepadButtonPressed)
         {
