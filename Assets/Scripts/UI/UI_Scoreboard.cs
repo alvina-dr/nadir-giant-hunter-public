@@ -21,73 +21,60 @@ public class UI_Scoreboard : MonoBehaviour
         }
     }
 
+    [System.Serializable]
     public class ScoreboardList
     {
         public List<ScoreboardEntry> entries = new List<ScoreboardEntry>();
     }
 
-    public UI_Menu Menu;
-    private ScoreboardList scoreList = new ScoreboardList();
-    public TMP_InputField inputField;
+    public ScoreboardList ScoreList = new ScoreboardList();
     public UI_ScoreEntry scoreEntryPrefab;
     public Transform scoreEntryLayout;
+    public DataHolder.DifficultyMode Difficulty;
 
     private void Awake()
     {
-        if (scoreList.entries.Count == 0)
+        if (ScoreList.entries.Count == 0)
         {
-            if (PlayerPrefs.HasKey("scoreboard"))
+            if (PlayerPrefs.HasKey("scoreboard" + Difficulty))
             {
-                string json = PlayerPrefs.GetString("scoreboard"); // use scoreboard-levelname
-                scoreList = JsonUtility.FromJson<ScoreboardList>(json);
+                Debug.Log("log in difficulty : " + Difficulty.ToString());
+                string json = PlayerPrefs.GetString("scoreboard" + Difficulty); // use scoreboard-levelname
+                ScoreList = JsonUtility.FromJson<ScoreboardList>(json);
             }
+        }
+        CreateScoreboard();
+    }
+
+    public void CreateScoreboard()
+    {
+        for (int i = 0; i < ScoreList.entries.Count; i++)
+        {
+            InstantiateScoreboardEntry(ScoreList.entries[i], i);
+            Debug.Log("add scoreboard entry");
         }
     }
 
-    public void AddScoreButton()
+    public void DestroyScoreboard()
     {
-        double timerText = Math.Round(GPCtrl.Instance.Timer, 2, MidpointRounding.AwayFromZero);
-
-        AddScoreToScoreboard(inputField.text, (float)timerText);
-        ShowScoreboard();
-    }
-
-    public void AddScoreToScoreboard(string _name, float _timer)
-    {
-        ScoreboardEntry entry = new(_name, _timer);
-        scoreList.entries.Add(entry);
-        SaveScoreboard();
-    }
-
-    public void ShowScoreboard()
-    {
-        for (int i = 0; i < scoreList.entries.Count; i++)
+        for (int i = 0; i < scoreEntryLayout.childCount; i++)
         {
-            InstantiateScoreboardEntry(scoreList.entries[i], i);
+            Destroy(scoreEntryLayout.GetChild(i).gameObject);
+            Debug.Log("destroy scoreboard entry");
         }
-        Menu.OpenMenu(true);
-    }
-
-    public void HideScoreboard()
-    {
-        Menu.CloseMenu();
-        DOVirtual.DelayedCall(.3f, () =>
-        {
-            for (int i = 0; i < scoreEntryLayout.childCount; i++)
-            {
-                Destroy(scoreEntryLayout.GetChild(i).gameObject);
-            }
-        });
     }
 
     public void SaveScoreboard()
     {
-        scoreList.entries.Sort(SortByScore);
-        if (scoreList.entries.Count > GPCtrl.Instance.GeneralData.scoreboardSize)
-            scoreList.entries = scoreList.entries.Take(GPCtrl.Instance.GeneralData.scoreboardSize).ToList();
-        string json = JsonUtility.ToJson(scoreList);
-        PlayerPrefs.SetString("scoreboard", json);
+        ScoreList.entries.Sort(SortByScore);
+        if (ScoreList.entries.Count > GPCtrl.Instance.GeneralData.scoreboardSize)
+            ScoreList.entries = ScoreList.entries.Take(GPCtrl.Instance.GeneralData.scoreboardSize).ToList();
+        string json = JsonUtility.ToJson(ScoreList);
+        PlayerPrefs.SetString("scoreboard" + Difficulty, json);
+        Debug.Log("json : " + json);
         PlayerPrefs.Save();
+        DestroyScoreboard();
+        CreateScoreboard();
     }
 
     public void InstantiateScoreboardEntry(ScoreboardEntry scoreboardEntry, int rank)
