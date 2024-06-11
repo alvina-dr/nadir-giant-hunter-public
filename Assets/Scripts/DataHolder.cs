@@ -26,6 +26,8 @@ public class DataHolder : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(this.gameObject);
+            Bank.Load();
+            //Debug.Log("load bank : " + result.ToString());
         }
     }
 #endregion
@@ -34,6 +36,7 @@ public class DataHolder : MonoBehaviour
 
     [Header("SFX")]
     public AK.Wwise.Event _sfxGoBack;
+    public AK.Wwise.Bank Bank;
 
     public string ConvertTimeToMinutes(float time)
     {
