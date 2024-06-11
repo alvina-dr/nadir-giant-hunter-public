@@ -193,7 +193,7 @@
 				</AcousticTexture>
 			</AcousticTextures>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{0B711FC4-BF44-AB78-D308-3BF908E60927}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{B50C44F9-98E0-1C7B-BEE4-C8E5B2EFE3E9}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
@@ -451,6 +451,11 @@
 						<MediaRef Id="203143592"/>
 					</MediaRefs>
 				</Event>
+				<Event Id="2718791335" Name="Play_AMB_MainMenu" DurationType="Infinite">
+					<MediaRefs>
+						<MediaRef Id="79153530"/>
+					</MediaRefs>
+				</Event>
 				<Event Id="1648935056" Name="Play_AMB_Rift_Bed" DurationType="Infinite">
 					<MediaRefs>
 						<MediaRef Id="79153530"/>
@@ -699,6 +704,7 @@
 				</Event>
 				<Event Id="3760108730" Name="Stop_AMB_Bumper" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
 				<Event Id="1355485359" Name="Stop_AMB_Dash" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
+				<Event Id="689102733" Name="Stop_AMB_MainMenu" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
 				<Event Id="2706217030" Name="Stop_AMB_Rift_Bed" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
 			</Events>
 			<GameParameters>
@@ -707,5 +713,5 @@
 			</GameParameters>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{5F6020D3-91E3-D3DB-9FCD-CF58A0711067}</FileHash>
+	<FileHash>{BDE42340-5D2E-0AC9-F81E-C74427095CD9}</FileHash>
 </SoundBanksInfo>
