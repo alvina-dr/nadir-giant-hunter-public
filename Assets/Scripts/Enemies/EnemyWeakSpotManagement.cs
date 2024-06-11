@@ -31,6 +31,7 @@ public class EnemyWeakSpotManagement : MonoBehaviour
 
     public void Damage(TargetableSpot weakSpot)
     {
+        weakSpot.transform.parent = null;
         WeakSpotList.Remove(weakSpot);
         if (WeakSpotList.Count == 0)
         {
@@ -42,6 +43,7 @@ public class EnemyWeakSpotManagement : MonoBehaviour
     {
         GPCtrl.Instance.AddKilledEnemy();
         GPCtrl.Instance.EnemySpawner.EnemyList.Remove(EnemyMovement);
+        EnemyMovement.Data.SFX_Giant_Roar_Danger.Post(GPCtrl.Instance.Player.gameObject);
         Destroy(gameObject);
     }
 }

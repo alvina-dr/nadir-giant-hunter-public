@@ -16,40 +16,43 @@ MonoBehaviour:
   airRotationSpeed: 3
   swingCameraFOVAddition: 0
   swingCameraDistanceAddition: 0.1
-  walkSpeed: 25
+  walkSpeed: 35
   jumpForce: 300
   jumpCooldown: 0.25
-  airMultiplier: 0.05
+  airMultiplier: 0.15
   groundDrag: 1
   charaHeight: 1.8
-  timeBeforeLookingDownAnim: 1.5
+  timeBeforeLookingDownAnim: 0.3
   speedDivisionFactorVFX: 5
+  maxSpeedInAir: 600
+  speedEffectMin: 300
   swingSpeed: 50
-  swingMaxSpeed: 400
+  swingMaxSpeed: 350
   SwingSpeedLengthMult: 0.003
   SwingBaseOrientationSpeed: 0
   SwingCameraOrientInfluence: 100
   swingAcceleration: 20
   minSwingDistance: 25
   maxSwingDistance: 5000
-  startCurveSpeedBoost: 20
+  startCurveSpeedBoost: 10
   endCurveSpeedBoost: 50
   radiusDetectionIncreaseSpeed: 1000
-  MaxSwingAngle: 0.2
-  maxYForceOnRelease: 450
+  MaxSwingAngle: -0.5
+  maxYForceOnRelease: 500
+  coneRaycastOnPlayer: 0
   airSlowDown: 500
   attackDistance: 500
   attackStopDistance: 5
-  dragForce: 15
+  dragForce: 100
   weakSpotDetectionDistance: 500
-  weakSpotReboundForce: 300
-  doubleSwingBoost: 400
+  weakSpotReboundForce: 500
+  doubleSwingBoost: 500
   doubleSwingLineRendererDuration: 0.1
-  dashForce: 500
-  slowDownTime: 0.01
-  timeBeforeAutomaticDash: 200
-  dashTime: 0.5
-  bumpForce: 1300
+  dashForce: 1500
+  slowDownTime: 0
+  timeBeforeAutomaticDash: 10000
+  dashTime: 1
+  bumpForce: 1100
   startCurveBoost: 1
   endCurveBoost: 1
   magicSwinging: 0

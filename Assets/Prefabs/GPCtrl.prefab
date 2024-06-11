@@ -46,11 +46,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GeneralData: {fileID: 11400000, guid: 66e1edd16b48cb94f81df1ef3eaa9c41, type: 2}
   Player: {fileID: 0}
+  UICtrl: {fileID: 0}
+  EnemySpawner: {fileID: 0}
   CameraThirdPerson: {fileID: 0}
   CameraLock: {fileID: 0}
-  UICtrl: {fileID: 0}
+  GameOverCamera: {fileID: 0}
+  EasySpawnerData: {fileID: 11400000, guid: 0828c16256492564e9cf7773dde7e094, type: 2}
+  EasyEnemyData: {fileID: 11400000, guid: a730072664c438548bdbe4b05bc225d6, type: 2}
+  NormalSpawnerData: {fileID: 11400000, guid: 5c2bfdea06955fc4899c76e9f26aaf88, type: 2}
+  NormalEnemyData: {fileID: 11400000, guid: dc9c6fd60b32d134db36426e0baf4808, type: 2}
+  HardSpawnerData: {fileID: 11400000, guid: fc0587ca3a9eea349b02a46ca9cacb2b, type: 2}
+  HardEnemyData: {fileID: 11400000, guid: 77a5eb528444f3146896974b858a9a9b, type: 2}
   TargetableSpotList: []
   Timer: 0
   Pause: 0
+  GameOver: 0
   DashPause: 0
   reliefFX: {fileID: 0}
+  NumEnemyKilled: 0

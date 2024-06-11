@@ -17,36 +17,49 @@ public class ConeRaycast : MonoBehaviour
     public LayerMask layerMask;
 
     [Header("RAYCAST METHOD")]
-    public bool searchPoint = false;
-    public float minRadius;
-    public float maxRadius;
-    public float radius;
-    public float precision;
+    public bool SearchPoint = false;
+    public float MinRadius;
+    public float MaxRadius;
+    public float CurrentRadius;
+    [SerializeField] private int _anglePrecision;
+    [SerializeField] int _radiusPrecision;
+    private int frameCounter;
 
     private void Update()
     {
-        contactPointList.Clear();
-        for (int i = 0; i < 360 * precision; i++)
+        frameCounter++;
+        if (frameCounter == _radiusPrecision) {
+            contactPointList.Clear();
+            frameCounter = 0;
+        }
+        //Debug.Log("frame : " + frameCounter);
+        float radius;
+        for (int j = 0; j < _radiusPrecision; j++)
         {
-            Vector3 _direction = transform.up * GPCtrl.Instance.Player.Data.maxSwingDistance;
-            switch (orientationMode)
+            if (frameCounter != j) return;
+            radius = (MaxRadius - MinRadius) * (j / (float) _radiusPrecision) + MinRadius;
+            for (int i = 0; i < _anglePrecision; i++)
             {
-                case OrientationMode.Y:
-                    _direction += Quaternion.Euler(0, i / precision * 10, 0) * transform.forward * radius;
-                    break;
-                case OrientationMode.X:
-                    _direction += Quaternion.Euler(i / precision * 10, 0, 0) * transform.forward * radius;
-                    break;
-                case OrientationMode.Z:
-                    _direction += Quaternion.Euler(0, 0, i / precision * 10) * transform.forward * radius;
-                    break;
-            }
-            Debug.DrawRay(transform.position, _direction, Color.red);
-            if (!searchPoint) return;
-            RaycastHit hit;
-            if (Physics.Raycast(transform.position, _direction, out hit, GPCtrl.Instance.Player.Data.maxSwingDistance, layerMask))
-            {
-                contactPointList.Add(hit.point);
+                Vector3 _direction = transform.up * GPCtrl.Instance.Player.Data.maxSwingDistance;
+                switch (orientationMode)
+                {
+                    case OrientationMode.Y:
+                        _direction += Quaternion.Euler(0, i / _anglePrecision * 10, 0) * transform.forward * radius;
+                        break;
+                    case OrientationMode.X:
+                        _direction += Quaternion.Euler(i / _anglePrecision * 10, 0, 0) * transform.forward * radius;
+                        break;
+                    case OrientationMode.Z:
+                        _direction += Quaternion.Euler(0, 0, i / _anglePrecision * 10) * transform.forward * radius;
+                        break;
+                }
+                Debug.DrawRay(transform.position, _direction, Color.red);
+                if (!SearchPoint) return;
+                RaycastHit hit;
+                if (Physics.Raycast(transform.position, _direction, out hit, GPCtrl.Instance.Player.Data.maxSwingDistance, layerMask))
+                {
+                    contactPointList.Add(hit.point);
+                }
             }
         }
     }

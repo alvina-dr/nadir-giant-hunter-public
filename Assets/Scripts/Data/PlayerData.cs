@@ -34,6 +34,8 @@ public class PlayerData : ScriptableObject
     public float speedDivisionFactorVFX;
     [TabGroup("Movement")]
     public float maxSpeedInAir;
+    [TabGroup("Movement")]
+    public float speedEffectMin;
 
     [TabGroup("Swing")]
     public float swingSpeed;
@@ -61,6 +63,8 @@ public class PlayerData : ScriptableObject
     public float MaxSwingAngle;
     [TabGroup("Swing")]
     public float maxYForceOnRelease;
+    [TabGroup("Swing")]
+    public bool coneRaycastOnPlayer;
 
     [TabGroup("Swing")]
     public float airSlowDown;

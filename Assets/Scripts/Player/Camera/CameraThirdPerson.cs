@@ -10,24 +10,33 @@ public class CameraThirdPerson : MonoBehaviour
     public CinemachineTargetGroup CinemachineTargetGroup;
     public CameraShake CameraShake;
     public CinemachineInputProvider InputProvider;
-    //public bool canMoveCamera;
 
     private void Update()
     {
-        //if (!canMoveCamera) return;
-        //CAM SENSI
-        if (GPCtrl.Instance.DashPause) return;
+        if (GPCtrl.Instance.Pause) return;
+
+        //camera mobility depending on grounded or not (can see higher up from below if not on ground, but need to see less high if grounded to avoid clipping with ground)
+        if (GPCtrl.Instance.Player.PlayerMovement.Grounded)
+        {
+            GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.m_Orbits[2].m_Height = -.5f;
+        } else
+        {
+            GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.m_Orbits[2].m_Height = -4;
+        }
+
         float camSensi = 1;
         if (PlayerPrefs.HasKey("CamSensi")) camSensi = PlayerPrefs.GetFloat("CamSensi");
         CinemachineFreeLook.m_XAxis.m_MaxSpeed = camSensi * 300;
         CinemachineFreeLook.m_YAxis.m_MaxSpeed = camSensi * 2;
 
+        //CAM SENSI
+        if (GPCtrl.Instance.DashPause) return;
 
         Vector3 viewDir = GPCtrl.Instance.Player.transform.position - new Vector3(transform.position.x, GPCtrl.Instance.Player.transform.position.y, transform.position.z);
         GPCtrl.Instance.Player.Orientation.forward = viewDir.normalized;
 
-        float inputHorizontal = GPCtrl.Instance.Player.InputManager.Gameplay.Move.ReadValue<Vector2>().x;
-        float inputVertical = GPCtrl.Instance.Player.InputManager.Gameplay.Move.ReadValue<Vector2>().y;
+        float inputHorizontal = GPCtrl.Instance.Player.MoveAction.ReadValue<Vector2>().x;
+        float inputVertical = GPCtrl.Instance.Player.MoveAction.ReadValue<Vector2>().y;
         Vector3 inputDir = GPCtrl.Instance.Player.Orientation.forward * inputVertical + GPCtrl.Instance.Player.Orientation.right * inputHorizontal;
 
         //isn't attack grappling and is moving
@@ -54,11 +63,11 @@ public class CameraThirdPerson : MonoBehaviour
                 GPCtrl.Instance.Player.Mesh.rotation = Quaternion.LookRotation(orientation, upVector);*/
 
                 Vector3 SpeedDir = new Vector3(GPCtrl.Instance.Player.Rigibody.velocity.x, 0, GPCtrl.Instance.Player.Rigibody.velocity.z);
-                GPCtrl.Instance.Player.Mesh.rotation = Quaternion.LookRotation(SpeedDir, GPCtrl.Instance.Player.Mesh.up);
+                if (SpeedDir != Vector3.zero)
+                    GPCtrl.Instance.Player.Mesh.rotation = Quaternion.LookRotation(SpeedDir, GPCtrl.Instance.Player.Mesh.up);
 
                 GPCtrl.Instance.Player.PlayerSwingingLeft.SwingInfluenceDirection = inputDir;
                 GPCtrl.Instance.Player.PlayerSwingingRight.SwingInfluenceDirection = inputDir;
-
             }
             else
             {
@@ -66,7 +75,7 @@ public class CameraThirdPerson : MonoBehaviour
                 GPCtrl.Instance.Player.Mesh.rotation = Quaternion.Lerp(GPCtrl.Instance.Player.Mesh.rotation, Quaternion.LookRotation(inputDir, upVector), rotationSpeed * Time.deltaTime);
             }
 
-            if (!GPCtrl.Instance.Player.PlayerSwingingLeft.IsSwinging && !GPCtrl.Instance.Player.PlayerSwingingRight.IsSwinging) // if no swinging
+            if (!GPCtrl.Instance.Player.PlayerSwingingLeft.IsSwinging && !GPCtrl.Instance.Player.PlayerSwingingRight.IsSwinging && !GPCtrl.Instance.Player.PlayerMovement.Grounded) // if no swinging
             {
                 inputDir = new Vector3(Camera.main.transform.forward.x, 0, Camera.main.transform.forward.z);
                 GPCtrl.Instance.Player.Mesh.rotation = Quaternion.LookRotation(inputDir, upVector);
@@ -94,11 +103,5 @@ public class CameraThirdPerson : MonoBehaviour
             GPCtrl.Instance.Player.Mesh.rotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z), Vector3.up);
             LookDirectionSave = direction;
         }
-    }
-
-    public void ActivateFreeLook(bool value)
-    {
-        return;
-        //CinemachineFreeLook.enabled = value;
     }
 }
