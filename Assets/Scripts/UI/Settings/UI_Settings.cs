@@ -11,6 +11,7 @@ public class UI_Settings : MonoBehaviour
     [SerializeField] private Toggle _toggleVibration;
     [SerializeField] private Slider _camSensiSlider;
     [SerializeField] private List<CanvasGroup> _subMenuList;
+    [SerializeField] private List<UI_Button> _buttonList;
 
     private void Start()
     {
@@ -38,11 +39,15 @@ public class UI_Settings : MonoBehaviour
 
     public void SelectPage(CanvasGroup group)
     {
+        int index = 0;
         for (int i = 0; i < _subMenuList.Count; i++)
         {
             if (_subMenuList[i].gameObject.activeSelf) HideSubMenu(_subMenuList[i]);
+            if (_subMenuList[i] == group) index = i;
         }
         ShowSubMenu(group);
+        ResetNavbar();
+        _buttonList[index].Activate();
     }
 
     public void HideSubMenu(CanvasGroup group)
@@ -68,6 +73,15 @@ public class UI_Settings : MonoBehaviour
         for (int i = 0; i < _subMenuList.Count; i++)
         {
             HideSubMenu(_subMenuList[i]);
+        }
+        ResetNavbar();
+    }
+
+    public void ResetNavbar()
+    {
+        for (int i = 0; i < _buttonList.Count; i++)
+        {
+            _buttonList[i].Deactivate();
         }
     }
 }

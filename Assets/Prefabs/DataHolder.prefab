@@ -11,9 +11,7 @@ GameObject:
   - component: {fileID: 2331787135790121062}
   - component: {fileID: 8715940970806682399}
   - component: {fileID: 705343748621916297}
-  - component: {fileID: 4958727836588171241}
-  - component: {fileID: 690550245524098578}
-  - component: {fileID: 231750933011641253}
+  - component: {fileID: 8509989165500604768}
   m_Layer: 0
   m_Name: DataHolder
   m_TagString: Untagged
@@ -56,6 +54,11 @@ MonoBehaviour:
     valueGuidInternal: 
     WwiseObjectReference: {fileID: 11400000, guid: 6ea199b6d6f2ecf40bcdcffa5cbb3b90,
       type: 2}
+  Bank:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 34f2aef2cd505f349b487a3f802981e0,
+      type: 2}
 --- !u!114 &705343748621916297
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68,45 +71,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f85094ae36cc18f4c8e38825e5cc7bfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4958727836588171241
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1354279307260687312}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f2e37a591ff78d4fb3743a85303c0ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  triggerList: ae8d9d44
-  useOtherObject: 0
-  data:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: a65e4bfc0b6314049bf2996adcacefa4,
-      type: 2}
-  decodeBank: 0
-  overrideLoadSetting: 0
-  loadAsynchronous: 0
-  saveDecodedBank: 0
-  unloadTriggerList: 
-  bankNameInternal: 
-  valueGuidInternal: 
---- !u!114 &690550245524098578
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1354279307260687312}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b810a2aef9946f64787cdb6558131c20, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &231750933011641253
+--- !u!114 &8509989165500604768
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

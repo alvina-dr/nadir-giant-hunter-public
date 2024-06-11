@@ -112,6 +112,10 @@ public class TargetableSpot : MonoBehaviour
     private IEnumerator DestroyAfterDelay()
     {
         yield return new WaitForSecondsRealtime(5.0f);
+        if (GPCtrl.Instance.Player.PlayerSwingingLeft.EndSwingLinePoint.parent == transform)
+            GPCtrl.Instance.Player.PlayerSwingingLeft.EndSwingLinePoint.parent = null;
+        if (GPCtrl.Instance.Player.PlayerSwingingRight.EndSwingLinePoint.parent == transform)
+            GPCtrl.Instance.Player.PlayerSwingingRight.EndSwingLinePoint.parent = null;
         Destroy(gameObject);
     }
     
