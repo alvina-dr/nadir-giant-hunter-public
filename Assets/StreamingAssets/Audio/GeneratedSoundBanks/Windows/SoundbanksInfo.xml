@@ -193,7 +193,7 @@
 				</AcousticTexture>
 			</AcousticTextures>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{B50C44F9-98E0-1C7B-BEE4-C8E5B2EFE3E9}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{EAD903D5-14B6-E8ED-CBCC-BAC526D320A7}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
@@ -548,16 +548,6 @@
 						<AuxBusRef Id="4116390784" Name="RVB_Down"/>
 					</AuxBusRefs>
 				</Event>
-				<Event Id="4219705481" Name="Play_SFX_Hunter_Clothes" DurationType="Infinite">
-					<MediaRefs>
-						<MediaRef Id="389253893"/>
-						<MediaRef Id="785035288"/>
-					</MediaRefs>
-					<AuxBusRefs>
-						<AuxBusRef Id="2518605955" Name="RVB_Up"/>
-						<AuxBusRef Id="4116390784" Name="RVB_Down"/>
-					</AuxBusRefs>
-				</Event>
 				<Event Id="2983529901" Name="Play_SFX_Hunter_Dash_Release" DurationType="OneShot" DurationMin="1.570771" DurationMax="1.570771">
 					<MediaRefs>
 						<MediaRef Id="155669719"/>
@@ -706,6 +696,7 @@
 				<Event Id="1355485359" Name="Stop_AMB_Dash" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
 				<Event Id="689102733" Name="Stop_AMB_MainMenu" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
 				<Event Id="2706217030" Name="Stop_AMB_Rift_Bed" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
+				<Event Id="2120326816" Name="Stop_SFX_Hunter_AirSpeed" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
 			</Events>
 			<GameParameters>
 				<GameParameter Id="1381474336" Name="RTPC_Speed"/>
@@ -713,5 +704,5 @@
 			</GameParameters>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{BDE42340-5D2E-0AC9-F81E-C74427095CD9}</FileHash>
+	<FileHash>{955442AE-A477-D3FB-C00D-8C7037134156}</FileHash>
 </SoundBanksInfo>
