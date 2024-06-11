@@ -21,7 +21,7 @@ public class UI_EndGameMenu : MonoBehaviour
     {
         _resultText.text = "Victory";
         _scoreText.gameObject.SetActive(true);
-        _scoreText.text = Math.Round(GPCtrl.Instance.Timer, 2, MidpointRounding.AwayFromZero).ToString();
+        _scoreText.text = DataHolder.Instance.ConvertTimeToMinutes(GPCtrl.Instance.Timer);
         _buttonNext.gameObject.SetActive(true);
         //if score high enough to be in leaderboard then don't show those buttons
         _nameInputField.gameObject.SetActive(true);
@@ -34,7 +34,7 @@ public class UI_EndGameMenu : MonoBehaviour
 
     public void Loose()
     {
-        _resultText.text = "Game over";
+        _resultText.text = "Mission failed";
         _scoreText.gameObject.SetActive(false);
         _buttonNext.gameObject.SetActive(false);
         _nameInputField.gameObject.SetActive(false);

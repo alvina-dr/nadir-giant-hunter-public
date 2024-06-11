@@ -73,11 +73,11 @@ public class GPCtrl : MonoBehaviour
         Material postProcess = GetPostProcessMaterial();
         if (postProcess != null) postProcess.SetFloat("_unscaled_time", postProcess.GetFloat("_unscaled_time") + Time.unscaledDeltaTime);
         UICtrl.MonsterHighIndicator.SetUnscaledTime();
+        UICtrl.AttackInputIndicator.SetUnscaledTime();
         if (GameOver) return;
         if (Pause) return;
         Timer += Time.unscaledDeltaTime;
-        double timerText = Math.Round(GPCtrl.Instance.Timer, 2, MidpointRounding.AwayFromZero);
-        UICtrl.TimerText.text = timerText.ToString();
+        UICtrl.TimerText.text = DataHolder.Instance.ConvertTimeToMinutes(Timer);
     }
 
     public void Win()
@@ -139,10 +139,10 @@ public class GPCtrl : MonoBehaviour
             material.SetFloat("_Hit_by_Abyss_Time", 0);
             material.SetFloat("_Timefactor_Hitframe_Attack_Bumper", 1);
             material.SetFloat("_Timefactor_Hitframe_Attack_Dashspot", 1);
-            material.SetFloat("_Timefactor_Hitframe_Attack_Dashspot", 1);
+            material.SetFloat("_Timefactor_Hitframe_Attack_Weakspot", 1);
             material.SetFloat("_Timefactor_Hitframe_Input_Bumper", 1);
             material.SetFloat("_Timefactor_Hitframe_Input_Dashspot", 1);
-            material.SetFloat("_Timefactor_Hitframe_Input_Dashspot", 1);
+            material.SetFloat("_Timefactor_Hitframe_Input_Weakspot", 1);
         }
     }
 }
