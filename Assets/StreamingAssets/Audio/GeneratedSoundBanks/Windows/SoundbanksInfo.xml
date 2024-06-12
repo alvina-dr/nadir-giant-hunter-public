@@ -9,13 +9,14 @@
 	</RootPaths>
 	<DialogueEvents/>
 	<SoundBanks>
-		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{F3EA71FE-0996-DC52-219A-BA790B6CD820}">
+		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{B99ADAF7-3E52-BAB3-A584-15F11367745B}">
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 			<Plugins>
 				<ShareSets>
 					<Plugin Id="48620415" Name="Have_U_Ever_Been_Outside" LibName="Wwise RoomVerb" LibId="7733251"/>
-					<Plugin Id="2791153688" Name="Hall_Small" LibName="Wwise RoomVerb" LibId="7733251"/>
+					<Plugin Id="3164629247" Name="Holy" LibName="Wwise RoomVerb" LibId="7733251"/>
+					<Plugin Id="3487820010" Name="One_Tap_Half_Second" LibName="Wwise Delay" LibId="6946819"/>
 				</ShareSets>
 				<AudioDevices>
 					<Plugin Id="2317455096" Name="No_Output" LibName="No Output" LibId="11862023"/>
@@ -40,7 +41,8 @@
 				<AuxBus Id="4116390784" Name="RVB_Down">
 					<PluginRefs>
 						<ShareSets>
-							<PluginRef Id="2791153688"/>
+							<PluginRef Id="3164629247"/>
+							<PluginRef Id="3487820010"/>
 						</ShareSets>
 					</PluginRefs>
 				</AuxBus>
@@ -193,7 +195,7 @@
 				</AcousticTexture>
 			</AcousticTextures>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{B1AF087E-2912-7249-6730-40DB311AD988}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{46A915BB-87EF-C102-1240-16A774DBF0E1}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
@@ -714,5 +716,5 @@
 			</GameParameters>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{DC8A68D1-8D45-2CBA-E47C-231F70C2D38B}</FileHash>
+	<FileHash>{33AB442A-D023-90AA-30A6-A34554EECF16}</FileHash>
 </SoundBanksInfo>
