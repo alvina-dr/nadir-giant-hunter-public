@@ -49,7 +49,7 @@ public class EnemyWeakSpotManagement : MonoBehaviour
             Debug.Log("end swing line point right : " + GPCtrl.Instance.Player.PlayerSwingingRight.EndSwingLinePoint.parent.name);
         GPCtrl.Instance.Player.PlayerSwingingLeft.EndSwingLinePoint.parent = null;
         GPCtrl.Instance.Player.PlayerSwingingRight.EndSwingLinePoint.parent = null;
-        EnemyMovement.Data.SFX_Giant_Roar_Danger.Post(GPCtrl.Instance.Player.gameObject);
+        EnemyMovement.SoundData.SFX_Giant_Roar_Death.Post(GPCtrl.Instance.Player.gameObject);
         Destroy(gameObject);
     }
 }
