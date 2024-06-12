@@ -6,6 +6,9 @@ using UnityEngine.UI;
 using static UI_Scoreboard;
 using TMPro;
 using System;
+using LootLocker.Requests;
+using Sirenix.OdinInspector;
+using Unity.VisualScripting;
 
 public class UI_ScoreboardManager : MonoBehaviour
 {
@@ -61,9 +64,32 @@ public class UI_ScoreboardManager : MonoBehaviour
         AddScoreToScoreboard(inputField.text, GPCtrl.Instance.Timer);
     }
 
+    [Button(ButtonStyle.FoldoutButton)]
     public void AddScoreToScoreboard(string _name, float _timer)
     {
         ScoreboardEntry entry = new(_name, _timer);
+        // metadata have this format : playerName:{name},difficulty:{difficulty} (and maybe the seed in the future)
+        // Because the userID is a random mix of letter and digit, we pass the username as metadata
+        string metadata = "playerName:" + _name + ",difficulty:" + DataHolder.Instance.CurrentDifficulty;
+        LootLockerSDKManager.StartGuestSession(_name, firstResponse =>
+        {
+            if (firstResponse.success)
+            {
+                Debug.Log("[LootLocker] Guest session started successfully");
+                LootLockerSDKManager.SubmitScore(_name, (int)_timer, "Leaderboard", metadata,(secondResponse) =>
+                {
+                    if (secondResponse.statusCode == 200) {
+                        Debug.Log("[LootLocker] Leaderboard updated Successfully with member id: " + _name + " and score: " + _timer);
+                    } else {
+                        Debug.Log("[LootLocker] Leaderboard update failed with error: " + secondResponse.text);
+                    }
+                });
+            }
+            else
+            {
+                Debug.Log("[LootLocker] Guest session failed to start with error: " + firstResponse.text);
+            }
+        });
         switch (DataHolder.Instance.CurrentDifficulty)
         {
             case DataHolder.DifficultyMode.Easy:
