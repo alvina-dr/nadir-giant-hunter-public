@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
@@ -14,11 +15,19 @@ public class UICtrl : MonoBehaviour
     public UI_Scoreboard Scoreboard;
 
     [Header("Indicators")]
-    public UI_InputIndication AttackInputIndicator;
-    public UI_InputIndication MonsterHighIndicator;
+    public UI_MovingIndicator AttackInputIndicator;
+    public UI_MovingIndicator MonsterHighIndicator;
     public CanvasGroup PlayerLowIndicator;
-    public UI_InputIndication SwingRightIndicator;
-    public UI_InputIndication SwingLeftIndicator;
+    public UI_MovingIndicator SwingRightIndicator;
+    public UI_MovingIndicator SwingLeftIndicator;
+
+    [Header("Input")]
+    public UI_InputIndicator AttackInput;
+    public UI_InputIndicator SwingLeftInput;
+    public UI_InputIndicator SwingRightInput;
+    public Image WeakSpotContextUI;
+    public Image BumperContextUI;
+    public Image DashContextUI;
 
     [Header("In game UI")]
     public TextMeshProUGUI TimerText;
@@ -38,7 +47,7 @@ public class UICtrl : MonoBehaviour
     public void ClosePauseMenu()
     {
         GPCtrl.Instance.Pause = false;
-        Time.timeScale = 1;
+        if (!GPCtrl.Instance.DashPause) Time.timeScale = 1;
         PauseMenu.CloseMenu();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -47,6 +56,7 @@ public class UICtrl : MonoBehaviour
 
     public void CallPause()
     {
+        if (GPCtrl.Instance.GameOver) return;
         if (GPCtrl.Instance.Pause) ClosePauseMenu();
         else OpenPauseMenu();
     }

@@ -6,11 +6,24 @@ using DG.Tweening;
 using UnityEngine.InputSystem;
 using System.Linq;
 using UnityEngine.InputSystem.Controls;
+using UnityEngine.Events;
+using UnityEngine.InputSystem.UI;
 
 public class UI_Menu : MonoBehaviour
 {
     [SerializeField] private GameObject _gamepadFocus;
     [SerializeField] private CanvasGroup _canvasGroup;
+    public UnityEvent GoBackEvent;
+
+    private void Awake()
+    {
+        GoBackEvent.AddListener(GoBack);
+    }
+
+    public void GoBack()
+    {
+        DataHolder.Instance._sfxGoBack.Post(DataHolder.Instance.gameObject);
+    }
 
     public void OpenMenu(bool animated = true)
     {
@@ -19,7 +32,8 @@ public class UI_Menu : MonoBehaviour
         {
             _canvasGroup.interactable = true;
             _canvasGroup.blocksRaycasts = true;
-            EventSystem.current.SetSelectedGameObject(_gamepadFocus);
+            if (Gamepad.current != null & Gamepad.all.Count > 0)
+                EventSystem.current.SetSelectedGameObject(_gamepadFocus);
         }).SetUpdate(true);
 
     }
@@ -51,11 +65,22 @@ public class UI_Menu : MonoBehaviour
     void Update()
     {
         //to get back focus for gamepad after you use the mouse
-        if (Gamepad.current == null) return;
+        if (Gamepad.current == null || Gamepad.all.Count == 0) return;
         var gamepadButtonPressed = Gamepad.current.allControls.Any(x => x is ButtonControl button && x.IsPressed() && !x.synthetic);
         if (EventSystem.current.currentSelectedGameObject == null && gamepadButtonPressed)
         {
             EventSystem.current.SetSelectedGameObject(_gamepadFocus);
+        }
+
+        if (_canvasGroup.interactable)
+        {
+            var uiModule = (InputSystemUIInputModule)EventSystem.current.currentInputModule;
+            var cancel = uiModule.cancel.action;
+
+            if (cancel.WasPressedThisFrame())
+            {
+                GoBackEvent?.Invoke();
+            }
         }
     }
 }

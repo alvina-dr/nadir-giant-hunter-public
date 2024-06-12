@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.VFX;
@@ -32,13 +30,13 @@ public class Player : MonoBehaviour
     public float currentTimerPitBottom;
 
     [Header("Input")]
-    public PlayerControls InputManager;
-    [SerializeField] private PlayerInput _playerInput;
+    public PlayerInput PlayerInput;
     private InputAction _attackAction;
     private InputAction _jumpAction;
     private InputAction _swingRightAction;
     private InputAction _swingLeftAction;
     private InputAction _menuAction;
+    public InputAction MoveAction;
 
     [Header("Cone Raycast")]
     [SerializeField] private Transform CameraConeRaycastParent;
@@ -49,28 +47,15 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        InputManager = new PlayerControls();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         SetupInputActions();
         SetConeRaycast(Data.coneRaycastOnPlayer);
     }
 
-    private void OnEnable()
-    {
-        InputManager.Enable();
-        //InputManager.Gameplay.Lock.started += function => GPCtrl.Instance.CameraThirdPerson.ActivateFreeLook(!GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.enabled);
-    }
-
-    private void OnDisable()
-    {
-        InputManager.Disable();
-    }
-
     private void Update()
     {
         UpdateInputs();
-        //CameraConeRaycastParent.transform.forward = Camera.main.transform.forward;
     }
 
     public void SetConeRaycast(bool onPlayer)
@@ -88,11 +73,12 @@ public class Player : MonoBehaviour
 
     void SetupInputActions()
     {
-        _attackAction = _playerInput.actions["Attack"];
-        _jumpAction = _playerInput.actions["Jump"];
-        _swingRightAction = _playerInput.actions["SwingRight"];
-        _swingLeftAction = _playerInput.actions["SwingLeft"];
-        _menuAction = _playerInput.actions["Menu"];
+        _attackAction = PlayerInput.actions["Attack"];
+        _jumpAction = PlayerInput.actions["Jump"];
+        _swingRightAction = PlayerInput.actions["SwingRight"];
+        _swingLeftAction = PlayerInput.actions["SwingLeft"];
+        _menuAction = PlayerInput.actions["Menu"];
+        MoveAction = PlayerInput.actions["Move"];
     }
 
     void UpdateInputs()

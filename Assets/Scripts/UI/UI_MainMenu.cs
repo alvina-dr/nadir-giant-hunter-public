@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class UI_MainMenu : MonoBehaviour
 {
     [SerializeField] private UI_Menu _mainMenu;
+    [SerializeField] private AK.Wwise.Event _sfxStartGame;
 
     private void Awake()
     {
@@ -33,8 +34,22 @@ public class UI_MainMenu : MonoBehaviour
         if (!PlayerPrefs.HasKey("CameraShake")) PlayerPrefs.SetInt("CameraShake", 1);
     }
 
-    public void StartGame()
+    //public void StartGame()
+    //{
+    //    _sfxStartGame.Post(DataHolder.Instance.gameObject);
+    //    SceneManager.LoadScene("Game");
+    //}
+
+    public void StartGameWithTuto()
     {
+        _sfxStartGame.Post(DataHolder.Instance.gameObject);
+        SceneManager.LoadScene("Tutoriel");
+    }
+
+    public void StartGame(int difficulty)
+    {
+        _sfxStartGame.Post(DataHolder.Instance.gameObject);
+        DataHolder.Instance.CurrentDifficulty = (DataHolder.DifficultyMode) difficulty;
         SceneManager.LoadScene("Game");
     }
 

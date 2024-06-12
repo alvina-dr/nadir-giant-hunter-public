@@ -5,7 +5,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Sirenix.OdinInspector;
 using UnityEngine.Rendering.HighDefinition;
-using Enemies;
+using static UnityEngine.Rendering.DebugUI;
+using System;
 
 public class GPCtrl : MonoBehaviour
 {
@@ -22,9 +23,20 @@ public class GPCtrl : MonoBehaviour
         {
             Instance = this;
             TargetableSpotList = FindObjectsByType<TargetableSpot>(FindObjectsSortMode.InstanceID).ToList();
+            switch (DataHolder.Instance.CurrentDifficulty) 
+            {
+                case DataHolder.DifficultyMode.Easy:
+                    EnemySpawner.SpawnerData = EasySpawnerData;
+                    break;
+                case DataHolder.DifficultyMode.Normal:
+                    EnemySpawner.SpawnerData = NormalSpawnerData;
+                    break;
+                case DataHolder.DifficultyMode.Hard:
+                    EnemySpawner.SpawnerData = HardSpawnerData;
+                    break;
+            }
         }
     }
-
     #endregion
 
     public GeneralData GeneralData;
@@ -37,30 +49,48 @@ public class GPCtrl : MonoBehaviour
     public CameraLock CameraLock;
     public GameOverCamera GameOverCamera;
 
+    [Header("Difficulty")]
+    public EnemySpawnerData EasySpawnerData;
+    public EnemyData EasyEnemyData;
+    public EnemySpawnerData NormalSpawnerData;
+    public EnemyData NormalEnemyData;
+    public EnemySpawnerData HardSpawnerData;
+    public EnemyData HardEnemyData;
+
     [ReadOnly]
     public List<TargetableSpot> TargetableSpotList;
     [ReadOnly]
     public float Timer;
     [ReadOnly]
     public bool Pause = false;
+    public bool GameOver = false;
     public bool DashPause = false;
     public CustomPassVolume reliefFX;
     public int NumEnemyKilled = 0;
 
     private void Update()
     {
-        Timer += Time.deltaTime;
-        UICtrl.TimerText.text = Timer.ToString();
+        Material postProcess = GetPostProcessMaterial();
+        if (postProcess != null) postProcess.SetFloat("_unscaled_time", postProcess.GetFloat("_unscaled_time") + Time.unscaledDeltaTime);
+        UICtrl.MonsterHighIndicator.SetUnscaledTime();
+        UICtrl.AttackInputIndicator.SetUnscaledTime();
+        if (GameOver) return;
+        if (Pause) return;
+        Timer += Time.unscaledDeltaTime;
+        UICtrl.TimerText.text = DataHolder.Instance.ConvertTimeToMinutes(Timer);
     }
 
     public void Win()
     {
         Debug.Log("WIN");
+        GameOver = true;
         UICtrl.OpenEndGameMenu(true);
     }
 
     public void Loose(EnemyMovement enemy = null)
     {
+        GameOver = true;
+        Player.SoundData.SFX_Hunter_Death.Post(Player.gameObject);
         UICtrl.OpenEndGameMenu(false);
         if (enemy != null)
         {
@@ -98,5 +128,21 @@ public class GPCtrl : MonoBehaviour
         }
         Debug.LogError("Custom error : No full screen pass material found in post process.");
         return null;
+    }
+
+    private void OnDestroy()
+    {
+        Material material = GetPostProcessMaterial();
+        if (material != null)
+        {
+            material.SetFloat("_strength", 0);
+            material.SetFloat("_Hit_by_Abyss_Time", 0);
+            material.SetFloat("_Timefactor_Hitframe_Attack_Bumper", 1);
+            material.SetFloat("_Timefactor_Hitframe_Attack_Dashspot", 1);
+            material.SetFloat("_Timefactor_Hitframe_Attack_Weakspot", 1);
+            material.SetFloat("_Timefactor_Hitframe_Input_Bumper", 1);
+            material.SetFloat("_Timefactor_Hitframe_Input_Dashspot", 1);
+            material.SetFloat("_Timefactor_Hitframe_Input_Weakspot", 1);
+        }
     }
 }

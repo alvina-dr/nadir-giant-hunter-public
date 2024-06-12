@@ -3,48 +3,53 @@ using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 
-namespace Enemies
+public class EnemyWeakSpotManagement : MonoBehaviour
 {
-    public class EnemyWeakSpotManagement : MonoBehaviour
+    public EnemyMovement EnemyMovement;
+    public List<TargetableSpot> WeakSpotSpawnList;
+    [ReadOnly]
+    public List<TargetableSpot> WeakSpotList;
+    public int WeakSpotNum;
+    public EnemyVFXData VFXData;
+
+    void Start()
     {
-        public EnemyMovement EnemyMovement;
-        public List<TargetableSpot> WeakSpotSpawnList;
-        [ReadOnly]
-        public List<TargetableSpot> WeakSpotList;
-        public int WeakSpotNum;
-        public EnemyVFXData VFXData;
-
-        void Start()
+        foreach (TargetableSpot weakSpot in WeakSpotSpawnList)
         {
-            foreach (TargetableSpot weakSpot in WeakSpotSpawnList)
-            {
-                weakSpot.gameObject.SetActive(false);
-            }
-            for (int i = 0; i < WeakSpotNum; ++i)
-            {
-                TargetableSpot weakSpot = WeakSpotSpawnList[Random.Range(0, WeakSpotSpawnList.Count)];
-                WeakSpotSpawnList.Remove(weakSpot);
-                weakSpot.gameObject.SetActive(true);
-                WeakSpotList.Add(weakSpot);
-                GPCtrl.Instance.TargetableSpotList.Add(weakSpot);
-                weakSpot.Enemy = this;
-            }
+            weakSpot.gameObject.SetActive(false);
         }
-
-        public void Damage(TargetableSpot weakSpot)
+        for (int i = 0; i < WeakSpotNum; ++i)
         {
-            WeakSpotList.Remove(weakSpot);
-            if (WeakSpotList.Count == 0)
-            {
-                Death();
-            }
+            TargetableSpot weakSpot = WeakSpotSpawnList[Random.Range(0, WeakSpotSpawnList.Count)];
+            WeakSpotSpawnList.Remove(weakSpot);
+            weakSpot.gameObject.SetActive(true);
+            WeakSpotList.Add(weakSpot);
+            GPCtrl.Instance.TargetableSpotList.Add(weakSpot);
+            weakSpot.Enemy = this;
         }
+    }
 
-        public void Death()
+    public void Damage(TargetableSpot weakSpot)
+    {
+        weakSpot.transform.parent = null;
+        WeakSpotList.Remove(weakSpot);
+        if (WeakSpotList.Count == 0)
         {
-            GPCtrl.Instance.AddKilledEnemy();
-            GPCtrl.Instance.EnemySpawner.EnemyList.Remove(EnemyMovement);
-            Destroy(gameObject);
+            Death();
         }
+    }
+
+    public void Death()
+    {
+        GPCtrl.Instance.AddKilledEnemy();
+        GPCtrl.Instance.EnemySpawner.EnemyList.Remove(EnemyMovement);
+        if (GPCtrl.Instance.Player.PlayerSwingingLeft.EndSwingLinePoint.parent != null)
+            Debug.Log("end swing line point left : " + GPCtrl.Instance.Player.PlayerSwingingLeft.EndSwingLinePoint.parent.name);
+        if (GPCtrl.Instance.Player.PlayerSwingingRight.EndSwingLinePoint.parent != null)
+            Debug.Log("end swing line point right : " + GPCtrl.Instance.Player.PlayerSwingingRight.EndSwingLinePoint.parent.name);
+        GPCtrl.Instance.Player.PlayerSwingingLeft.EndSwingLinePoint.parent = null;
+        GPCtrl.Instance.Player.PlayerSwingingRight.EndSwingLinePoint.parent = null;
+        EnemyMovement.Data.SFX_Giant_Roar_Danger.Post(GPCtrl.Instance.Player.gameObject);
+        Destroy(gameObject);
     }
 }

@@ -37,6 +37,9 @@ public class DebugMenu : MonoBehaviour
         DM.Add("Debug/ReloadScene", action => ReloadScene());
         DM.Add("Debug/Win", action => GPCtrl.Instance.Win());
         DM.Add("Debug/Loose", action => GPCtrl.Instance.Loose());
+        DM.Add("Debug/Reset Scoreboard Easy", action => PlayerPrefs.DeleteKey("scoreboardEasy"));
+        DM.Add("Debug/Reset Scoreboard Normal", action => PlayerPrefs.DeleteKey("scoreboardNormal"));
+        DM.Add("Debug/Reset Scoreboard Hard", action => PlayerPrefs.DeleteKey("scoreboardHard"));
         DM.Add("Grapple/StartCurveBoost", () => GPCtrl.Instance.Player.Data.startCurveBoost, v => GPCtrl.Instance.Player.Data.startCurveBoost = v);
         DM.Add("Grapple/EndCurveBoost", () => GPCtrl.Instance.Player.Data.endCurveBoost, v => GPCtrl.Instance.Player.Data.endCurveBoost = v);
         DM.Add("Debug/BouncingGround", () => GPCtrl.Instance.GeneralData.debugBouncingGround, v => GPCtrl.Instance.GeneralData.debugBouncingGround = v);
@@ -44,8 +47,8 @@ public class DebugMenu : MonoBehaviour
         DM.Add("Values/FPS", action => _fpsText.gameObject.SetActive(!_fpsText.gameObject.activeSelf));
         //DN.Notify("Simple notification", 5f);
 #if UNITY_EDITOR
-        _speedText.gameObject.SetActive(false);
-        _fpsText.gameObject.SetActive(false);
+        _speedText.gameObject.SetActive(true);
+        _fpsText.gameObject.SetActive(true);
 #endif
     }
 
