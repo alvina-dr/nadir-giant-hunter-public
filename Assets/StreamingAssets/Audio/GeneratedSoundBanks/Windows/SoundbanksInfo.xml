@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <SoundBanksInfo Platform="Windows" BasePlatform="Windows" SchemaVersion="16" SoundBankVersion="150">
 	<RootPaths>
-		<ProjectRoot>F:/GiantHunter_WwiseProject</ProjectRoot>
-		<SourceFilesRoot>F:/GiantHunter_WwiseProject/.cache/Windows</SourceFilesRoot>
+		<ProjectRoot>../../../../../../Documents/WwiseProjects/Nadir_WwiseProject/nadir_wwise</ProjectRoot>
+		<SourceFilesRoot>../../../../../../Documents/WwiseProjects/Nadir_WwiseProject/nadir_wwise/.cache/Windows</SourceFilesRoot>
 		<SoundBanksRoot>.</SoundBanksRoot>
 		<ExternalSourcesInputFile></ExternalSourcesInputFile>
-		<ExternalSourcesOutputRoot>F:/GiantHunter_WwiseProject/GeneratedSoundBanks/Windows</ExternalSourcesOutputRoot>
+		<ExternalSourcesOutputRoot>../../../../../../Documents/WwiseProjects/Nadir_WwiseProject/nadir_wwise/GeneratedSoundBanks/Windows</ExternalSourcesOutputRoot>
 	</RootPaths>
 	<DialogueEvents/>
 	<SoundBanks>
@@ -193,7 +193,7 @@
 				</AcousticTexture>
 			</AcousticTextures>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{41A73AE4-A47D-B4EF-0928-D2DF11E2B490}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{B1AF087E-2912-7249-6730-40DB311AD988}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
@@ -263,7 +263,7 @@
 				</File>
 				<File Id="221974456" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>AMB_DeathZone_Enter.wav</ShortName>
-					<CachePath>SFX/AMB_DeathZone_Enter_818F3B66.wem</CachePath>
+					<CachePath>SFX/AMB_DeathZone_Enter_FBC78EF0.wem</CachePath>
 				</File>
 				<File Id="224828170" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>SFX_Hunter_Attack_A_03.wav</ShortName>
@@ -285,9 +285,17 @@
 					<ShortName>SFX_Hunter_Grapple_Release_1.wav</ShortName>
 					<CachePath>SFX/SFX_Hunter_Grapple_Release_1_818F3B66.wem</CachePath>
 				</File>
+				<File Id="283087508" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>AMB_Dashspot.wav</ShortName>
+					<CachePath>SFX/AMB_Dashspot_FBC78EF0.wem</CachePath>
+				</File>
 				<File Id="307788563" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>UI_Gameplay_Victory.wav</ShortName>
 					<CachePath>SFX/UI_Gameplay_Victory_818F3B66.wem</CachePath>
+				</File>
+				<File Id="329455457" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>AMB_WeakSpot.wav</ShortName>
+					<CachePath>SFX/AMB_WeakSpot_FBC78EF0.wem</CachePath>
 				</File>
 				<File Id="331231020" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>SFX_Hunter_Grapple_Trigger_1.wav</ShortName>
@@ -304,10 +312,6 @@
 				<File Id="421721158" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>SFX_Hunter_Attack_A_05.wav</ShortName>
 					<CachePath>SFX/SFX_Hunter_Attack_A_05_818F3B66.wem</CachePath>
-				</File>
-				<File Id="450849102" Language="SFX" Streaming="false" Location="Memory">
-					<ShortName>AMB_Dash.wav</ShortName>
-					<CachePath>SFX/AMB_Dash_FBC78EF0.wem</CachePath>
 				</File>
 				<File Id="454485006" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>SFX_Hunter_Attack_B_04.wav</ShortName>
@@ -438,10 +442,10 @@
 				</Event>
 				<Event Id="2537313685" Name="Play_AMB_Dash" DurationType="Infinite">
 					<MediaRefs>
-						<MediaRef Id="450849102"/>
+						<MediaRef Id="283087508"/>
 					</MediaRefs>
 				</Event>
-				<Event Id="2987612296" Name="Play_AMB_DeathZone_Enter" DurationType="OneShot" DurationMin="10.684422" DurationMax="10.684422">
+				<Event Id="2987612296" Name="Play_AMB_DeathZone_Enter" DurationType="Infinite">
 					<MediaRefs>
 						<MediaRef Id="221974456"/>
 					</MediaRefs>
@@ -466,6 +470,11 @@
 				<Event Id="1988198658" Name="Play_AMB_Slowmo" DurationType="Infinite">
 					<MediaRefs>
 						<MediaRef Id="572398160"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="1645025837" Name="Play_AMB_WeakSpot" DurationType="Infinite">
+					<MediaRefs>
+						<MediaRef Id="329455457"/>
 					</MediaRefs>
 				</Event>
 				<Event Id="3711688498" Name="Play_SFX_Bumper_Trigger" DurationType="OneShot" DurationMin="2.9719453" DurationMax="3.7444165">
@@ -696,6 +705,7 @@
 				<Event Id="1355485359" Name="Stop_AMB_Dash" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
 				<Event Id="689102733" Name="Stop_AMB_MainMenu" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
 				<Event Id="2706217030" Name="Stop_AMB_Rift_Bed" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
+				<Event Id="494702947" Name="Stop_AMB_WeakSpot" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
 				<Event Id="2120326816" Name="Stop_SFX_Hunter_AirSpeed" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
 			</Events>
 			<GameParameters>
@@ -704,5 +714,5 @@
 			</GameParameters>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{9E429584-9FBC-323D-7983-DF039AA2C820}</FileHash>
+	<FileHash>{DC8A68D1-8D45-2CBA-E47C-231F70C2D38B}</FileHash>
 </SoundBanksInfo>
