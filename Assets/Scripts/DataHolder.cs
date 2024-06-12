@@ -15,6 +15,7 @@ public class DataHolder : MonoBehaviour
     }
 
     public DifficultyMode CurrentDifficulty;
+    public bool Tutorial = false;
 
     private void Awake()
     {
