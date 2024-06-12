@@ -46,7 +46,6 @@ public class GPCtrl : MonoBehaviour
 
     [Header("Camera")]
     public CameraThirdPerson CameraThirdPerson;
-    public CameraLock CameraLock;
     public GameOverCamera GameOverCamera;
 
     [Header("Difficulty")]
