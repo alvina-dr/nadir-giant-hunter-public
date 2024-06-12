@@ -1,5 +1,380 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &31791669282742317
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6703979701683943808}
+  - component: {fileID: 8910695606519929441}
+  - component: {fileID: 8056937671594117791}
+  m_Layer: 0
+  m_Name: VFX_tentacles_strip
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6703979701683943808
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 31791669282742317}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.26526743, y: -0.24068955, z: 0.8332255, w: 0.42123288}
+  m_LocalPosition: {x: -0.1377376, y: 0.31402814, z: -0.1680987}
+  m_LocalScale: {x: -0.07245298, y: -0.07245299, z: -0.072452985}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8678784593190795007}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!2083052967 &8910695606519929441
+VisualEffect:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 31791669282742317}
+  m_Enabled: 1
+  m_Asset: {fileID: 8926484042661614526, guid: 71075316aa1e8f449b164837b931d7cc, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
+  m_StartSeed: 0
+  m_ResetSeedOnPlay: 1
+  m_AllowInstancing: 1
+  m_ResourceVersion: 1
+  m_PropertySheet:
+    m_Float:
+      m_Array:
+      - m_Value: 1
+        m_Name: tentacle number
+        m_Overridden: 1
+    m_Vector2f:
+      m_Array: []
+    m_Vector3f:
+      m_Array: []
+    m_Vector4f:
+      m_Array:
+      - m_Value: {x: 0, y: 0.21176471, z: 1, w: 1}
+        m_Name: Color 1
+        m_Overridden: 1
+      - m_Value: {x: 0.91291904, y: 0, z: 1, w: 0}
+        m_Name: Color 2
+        m_Overridden: 1
+    m_Uint:
+      m_Array: []
+    m_Int:
+      m_Array: []
+    m_Matrix4x4f:
+      m_Array: []
+    m_AnimationCurve:
+      m_Array: []
+    m_Gradient:
+      m_Array: []
+    m_NamedObject:
+      m_Array: []
+    m_Bool:
+      m_Array:
+      - m_Value: 1
+        m_Name: enable random color
+        m_Overridden: 1
+--- !u!73398921 &8056937671594117791
+VFXRenderer:
+  serializedVersion: 1
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 31791669282742317}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 0
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_RenderingLayerMask: 257
+  m_RendererPriority: 0
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!1 &1487692989710668560
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2296707776090628480}
+  - component: {fileID: 8403262003053853780}
+  - component: {fileID: 1544597144323243943}
+  m_Layer: 0
+  m_Name: VFX_tentacles_strip (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2296707776090628480
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1487692989710668560}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.6590445, y: 0.13386671, z: -0.72645724, w: 0.14142092}
+  m_LocalPosition: {x: 0.288, y: 0.217, z: 0.005}
+  m_LocalScale: {x: -0.13, y: -0.13, z: -0.13}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 8123091658502120516}
+  m_LocalEulerAnglesHint: {x: 0.464, y: 84.521, z: -157.547}
+--- !u!2083052967 &8403262003053853780
+VisualEffect:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1487692989710668560}
+  m_Enabled: 1
+  m_Asset: {fileID: 8926484042661614526, guid: 71075316aa1e8f449b164837b931d7cc, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
+  m_StartSeed: 0
+  m_ResetSeedOnPlay: 1
+  m_AllowInstancing: 1
+  m_ResourceVersion: 1
+  m_PropertySheet:
+    m_Float:
+      m_Array:
+      - m_Value: 10
+        m_Name: tentacle number
+        m_Overridden: 1
+    m_Vector2f:
+      m_Array: []
+    m_Vector3f:
+      m_Array: []
+    m_Vector4f:
+      m_Array:
+      - m_Value: {x: 0, y: 0.21176471, z: 1, w: 1}
+        m_Name: Color 1
+        m_Overridden: 1
+      - m_Value: {x: 0.91291904, y: 0, z: 1, w: 0}
+        m_Name: Color 2
+        m_Overridden: 1
+    m_Uint:
+      m_Array: []
+    m_Int:
+      m_Array: []
+    m_Matrix4x4f:
+      m_Array: []
+    m_AnimationCurve:
+      m_Array: []
+    m_Gradient:
+      m_Array: []
+    m_NamedObject:
+      m_Array: []
+    m_Bool:
+      m_Array:
+      - m_Value: 1
+        m_Name: enable random color
+        m_Overridden: 1
+--- !u!73398921 &1544597144323243943
+VFXRenderer:
+  serializedVersion: 1
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1487692989710668560}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 0
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_RenderingLayerMask: 257
+  m_RendererPriority: 0
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!1 &1946326865875130193
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1993651875234791851}
+  - component: {fileID: 6578311597385772140}
+  - component: {fileID: 3286470950255643627}
+  m_Layer: 0
+  m_Name: VFX_tentacles_strip (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1993651875234791851
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1946326865875130193}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.6852061, y: 0.21474943, z: -0.69327796, w: 0.06116513}
+  m_LocalPosition: {x: 0.33949304, y: 0.22379386, z: 0.019287018}
+  m_LocalScale: {x: -0.24069948, y: -0.24069948, z: -0.24069941}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 7830983188682409153}
+  m_LocalEulerAnglesHint: {x: 12.353, y: 91.833, z: -157.164}
+--- !u!2083052967 &6578311597385772140
+VisualEffect:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1946326865875130193}
+  m_Enabled: 1
+  m_Asset: {fileID: 8926484042661614526, guid: 71075316aa1e8f449b164837b931d7cc, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
+  m_StartSeed: 0
+  m_ResetSeedOnPlay: 1
+  m_AllowInstancing: 1
+  m_ResourceVersion: 1
+  m_PropertySheet:
+    m_Float:
+      m_Array:
+      - m_Value: 10
+        m_Name: tentacle number
+        m_Overridden: 1
+    m_Vector2f:
+      m_Array: []
+    m_Vector3f:
+      m_Array: []
+    m_Vector4f:
+      m_Array:
+      - m_Value: {x: 0, y: 0.21176471, z: 1, w: 1}
+        m_Name: Color 1
+        m_Overridden: 1
+      - m_Value: {x: 0.91291904, y: 0, z: 1, w: 0}
+        m_Name: Color 2
+        m_Overridden: 1
+    m_Uint:
+      m_Array: []
+    m_Int:
+      m_Array: []
+    m_Matrix4x4f:
+      m_Array: []
+    m_AnimationCurve:
+      m_Array: []
+    m_Gradient:
+      m_Array: []
+    m_NamedObject:
+      m_Array: []
+    m_Bool:
+      m_Array:
+      - m_Value: 1
+        m_Name: enable random color
+        m_Overridden: 1
+--- !u!73398921 &3286470950255643627
+VFXRenderer:
+  serializedVersion: 1
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1946326865875130193}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 0
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_RenderingLayerMask: 257
+  m_RendererPriority: 0
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!1 &2839721277009672916
 GameObject:
   m_ObjectHideFlags: 0
@@ -72,6 +447,1006 @@ MonoBehaviour:
   WeakSpotList: []
   WeakSpotNum: 1
   VFXData: {fileID: 11400000, guid: aea452db0727f454981b9eab3d129318, type: 2}
+--- !u!1 &3622387522076671634
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7597214262591421127}
+  - component: {fileID: 2658676643007378738}
+  - component: {fileID: 1420815884800269559}
+  m_Layer: 0
+  m_Name: VFX_tentacles_strip (5)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7597214262591421127
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3622387522076671634}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.730551, y: -0.2261995, z: 0.6441368, w: -0.014727807}
+  m_LocalPosition: {x: 0.61297464, y: 0.21308598, z: -0.059951887}
+  m_LocalScale: {x: -0.33146745, y: -0.33146754, z: -0.33146715}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 7483801829702372093}
+  m_LocalEulerAnglesHint: {x: 15.658, y: 100.153, z: -158.719}
+--- !u!2083052967 &2658676643007378738
+VisualEffect:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3622387522076671634}
+  m_Enabled: 1
+  m_Asset: {fileID: 8926484042661614526, guid: 71075316aa1e8f449b164837b931d7cc, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
+  m_StartSeed: 0
+  m_ResetSeedOnPlay: 1
+  m_AllowInstancing: 1
+  m_ResourceVersion: 1
+  m_PropertySheet:
+    m_Float:
+      m_Array:
+      - m_Value: 10
+        m_Name: tentacle number
+        m_Overridden: 1
+    m_Vector2f:
+      m_Array: []
+    m_Vector3f:
+      m_Array: []
+    m_Vector4f:
+      m_Array:
+      - m_Value: {x: 0, y: 0.21176471, z: 1, w: 1}
+        m_Name: Color 1
+        m_Overridden: 1
+      - m_Value: {x: 0.91291904, y: 0, z: 1, w: 0}
+        m_Name: Color 2
+        m_Overridden: 1
+    m_Uint:
+      m_Array: []
+    m_Int:
+      m_Array: []
+    m_Matrix4x4f:
+      m_Array: []
+    m_AnimationCurve:
+      m_Array: []
+    m_Gradient:
+      m_Array: []
+    m_NamedObject:
+      m_Array: []
+    m_Bool:
+      m_Array:
+      - m_Value: 1
+        m_Name: enable random color
+        m_Overridden: 1
+--- !u!73398921 &1420815884800269559
+VFXRenderer:
+  serializedVersion: 1
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3622387522076671634}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 0
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_RenderingLayerMask: 257
+  m_RendererPriority: 0
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!1 &3900313174194771146
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4903981204377580044}
+  - component: {fileID: 8871080570087535338}
+  - component: {fileID: 4526515833532752303}
+  m_Layer: 0
+  m_Name: VFX_tentacles_strip (5)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4903981204377580044
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3900313174194771146}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.58232003, y: 0.09079494, z: -0.77474344, w: 0.22898135}
+  m_LocalPosition: {x: -0.214, y: 0.443, z: 0.284}
+  m_LocalScale: {x: -0.24069948, y: -0.24069948, z: -0.24069941}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 8558165404877584235}
+  m_LocalEulerAnglesHint: {x: -7.238, y: 72.075, z: -152.339}
+--- !u!2083052967 &8871080570087535338
+VisualEffect:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3900313174194771146}
+  m_Enabled: 1
+  m_Asset: {fileID: 8926484042661614526, guid: 71075316aa1e8f449b164837b931d7cc, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
+  m_StartSeed: 0
+  m_ResetSeedOnPlay: 1
+  m_AllowInstancing: 1
+  m_ResourceVersion: 1
+  m_PropertySheet:
+    m_Float:
+      m_Array:
+      - m_Value: 10
+        m_Name: tentacle number
+        m_Overridden: 1
+    m_Vector2f:
+      m_Array: []
+    m_Vector3f:
+      m_Array: []
+    m_Vector4f:
+      m_Array:
+      - m_Value: {x: 0, y: 0.21176471, z: 1, w: 1}
+        m_Name: Color 1
+        m_Overridden: 1
+      - m_Value: {x: 0.91291904, y: 0, z: 1, w: 0}
+        m_Name: Color 2
+        m_Overridden: 1
+    m_Uint:
+      m_Array: []
+    m_Int:
+      m_Array: []
+    m_Matrix4x4f:
+      m_Array: []
+    m_AnimationCurve:
+      m_Array: []
+    m_Gradient:
+      m_Array: []
+    m_NamedObject:
+      m_Array: []
+    m_Bool:
+      m_Array:
+      - m_Value: 1
+        m_Name: enable random color
+        m_Overridden: 1
+--- !u!73398921 &4526515833532752303
+VFXRenderer:
+  serializedVersion: 1
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3900313174194771146}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 0
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_RenderingLayerMask: 257
+  m_RendererPriority: 0
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!1 &4407288576867583175
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3838448928347763669}
+  - component: {fileID: 7913687287477408681}
+  - component: {fileID: 4867496419940166283}
+  m_Layer: 0
+  m_Name: VFX_tentacles_strip (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3838448928347763669
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4407288576867583175}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.6788153, y: 0.17315255, z: -0.70642185, w: 0.1009765}
+  m_LocalPosition: {x: 0.226, y: 0.271, z: 0.173}
+  m_LocalScale: {x: -0.15144998, y: -0.15144998, z: -0.15144998}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 3965586162608218687}
+  m_LocalEulerAnglesHint: {x: 6.174, y: 88.936, z: -157.67}
+--- !u!2083052967 &7913687287477408681
+VisualEffect:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4407288576867583175}
+  m_Enabled: 1
+  m_Asset: {fileID: 8926484042661614526, guid: 71075316aa1e8f449b164837b931d7cc, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
+  m_StartSeed: 0
+  m_ResetSeedOnPlay: 1
+  m_AllowInstancing: 1
+  m_ResourceVersion: 1
+  m_PropertySheet:
+    m_Float:
+      m_Array:
+      - m_Value: 10
+        m_Name: tentacle number
+        m_Overridden: 1
+    m_Vector2f:
+      m_Array: []
+    m_Vector3f:
+      m_Array: []
+    m_Vector4f:
+      m_Array:
+      - m_Value: {x: 0, y: 0.21176471, z: 1, w: 1}
+        m_Name: Color 1
+        m_Overridden: 1
+      - m_Value: {x: 0.91291904, y: 0, z: 1, w: 0}
+        m_Name: Color 2
+        m_Overridden: 1
+    m_Uint:
+      m_Array: []
+    m_Int:
+      m_Array: []
+    m_Matrix4x4f:
+      m_Array: []
+    m_AnimationCurve:
+      m_Array: []
+    m_Gradient:
+      m_Array: []
+    m_NamedObject:
+      m_Array: []
+    m_Bool:
+      m_Array:
+      - m_Value: 1
+        m_Name: enable random color
+        m_Overridden: 1
+--- !u!73398921 &4867496419940166283
+VFXRenderer:
+  serializedVersion: 1
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4407288576867583175}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 0
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_RenderingLayerMask: 257
+  m_RendererPriority: 0
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!1 &6660229201847927363
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6111733116712727383}
+  - component: {fileID: 6116152395878000310}
+  - component: {fileID: 6421417282391427328}
+  m_Layer: 0
+  m_Name: VFX_tentacles_strip (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6111733116712727383
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6660229201847927363}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.6788153, y: 0.17315255, z: -0.70642185, w: 0.1009765}
+  m_LocalPosition: {x: -0.136, y: 0.371, z: 0.287}
+  m_LocalScale: {x: -0.15144998, y: -0.15144998, z: -0.15144998}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 1297995949476096885}
+  m_LocalEulerAnglesHint: {x: 6.174, y: 88.936, z: -157.67}
+--- !u!2083052967 &6116152395878000310
+VisualEffect:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6660229201847927363}
+  m_Enabled: 1
+  m_Asset: {fileID: 8926484042661614526, guid: 71075316aa1e8f449b164837b931d7cc, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
+  m_StartSeed: 0
+  m_ResetSeedOnPlay: 1
+  m_AllowInstancing: 1
+  m_ResourceVersion: 1
+  m_PropertySheet:
+    m_Float:
+      m_Array:
+      - m_Value: 10
+        m_Name: tentacle number
+        m_Overridden: 1
+    m_Vector2f:
+      m_Array: []
+    m_Vector3f:
+      m_Array: []
+    m_Vector4f:
+      m_Array:
+      - m_Value: {x: 0, y: 0.21176471, z: 1, w: 1}
+        m_Name: Color 1
+        m_Overridden: 1
+      - m_Value: {x: 0.91291904, y: 0, z: 1, w: 0}
+        m_Name: Color 2
+        m_Overridden: 1
+    m_Uint:
+      m_Array: []
+    m_Int:
+      m_Array: []
+    m_Matrix4x4f:
+      m_Array: []
+    m_AnimationCurve:
+      m_Array: []
+    m_Gradient:
+      m_Array: []
+    m_NamedObject:
+      m_Array: []
+    m_Bool:
+      m_Array:
+      - m_Value: 1
+        m_Name: enable random color
+        m_Overridden: 1
+--- !u!73398921 &6421417282391427328
+VFXRenderer:
+  serializedVersion: 1
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6660229201847927363}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 0
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_RenderingLayerMask: 257
+  m_RendererPriority: 0
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!1 &6680330552413357933
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2385747844088152454}
+  - component: {fileID: 6101573021108347714}
+  - component: {fileID: 3470296594035446959}
+  m_Layer: 0
+  m_Name: VFX_tentacles_strip (6)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2385747844088152454
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6680330552413357933}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.6131586, y: -0.045733273, z: 0.760806, w: -0.20765194}
+  m_LocalPosition: {x: -0.56, y: 0.4, z: 0.11}
+  m_LocalScale: {x: -0.33146745, y: -0.33146754, z: -0.33146715}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 8994852921019842312}
+  m_LocalEulerAnglesHint: {x: -10.665, y: 75.63, z: -157.754}
+--- !u!2083052967 &6101573021108347714
+VisualEffect:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6680330552413357933}
+  m_Enabled: 1
+  m_Asset: {fileID: 8926484042661614526, guid: 71075316aa1e8f449b164837b931d7cc, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
+  m_StartSeed: 0
+  m_ResetSeedOnPlay: 1
+  m_AllowInstancing: 1
+  m_ResourceVersion: 1
+  m_PropertySheet:
+    m_Float:
+      m_Array:
+      - m_Value: 10
+        m_Name: tentacle number
+        m_Overridden: 1
+    m_Vector2f:
+      m_Array: []
+    m_Vector3f:
+      m_Array: []
+    m_Vector4f:
+      m_Array:
+      - m_Value: {x: 0, y: 0.21176471, z: 1, w: 1}
+        m_Name: Color 1
+        m_Overridden: 1
+      - m_Value: {x: 0.91291904, y: 0, z: 1, w: 0}
+        m_Name: Color 2
+        m_Overridden: 1
+    m_Uint:
+      m_Array: []
+    m_Int:
+      m_Array: []
+    m_Matrix4x4f:
+      m_Array: []
+    m_AnimationCurve:
+      m_Array: []
+    m_Gradient:
+      m_Array: []
+    m_NamedObject:
+      m_Array: []
+    m_Bool:
+      m_Array:
+      - m_Value: 1
+        m_Name: enable random color
+        m_Overridden: 1
+--- !u!73398921 &3470296594035446959
+VFXRenderer:
+  serializedVersion: 1
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6680330552413357933}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 0
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_RenderingLayerMask: 257
+  m_RendererPriority: 0
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!1 &7899500966056258017
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2458315990362159084}
+  - component: {fileID: 4587080968378458019}
+  - component: {fileID: 1441083955107519036}
+  m_Layer: 0
+  m_Name: VFX_tentacles_strip (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2458315990362159084
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7899500966056258017}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.6590445, y: 0.13386671, z: -0.72645724, w: 0.14142092}
+  m_LocalPosition: {x: -0.159, y: 0.35, z: 0.146}
+  m_LocalScale: {x: -0.13, y: -0.13, z: -0.13}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 3255713698983828076}
+  m_LocalEulerAnglesHint: {x: 0.464, y: 84.521, z: -157.547}
+--- !u!2083052967 &4587080968378458019
+VisualEffect:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7899500966056258017}
+  m_Enabled: 1
+  m_Asset: {fileID: 8926484042661614526, guid: 71075316aa1e8f449b164837b931d7cc, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
+  m_StartSeed: 0
+  m_ResetSeedOnPlay: 1
+  m_AllowInstancing: 1
+  m_ResourceVersion: 1
+  m_PropertySheet:
+    m_Float:
+      m_Array:
+      - m_Value: 10
+        m_Name: tentacle number
+        m_Overridden: 1
+    m_Vector2f:
+      m_Array: []
+    m_Vector3f:
+      m_Array: []
+    m_Vector4f:
+      m_Array:
+      - m_Value: {x: 0, y: 0.21176471, z: 1, w: 1}
+        m_Name: Color 1
+        m_Overridden: 1
+      - m_Value: {x: 0.91291904, y: 0, z: 1, w: 0}
+        m_Name: Color 2
+        m_Overridden: 1
+    m_Uint:
+      m_Array: []
+    m_Int:
+      m_Array: []
+    m_Matrix4x4f:
+      m_Array: []
+    m_AnimationCurve:
+      m_Array: []
+    m_Gradient:
+      m_Array: []
+    m_NamedObject:
+      m_Array: []
+    m_Bool:
+      m_Array:
+      - m_Value: 1
+        m_Name: enable random color
+        m_Overridden: 1
+--- !u!73398921 &1441083955107519036
+VFXRenderer:
+  serializedVersion: 1
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7899500966056258017}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 0
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_RenderingLayerMask: 257
+  m_RendererPriority: 0
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!1 &8014578915504616794
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1727041057257967657}
+  - component: {fileID: 6445363085308981186}
+  - component: {fileID: 1614915214899195688}
+  m_Layer: 0
+  m_Name: VFX_tentacles_strip (6)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1727041057257967657
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8014578915504616794}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.7071068, z: -0, w: -0.7071068}
+  m_LocalPosition: {x: 0, y: 0.15301134, z: -0.39485157}
+  m_LocalScale: {x: -0.56750256, y: -0.5675026, z: -0.56750196}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 891596128049993953}
+  m_LocalEulerAnglesHint: {x: 180, y: 90, z: -180}
+--- !u!2083052967 &6445363085308981186
+VisualEffect:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8014578915504616794}
+  m_Enabled: 1
+  m_Asset: {fileID: 8926484042661614526, guid: 71075316aa1e8f449b164837b931d7cc, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
+  m_StartSeed: 0
+  m_ResetSeedOnPlay: 1
+  m_AllowInstancing: 1
+  m_ResourceVersion: 1
+  m_PropertySheet:
+    m_Float:
+      m_Array:
+      - m_Value: 6
+        m_Name: tentacle number
+        m_Overridden: 1
+    m_Vector2f:
+      m_Array: []
+    m_Vector3f:
+      m_Array: []
+    m_Vector4f:
+      m_Array:
+      - m_Value: {x: 0, y: 0.21176471, z: 1, w: 1}
+        m_Name: Color 1
+        m_Overridden: 1
+      - m_Value: {x: 0.91291904, y: 0, z: 1, w: 0}
+        m_Name: Color 2
+        m_Overridden: 1
+    m_Uint:
+      m_Array: []
+    m_Int:
+      m_Array: []
+    m_Matrix4x4f:
+      m_Array: []
+    m_AnimationCurve:
+      m_Array: []
+    m_Gradient:
+      m_Array: []
+    m_NamedObject:
+      m_Array: []
+    m_Bool:
+      m_Array:
+      - m_Value: 1
+        m_Name: enable random color
+        m_Overridden: 1
+--- !u!73398921 &1614915214899195688
+VFXRenderer:
+  serializedVersion: 1
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8014578915504616794}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 0
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_RenderingLayerMask: 257
+  m_RendererPriority: 0
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!1 &8756526275873545279
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 709709660017387756}
+  - component: {fileID: 2331298480759877453}
+  - component: {fileID: 1237152921932427846}
+  m_Layer: 0
+  m_Name: VFX_tentacles_strip (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &709709660017387756
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8756526275873545279}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.26526722, y: -0.24068928, z: 0.8332255, w: -0.4212331}
+  m_LocalPosition: {x: 0.13773772, y: 0.31402814, z: -0.16809869}
+  m_LocalScale: {x: -0.07245298, y: -0.07245299, z: -0.072452985}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 6792721542897306111}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!2083052967 &2331298480759877453
+VisualEffect:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8756526275873545279}
+  m_Enabled: 1
+  m_Asset: {fileID: 8926484042661614526, guid: 71075316aa1e8f449b164837b931d7cc, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
+  m_StartSeed: 0
+  m_ResetSeedOnPlay: 1
+  m_AllowInstancing: 1
+  m_ResourceVersion: 1
+  m_PropertySheet:
+    m_Float:
+      m_Array:
+      - m_Value: 1
+        m_Name: tentacle number
+        m_Overridden: 1
+    m_Vector2f:
+      m_Array: []
+    m_Vector3f:
+      m_Array: []
+    m_Vector4f:
+      m_Array:
+      - m_Value: {x: 0, y: 0.21176471, z: 1, w: 1}
+        m_Name: Color 1
+        m_Overridden: 1
+      - m_Value: {x: 0.91291904, y: 0, z: 1, w: 0}
+        m_Name: Color 2
+        m_Overridden: 1
+    m_Uint:
+      m_Array: []
+    m_Int:
+      m_Array: []
+    m_Matrix4x4f:
+      m_Array: []
+    m_AnimationCurve:
+      m_Array: []
+    m_Gradient:
+      m_Array: []
+    m_NamedObject:
+      m_Array: []
+    m_Bool:
+      m_Array:
+      - m_Value: 1
+        m_Name: enable random color
+        m_Overridden: 1
+--- !u!73398921 &1237152921932427846
+VFXRenderer:
+  serializedVersion: 1
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8756526275873545279}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 0
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_RenderingLayerMask: 257
+  m_RendererPriority: 0
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!1001 &101812592245083515
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6743,6 +8118,42 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 473322595022970291}
+    - targetCorrespondingSourceObject: {fileID: -5651751901618623305, guid: ed731a5a862cbb34dadc93b09e5953a7,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1727041057257967657}
+    - targetCorrespondingSourceObject: {fileID: -2050267980895142487, guid: ed731a5a862cbb34dadc93b09e5953a7,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 709709660017387756}
+    - targetCorrespondingSourceObject: {fileID: 5025552057737642665, guid: ed731a5a862cbb34dadc93b09e5953a7,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6703979701683943808}
+    - targetCorrespondingSourceObject: {fileID: 5581192155438747666, guid: ed731a5a862cbb34dadc93b09e5953a7,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2296707776090628480}
+    - targetCorrespondingSourceObject: {fileID: 1216528521525423674, guid: ed731a5a862cbb34dadc93b09e5953a7,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2458315990362159084}
+    - targetCorrespondingSourceObject: {fileID: 776857707534423657, guid: ed731a5a862cbb34dadc93b09e5953a7,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3838448928347763669}
+    - targetCorrespondingSourceObject: {fileID: -5779230947043860701, guid: ed731a5a862cbb34dadc93b09e5953a7,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6111733116712727383}
+    - targetCorrespondingSourceObject: {fileID: -3359023575375662953, guid: ed731a5a862cbb34dadc93b09e5953a7,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1993651875234791851}
+    - targetCorrespondingSourceObject: {fileID: -3815724859042217155, guid: ed731a5a862cbb34dadc93b09e5953a7,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4903981204377580044}
     - targetCorrespondingSourceObject: {fileID: 6491000422604390059, guid: ed731a5a862cbb34dadc93b09e5953a7,
         type: 3}
       insertIndex: -1
@@ -6751,6 +8162,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 6602121451456688011}
+    - targetCorrespondingSourceObject: {fileID: 6491000422604390059, guid: ed731a5a862cbb34dadc93b09e5953a7,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7597214262591421127}
     - targetCorrespondingSourceObject: {fileID: -4531950047034668194, guid: ed731a5a862cbb34dadc93b09e5953a7,
         type: 3}
       insertIndex: -1
@@ -6759,6 +8174,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 8515059666673841241}
+    - targetCorrespondingSourceObject: {fileID: -4531950047034668194, guid: ed731a5a862cbb34dadc93b09e5953a7,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2385747844088152454}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ed731a5a862cbb34dadc93b09e5953a7,
         type: 3}
@@ -6785,6 +8204,24 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 2055050116639802905}
   m_SourcePrefab: {fileID: 100100000, guid: ed731a5a862cbb34dadc93b09e5953a7, type: 3}
+--- !u!4 &891596128049993953 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -5651751901618623305, guid: ed731a5a862cbb34dadc93b09e5953a7,
+    type: 3}
+  m_PrefabInstance: {fileID: 4453888931362681942}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1297995949476096885 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -5779230947043860701, guid: ed731a5a862cbb34dadc93b09e5953a7,
+    type: 3}
+  m_PrefabInstance: {fileID: 4453888931362681942}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &3255713698983828076 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1216528521525423674, guid: ed731a5a862cbb34dadc93b09e5953a7,
+    type: 3}
+  m_PrefabInstance: {fileID: 4453888931362681942}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3534777821105195271 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: ed731a5a862cbb34dadc93b09e5953a7,
@@ -7120,6 +8557,12 @@ MonoBehaviour:
     Delta: 0
     OffSet: 0
     Added: {x: 0, y: 0, z: 0}
+--- !u!4 &3965586162608218687 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 776857707534423657, guid: ed731a5a862cbb34dadc93b09e5953a7,
+    type: 3}
+  m_PrefabInstance: {fileID: 4453888931362681942}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4199005356436214717 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ed731a5a862cbb34dadc93b09e5953a7,
@@ -7152,9 +8595,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Weight: 1
   m_Effectors: []
+--- !u!4 &6792721542897306111 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -2050267980895142487, guid: ed731a5a862cbb34dadc93b09e5953a7,
+    type: 3}
+  m_PrefabInstance: {fileID: 4453888931362681942}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7483801829702372093 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6491000422604390059, guid: ed731a5a862cbb34dadc93b09e5953a7,
+    type: 3}
+  m_PrefabInstance: {fileID: 4453888931362681942}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7830983188682409153 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -3359023575375662953, guid: ed731a5a862cbb34dadc93b09e5953a7,
+    type: 3}
+  m_PrefabInstance: {fileID: 4453888931362681942}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8123091658502120516 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5581192155438747666, guid: ed731a5a862cbb34dadc93b09e5953a7,
+    type: 3}
+  m_PrefabInstance: {fileID: 4453888931362681942}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8558165404877584235 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -3815724859042217155, guid: ed731a5a862cbb34dadc93b09e5953a7,
+    type: 3}
+  m_PrefabInstance: {fileID: 4453888931362681942}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8678784593190795007 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5025552057737642665, guid: ed731a5a862cbb34dadc93b09e5953a7,
     type: 3}
   m_PrefabInstance: {fileID: 4453888931362681942}
   m_PrefabAsset: {fileID: 0}
