@@ -103,7 +103,7 @@ public class GPCtrl : MonoBehaviour
     {
         NumEnemyKilled++;
         UICtrl.KillRatioText.text = NumEnemyKilled.ToString() + " / " + EnemySpawner.SpawnerData.NumTotalEnemy.ToString();
-        if (NumEnemyKilled > EnemySpawner.SpawnerData.NumTotalEnemy)
+        if (NumEnemyKilled >= EnemySpawner.SpawnerData.NumTotalEnemy)
         {
             Win();
         }

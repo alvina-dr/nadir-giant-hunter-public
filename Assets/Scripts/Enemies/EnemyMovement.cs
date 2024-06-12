@@ -38,7 +38,7 @@ public class EnemyMovement : MonoBehaviour
         if (transform.position.y > GPCtrl.Instance.GeneralData.yHeightPitWarning && !playedWarningSound)
         {
             playedWarningSound = true;
-            SoundData.SFX_Giant_Roar_Danger.Post(GPCtrl.Instance.Player.gameObject);
+            SoundData.SFX_Giant_Roar_Danger.Post(gameObject);
             Debug.Log("PLAY ROAR SOUND");
         }
     }
