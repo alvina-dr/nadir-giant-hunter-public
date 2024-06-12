@@ -4,6 +4,7 @@ using System.ComponentModel;
 using UnityEngine;
 using Sirenix.OdinInspector;
 using UnityEngine.InputSystem;
+using UnityEngine.Windows;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -160,8 +161,10 @@ public class PlayerMovement : MonoBehaviour
                 Player.Rigibody.AddForce(transform.up * Player.Data.jumpForce, ForceMode.Impulse);
             }
             Invoke(nameof(ResetJump), Player.Data.jumpCooldown);
-            Player.Animator.SetTrigger("Jump");
             Player.Animator.SetBool("Grounded", false);
+            Player.Animator.SetFloat("JumpDirectionX", Mathf.Round(input.x));
+            Player.Animator.SetFloat("JumpDirectionY", input.z);
+            Player.Animator.SetTrigger("Jump");
             Player.SoundData.SFX_Hunter_Jump.Post(Player.gameObject);
             Player.SparksVFX.SendEvent("Jump");
             DataHolder.Instance.RumbleManager.PulseFor(5f, 5f, .1f);
@@ -220,6 +223,10 @@ public class PlayerMovement : MonoBehaviour
         Player.Rigibody.AddForce(transform.up * Player.Data.jumpForce + wallNormal * Player.Data.jumpForce, ForceMode.Impulse);
         Player.SoundData.SFX_Hunter_Jump.Post(Player.gameObject);
         Player.SparksVFX.SendEvent("Jump");
+        Player.Animator.SetBool("LongFall", false);
+        Player.Animator.SetFloat("JumpDirectionX", Player.Rigibody.velocity.x);
+        Player.Animator.SetFloat("JumpDirectionY", Player.Rigibody.velocity.z);
+        Player.Animator.SetTrigger("Jump");
         DataHolder.Instance.RumbleManager.PulseFor(5f, 5f, .1f);
     }
 }

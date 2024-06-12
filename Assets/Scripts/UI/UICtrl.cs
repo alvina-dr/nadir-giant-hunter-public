@@ -12,7 +12,6 @@ public class UICtrl : MonoBehaviour
     public UI_EndGameMenu EndGameMenu;
     public UI_Settings UI_Settings;
     public UI_Menu PauseMenu;
-    public UI_Scoreboard Scoreboard;
 
     [Header("Indicators")]
     public UI_MovingIndicator AttackInputIndicator;
@@ -31,6 +30,8 @@ public class UICtrl : MonoBehaviour
 
     [Header("In game UI")]
     public TextMeshProUGUI TimerText;
+    public TextMeshProUGUI KillRatioText;
+    //public TextMeshProUGUI SpeedText;
 
     [Header("End Game Menu")]
     [SerializeField] private TextMeshProUGUI _endGameMenuTitle;
@@ -82,5 +83,11 @@ public class UICtrl : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         GPCtrl.Instance.CameraThirdPerson.InputProvider.enabled = false;
+    }
+
+    private void Start()
+    {
+        KillRatioText.text = GPCtrl.Instance.NumEnemyKilled.ToString() + " / " + GPCtrl.Instance.EnemySpawner.SpawnerData.NumTotalEnemy.ToString();
+
     }
 }
