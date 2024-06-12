@@ -37,4 +37,8 @@ public class PlayerSoundData : ScriptableObject
 
     [TabGroup("Other")]
     public AK.Wwise.Event SFX_Hunter_Death;
+    [TabGroup("Other")]
+    public AK.Wwise.Event AMB_DeathZone_Enter;
+    [TabGroup("Other")]
+    public AK.Wwise.Event AMB_DeathZone_Exit;
 }

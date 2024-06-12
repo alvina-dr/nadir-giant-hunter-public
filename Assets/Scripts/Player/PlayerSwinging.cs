@@ -246,7 +246,7 @@ public class PlayerSwinging : MonoBehaviour
         if (Player.Data.startCurveBoost && EndSwingLinePoint.position.y > Player.transform.position.y - 20)
         {
             Player.Rigibody.AddForce(Vector3.Cross(Player.Mesh.transform.right, (EndSwingLinePoint.position - Player.transform.position).normalized) * (Player.Data.startCurveSpeedBoost + Player.PlayerMovement.FallingTimer * 1000f), ForceMode.Impulse);
-            Debug.Log("START BOOST");
+            //Debug.Log("START BOOST");
         }
     }
 
