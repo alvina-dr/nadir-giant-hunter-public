@@ -19,9 +19,7 @@ namespace Enemies
         }
 
         [TabGroup("Components")]
-        public GameObject TentacleMid;
-        [TabGroup("Components")]
-        public GameObject TentaclePar;
+        public GameObject TentacleModel;
         [TabGroup("Components")]
         public List<Renderer> TentacleRenderers = new List<Renderer>();
 
@@ -41,12 +39,6 @@ namespace Enemies
         public Vector3 RotationMax;
         [TabGroup("Parameter"), Range(0,1)]
         public float RotationDelta;
-
-        private Quaternion[] _baseOpening;
-        [TabGroup("Parameter")]
-        public float OpeningMax;
-        [TabGroup("Parameter"), Range(0, 1)]
-        public float OpeningDelta;
 
         [TabGroup("Parameter")]
         public string MatParameterName;
@@ -77,13 +69,8 @@ namespace Enemies
 
         private void Start()
         {
-            _baseScale = TentacleMid.transform.localScale;
-            _baseRotation = TentacleMid.transform.localEulerAngles;
-            _baseOpening = new Quaternion[TentacleMid.transform.childCount];
-            for (int i = 0; i < _baseOpening.Length; i++)
-            {
-                _baseOpening[i] = TentacleMid.transform.GetChild(i).localRotation;
-            }
+            _baseScale = TentacleModel.transform.localScale;
+            _baseRotation = TentacleModel.transform.localEulerAngles;
         }
 
         private void Update()
@@ -162,7 +149,7 @@ namespace Enemies
         private void ApplyScale()
         {
             Profiler.BeginSample("Scale");
-            TentacleMid.transform.localScale = Vector3.Lerp(_baseScale, _baseScale + ScaleMaxAdded, ScaleDelta + _GlobalDelta + _DebugDelta);
+            TentacleModel.transform.localScale = Vector3.Lerp(_baseScale, _baseScale + ScaleMaxAdded, ScaleDelta + _GlobalDelta + _DebugDelta);
             Profiler.EndSample();
         }
 
@@ -171,7 +158,7 @@ namespace Enemies
             Profiler.BeginSample("ApplyRotation2");
             if ((transform.parent.position - transform.position)!=Vector3.zero)
             {
-                TentaclePar.transform.rotation = Quaternion.LookRotation(transform.position - transform.parent.position, Vector3.up);
+                TentacleModel.transform.rotation = Quaternion.LookRotation(transform.position - transform.parent.position, Vector3.up);
                 //TentacleRenderer.transform.localEulerAngles = Vector3.Lerp(_baseRotation, _baseRotation+RotationMax, RotationDelta + _GlobalDelta + _DebugDelta);
             }
             Profiler.EndSample();
@@ -181,39 +168,26 @@ namespace Enemies
             //TentacleRenderer.transform.localEulerAngles += RotationAxisSpeed * ;
         }
 
-        private void ApplyOpening()
-        {
-            Profiler.BeginSample("ApplyOpening");
-            for (int i = 0; i < TentacleMid.transform.childCount; i++)
-            {
-                Transform child = TentacleMid.transform.GetChild(i);
-                child.localRotation = _baseOpening[i];
-                float xEuler = Mathf.Lerp(0, OpeningMax, OpeningDelta + _GlobalDelta + _DebugDelta);
-                child.localRotation *= Quaternion.AngleAxis(xEuler, Vector3.right);
-            }
-            Profiler.EndSample();
-        }
-
         private void ApplyMatParam()
         {
-            /*Profiler.BeginSample("ApplyMatParam");
+            Profiler.BeginSample("ApplyMatParam");
             foreach (Renderer tentacleRenderer in TentacleRenderers)
             {
                 tentacleRenderer.material.SetFloat(MatParameterName, MatParameterDelta + _GlobalDelta + _DebugDelta);
             }
-            Profiler.EndSample();*/
+            Profiler.EndSample();
         }
 
         private void ApplyMatColor()
         {
-            /*Profiler.BeginSample("ApplyMatColor");
+            Profiler.BeginSample("ApplyMatColor");
             if (MatColorName == "")
                 return;
             foreach (Renderer tentacleRenderer in TentacleRenderers)
             {
                 tentacleRenderer.material.SetColor(MatColorName, Color.Lerp(MatBaseColor, MatSecColor, MatColorDelta + _GlobalDelta + _DebugDelta));
             }
-            Profiler.EndSample();*/
+            Profiler.EndSample();
         }
 
     }

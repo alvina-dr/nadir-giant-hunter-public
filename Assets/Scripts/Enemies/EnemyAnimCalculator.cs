@@ -31,8 +31,9 @@ namespace Enemies
 
             Quaternion tentParRot = Quaternion.identity;
             Vector3 dir = tentPos - nextTentPos;
-            if (dir.magnitude != 0)
+            if (dir.x != 0 || dir.y != 0 || dir.z != 0)
             {
+                Debug.Log(dir);
                 tentParRot = Quaternion.LookRotation(tentPos - nextTentPos, Vector3.up);
             }
             newRotations[index] = tentParRot;
@@ -41,9 +42,10 @@ namespace Enemies
 
     public class EnemyAnimCalculator : MonoBehaviour
     {
-        public List<EnemyBuilder> builders = new List<EnemyBuilder>();
+        //public List<EnemyBuilder> builders = new List<EnemyBuilder>();
 
-        private List<Tentacle> tentacles = new List<Tentacle>();
+        public bool isNotTentaclesScales;
+        public List<Tentacle> tentacles = new List<Tentacle>();
         private Transform[] tentacleScales;
         private Transform[] tentacleScalesMid;
 
@@ -56,29 +58,46 @@ namespace Enemies
         // Start is called before the first frame update
         void Start()
         {
-            foreach (EnemyBuilder builder in builders)
+            /*foreach (EnemyBuilder builder in builders)
             {
                 foreach(Tentacle tentacle in builder.Tentacles)
                 {
                     tentacles.Add(tentacle);
                 }
-            }
+            }*/
             int count=0;
             foreach (Tentacle tentacle in tentacles)
             {
                 count += tentacle.tentacleScales.Length;
+                if (isNotTentaclesScales)
+                {
+                    count += tentacle.bones.Length;
+                }
             }
             tentacleScales = new Transform[count];
             tentacleScalesMid = new Transform[count];
             int tentScCount=0;
             foreach (Tentacle tentacle in tentacles)
             {
-                foreach (TentacleScale tentacleScale in tentacle.tentacleScales)
+                if (!tentacle.isNotTentacleScales)
                 {
-                    tentacleScales[tentScCount] = tentacleScale.transform;
-                    tentacleScalesMid[tentScCount] = tentacleScale.TentacleMid.transform;
-                    tentScCount++;
+                    foreach (TentacleScale tentacleScale in tentacle.tentacleScales)
+                    {
+                        tentacleScales[tentScCount] = tentacleScale.transform;
+                        tentacleScalesMid[tentScCount] = tentacleScale.TentacleModel.transform;
+                        tentScCount++;
+                    }
                 }
+                else
+                {
+                    foreach (Transform bone in tentacle.bones)
+                    {
+                        tentacleScales[tentScCount] = bone;
+                        tentacleScalesMid[tentScCount] = bone;
+                        tentScCount++;
+                    }
+                }
+
             }
 
             rotations = new NativeArray<Quaternion>(count, Allocator.Persistent);
@@ -123,7 +142,8 @@ namespace Enemies
             Profiler.BeginSample("Apply");
             for (int i = 0; i < tentacleScales.Length; i++)
             {
-                tentacleScalesMid[i].rotation = tentacleScaleJob.newRotations[i];
+                tentacleScales[i].rotation = tentacleScaleJob.newRotations[i];
+                tentacleScales[i].position = tentsPos[i];
             }
             Profiler.EndSample();
 

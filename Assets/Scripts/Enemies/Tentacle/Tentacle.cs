@@ -1,8 +1,10 @@
+using DG.Tweening;
 using Enemies;
 using Sirenix.OdinInspector;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Jobs;
@@ -35,6 +37,16 @@ namespace Enemies
 
     public class Tentacle : MonoBehaviour
     {
+        public enum dir
+        {
+            forward,
+            right,
+            up,
+            backward,
+            left,
+            down
+        }
+
         [TabGroup("Components")]
         public Transform StartTentaclePos;
         [TabGroup("Components")]
@@ -54,8 +66,12 @@ namespace Enemies
         private ChainIKConstraint TentacleIKConstraint;
         [HideInInspector]
         public TentacleScale[] tentacleScales;
+        [HideInInspector]
+        public Transform[] bones;
         private Rigidbody[] rigidbodies;
 
+        [TabGroup("Parameters")]
+        public bool isNotTentacleScales;
         [TabGroup("Parameters")]
         public bool IsByDensity;
         [TabGroup("Parameters"), ShowIf("IsByDensity")]
@@ -67,6 +83,8 @@ namespace Enemies
         private float _currentRotationOffset;
         [TabGroup("Parameters")]
         public float StartTentaclePow;
+        [TabGroup("Parameters")]
+        public dir StartTentacleDir;
         [TabGroup("Parameters")]
         public float EndTentaclePow;
         [TabGroup("Parameters"), PropertyRange(0f, 1f)]
@@ -125,7 +143,7 @@ namespace Enemies
                 float nextDelta = (float)(i+1) / tentacleScaleNum;
                 Vector3 nextPointPos = bezier.GetPoint(nextDelta);
                 tentacleScale.transform.rotation = Quaternion.LookRotation(nextPointPos - tentacleScale.transform.position, Vector3.up);
-                tentacleScale.transform.GetChild(0).GetChild(0).localRotation *= Quaternion.AngleAxis(_currentRotationOffset+RotationOffset, Vector3.forward);
+                //tentacleScale.transform.GetChild(0).localRotation *= Quaternion.AngleAxis(_currentRotationOffset+RotationOffset, Vector3.forward);
                 _currentRotationOffset += RotationOffset;
                 if (i == tentacleScaleNum - 1)
                     EndTentacleScale = tentacleScale;
@@ -135,6 +153,61 @@ namespace Enemies
                 tentacle.CurrentFrame = i % tentacle.FrameEco;
             }
             RetrieveAllTentacleScales();
+        }
+
+        [Button]
+        public void AlignTentacle()
+        {
+            float startToEndDist = Vector3.Distance(StartTentaclePos.position, EndTentaclePos.position);
+            Vector3 startDir = Vector3.zero;
+            switch (StartTentacleDir)
+            {
+                case dir.forward:
+                    startDir = StartTentaclePos.forward;
+                    break;
+                case dir.right:
+                    startDir = StartTentaclePos.right;
+                    break;
+                case dir.up:
+                    startDir = StartTentaclePos.up;
+                    break;
+                case dir.backward:
+                    startDir = -StartTentaclePos.forward;
+                    break;
+                case dir.left:
+                    startDir = -StartTentaclePos.right;
+                    break;
+                case dir.down:
+                    startDir = -StartTentaclePos.up;
+                    break;
+            }
+            Vector3 p1 = StartTentaclePos.position + startDir * StartTentaclePow;
+            Vector3 p2 = EndTentaclePos.position - EndTentaclePos.forward * EndTentaclePow;
+            Vector3[] points = new Vector3[] { StartTentaclePos.position, p1, p2, EndTentaclePos.position };
+            Bezier bezier = new Bezier(points, 1000);
+            float length = bezier.TotalLength;
+            Transform[] tentaclesBones = StartTentaclePos.GetComponentsInChildren<Transform>();
+            int tentacleScaleNum = tentaclesBones.Length;
+            Transform lastTentacle = StartTentaclePos;
+            for (int i = 0; i < tentacleScaleNum; i++)
+            {
+                Transform tentacleBone = tentaclesBones[i];
+                //Position
+                float delta = (float)i / tentacleScaleNum;
+                tentacleBone.position = bezier.GetPoint(delta);
+
+                //Rotation
+                float nextDelta = (float)(i + 1) / tentacleScaleNum;
+                Vector3 nextPointPos = bezier.GetPoint(nextDelta);
+                tentacleBone.rotation = Quaternion.LookRotation(nextPointPos - tentacleBone.position, Vector3.up);
+                tentacleBone.rotation *= Quaternion.AngleAxis(90, Vector3.right);
+
+                if (i == tentacleScaleNum - 1)
+                    EndTentacleScale = tentacleBone.gameObject;
+                if (i == 0)
+                    StartTentacleScale = tentacleBone.gameObject;
+            }
+            RetrieveAllBones();
         }
 
         [Button]
@@ -148,6 +221,11 @@ namespace Enemies
         public void RetrieveAllTentacleScales()
         {
             tentacleScales = GetComponentsInChildren<TentacleScale>();
+        }
+
+        public void RetrieveAllBones()
+        {
+            bones = StartTentaclePos.GetComponentsInChildren<Transform>();
         }
 
         #endregion
@@ -303,7 +381,30 @@ namespace Enemies
             foreach (Vector3 point in points)
             {
                 float delta = (float)count / (int)tentacleScaleNum;
-                points[count] = Bezier.GetPoint(StartTentaclePos.position, StartTentaclePos.position + StartTentaclePos.forward * StartTentaclePow, EndTentaclePos.position - EndTentaclePos.forward * EndTentaclePow, EndTentaclePos.position, delta);
+                Vector3 startDir = Vector3.zero;
+                switch (StartTentacleDir)
+                {
+                    case dir.forward:
+                        startDir = StartTentaclePos.forward;
+                        break;
+                    case dir.right:
+                        startDir = StartTentaclePos.right;
+                        break;
+                    case dir.up:
+                        startDir = StartTentaclePos.up;
+                        break;
+                    case dir.backward:
+                        startDir = -StartTentaclePos.forward;
+                        break;
+                    case dir.left:
+                        startDir = -StartTentaclePos.right;
+                        break;
+                    case dir.down:
+                        startDir = -StartTentaclePos.up;
+                        break;
+                }
+                Vector3 p1 = StartTentaclePos.position + startDir * StartTentaclePow;
+                points[count] = Bezier.GetPoint(StartTentaclePos.position, p1, EndTentaclePos.position - EndTentaclePos.forward * EndTentaclePow, EndTentaclePos.position, delta);
                 count++;
             }
             Gizmos.DrawLineStrip(points, false);
