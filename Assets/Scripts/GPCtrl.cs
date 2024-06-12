@@ -78,6 +78,7 @@ public class GPCtrl : MonoBehaviour
         if (Pause) return;
         Timer += Time.unscaledDeltaTime;
         UICtrl.TimerText.text = DataHolder.Instance.ConvertTimeToMinutes(Timer);
+        //UICtrl.SpeedText.text = MathF.Round(Player.Rigibody.velocity.magnitude / 2).ToString() + " m/s";
     }
 
     public void Win()
@@ -102,6 +103,7 @@ public class GPCtrl : MonoBehaviour
     public void AddKilledEnemy()
     {
         NumEnemyKilled++;
+        UICtrl.KillRatioText.text = NumEnemyKilled.ToString() + " / " + EnemySpawner.SpawnerData.NumTotalEnemy.ToString();
         if (NumEnemyKilled > EnemySpawner.SpawnerData.NumTotalEnemy)
         {
             Win();

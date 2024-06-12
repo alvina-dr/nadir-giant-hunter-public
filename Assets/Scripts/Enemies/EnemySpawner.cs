@@ -19,7 +19,6 @@ public class EnemySpawner : MonoBehaviour
     public List<EnemyMovement> EnemyList;
 
     private int _currentSpawningTimerIndex;
-    public int NumTotalEnemy = 0;
 
     void Start()
     {
