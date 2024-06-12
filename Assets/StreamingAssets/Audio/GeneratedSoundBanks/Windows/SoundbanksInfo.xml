@@ -9,7 +9,7 @@
 	</RootPaths>
 	<DialogueEvents/>
 	<SoundBanks>
-		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{B99ADAF7-3E52-BAB3-A584-15F11367745B}">
+		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{1ECA711C-892A-8477-8957-462C301214A2}">
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 			<Plugins>
@@ -195,14 +195,10 @@
 				</AcousticTexture>
 			</AcousticTextures>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{62578CC2-0B78-4D1A-C7D5-F0AB1E2D23E8}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{C4A72ACD-E364-7670-4616-FD41B21A4776}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
-				<File Id="12280489" Language="SFX" Streaming="false" Location="Memory">
-					<ShortName>SFX_Hunter_AirSpeed.wav</ShortName>
-					<CachePath>SFX/SFX_Hunter_AirSpeed_FBC78EF0.wem</CachePath>
-				</File>
 				<File Id="32303396" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>UI_General_Typing.wav</ShortName>
 					<CachePath>SFX/UI_General_Typing_818F3B66.wem</CachePath>
@@ -279,6 +275,10 @@
 					<ShortName>SFX_Hunter_Grapple_Release_4.wav</ShortName>
 					<CachePath>SFX/SFX_Hunter_Grapple_Release_4_818F3B66.wem</CachePath>
 				</File>
+				<File Id="249654925" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>AMB_AirSpeed_03.wav</ShortName>
+					<CachePath>SFX/AMB_AirSpeed_03_FBC78EF0.wem</CachePath>
+				</File>
 				<File Id="253426672" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>SFX_Hunter_Death_02.wav</ShortName>
 					<CachePath>SFX/SFX_Hunter_Death_02_818F3B66.wem</CachePath>
@@ -322,6 +322,10 @@
 				<File Id="483686326" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>SFX_Hunter_Movement_Footsteps.wav</ShortName>
 					<CachePath>SFX/SFX_Hunter_Movement_Footsteps_818F3B66.wem</CachePath>
+				</File>
+				<File Id="484782692" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>AMB_AirSpeed_02.wav</ShortName>
+					<CachePath>SFX/AMB_AirSpeed_02_FBC78EF0.wem</CachePath>
 				</File>
 				<File Id="502669369" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>SFX_Hunter_Grapple_Trigger_4.wav</ShortName>
@@ -391,10 +395,6 @@
 					<ShortName>SFX_Giant_Hit_IntoAbyss.wav</ShortName>
 					<CachePath>SFX/SFX_Giant_Hit_IntoAbyss_818F3B66.wem</CachePath>
 				</File>
-				<File Id="787829447" Language="SFX" Streaming="false" Location="Memory">
-					<ShortName>SFX_Hunter_Movement_AirSpeed.wav</ShortName>
-					<CachePath>SFX/SFX_Hunter_Movement_AirSpeed_FBC78EF0.wem</CachePath>
-				</File>
 				<File Id="812415201" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>SFX_Hunter_Grapple_Release_2.wav</ShortName>
 					<CachePath>SFX/SFX_Hunter_Grapple_Release_2_818F3B66.wem</CachePath>
@@ -410,6 +410,10 @@
 				<File Id="858281119" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>SFX_Hunter_Attack_B_02.wav</ShortName>
 					<CachePath>SFX/SFX_Hunter_Attack_B_02_818F3B66.wem</CachePath>
+				</File>
+				<File Id="957512555" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>AMB_AirSpeed_01.wav</ShortName>
+					<CachePath>SFX/AMB_AirSpeed_01_FBC78EF0.wem</CachePath>
 				</File>
 				<File Id="961482243" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>UI_Gameplay_Timer_Critical.wav</ShortName>
@@ -436,6 +440,11 @@
 					<CachePath>SFX/UI_Gameplay_GameOver_818F3B66.wem</CachePath>
 				</File>
 			</Media>
+			<Plugins>
+				<ShareSets>
+					<Plugin Id="3657550167" Name="New_Parametric_EQ" LibName="Wwise Parametric EQ" LibId="6881283"/>
+				</ShareSets>
+			</Plugins>
 			<Events>
 				<Event Id="1792093124" Name="Play_AMB_Bumper" DurationType="Infinite">
 					<MediaRefs>
@@ -511,7 +520,7 @@
 						<AuxBusRef Id="4116390784" Name="RVB_Down"/>
 					</AuxBusRefs>
 				</Event>
-				<Event Id="3477872352" Name="Play_SFX_Giant_Hit_IntoAbyss" DurationType="OneShot" DurationMin="6.5" DurationMax="6.5">
+				<Event Id="3477872352" Name="Play_SFX_Giant_Hit_IntoAbyss" DurationType="OneShot" DurationMin="5.7908416" DurationMax="7.2960033">
 					<MediaRefs>
 						<MediaRef Id="785393921"/>
 					</MediaRefs>
@@ -549,11 +558,17 @@
 				</Event>
 				<Event Id="2701940102" Name="Play_SFX_Hunter_AirSpeed" DurationType="Infinite">
 					<MediaRefs>
-						<MediaRef Id="12280489"/>
+						<MediaRef Id="249654925"/>
 						<MediaRef Id="389253893"/>
+						<MediaRef Id="484782692"/>
 						<MediaRef Id="785035288"/>
-						<MediaRef Id="787829447"/>
+						<MediaRef Id="957512555"/>
 					</MediaRefs>
+					<PluginRefs>
+						<ShareSets>
+							<PluginRef Id="3657550167"/>
+						</ShareSets>
+					</PluginRefs>
 					<AuxBusRefs>
 						<AuxBusRef Id="2518605955" Name="RVB_Up"/>
 						<AuxBusRef Id="4116390784" Name="RVB_Down"/>
@@ -716,5 +731,5 @@
 			</GameParameters>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{E4D389FA-0DCF-CE61-522B-D6FC88358421}</FileHash>
+	<FileHash>{0536DAD4-BF3B-4848-54C5-2F63A48E4B2E}</FileHash>
 </SoundBanksInfo>
