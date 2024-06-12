@@ -48,4 +48,16 @@ public class DataHolder : MonoBehaviour
         if (miliseconds.Length == 2) miliseconds += "0";
         return (minutes + ":" + seconds + ":" + miliseconds);
     }
+
+    public bool IsUsingGamepad()
+    {
+        string control = GPCtrl.Instance.Player.PlayerInput.currentControlScheme.ToString();
+        if (control == "Gamepad")
+        {
+            return true;
+        } else
+        {
+            return false;
+        }
+    }
 }
