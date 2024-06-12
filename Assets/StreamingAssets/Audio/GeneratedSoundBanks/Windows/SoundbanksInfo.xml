@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <SoundBanksInfo Platform="Windows" BasePlatform="Windows" SchemaVersion="16" SoundBankVersion="150">
 	<RootPaths>
-		<ProjectRoot>../../../../../../Documents/WwiseProjects/GiantHunter_WwiseProject</ProjectRoot>
-		<SourceFilesRoot>../../../../../../Documents/WwiseProjects/GiantHunter_WwiseProject/.cache/Windows</SourceFilesRoot>
+		<ProjectRoot>../../../../../../Documents/WwiseProjects/Nadir_WwiseProject/nadir_wwise</ProjectRoot>
+		<SourceFilesRoot>../../../../../../Documents/WwiseProjects/Nadir_WwiseProject/nadir_wwise/.cache/Windows</SourceFilesRoot>
 		<SoundBanksRoot>.</SoundBanksRoot>
 		<ExternalSourcesInputFile></ExternalSourcesInputFile>
-		<ExternalSourcesOutputRoot>../../../../../../Documents/WwiseProjects/GiantHunter_WwiseProject/GeneratedSoundBanks/Windows</ExternalSourcesOutputRoot>
+		<ExternalSourcesOutputRoot>../../../../../../Documents/WwiseProjects/Nadir_WwiseProject/nadir_wwise/GeneratedSoundBanks/Windows</ExternalSourcesOutputRoot>
 	</RootPaths>
 	<DialogueEvents/>
 	<SoundBanks>
-		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{F3EA71FE-0996-DC52-219A-BA790B6CD820}">
+		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{B99ADAF7-3E52-BAB3-A584-15F11367745B}">
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 			<Plugins>
 				<ShareSets>
 					<Plugin Id="48620415" Name="Have_U_Ever_Been_Outside" LibName="Wwise RoomVerb" LibId="7733251"/>
-					<Plugin Id="2791153688" Name="Hall_Small" LibName="Wwise RoomVerb" LibId="7733251"/>
+					<Plugin Id="3164629247" Name="Holy" LibName="Wwise RoomVerb" LibId="7733251"/>
+					<Plugin Id="3487820010" Name="One_Tap_Half_Second" LibName="Wwise Delay" LibId="6946819"/>
 				</ShareSets>
 				<AudioDevices>
 					<Plugin Id="2317455096" Name="No_Output" LibName="No Output" LibId="11862023"/>
@@ -40,7 +41,8 @@
 				<AuxBus Id="4116390784" Name="RVB_Down">
 					<PluginRefs>
 						<ShareSets>
-							<PluginRef Id="2791153688"/>
+							<PluginRef Id="3164629247"/>
+							<PluginRef Id="3487820010"/>
 						</ShareSets>
 					</PluginRefs>
 				</AuxBus>
@@ -193,7 +195,7 @@
 				</AcousticTexture>
 			</AcousticTextures>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{DAD32986-B000-77B4-9881-28646DA7D378}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{46A915BB-87EF-C102-1240-16A774DBF0E1}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
@@ -263,7 +265,7 @@
 				</File>
 				<File Id="221974456" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>AMB_DeathZone_Enter.wav</ShortName>
-					<CachePath>SFX/AMB_DeathZone_Enter_818F3B66.wem</CachePath>
+					<CachePath>SFX/AMB_DeathZone_Enter_FBC78EF0.wem</CachePath>
 				</File>
 				<File Id="224828170" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>SFX_Hunter_Attack_A_03.wav</ShortName>
@@ -285,9 +287,17 @@
 					<ShortName>SFX_Hunter_Grapple_Release_1.wav</ShortName>
 					<CachePath>SFX/SFX_Hunter_Grapple_Release_1_818F3B66.wem</CachePath>
 				</File>
+				<File Id="283087508" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>AMB_Dashspot.wav</ShortName>
+					<CachePath>SFX/AMB_Dashspot_FBC78EF0.wem</CachePath>
+				</File>
 				<File Id="307788563" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>UI_Gameplay_Victory.wav</ShortName>
 					<CachePath>SFX/UI_Gameplay_Victory_818F3B66.wem</CachePath>
+				</File>
+				<File Id="329455457" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>AMB_WeakSpot.wav</ShortName>
+					<CachePath>SFX/AMB_WeakSpot_FBC78EF0.wem</CachePath>
 				</File>
 				<File Id="331231020" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>SFX_Hunter_Grapple_Trigger_1.wav</ShortName>
@@ -304,10 +314,6 @@
 				<File Id="421721158" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>SFX_Hunter_Attack_A_05.wav</ShortName>
 					<CachePath>SFX/SFX_Hunter_Attack_A_05_818F3B66.wem</CachePath>
-				</File>
-				<File Id="450849102" Language="SFX" Streaming="false" Location="Memory">
-					<ShortName>AMB_Dash.wav</ShortName>
-					<CachePath>SFX/AMB_Dash_FBC78EF0.wem</CachePath>
 				</File>
 				<File Id="454485006" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>SFX_Hunter_Attack_B_04.wav</ShortName>
@@ -438,10 +444,10 @@
 				</Event>
 				<Event Id="2537313685" Name="Play_AMB_Dash" DurationType="Infinite">
 					<MediaRefs>
-						<MediaRef Id="450849102"/>
+						<MediaRef Id="283087508"/>
 					</MediaRefs>
 				</Event>
-				<Event Id="2987612296" Name="Play_AMB_DeathZone_Enter" DurationType="OneShot" DurationMin="10.684422" DurationMax="10.684422">
+				<Event Id="2987612296" Name="Play_AMB_DeathZone_Enter" DurationType="Infinite">
 					<MediaRefs>
 						<MediaRef Id="221974456"/>
 					</MediaRefs>
@@ -449,6 +455,11 @@
 				<Event Id="3598386578" Name="Play_AMB_DeathZone_Exit" DurationType="OneShot" DurationMin="2.1956236" DurationMax="2.1956236">
 					<MediaRefs>
 						<MediaRef Id="203143592"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="2718791335" Name="Play_AMB_MainMenu" DurationType="Infinite">
+					<MediaRefs>
+						<MediaRef Id="79153530"/>
 					</MediaRefs>
 				</Event>
 				<Event Id="1648935056" Name="Play_AMB_Rift_Bed" DurationType="Infinite">
@@ -461,6 +472,11 @@
 				<Event Id="1988198658" Name="Play_AMB_Slowmo" DurationType="Infinite">
 					<MediaRefs>
 						<MediaRef Id="572398160"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="1645025837" Name="Play_AMB_WeakSpot" DurationType="Infinite">
+					<MediaRefs>
+						<MediaRef Id="329455457"/>
 					</MediaRefs>
 				</Event>
 				<Event Id="3711688498" Name="Play_SFX_Bumper_Trigger" DurationType="OneShot" DurationMin="2.9719453" DurationMax="3.7444165">
@@ -537,16 +553,6 @@
 						<MediaRef Id="389253893"/>
 						<MediaRef Id="785035288"/>
 						<MediaRef Id="787829447"/>
-					</MediaRefs>
-					<AuxBusRefs>
-						<AuxBusRef Id="2518605955" Name="RVB_Up"/>
-						<AuxBusRef Id="4116390784" Name="RVB_Down"/>
-					</AuxBusRefs>
-				</Event>
-				<Event Id="4219705481" Name="Play_SFX_Hunter_Clothes" DurationType="Infinite">
-					<MediaRefs>
-						<MediaRef Id="389253893"/>
-						<MediaRef Id="785035288"/>
 					</MediaRefs>
 					<AuxBusRefs>
 						<AuxBusRef Id="2518605955" Name="RVB_Up"/>
@@ -697,6 +703,12 @@
 						<MediaRef Id="32303396"/>
 					</MediaRefs>
 				</Event>
+				<Event Id="3760108730" Name="Stop_AMB_Bumper" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
+				<Event Id="1355485359" Name="Stop_AMB_Dash" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
+				<Event Id="689102733" Name="Stop_AMB_MainMenu" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
+				<Event Id="2706217030" Name="Stop_AMB_Rift_Bed" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
+				<Event Id="494702947" Name="Stop_AMB_WeakSpot" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
+				<Event Id="2120326816" Name="Stop_SFX_Hunter_AirSpeed" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
 			</Events>
 			<GameParameters>
 				<GameParameter Id="1381474336" Name="RTPC_Speed"/>
@@ -704,5 +716,5 @@
 			</GameParameters>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{4F0BACC5-2811-6F7B-6B02-4632AA58421D}</FileHash>
+	<FileHash>{33AB442A-D023-90AA-30A6-A34554EECF16}</FileHash>
 </SoundBanksInfo>

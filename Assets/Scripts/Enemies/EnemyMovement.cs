@@ -5,8 +5,10 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    [TitleGroup("Components")]
+    [TitleGroup("Data")]
     public EnemyData Data;
+    [TitleGroup("Data")]
+    public EnemySoundData SoundData;
     [TitleGroup("Components")]
     public Transform toGo;
     [TitleGroup("Components")]
@@ -36,7 +38,7 @@ public class EnemyMovement : MonoBehaviour
         if (transform.position.y > GPCtrl.Instance.GeneralData.yHeightPitWarning && !playedWarningSound)
         {
             playedWarningSound = true;
-            Data.SFX_Giant_Roar_Danger.Post(GPCtrl.Instance.Player.gameObject);
+            SoundData.SFX_Giant_Roar_Danger.Post(GPCtrl.Instance.Player.gameObject);
             Debug.Log("PLAY ROAR SOUND");
         }
     }

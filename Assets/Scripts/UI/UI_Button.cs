@@ -14,6 +14,7 @@ public class UI_Button : MonoBehaviour, ISelectHandler, IDeselectHandler, IPoint
     [SerializeField] private Image _image;
     [SerializeField] private AK.Wwise.Event _sfxHover;
     [SerializeField] private AK.Wwise.Event _sfxClick;
+    [SerializeField] private bool activeOnClick;
 
     private void Awake()
     {
@@ -25,7 +26,10 @@ public class UI_Button : MonoBehaviour, ISelectHandler, IDeselectHandler, IPoint
     {
         transform.DOScale(1f, .3f).SetUpdate(true);
         _textMeshProUGUI.color = Color.white;
-        _image.material.SetInt("_Selected", 0);
+        if (_image.material.GetInt("_Active") == 0)
+        {
+            _image.material.SetInt("_Selected", 0);
+        }
     }
 
     public void OnSelect(BaseEventData eventData)
@@ -39,6 +43,22 @@ public class UI_Button : MonoBehaviour, ISelectHandler, IDeselectHandler, IPoint
     private void OnClick()
     {
         _sfxClick.Post(DataHolder.Instance.gameObject);
+        //if (activeOnClick)
+        //{
+        //    _image.material.SetInt("_Active", 1);
+        //}
+    }
+
+    public void Activate()
+    {
+        _image.material.SetInt("_Active", 1);
+    }
+
+    public void Deactivate()
+    {
+        _image.material.SetInt("_Active", 0);
+        if (EventSystem.current.currentSelectedGameObject != gameObject)
+            _image.material.SetInt("_Selected", 0);
     }
 
     public void OnPointerEnter(PointerEventData eventData)

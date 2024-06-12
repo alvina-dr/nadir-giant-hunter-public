@@ -38,7 +38,6 @@ public class UI_Scoreboard : MonoBehaviour
         {
             if (PlayerPrefs.HasKey("scoreboard" + Difficulty))
             {
-                Debug.Log("log in difficulty : " + Difficulty.ToString());
                 string json = PlayerPrefs.GetString("scoreboard" + Difficulty); // use scoreboard-levelname
                 ScoreList = JsonUtility.FromJson<ScoreboardList>(json);
             }
@@ -51,7 +50,6 @@ public class UI_Scoreboard : MonoBehaviour
         for (int i = 0; i < ScoreList.entries.Count; i++)
         {
             InstantiateScoreboardEntry(ScoreList.entries[i], i);
-            Debug.Log("add scoreboard entry");
         }
     }
 
@@ -60,7 +58,6 @@ public class UI_Scoreboard : MonoBehaviour
         for (int i = 0; i < scoreEntryLayout.childCount; i++)
         {
             Destroy(scoreEntryLayout.GetChild(i).gameObject);
-            Debug.Log("destroy scoreboard entry");
         }
     }
 
@@ -71,7 +68,6 @@ public class UI_Scoreboard : MonoBehaviour
             ScoreList.entries = ScoreList.entries.Take(GPCtrl.Instance.GeneralData.scoreboardSize).ToList();
         string json = JsonUtility.ToJson(ScoreList);
         PlayerPrefs.SetString("scoreboard" + Difficulty, json);
-        Debug.Log("json : " + json);
         PlayerPrefs.Save();
         DestroyScoreboard();
         CreateScoreboard();

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using UnityEngine.InputSystem;
 
 public class CameraThirdPerson : MonoBehaviour
 {
@@ -26,6 +27,7 @@ public class CameraThirdPerson : MonoBehaviour
 
         float camSensi = 1;
         if (PlayerPrefs.HasKey("CamSensi")) camSensi = PlayerPrefs.GetFloat("CamSensi");
+        if (!DataHolder.Instance.IsUsingGamepad()) camSensi *= .7f;
         CinemachineFreeLook.m_XAxis.m_MaxSpeed = camSensi * 300;
         CinemachineFreeLook.m_YAxis.m_MaxSpeed = camSensi * 2;
 

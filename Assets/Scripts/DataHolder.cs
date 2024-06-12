@@ -15,6 +15,7 @@ public class DataHolder : MonoBehaviour
     }
 
     public DifficultyMode CurrentDifficulty;
+    public bool Tutorial = false;
 
     private void Awake()
     {
@@ -26,6 +27,8 @@ public class DataHolder : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(this.gameObject);
+            Bank.Load();
+            //Debug.Log("load bank : " + result.ToString());
         }
     }
 #endregion
@@ -34,6 +37,7 @@ public class DataHolder : MonoBehaviour
 
     [Header("SFX")]
     public AK.Wwise.Event _sfxGoBack;
+    public AK.Wwise.Bank Bank;
 
     public string ConvertTimeToMinutes(float time)
     {
@@ -44,5 +48,17 @@ public class DataHolder : MonoBehaviour
         if (miliseconds.Length > 2) miliseconds.Substring(0, 2);
         if (miliseconds.Length == 2) miliseconds += "0";
         return (minutes + ":" + seconds + ":" + miliseconds);
+    }
+
+    public bool IsUsingGamepad()
+    {
+        string control = GPCtrl.Instance.Player.PlayerInput.currentControlScheme.ToString();
+        if (control == "Gamepad")
+        {
+            return true;
+        } else
+        {
+            return false;
+        }
     }
 }
