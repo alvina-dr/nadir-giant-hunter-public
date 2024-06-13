@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4078988403796013792}
   - component: {fileID: 5815372753601726227}
+  - component: {fileID: 5788308971863353995}
   m_Layer: 0
   m_Name: GPCtrl
   m_TagString: Untagged
@@ -49,14 +50,16 @@ MonoBehaviour:
   UICtrl: {fileID: 0}
   EnemySpawner: {fileID: 0}
   CameraThirdPerson: {fileID: 0}
-  CameraLock: {fileID: 0}
   GameOverCamera: {fileID: 0}
   EasySpawnerData: {fileID: 11400000, guid: 0828c16256492564e9cf7773dde7e094, type: 2}
   EasyEnemyData: {fileID: 11400000, guid: a730072664c438548bdbe4b05bc225d6, type: 2}
+  EasyPlayerData: {fileID: 0}
   NormalSpawnerData: {fileID: 11400000, guid: 5c2bfdea06955fc4899c76e9f26aaf88, type: 2}
   NormalEnemyData: {fileID: 11400000, guid: dc9c6fd60b32d134db36426e0baf4808, type: 2}
+  NormalPlayerData: {fileID: 11400000, guid: ed0576b68a0e9df4dbe5e95532623953, type: 2}
   HardSpawnerData: {fileID: 11400000, guid: fc0587ca3a9eea349b02a46ca9cacb2b, type: 2}
   HardEnemyData: {fileID: 11400000, guid: 77a5eb528444f3146896974b858a9a9b, type: 2}
+  HardPlayerData: {fileID: 0}
   TargetableSpotList: []
   Timer: 0
   Pause: 0
@@ -64,3 +67,61 @@ MonoBehaviour:
   DashPause: 0
   reliefFX: {fileID: 0}
   NumEnemyKilled: 0
+--- !u!114 &5788308971863353995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3404612872301297591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69beb381e244f92449b8c4cf954630e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TrackedObjects:
+  - rid: 7821857853531227059
+  references:
+    version: 2
+    RefIds:
+    - rid: 7821857853531227059
+      type: {class: TrackedMonoBehaviourObject, ns: UnityEngine.Localization.PropertyVariants.TrackedObjects,
+        asm: Unity.Localization}
+      data:
+        m_Target: {fileID: 5815372753601726227}
+        m_TrackedProperties:
+          items:
+          - rid: 7821857853531227060
+          - rid: 7821857853531227062
+        m_UpdateType: 0
+        m_Changed:
+          m_PersistentCalls:
+            m_Calls: []
+    - rid: 7821857853531227060
+      type: {class: UnityObjectProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties,
+        asm: Unity.Localization}
+      data:
+        m_PropertyPath: HardPlayerData
+        m_TypeString: PlayerData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+          PublicKeyToken=null
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: en
+          value: {fileID: 11400000, guid: b0578ea5c1818e44487cc36ca565e02c, type: 2}
+        - localeIdentifier:
+            m_Code: ko
+          value: {fileID: 11400000, guid: b0578ea5c1818e44487cc36ca565e02c, type: 2}
+    - rid: 7821857853531227062
+      type: {class: UnityObjectProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties,
+        asm: Unity.Localization}
+      data:
+        m_PropertyPath: EasyPlayerData
+        m_TypeString: PlayerData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+          PublicKeyToken=null
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: en
+          value: {fileID: 11400000, guid: 1762678e939f8d04b8b7632b5a354c2e, type: 2}
+        - localeIdentifier:
+            m_Code: ko
+          value: {fileID: 11400000, guid: 1762678e939f8d04b8b7632b5a354c2e, type: 2}

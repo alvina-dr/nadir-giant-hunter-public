@@ -27,6 +27,19 @@ public class PitBottom : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider collision)
+    {
+        if (GPCtrl.Instance.Pause) return;
+        if (collision.transform.parent == null) return;
+        Player player = collision.transform.parent.GetComponent<Player>();
+        if (player != null)
+        {
+            player.SoundData.AMB_DeathZone_Enter.Post(player.gameObject);
+            Debug.Log("ENTER DEATH ZONE");
+        }
+    }
+
+
     private void OnTriggerExit(Collider collision)
     {
         if (collision.transform.parent == null) return;
@@ -39,6 +52,8 @@ public class PitBottom : MonoBehaviour
             {
                 postProcess.SetFloat("_Hit_by_Abyss_Time", 0);
             }
+            player.SoundData.AMB_DeathZone_Exit.Post(player.gameObject);
+            Debug.Log("EXIT DEATH ZONE");
         }
     }
 }

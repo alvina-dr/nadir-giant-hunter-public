@@ -12,11 +12,18 @@ public class TutorielCtrl : MonoBehaviour
     {
         if (Instance != null && Instance != this)
         {
-            Destroy(this);
+            Destroy(gameObject);
         }
         else
         {
             Instance = this;
+            if (DataHolder.Instance.Tutorial)
+            {
+                SetupTutorialScene();
+            } else
+            {
+                Destroy(gameObject);
+            }
         }
     }
     #endregion
@@ -46,5 +53,10 @@ public class TutorielCtrl : MonoBehaviour
     public void LaunchGame()
     {
         SceneManager.LoadScene("Game");
+    }
+
+    public void SetupTutorialScene()
+    {
+        GPCtrl.Instance.EnemySpawner.gameObject.SetActive(false);
     }
 }

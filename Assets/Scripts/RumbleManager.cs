@@ -10,6 +10,7 @@ public class RumbleManager : MonoBehaviour
 
     public void PulseFor(float lowFrequency, float highFrequency, float duration)
     {
+        if (!DataHolder.Instance.IsUsingGamepad()) return;
         if (!PlayerPrefs.HasKey("Vibration")) PlayerPrefs.SetInt("Vibration", 1);
 
         pad = Gamepad.current;
@@ -31,6 +32,7 @@ public class RumbleManager : MonoBehaviour
 
     public void StartPulse(float lowFrequency, float highFrequency)
     {
+        if (!DataHolder.Instance.IsUsingGamepad()) return;
         if (!PlayerPrefs.HasKey("Vibration")) PlayerPrefs.SetInt("Vibration", 1);
         
         pad = Gamepad.current;

@@ -27,12 +27,16 @@ public class GPCtrl : MonoBehaviour
             {
                 case DataHolder.DifficultyMode.Easy:
                     EnemySpawner.SpawnerData = EasySpawnerData;
+                    Player.Data = EasyPlayerData;
                     break;
                 case DataHolder.DifficultyMode.Normal:
                     EnemySpawner.SpawnerData = NormalSpawnerData;
+                    Player.Data = NormalPlayerData;
+
                     break;
                 case DataHolder.DifficultyMode.Hard:
                     EnemySpawner.SpawnerData = HardSpawnerData;
+                    Player.Data = HardPlayerData;
                     break;
             }
         }
@@ -46,16 +50,18 @@ public class GPCtrl : MonoBehaviour
 
     [Header("Camera")]
     public CameraThirdPerson CameraThirdPerson;
-    public CameraLock CameraLock;
     public GameOverCamera GameOverCamera;
 
     [Header("Difficulty")]
     public EnemySpawnerData EasySpawnerData;
     public EnemyData EasyEnemyData;
+    public PlayerData EasyPlayerData;
     public EnemySpawnerData NormalSpawnerData;
     public EnemyData NormalEnemyData;
+    public PlayerData NormalPlayerData;
     public EnemySpawnerData HardSpawnerData;
     public EnemyData HardEnemyData;
+    public PlayerData HardPlayerData;
 
     [ReadOnly]
     public List<TargetableSpot> TargetableSpotList;
@@ -78,6 +84,7 @@ public class GPCtrl : MonoBehaviour
         if (Pause) return;
         Timer += Time.unscaledDeltaTime;
         UICtrl.TimerText.text = DataHolder.Instance.ConvertTimeToMinutes(Timer);
+        //UICtrl.SpeedText.text = MathF.Round(Player.Rigibody.velocity.magnitude / 2).ToString() + " m/s";
     }
 
     public void Win()
@@ -102,7 +109,8 @@ public class GPCtrl : MonoBehaviour
     public void AddKilledEnemy()
     {
         NumEnemyKilled++;
-        if (NumEnemyKilled > EnemySpawner.SpawnerData.NumTotalEnemy)
+        UICtrl.KillRatioText.text = NumEnemyKilled.ToString() + " / " + EnemySpawner.SpawnerData.NumTotalEnemy.ToString();
+        if (NumEnemyKilled >= EnemySpawner.SpawnerData.NumTotalEnemy)
         {
             Win();
         }

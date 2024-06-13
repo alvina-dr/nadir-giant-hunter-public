@@ -218,8 +218,8 @@ public class PlayerSwinging : MonoBehaviour
         Player.SoundData.SFX_Hunter_Grapple_Trigger.Post(gameObject);
         IsSwinging = true;
         EndSwingLinePoint.SetParent(hitTransform);
-        //if (EndSwingLinePoint.parent != null)
-        //    Debug.Log("END SWING LINE POINT PARENT : " + EndSwingLinePoint.parent.name);
+        if (EndSwingLinePoint.parent != null)
+            Debug.Log("END SWING LINE POINT PARENT : " + EndSwingLinePoint.parent.name);
         EndSwingLinePoint.position = hitPoint;
         Player.Animator.SetBool("isSwinging", true);
         DataHolder.Instance.RumbleManager.PulseFor(5f, 5f, .1f);
@@ -246,7 +246,7 @@ public class PlayerSwinging : MonoBehaviour
         if (Player.Data.startCurveBoost && EndSwingLinePoint.position.y > Player.transform.position.y - 20)
         {
             Player.Rigibody.AddForce(Vector3.Cross(Player.Mesh.transform.right, (EndSwingLinePoint.position - Player.transform.position).normalized) * (Player.Data.startCurveSpeedBoost + Player.PlayerMovement.FallingTimer * 1000f), ForceMode.Impulse);
-            Debug.Log("START BOOST");
+            //Debug.Log("START BOOST");
         }
     }
 
