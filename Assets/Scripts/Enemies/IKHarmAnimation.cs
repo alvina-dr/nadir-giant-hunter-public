@@ -8,6 +8,8 @@ using System;
 using static ak.wwise.core;
 using UnityEngine.UIElements;
 using UnityEditor;
+using NUnit.Framework.Internal;
+using UnityEngine.Profiling;
 
 namespace Enemies
 {
@@ -24,6 +26,8 @@ namespace Enemies
         public GameObject LastBone;
         public GameObject FirstBone;
         [HideInInspector]
+        public Tentacle tentacle;
+        [HideInInspector]
         public Vector3 LastPosTarg;
         [HideInInspector]
         public float LastPosTargTotDist;
@@ -33,9 +37,15 @@ namespace Enemies
         public Vector3 LastPos;
         [HideInInspector]
         public float MaxLength;
-        public string LegMaterialName;
         [ReadOnly]
-        public bool IsLegMaterialAnim;
+        public bool DidLegJustTouchedGround = false;
+        public float GroundedDelta = 1;
+        public float LegSpeed;
+        public List<int> ScalesAnimIndexOnGroundTouched = new List<int>();
+        [HideInInspector]
+        public float randomizer;
+        //PERFORMANCE
+        public float CurrentFrame = 0;
     }
     [Serializable]
     public class IkLegPair {
@@ -53,6 +63,10 @@ namespace Enemies
         [HideInInspector] public Vector3 overrideDir = Vector3.zero;
         [SerializeField] private SkinnedMeshRenderer _skinnedMeshRenderer;
         private Waving _waving;
+        private IKHarmWiggle _ikHarmWiggle;
+        private RigBuilder _rigBuilder;
+        private Animator _animator;
+        public EnemyMovement EnemyMovement;
 
         //Parameters
         [TitleGroup("Parameters")]
@@ -84,6 +98,8 @@ namespace Enemies
         private Vector2 _lengthBeforeUpdateOffSet;
         [TabGroup("Parameters/A", "Metrics"), SerializeField]
         private float _targetHeightTransition = 1;
+        [TabGroup("Parameters/A", "Metrics"), SerializeField]
+        private AnimationCurve _heightStepCurve;
         [TabGroup("Parameters/A", "Metrics"), MinMaxSlider(0, 20), SerializeField]
         private Vector2 _moveSpeed;
         [TabGroup("Parameters/A", "Metrics"), SerializeField]
@@ -115,10 +131,17 @@ namespace Enemies
         [TabGroup("Debug/A", "Metrics"), ReadOnly, SerializeField]
         private Vector3 _overideDirDebug;
 
+        //PERFORMANCE
+        public int CurrentFrame = 0;
+        public int FrameEco = 5;
+
         // Start is called before the first frame update
         void Start()
         {
             _waving = GetComponent<Waving>();
+            _ikHarmWiggle = GetComponent<IKHarmWiggle>();
+            _rigBuilder = GetComponent<RigBuilder>();
+            _animator = GetComponent<Animator>();
             InitTargetsPos();
         }
 
@@ -133,6 +156,8 @@ namespace Enemies
                     leg.LastPosTarg = leg.Target.position;
                     leg.LastPosTargTotDist = 0;
                     leg.MoveTime = 0;
+                    leg.randomizer = UnityEngine.Random.Range(0, 100.0f);
+                    
                 }
             }
             UpdateTargetsPos();
@@ -153,23 +178,31 @@ namespace Enemies
         // Update is called once per frame
         void Update()
         {
+            Profiler.BeginSample("IKAnimUpdate");
             _up = transform.forward * _localUp.z + transform.right * _localUp.x + transform.up * _localUp.y;
             for (int i = 0; i < _iksLegPairs.Count; i++)
             {
                 foreach (Leg leg in _iksLegPairs[i].Legs)
                 {
-
+                    leg.CurrentFrame++;
+                    if (leg.CurrentFrame < FrameEco)
+                    {
+                        continue;
+                    }
+                    leg.CurrentFrame = 0;
                     if (leg.UseTwoBonesIk && leg.Ik.enabled || !leg.UseTwoBonesIk && leg.ChainIk.enabled)
                     {
                         leg.Target.position = leg.LastPos;
-                        _waving.IkHarmCompensateWave(leg);
-                        Debug.DrawRay(leg.LastPos, Vector3.up * 10);
-                        Debug.DrawRay(leg.LastPos, Vector3.right * 10);
+                        //_waving.IkHarmCompensateWave(leg);
                     }
 
-                    if (Vector3.Distance(leg.LastPos, leg.LastPosTarg) > 1f)
+                    if (Vector3.Distance(leg.Target.position, leg.LastPosTarg) > 0.01f)
                     {
                         TransitionLastPos(leg);
+                    }
+                    else
+                    {
+                        leg.GroundedDelta = 1;
                     }
                     if (doAlignTipToLast)
                     {
@@ -178,6 +211,18 @@ namespace Enemies
                 }
             }
             CheckEachIkDistances();
+            Profiler.EndSample();
+        }
+
+        private void LateUpdate()
+        {
+            for (int i = 0; i < _iksLegPairs.Count; i++)
+            {
+                foreach (Leg leg in _iksLegPairs[i].Legs)
+                {
+                    _ikHarmWiggle.ApplyNoiseToLeg(leg);
+                }
+            }
         }
 
         //Anim
@@ -187,29 +232,45 @@ namespace Enemies
             float deltaP = 1.1f - Vector3.Distance(leg.LastPos, leg.LastPosTarg) / leg.LastPosTargTotDist;
             leg.LastPos = Vector3.Lerp(leg.LastPos, leg.LastPosTarg, Time.deltaTime * leg.MoveTime * deltaP);
             float delta = 1f - Vector3.Distance(leg.LastPos, leg.LastPosTarg) / leg.LastPosTargTotDist;
-            float step = 1 - Mathf.Pow(2 * delta - 1, 2);
-            if (delta >= 0.93f && leg.LegMaterialName != "" && !leg.IsLegMaterialAnim) {
-                leg.IsLegMaterialAnim = true;
-                StartCoroutine(StartLegMaterialAnim(leg));
+            float step = _heightStepCurve.Evaluate(delta);
+            leg.GroundedDelta = 1-step;
+            leg.LegSpeed = step;
+
+            if (delta >= 0.99f && !leg.DidLegJustTouchedGround)
+            {
+                leg.DidLegJustTouchedGround = true;
+                LegTouchedGround(leg);
+                StartCoroutine(GroundTouchCoolDown(leg));
             }
             leg.Target.position += _up * _targetHeightTransition * step;
             
         }
 
-        IEnumerator StartLegMaterialAnim(Leg leg)
+
+        private void LegTouchedGround(Leg leg)
         {
-            float delta = _LegMaterialAnimTime / (float)_LegMaterialAnimIterations;
-            for (int i = 0; i < _LegMaterialAnimIterations; i++)
+            foreach (int index in leg.ScalesAnimIndexOnGroundTouched)
             {
-                float step = i/ (float)_LegMaterialAnimIterations;
-                _skinnedMeshRenderer.materials[1].SetFloat(leg.LegMaterialName, step);
-                yield return new WaitForSeconds(delta);
+                leg.tentacle.StartTentacleAnimationByIndex(index);
             }
-            leg.IsLegMaterialAnim = false;
+            EnemyMovement.SoundData.SFX_Giant_Hit_IntoAbyss.Post(leg.LastBone);
+        }
+
+        IEnumerator GroundTouchCoolDown(Leg leg)
+        {
+            
+            yield return new WaitForSecondsRealtime(1f);
+            leg.DidLegJustTouchedGround = false;
         }
 
         private void CheckEachIkDistances()
         {
+            CurrentFrame++;
+            if (CurrentFrame < FrameEco)
+            {
+                return;
+            }
+            CurrentFrame = 0;
             foreach (IkLegPair legPair in _iksLegPairs)
             {
                 if (Vector3.Distance(legPair.Legs[0].LastPos, legPair.Legs[0].TargetPos.position) > legPair.Legs[0].MaxLength*1.5f)
@@ -272,6 +333,54 @@ namespace Enemies
                 return;
             }
             GetAndApplyNextIkPosition(leg, tryNum+1);
+        }
+
+        [Button, Tooltip("Works only with tentacle script")]
+        public void SetupLegs(Transform LegParent)
+        {
+            for (int i = 0; i < LegParent.childCount; i += 2)
+            {
+                IkLegPair ikLegPair = new IkLegPair();
+                ikLegPair.CurrentLeg = Mathf.FloorToInt((i/2) % 2);
+                //FirstLeg
+                ikLegPair.Legs[0] = new Leg();
+                ikLegPair.Legs[1] = new Leg();
+                SetupLeg(ikLegPair.Legs[0], LegParent.GetChild(i));
+                SetupLeg(ikLegPair.Legs[1], LegParent.GetChild(i+1));
+                _iksLegPairs.Add(ikLegPair);
+            }
+            if (Application.isPlaying)
+            {
+                _rigBuilder.Build();
+            }
+        }
+
+        private void SetupLeg(Leg leg, Transform legParent)
+        {
+            if (!_rigBuilder || !_animator)
+            {
+                _rigBuilder = GetComponent<RigBuilder>();
+                _animator = GetComponent<Animator>();
+            }
+            leg.UseTwoBonesIk = false;
+            leg.ChainIk = legParent.GetComponent<ChainIKConstraint>();
+            leg.Target = legParent.Find("Target");
+            leg.TargetPos = legParent.Find("TargetPos");
+            leg.LastBone = legParent.GetComponent<Tentacle>().EndTentacleScale;
+            leg.FirstBone = legParent.GetComponent<Tentacle>().StartTentacleScale;
+            leg.ScalesAnimIndexOnGroundTouched.Add(0);
+            Tentacle tentacle = legParent.GetComponent<Tentacle>();
+            tentacle.TentRigBuilder = _rigBuilder;
+            tentacle.EnemyAnimator = _animator;
+            tentacle.leg = leg;
+            leg.tentacle = tentacle;
+
+        }
+
+        [Button]
+        public void ResetLegs()
+        {
+            _iksLegPairs.Clear();
         }
 
 
