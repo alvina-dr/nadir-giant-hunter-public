@@ -23,18 +23,9 @@ namespace Enemies
         [TabGroup("Parameters")]
         public float LegAngleSpacing;
 
-
-
-        // Start is called before the first frame update
         void Start()
         {
             _iKHarmAnimation = GetComponent<IKHarmAnimation>();
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-        
         }
 
         [Button]
@@ -108,8 +99,6 @@ namespace Enemies
             }
         }
 
-
-
         private void OnDrawGizmosSelected()
         {
             Tentacle tentacle = TentaclePrefab.GetComponent<Tentacle>();
@@ -151,7 +140,6 @@ namespace Enemies
                 }
                 Gizmos.DrawLineStrip(points, false);
             }
-
         }
 
         private void GetFourBezierPoint(Vector3 basePos, Tentacle tentacle, float angle, out Vector3 p0, out Vector3 p1, out Vector3 p2, out Vector3 p3)

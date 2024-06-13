@@ -97,7 +97,6 @@ namespace Enemies
         private string toDebug;
 
 
-        // Start is called before the first frame update
         void Start()
         {
             TentacleIKConstraint = GetComponent<ChainIKConstraint>();
@@ -106,7 +105,6 @@ namespace Enemies
             StartAnimationsOnStart();
         }
 
-        // Update is called once per frame
         void Update()
         {
             deltaGrounded = leg.GroundedDelta;
@@ -366,9 +364,9 @@ namespace Enemies
 
         private void OnGUI()
         {
-            GUIStyle gUIStyle = new GUIStyle();
-            gUIStyle.alignment = TextAnchor.UpperLeft;
-            GUILayout.Box("Tentacle Debug: \n" + toDebug, gUIStyle);
+            //GUIStyle gUIStyle = new GUIStyle();
+            //gUIStyle.alignment = TextAnchor.UpperLeft;
+            //GUILayout.Box("Tentacle Debug: \n" + toDebug, gUIStyle);
         }
 
         private void OnDrawGizmos()
@@ -411,4 +409,3 @@ namespace Enemies
         }
     }
 }
-

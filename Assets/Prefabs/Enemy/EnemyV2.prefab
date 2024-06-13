@@ -422,8 +422,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: dc9c6fd60b32d134db36426e0baf4808, type: 2}
+  SoundData: {fileID: 11400000, guid: de36cfae031d5944c947c91a97fc8f71, type: 2}
   toGo: {fileID: 0}
-  EnemyWeakSpotManagement: {fileID: 0}
+  EnemyWeakSpotManagement: {fileID: 4064326509189657432}
   GroundLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -441,9 +442,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c39a61fffbc3204bad1a953d8ec0c5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyMovement: {fileID: 0}
+  EnemyMovement: {fileID: 254829755478110047}
   WeakSpotSpawnList:
-  - {fileID: 0}
+  - {fileID: 7025615325098107426}
   WeakSpotList: []
   WeakSpotNum: 1
   VFXData: {fileID: 11400000, guid: aea452db0727f454981b9eab3d129318, type: 2}
@@ -8604,7 +8605,6 @@ MonoBehaviour:
   NoiseInfluenceMult: 700
   NoiseScale: 20
   LegSpeedInfluence: 0
-  positionInfl: 0.01
   NoiseSpeed: -20
   RandomMult: 7963.195
   BoneIndex: 0
@@ -8857,3 +8857,15 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 7955746631877185912}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7025615325098107426 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1087481335142921050, guid: 4dab856c9a03934499dfd0928f843e7c,
+    type: 3}
+  m_PrefabInstance: {fileID: 7955746631877185912}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ff0ba8e0e3a73d47add8f5e0310ef34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
