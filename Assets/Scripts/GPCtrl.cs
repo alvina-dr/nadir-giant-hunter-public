@@ -27,12 +27,16 @@ public class GPCtrl : MonoBehaviour
             {
                 case DataHolder.DifficultyMode.Easy:
                     EnemySpawner.SpawnerData = EasySpawnerData;
+                    Player.Data = EasyPlayerData;
                     break;
                 case DataHolder.DifficultyMode.Normal:
                     EnemySpawner.SpawnerData = NormalSpawnerData;
+                    Player.Data = NormalPlayerData;
+
                     break;
                 case DataHolder.DifficultyMode.Hard:
                     EnemySpawner.SpawnerData = HardSpawnerData;
+                    Player.Data = HardPlayerData;
                     break;
             }
         }
@@ -51,10 +55,13 @@ public class GPCtrl : MonoBehaviour
     [Header("Difficulty")]
     public EnemySpawnerData EasySpawnerData;
     public EnemyData EasyEnemyData;
+    public PlayerData EasyPlayerData;
     public EnemySpawnerData NormalSpawnerData;
     public EnemyData NormalEnemyData;
+    public PlayerData NormalPlayerData;
     public EnemySpawnerData HardSpawnerData;
     public EnemyData HardEnemyData;
+    public PlayerData HardPlayerData;
 
     [ReadOnly]
     public List<TargetableSpot> TargetableSpotList;
