@@ -66,6 +66,7 @@ namespace Enemies
         private IKHarmWiggle _ikHarmWiggle;
         private RigBuilder _rigBuilder;
         private Animator _animator;
+        public EnemyMovement EnemyMovement;
 
         //Parameters
         [TitleGroup("Parameters")]
@@ -252,6 +253,7 @@ namespace Enemies
             {
                 leg.tentacle.StartTentacleAnimationByIndex(index);
             }
+            EnemyMovement.SoundData.SFX_Giant_Hit_IntoAbyss.Post(leg.LastBone);
         }
 
         IEnumerator GroundTouchCoolDown(Leg leg)
