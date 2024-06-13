@@ -7,6 +7,9 @@ using static UI_Scoreboard;
 using TMPro;
 using System;
 using Sirenix.OdinInspector;
+using Unity.Services.Authentication;
+using Unity.Services.Core;
+using Unity.Services.Leaderboards;
 using Unity.VisualScripting;
 
 public class UI_ScoreboardManager : MonoBehaviour
@@ -114,5 +117,38 @@ public class UI_ScoreboardManager : MonoBehaviour
         {
             _buttonList[i].Deactivate();
         }
+    }
+
+    private void SendDataToOnlineLeaderboard()
+    {
+        
+    }
+
+    private async Awaitable SendDataToOnlineLeaderboardCoroutine(string userName, float score, DataHolder.DifficultyMode difficultyMode)
+    {
+        if (Application.internetReachability == NetworkReachability.NotReachable)
+        {
+            Debug.LogWarning("No internet connection detected. Unity Gaming Services will not be initialized (no online Leaderboard)",
+                this);
+        }
+        
+        // unsign user if already signed in
+        if (AuthenticationService.Instance.IsSignedIn)
+        {
+            AuthenticationService.Instance.SignOut(true);
+        }
+        var options = new InitializationOptions();
+        // set a random alphanumeric profile (this is because of how the leaderboard works, 1 user has 1 score, so we create a random user for each score)
+        var randomString = Guid.NewGuid().ToString("N").Substring(0, 8);
+        options.SetProfile(randomString);
+        
+        await UnityServices.InitializeAsync(options);
+        await AuthenticationService.Instance.SignInAnonymouslyAsync();
+        
+        var playerScoreOptions = new AddPlayerScoreOptions
+        {
+            Metadata = $"playerName:{userName},difficulty:{difficultyMode}",
+        };
+        await LeaderboardsService.Instance.AddPlayerScoreAsync("Leaderboard", score, playerScoreOptions);
     }
 }
