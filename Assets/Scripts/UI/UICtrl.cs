@@ -88,6 +88,5 @@ public class UICtrl : MonoBehaviour
     private void Start()
     {
         KillRatioText.text = GPCtrl.Instance.NumEnemyKilled.ToString() + " / " + GPCtrl.Instance.EnemySpawner.SpawnerData.NumTotalEnemy.ToString();
-
     }
 }
