@@ -5,7 +5,6 @@ using TMPro;
 using System.Linq;
 using DG.Tweening;
 using System;
-using LootLocker.Requests;
 
 public class UI_Scoreboard : MonoBehaviour
 {
@@ -46,7 +45,7 @@ public class UI_Scoreboard : MonoBehaviour
                 ScoreList = JsonUtility.FromJson<ScoreboardList>(json);
             }
         }
-        LootLockerSDKManager.GetLeaderboardData("Leaderboard", (response) =>
+        /*LootLockerSDKManager.GetLeaderboardData("Leaderboard", (response) =>
         {
             if (response.success)
             {
@@ -57,7 +56,7 @@ public class UI_Scoreboard : MonoBehaviour
             {
                 Debug.Log("[LootLocker] UI_ScoreBoard awake : " + response.text);
             }
-        });
+        });*/
         CreateScoreboard();
     }
 

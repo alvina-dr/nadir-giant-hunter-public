@@ -6,7 +6,6 @@ using UnityEngine.UI;
 using static UI_Scoreboard;
 using TMPro;
 using System;
-using LootLocker.Requests;
 using Sirenix.OdinInspector;
 using Unity.VisualScripting;
 
@@ -71,7 +70,7 @@ public class UI_ScoreboardManager : MonoBehaviour
         // metadata have this format : playerName:{name},difficulty:{difficulty} (and maybe the seed in the future)
         // Because the userID is a random mix of letter and digit, we pass the username as metadata
         string metadata = "playerName:" + _name + ",difficulty:" + DataHolder.Instance.CurrentDifficulty;
-        LootLockerSDKManager.StartGuestSession(_name, firstResponse =>
+        /*LootLockerSDKManager.StartGuestSession(_name, firstResponse =>
         {
             if (firstResponse.success)
             {
@@ -89,7 +88,7 @@ public class UI_ScoreboardManager : MonoBehaviour
             {
                 Debug.Log("[LootLocker] Guest session failed to start with error: " + firstResponse.text);
             }
-        });
+        });*/
         switch (DataHolder.Instance.CurrentDifficulty)
         {
             case DataHolder.DifficultyMode.Easy:
