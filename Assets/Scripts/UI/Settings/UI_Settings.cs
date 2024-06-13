@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization.Settings;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
 
@@ -28,8 +29,8 @@ public class UI_Settings : MonoBehaviour
 
         if (PlayerPrefs.HasKey("ScreenResolution")) //SCREEN RESOLUTION
         {
-            int index = PlayerPrefs.GetInt("ScreenResolution");
-            Screen.SetResolution(Screen.resolutions[index].width, Screen.resolutions[index].height, Screen.fullScreenMode);
+            int indexResolution = PlayerPrefs.GetInt("ScreenResolution");
+            Screen.SetResolution(Screen.resolutions[indexResolution].width, Screen.resolutions[indexResolution].height, Screen.fullScreenMode);
         }
 
         if (PlayerPrefs.HasKey("Fullscreen")) //FULLSCREEN
@@ -42,6 +43,10 @@ public class UI_Settings : MonoBehaviour
         _toggleCameraShake.isOn = PlayerPrefs.GetInt("CameraShake") == 0 ? false : true;
 
         _toggleVibration.isOn = PlayerPrefs.GetInt("Vibration") == 0 ? false : true; //GAMEPAD VIBRATION
+
+        int indexLanguage = 0;
+        if (PlayerPrefs.HasKey("Language")) indexLanguage = PlayerPrefs.GetInt("Language");
+        LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[indexLanguage];
     }
 
     public void SetFullscreeen(bool value)
