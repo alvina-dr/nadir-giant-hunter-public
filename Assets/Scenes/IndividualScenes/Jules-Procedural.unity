@@ -8203,6 +8203,7 @@ MonoBehaviour:
   TargetPosition: {x: 0, y: 0, z: 0}
   overrideDir: {x: 0, y: 0, z: 0}
   _skinnedMeshRenderer: {fileID: 0}
+  EnemyMovement: {fileID: 0}
   doAlignTipToLast: 0
   _nextTargetRaycastLength: 7.5
   _nextTargetRaycastOriginY: 2.09
@@ -9477,18 +9478,6 @@ MonoBehaviour:
   _DebugDelta: 0
   CurrentFrame: 0
   FrameEco: 3
---- !u!114 &199965801 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6034125131107115550, guid: 37fcea3c9f56e5e45b2f440ccd893f1a,
-    type: 3}
-  m_PrefabInstance: {fileID: 1621618872}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ff0ba8e0e3a73d47add8f5e0310ef34, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &202243013
 GameObject:
   m_ObjectHideFlags: 0
@@ -14225,18 +14214,6 @@ MonoBehaviour:
   _DebugDelta: 0
   CurrentFrame: 1
   FrameEco: 3
---- !u!114 &324786516 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2220270950152642109, guid: 37fcea3c9f56e5e45b2f440ccd893f1a,
-    type: 3}
-  m_PrefabInstance: {fileID: 1621618872}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ff0ba8e0e3a73d47add8f5e0310ef34, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &326200914
 GameObject:
   m_ObjectHideFlags: 0
@@ -33419,6 +33396,7 @@ MonoBehaviour:
   NoiseInfluenceMult: 30
   NoiseScale: 25
   LegSpeedInfluence: 0
+  positionInfl: 0
   NoiseSpeed: -20
   RandomMult: 7963.195
   BoneIndex: 1
@@ -33520,6 +33498,7 @@ MonoBehaviour:
   TargetPosition: {x: 0, y: 0, z: 0}
   overrideDir: {x: 0, y: 0, z: 0}
   _skinnedMeshRenderer: {fileID: 1096895574}
+  EnemyMovement: {fileID: 0}
   doAlignTipToLast: 1
   _nextTargetRaycastLength: 1746.8
   _nextTargetRaycastOriginY: 51.6
@@ -44455,6 +44434,7 @@ MonoBehaviour:
   NoiseInfluenceMult: 30
   NoiseScale: 25
   LegSpeedInfluence: 0
+  positionInfl: 0
   NoiseSpeed: -20
   RandomMult: 7963.195
   BoneIndex: 1
@@ -44556,6 +44536,7 @@ MonoBehaviour:
   TargetPosition: {x: 0, y: 0, z: 0}
   overrideDir: {x: 0, y: 0, z: 0}
   _skinnedMeshRenderer: {fileID: 1096895574}
+  EnemyMovement: {fileID: 0}
   doAlignTipToLast: 1
   _nextTargetRaycastLength: 1746.8
   _nextTargetRaycastOriginY: 51.6
@@ -45674,7 +45655,7 @@ Transform:
   m_GameObject: {fileID: 1000407303}
   serializedVersion: 2
   m_LocalRotation: {x: 0.007303975, y: 0.96821636, z: -0.24644361, w: -0.04206281}
-  m_LocalPosition: {x: -40.43, y: 31.69, z: 85.9}
+  m_LocalPosition: {x: 53, y: 717, z: 575}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -70523,18 +70504,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1565093340}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1566556583 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3675631257310268866, guid: 1c0d5741b9bca0b49a88a06853547e74,
-    type: 3}
-  m_PrefabInstance: {fileID: 5214926727125781827}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b25215a9cd1dad047a84eaaf6332b7b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1569499690
 GameObject:
   m_ObjectHideFlags: 0
@@ -72398,6 +72367,7 @@ MonoBehaviour:
   NoiseInfluenceMult: 0
   NoiseScale: 0
   LegSpeedInfluence: 0
+  positionInfl: 0
   NoiseSpeed: 0
   RandomMult: 0
   BoneIndex: 0
@@ -74046,7 +74016,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isNotTentaclesScales: 1
   tentacles:
-  - {fileID: 1566556583}
+  - {fileID: 0}
   - {fileID: 538446119}
   - {fileID: 1799605949}
   - {fileID: 1512877908}
@@ -79795,6 +79765,7 @@ MonoBehaviour:
   NoiseInfluenceMult: 30
   NoiseScale: 25
   LegSpeedInfluence: 0
+  positionInfl: 0
   NoiseSpeed: -20
   RandomMult: 7963.195
   BoneIndex: 1
@@ -79896,6 +79867,7 @@ MonoBehaviour:
   TargetPosition: {x: 0, y: 0, z: 0}
   overrideDir: {x: 0, y: 0, z: 0}
   _skinnedMeshRenderer: {fileID: 1096895574}
+  EnemyMovement: {fileID: 0}
   doAlignTipToLast: 1
   _nextTargetRaycastLength: 1746.8
   _nextTargetRaycastOriginY: 51.6
@@ -88374,6 +88346,7 @@ MonoBehaviour:
   TargetPosition: {x: 0, y: 0, z: 0}
   overrideDir: {x: 0, y: 0, z: 0}
   _skinnedMeshRenderer: {fileID: 0}
+  EnemyMovement: {fileID: 0}
   doAlignTipToLast: 0
   _nextTargetRaycastLength: 7.5
   _nextTargetRaycastOriginY: 2.09
@@ -97177,6 +97150,7 @@ MonoBehaviour:
   TargetPosition: {x: 0, y: 0, z: 0}
   overrideDir: {x: 0, y: 0, z: 0}
   _skinnedMeshRenderer: {fileID: 0}
+  EnemyMovement: {fileID: 0}
   doAlignTipToLast: 0
   _nextTargetRaycastLength: 100
   _nextTargetRaycastOriginY: 50.81
@@ -98661,17 +98635,17 @@ PrefabInstance:
     - target: {fileID: 578755651479899301, guid: 1c0d5741b9bca0b49a88a06853547e74,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 578755651479899301, guid: 1c0d5741b9bca0b49a88a06853547e74,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.54
+      value: 436
       objectReference: {fileID: 0}
     - target: {fileID: 578755651479899301, guid: 1c0d5741b9bca0b49a88a06853547e74,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 334
       objectReference: {fileID: 0}
     - target: {fileID: 578755651479899301, guid: 1c0d5741b9bca0b49a88a06853547e74,
         type: 3}
@@ -98728,16 +98702,6 @@ PrefabInstance:
       propertyPath: 'WeakSpotSpawnList.Array.data[0]'
       value: 
       objectReference: {fileID: 782874539}
-    - target: {fileID: 4064326509189657432, guid: 1c0d5741b9bca0b49a88a06853547e74,
-        type: 3}
-      propertyPath: 'WeakSpotSpawnList.Array.data[1]'
-      value: 
-      objectReference: {fileID: 199965801}
-    - target: {fileID: 4064326509189657432, guid: 1c0d5741b9bca0b49a88a06853547e74,
-        type: 3}
-      propertyPath: 'WeakSpotSpawnList.Array.data[2]'
-      value: 
-      objectReference: {fileID: 324786516}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
