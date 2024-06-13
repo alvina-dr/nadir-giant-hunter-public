@@ -253,7 +253,7 @@ namespace Enemies
             {
                 leg.tentacle.StartTentacleAnimationByIndex(index);
             }
-            EnemyMovement.SoundData.SFX_Giant_Hit_IntoAbyss.Post(leg.LastBone);
+            EnemyMovement.SoundData.SFX_Giant_Movement_Grab.Post(leg.LastBone);
         }
 
         IEnumerator GroundTouchCoolDown(Leg leg)
