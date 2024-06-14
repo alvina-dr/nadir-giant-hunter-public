@@ -163,6 +163,7 @@ public class PlayerSwinging : MonoBehaviour
 
     public void Swinging()
     {
+        if (GPCtrl.Instance.Pause) return;
         Vector3 forceAdded = new Vector3(_swingOriginalDirection.x, 0, _swingOriginalDirection.z);
         Debug.DrawRay(Player.transform.position, _swingOriginalDirection*5, UnityEngine.Color.blue);
 

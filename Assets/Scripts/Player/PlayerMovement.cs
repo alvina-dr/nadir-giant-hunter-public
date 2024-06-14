@@ -127,7 +127,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void MovePlayer()
     {
-        if (Player.PlayerAttack.IsGrappling)
+        if (Player.PlayerAttack.IsGrappling || GPCtrl.Instance.Pause)
             return;
         if (Player.PlayerSwingingLeft.IsSwinging || Player.PlayerSwingingRight.IsSwinging)
         {
@@ -187,7 +187,7 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private void SpeedControl()
     {
-        if (Player.PlayerDash.IsDashing || Player.PlayerAttack.IsGrappling) return;
+        if (Player.PlayerDash.IsDashing || Player.PlayerAttack.IsGrappling || GPCtrl.Instance.Pause) return;
         if (!Player.PlayerSwingingLeft.IsSwinging && !Player.PlayerSwingingRight.IsSwinging)
         {
             if (Grounded) return;
