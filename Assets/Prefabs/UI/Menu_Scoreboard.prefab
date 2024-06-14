@@ -1931,6 +1931,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b8da43547e8a934590697eaa57a9484, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4197414586387405164 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1955810777565406328, guid: 2c641822189143d4dae9701661b90e87,
+    type: 3}
+  m_PrefabInstance: {fileID: 2406146893223607572}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &4558225248840597468 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2172503513901073096, guid: 2c641822189143d4dae9701661b90e87,
@@ -1953,6 +1965,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8b8da43547e8a934590697eaa57a9484, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6625890484259347220 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8833737636841252352, guid: 2c641822189143d4dae9701661b90e87,
+    type: 3}
+  m_PrefabInstance: {fileID: 2406146893223607572}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &7283253294897586519 stripped
@@ -4165,6 +4189,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 286691857159541451, guid: 580a4677c983cef4b8206be261c6208b,
         type: 3}
+      propertyPath: m_Navigation.m_SelectOnDown
+      value: 
+      objectReference: {fileID: 6625890484259347220}
+    - target: {fileID: 286691857159541451, guid: 580a4677c983cef4b8206be261c6208b,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 8107600003637976198}
@@ -4188,6 +4217,11 @@ PrefabInstance:
       propertyPath: m_ChildForceExpandWidth
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4005541326697045375, guid: 580a4677c983cef4b8206be261c6208b,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnDown
+      value: 
+      objectReference: {fileID: 4197414586387405164}
     - target: {fileID: 4005541326697045375, guid: 580a4677c983cef4b8206be261c6208b,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target

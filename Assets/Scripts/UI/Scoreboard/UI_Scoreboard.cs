@@ -53,7 +53,6 @@ public class UI_Scoreboard : MonoBehaviour
         {
             string json = PlayerPrefs.GetString("scoreboard" + Difficulty); // use scoreboard-levelname
             ScoreList = JsonUtility.FromJson<ScoreboardList>(json);
-            Debug.Log(json);
             CreateScoreboard();
         }
     }
@@ -76,7 +75,6 @@ public class UI_Scoreboard : MonoBehaviour
 
     public void SaveLocalScoreboard()
     {
-        Debug.Log("local scoreboard save : " + ScoreList.entries.Count);
         ScoreList.entries.Sort(SortByScore);
         if (ScoreList.entries.Count > GPCtrl.Instance.GeneralData.scoreboardSize)
             ScoreList.entries = ScoreList.entries.Take(GPCtrl.Instance.GeneralData.scoreboardSize).ToList();

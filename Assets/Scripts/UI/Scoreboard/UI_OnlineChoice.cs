@@ -44,6 +44,11 @@ public class UI_OnlineChoice : MonoBehaviour
         {
             _scoreboardManager.GetLocalScoreboard();
         }
+    }
 
+    public void ResetChoice()
+    {
+        _index = 0;
+        UpdateScoreboard();
     }
 }
