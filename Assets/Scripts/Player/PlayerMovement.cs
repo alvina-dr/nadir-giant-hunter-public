@@ -206,6 +206,7 @@ public class PlayerMovement : MonoBehaviour
             if (flatVel.magnitude > CurrentMoveSpeed) // limit velocity if needed
             {
                 Vector3 limitedVel = flatVel.normalized * CurrentMoveSpeed * Time.fixedDeltaTime * 60;
+                limitedVel = Vector3.Lerp(Player.Rigibody.velocity, limitedVel, 0.8f * (1+Time.fixedDeltaTime));
                 //Debug.Log(limitedVel.x + limitedVel.z);
                 Player.Rigibody.velocity = new Vector3(limitedVel.x, Player.Rigibody.velocity.y, limitedVel.z);
             }
