@@ -246,7 +246,7 @@ public class UI_ScoreboardManager : MonoBehaviour
                 if (metadata == null) return;
                 
                 var scoreboardEntry = new ScoreboardEntry(metadata.PlayerName, (float)entry.Score);
-                Debug.Log($"(Online Leaderboard) Player {metadata.PlayerName} has a score of {entry.Score} in difficulty {metadata.Difficulty}");
+                //Debug.Log($"(Online Leaderboard) Player {metadata.PlayerName} has a score of {entry.Score} in difficulty {metadata.Difficulty}");
                 
                 // HANDLE THE SCORES HERE HOW YOU WANT
                 // For now the scores are added to the scoreboards and the scoreboard are destroyed/recreated again (not sure if it's the best way to do it)

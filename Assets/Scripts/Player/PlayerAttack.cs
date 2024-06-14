@@ -14,32 +14,15 @@ public class PlayerAttack : MonoBehaviour
     [HideInInspector]
     public bool IsGrappling = false;
     public TargetableSpot CurrentTargetSpot;
+    public TargetableSpot BestTargetSpotFit;
     public List<TargetableSpot> ClosestTargetableSpotList = new List<TargetableSpot>();
     public Vector3 TargetSpotDistance = Vector3.zero;
 
     public void Attack()
     {
         if (IsGrappling) return;
-        if (GPCtrl.Instance.TargetableSpotList.Count == 0) return;
-        float distance = 1000;
-        TargetableSpot weakSpot = null;
-        for (int i = 0; i < GPCtrl.Instance.TargetableSpotList.Count; i++)
-        {
-            float currentDistance = Vector3.Distance(transform.position, GPCtrl.Instance.TargetableSpotList[i].transform.position);
-            if (currentDistance < distance)
-            {
-                weakSpot = GPCtrl.Instance.TargetableSpotList[i];
-                distance = currentDistance;
-            }
-        }
-        if (weakSpot == null || distance > Player.Data.attackDistance) return;
-        Vector3 direction = weakSpot.transform.position - transform.position;
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, direction, out hit, Player.Data.attackDistance))
-        {
-            if (hit.transform.gameObject != weakSpot.gameObject) return;
-            GrappleWeakSpot(weakSpot);
-        }       
+        if (BestTargetSpotFit == null) return;
+        GrappleWeakSpot(BestTargetSpotFit);
     }
 
     public void GrappleWeakSpot(TargetableSpot targetableSpot)
@@ -118,48 +101,96 @@ public class PlayerAttack : MonoBehaviour
         GPCtrl.Instance.UICtrl.WeakSpotContextUI.gameObject.SetActive(false);
         GPCtrl.Instance.UICtrl.BumperContextUI.gameObject.SetActive(false);
         GPCtrl.Instance.UICtrl.DashContextUI.gameObject.SetActive(false);
+        BestTargetSpotFit = null;
 
         ClosestTargetableSpotList = GPCtrl.Instance.TargetableSpotList;
-        ClosestTargetableSpotList.Sort(delegate (TargetableSpot a, TargetableSpot b)
+
+        //only keep close enough targetable spots
+        List<TargetableSpot> closeEnoughSpotList = new List<TargetableSpot>();
+        for (int i = 0; i < ClosestTargetableSpotList.Count; i++) 
+        {
+            if (Vector3.Distance(ClosestTargetableSpotList[i].transform.position, transform.position) < Player.Data.weakSpotDetectionDistance)
+            {
+                closeEnoughSpotList.Add(ClosestTargetableSpotList[i]);
+            } 
+        }
+
+        //sort close enough targetable spots from closest to farthest
+        closeEnoughSpotList.Sort(delegate (TargetableSpot a, TargetableSpot b) 
         {
             return Vector3.Distance(this.transform.position, a.transform.position).CompareTo(Vector3.Distance(this.transform.position, b.transform.position));
         });
+
         if (GPCtrl.Instance.UICtrl != null)
             GPCtrl.Instance.UICtrl.AttackInputIndicator.HideIndicator();
-        if (ClosestTargetableSpotList.Count > 0 ) {
-            if (Vector3.Distance(transform.position, ClosestTargetableSpotList[0].transform.position) < Player.Data.weakSpotDetectionDistance)
+
+        if (closeEnoughSpotList.Count > 0 ) {
+            if (!GPCtrl.Instance.DashPause)
             {
-                if (!GPCtrl.Instance.DashPause)
+
+                //Debug.Log("close enough spot list : " + closeEnoughSpotList.Count);
+
+                //Check if there are no collision between point and player
+                List<TargetableSpot> noCollisionBetweenSpotList = new List<TargetableSpot>();
+                for (int i = 0; i < closeEnoughSpotList.Count; i++)
                 {
-                    TargetableSpot weakSpot = ClosestTargetableSpotList[0];
-                    Vector3 direction = weakSpot.transform.position - transform.position;
+                    Vector3 direction = closeEnoughSpotList[i].transform.position - transform.position;
                     RaycastHit hit;
-                    if (Physics.Raycast(transform.position, direction, out hit, Player.Data.attackDistance))
+                    if (Physics.Raycast(transform.position, direction, out hit, Player.Data.weakSpotDetectionDistance))
                     {
-                        if (hit.transform.gameObject != weakSpot.gameObject) return;
-                        GPCtrl.Instance.UICtrl.AttackInput.SetVisible(true);
-                        if (GPCtrl.Instance.EnemySpawner != null && GPCtrl.Instance.EnemySpawner.EnemyList.Count > 0 && weakSpot == GPCtrl.Instance.EnemySpawner.EnemyList[0].EnemyWeakSpotManagement.WeakSpotList[0])
+                        if (hit.transform.gameObject == closeEnoughSpotList[i].gameObject)
                         {
-                            GPCtrl.Instance.UICtrl.AttackInputIndicator.SetupAppearance(true, true);
-                            GPCtrl.Instance.UICtrl.MonsterHighIndicator.SetupAppearance(false, false);
-                        }
-                        GPCtrl.Instance.UICtrl.AttackInputIndicator.ShowIndicatorAt(ClosestTargetableSpotList[0].transform.position);
-                        GPCtrl.Instance.UICtrl.AttackInputIndicator.SetTargetableSpotType(weakSpot.SpotCurrentType);
-                        GPCtrl.Instance.UICtrl.MonsterHighIndicator.SetTargetableSpotType(weakSpot.SpotCurrentType);
-                        switch (weakSpot.SpotCurrentType)
-                        {
-                            case TargetableSpot.SpotType.WeakSpot:
-                                GPCtrl.Instance.UICtrl.WeakSpotContextUI.gameObject.SetActive(true);
-                                break;
-                            case TargetableSpot.SpotType.DashSpot:
-                                GPCtrl.Instance.UICtrl.DashContextUI.gameObject.SetActive(true);
-                                break;
-                            case TargetableSpot.SpotType.Bumper:
-                                GPCtrl.Instance.UICtrl.BumperContextUI.gameObject.SetActive(true);
-                                break;
+                            noCollisionBetweenSpotList.Add(closeEnoughSpotList[i]);
                         }
                     }
                 }
+
+                //Debug.Log("no collision spot list : " + noCollisionBetweenSpotList.Count);
+                if (noCollisionBetweenSpotList.Count > 0 ) {
+
+                    //verify if there's a point in the center of the screen that would be a better match
+                    TargetableSpot bestSpotFitForAttack = noCollisionBetweenSpotList[0];
+                    float matchingDotProduct = 0;
+                    for (int i = 0; i < noCollisionBetweenSpotList.Count; i++)
+                    {
+                        Vector3 cameraToPoint = (noCollisionBetweenSpotList[i].transform.position - Camera.main.transform.position).normalized;
+                        float dotProduct = Vector3.Dot(cameraToPoint, Camera.main.transform.forward);
+                        //if (noCollisionBetweenSpotList.Count > 1) Debug.Log("dot product : " + dotProduct + " for " + noCollisionBetweenSpotList[i].name);
+                        if (dotProduct > Player.Data.centerOfScreenSpotPriority)
+                        {
+                            if (dotProduct > matchingDotProduct) //there's a point thats more in the center of the screen
+                            {
+                                matchingDotProduct = dotProduct;
+                                bestSpotFitForAttack = noCollisionBetweenSpotList[i];
+                            }
+                        }
+                    }
+
+                    BestTargetSpotFit = bestSpotFitForAttack;
+                    GPCtrl.Instance.UICtrl.AttackInput.SetVisible(true);
+                    if (GPCtrl.Instance.EnemySpawner != null && GPCtrl.Instance.EnemySpawner.EnemyList.Count > 0 && bestSpotFitForAttack == GPCtrl.Instance.EnemySpawner.EnemyList[0].EnemyWeakSpotManagement.WeakSpotList[0])
+                    {
+                        GPCtrl.Instance.UICtrl.AttackInputIndicator.SetupAppearance(true, true);
+                        GPCtrl.Instance.UICtrl.MonsterHighIndicator.SetupAppearance(false, false);
+                    }
+                    GPCtrl.Instance.UICtrl.AttackInputIndicator.ShowIndicatorAt(bestSpotFitForAttack.transform.position);
+                    GPCtrl.Instance.UICtrl.AttackInputIndicator.SetTargetableSpotType(bestSpotFitForAttack.SpotCurrentType);
+                    GPCtrl.Instance.UICtrl.MonsterHighIndicator.SetTargetableSpotType(bestSpotFitForAttack.SpotCurrentType);
+                    switch (bestSpotFitForAttack.SpotCurrentType)
+                    {
+                        case TargetableSpot.SpotType.WeakSpot:
+                            GPCtrl.Instance.UICtrl.WeakSpotContextUI.gameObject.SetActive(true);
+                            break;
+                        case TargetableSpot.SpotType.DashSpot:
+                            GPCtrl.Instance.UICtrl.DashContextUI.gameObject.SetActive(true);
+                            break;
+                        case TargetableSpot.SpotType.Bumper:
+                            GPCtrl.Instance.UICtrl.BumperContextUI.gameObject.SetActive(true);
+                            break;
+
+                    }
+                }
+
             }
         }
         if (IsGrappling && _springJoint != null && _targetRigibody.gameObject.activeSelf)

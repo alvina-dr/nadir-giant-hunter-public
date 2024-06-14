@@ -74,8 +74,6 @@ public class PlayerData : ScriptableObject
     public float airSlowDown;
 
     [TabGroup("Attack")]
-    public float attackDistance;
-    [TabGroup("Attack")]
     public float attackStopDistance;
     [TabGroup("Attack")]
     public float dragForce;
@@ -83,6 +81,9 @@ public class PlayerData : ScriptableObject
     public float weakSpotDetectionDistance;
     [TabGroup("Attack")]
     public float weakSpotReboundForce;
+    [TabGroup("Attack")]
+    [Tooltip("1 = exactly in center of screen, 0 is completely outside, around .8f should be best")]
+    public float centerOfScreenSpotPriority;
 
     [TabGroup("Double swing boost")]
     public float doubleSwingBoost;
