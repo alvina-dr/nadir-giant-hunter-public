@@ -35,7 +35,11 @@ public class PlayerData : ScriptableObject
     [TabGroup("Movement")]
     public float maxSpeedInAir;
     [TabGroup("Movement")]
+    public float maxSpeedInAirLerp;
+    [TabGroup("Movement")]
     public float speedEffectMin;
+    [TabGroup("Movement")]
+    public float StrafeInfluence;
 
     [TabGroup("Swing")]
     public float swingSpeed;
