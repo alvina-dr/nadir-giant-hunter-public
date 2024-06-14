@@ -127,7 +127,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void MovePlayer()
     {
-        if (Player.PlayerAttack.IsGrappling) return;
+        if (Player.PlayerAttack.IsGrappling)
+            return;
+        if (Player.PlayerSwingingLeft.IsSwinging || Player.PlayerSwingingRight.IsSwinging)
+        {
+            Player.Rigibody.AddForce(Player.Orientation.right * _horizontalInput * Player.Data.StrafeInfluence, ForceMode.Force);
+            return;
+        }
         _moveDirection = Player.Orientation.forward * _verticalInput + Player.Orientation.right * _horizontalInput; // calculate input movement direction
 
         //add force from input and player velo with certain force (air control when in air)
@@ -189,7 +195,7 @@ public class PlayerMovement : MonoBehaviour
             if (flatVel.magnitude > Player.Data.maxSpeedInAir) // limit velocity if needed
             {
                 Vector3 limitedVel = flatVel.normalized * Player.Data.maxSpeedInAir * Time.fixedDeltaTime * 60;
-                //Debug.Log(limitedVel.x + limitedVel.z);
+                limitedVel = Vector3.Lerp(Player.Rigibody.velocity, limitedVel, Player.Data.maxSpeedInAirLerp * (1+Time.fixedDeltaTime));
                 Player.Rigibody.velocity = new Vector3(limitedVel.x, Player.Rigibody.velocity.y, limitedVel.z);
             }
 
