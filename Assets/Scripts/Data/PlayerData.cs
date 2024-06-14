@@ -74,11 +74,10 @@ public class PlayerData : ScriptableObject
     public float airSlowDown;
 
     [TabGroup("Attack")]
+    [Tooltip("The distance necessary between the player and the target spot to make the target spot explode")]
     public float attackStopDistance;
     [TabGroup("Attack")]
     public float dragForce;
-    [TabGroup("Attack")]
-    public float weakSpotDetectionDistance;
     [TabGroup("Attack")]
     public float weakSpotReboundForce;
     [TabGroup("Attack")]
@@ -90,8 +89,6 @@ public class PlayerData : ScriptableObject
     [TabGroup("Double swing boost")]
     public float doubleSwingLineRendererDuration;
 
-    [TabGroup("Dash")]
-    public float dashForce;
     [TabGroup("Dash")]
     public float slowDownTime;
     [TabGroup("Dash")]

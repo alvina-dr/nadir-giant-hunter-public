@@ -109,7 +109,7 @@ public class PlayerAttack : MonoBehaviour
         List<TargetableSpot> closeEnoughSpotList = new List<TargetableSpot>();
         for (int i = 0; i < ClosestTargetableSpotList.Count; i++) 
         {
-            if (Vector3.Distance(ClosestTargetableSpotList[i].transform.position, transform.position) < Player.Data.weakSpotDetectionDistance)
+            if (Vector3.Distance(ClosestTargetableSpotList[i].transform.position, transform.position) < Player.DifficultyData.TargetableSpotDetectionDistance)
             {
                 closeEnoughSpotList.Add(ClosestTargetableSpotList[i]);
             } 
@@ -136,7 +136,7 @@ public class PlayerAttack : MonoBehaviour
                 {
                     Vector3 direction = closeEnoughSpotList[i].transform.position - transform.position;
                     RaycastHit hit;
-                    if (Physics.Raycast(transform.position, direction, out hit, Player.Data.weakSpotDetectionDistance))
+                    if (Physics.Raycast(transform.position, direction, out hit, Player.DifficultyData.TargetableSpotDetectionDistance))
                     {
                         if (hit.transform.gameObject == closeEnoughSpotList[i].gameObject)
                         {
