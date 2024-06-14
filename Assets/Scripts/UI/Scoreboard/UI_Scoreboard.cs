@@ -45,6 +45,19 @@ public class UI_Scoreboard : MonoBehaviour
         CreateScoreboard();
     }
 
+    public void GetLocalScoreboard()
+    {
+        ScoreList.entries.Clear();
+        DestroyScoreboard();
+        if (PlayerPrefs.HasKey("scoreboard" + Difficulty))
+        {
+            string json = PlayerPrefs.GetString("scoreboard" + Difficulty); // use scoreboard-levelname
+            ScoreList = JsonUtility.FromJson<ScoreboardList>(json);
+            Debug.Log(json);
+            CreateScoreboard();
+        }
+    }
+
     public void CreateScoreboard()
     {
         for (int i = 0; i < ScoreList.entries.Count; i++)
@@ -61,8 +74,9 @@ public class UI_Scoreboard : MonoBehaviour
         }
     }
 
-    public void SaveScoreboard()
+    public void SaveLocalScoreboard()
     {
+        Debug.Log("local scoreboard save : " + ScoreList.entries.Count);
         ScoreList.entries.Sort(SortByScore);
         if (ScoreList.entries.Count > GPCtrl.Instance.GeneralData.scoreboardSize)
             ScoreList.entries = ScoreList.entries.Take(GPCtrl.Instance.GeneralData.scoreboardSize).ToList();
@@ -70,7 +84,7 @@ public class UI_Scoreboard : MonoBehaviour
         PlayerPrefs.SetString("scoreboard" + Difficulty, json);
         PlayerPrefs.Save();
         DestroyScoreboard();
-        CreateScoreboard();
+        //CreateScoreboard();
     }
 
     public void InstantiateScoreboardEntry(ScoreboardEntry scoreboardEntry, int rank)

@@ -13,6 +13,6 @@ public class UI_ScoreEntry : MonoBehaviour
     {
         _textName.text = scoreEntry.name.ToString();
         _textTimer.text = DataHolder.Instance.ConvertTimeToMinutes(scoreEntry.timer);
-        _textRank.text = rank.ToString();
+        _textRank.text = (rank+1).ToString();
     }
 }

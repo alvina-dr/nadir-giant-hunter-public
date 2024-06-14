@@ -12,6 +12,7 @@ using Unity.Services.Core;
 using Unity.Services.Leaderboards;
 using Unity.Services.Leaderboards.Models;
 using Unity.VisualScripting;
+using Sirenix.OdinInspector.Editor.GettingStarted;
 
 public class UI_ScoreboardManager : MonoBehaviour
 {
@@ -75,23 +76,39 @@ public class UI_ScoreboardManager : MonoBehaviour
     public void AddScoreToScoreboard(string _name, float _timer)
     {
         ScoreboardEntry entry = new(_name, _timer);
-        StartCoroutine(HandleOnlineLeaderboard(_name, _timer, DataHolder.Instance.CurrentDifficulty));
         switch (DataHolder.Instance.CurrentDifficulty)
         {
             case DataHolder.DifficultyMode.Easy:
+                EasyScoreboard.ScoreList.entries.Clear();
+                if (PlayerPrefs.HasKey("scoreboard" + DataHolder.Instance.CurrentDifficulty))
+                {
+                    string jsonEasy = PlayerPrefs.GetString("scoreboard" + DataHolder.Instance.CurrentDifficulty); // use scoreboard-levelname
+                    EasyScoreboard.ScoreList = JsonUtility.FromJson<ScoreboardList>(jsonEasy);
+                }
                 EasyScoreboard.ScoreList.entries.Add(entry);
-                EasyScoreboard.SaveScoreboard();
+                EasyScoreboard.SaveLocalScoreboard();
                 break;
             case DataHolder.DifficultyMode.Normal:
+                NormalScoreboard.ScoreList.entries.Clear();
+                if (PlayerPrefs.HasKey("scoreboard" + DataHolder.Instance.CurrentDifficulty)) {
+                    string jsonNormal = PlayerPrefs.GetString("scoreboard" + DataHolder.Instance.CurrentDifficulty); // use scoreboard-levelname
+                    NormalScoreboard.ScoreList = JsonUtility.FromJson<ScoreboardList>(jsonNormal);
+                }
+
                 NormalScoreboard.ScoreList.entries.Add(entry);
-                NormalScoreboard.SaveScoreboard();
+                NormalScoreboard.SaveLocalScoreboard();
                 break;
             case DataHolder.DifficultyMode.Hard:
-                Debug.Log("save in hard");
+                HardScoreboard.ScoreList.entries.Clear();
+                if (PlayerPrefs.HasKey("scoreboard" + DataHolder.Instance.CurrentDifficulty)) {
+                    string jsonHard = PlayerPrefs.GetString("scoreboard" + DataHolder.Instance.CurrentDifficulty); // use scoreboard-levelname
+                    HardScoreboard.ScoreList = JsonUtility.FromJson<ScoreboardList>(jsonHard);
+                }
                 HardScoreboard.ScoreList.entries.Add(entry);
-                HardScoreboard.SaveScoreboard();
+                HardScoreboard.SaveLocalScoreboard();
                 break;
         }
+        StartCoroutine(HandleOnlineLeaderboard(_name, _timer, DataHolder.Instance.CurrentDifficulty));
         SelectPage(_subMenuList[(int)DataHolder.Instance.CurrentDifficulty]);
     }
 
@@ -103,8 +120,37 @@ public class UI_ScoreboardManager : MonoBehaviour
         }
     }
 
+    public void GetOnlineScoreboard()
+    {
+        StartCoroutine(GetOnlineScoreboardCoroutine());
+    }
+
+    public IEnumerator GetOnlineScoreboardCoroutine()
+    {
+        EasyScoreboard.ScoreList.entries.Clear();
+        NormalScoreboard.ScoreList.entries.Clear();
+        HardScoreboard.ScoreList.entries.Clear();
+        yield return GetOnlineLeaderboardData();
+        EasyScoreboard.DestroyScoreboard();
+        NormalScoreboard.DestroyScoreboard();
+        HardScoreboard.DestroyScoreboard();
+        EasyScoreboard.CreateScoreboard();
+        NormalScoreboard.CreateScoreboard();
+        HardScoreboard.CreateScoreboard();
+    }
+
+    public void GetLocalScoreboard()
+    {
+        EasyScoreboard.GetLocalScoreboard();
+        NormalScoreboard.GetLocalScoreboard();
+        HardScoreboard.GetLocalScoreboard();
+    }
+
     private IEnumerator HandleOnlineLeaderboard(string playerName, float score, DataHolder.DifficultyMode difficultyMode)
     {
+        EasyScoreboard.ScoreList.entries.Clear();
+        NormalScoreboard.ScoreList.entries.Clear();
+        HardScoreboard.ScoreList.entries.Clear();
         yield return SendDataToOnlineLeaderboard(playerName, score, difficultyMode);
         yield return GetOnlineLeaderboardData();
         // Since we have new scores after the online request, we must regenerate the scoreboards (or not, change however you want here)
