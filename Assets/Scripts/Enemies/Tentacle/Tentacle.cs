@@ -371,7 +371,7 @@ namespace Enemies
 
         private void OnDrawGizmos()
         {
-            Gizmos.color = Color.blue;
+            /*Gizmos.color = Color.blue;
             float startToEndDist = Vector3.Distance(StartTentaclePos.position, EndTentaclePos.position);
             float tentacleScaleNum = startToEndDist * 6;
             Vector3[] points = new Vector3[(int)tentacleScaleNum+1];
@@ -405,7 +405,7 @@ namespace Enemies
                 points[count] = Bezier.GetPoint(StartTentaclePos.position, p1, EndTentaclePos.position - EndTentaclePos.forward * EndTentaclePow, EndTentaclePos.position, delta);
                 count++;
             }
-            Gizmos.DrawLineStrip(points, false);
+            Gizmos.DrawLineStrip(points, false);*/
         }
     }
 }
