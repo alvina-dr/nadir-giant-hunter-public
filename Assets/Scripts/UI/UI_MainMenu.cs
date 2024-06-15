@@ -11,6 +11,7 @@ public class UI_MainMenu : MonoBehaviour
 
     private void Start()
     {
+        FindObjectOfType<UI_Settings>().UpdateSettings();
         List<UI_Menu> menuList = FindObjectsByType<UI_Menu>(FindObjectsInactive.Include, FindObjectsSortMode.None).ToList();
         for (int i = 0; i < menuList.Count; i++)
         {

@@ -9,11 +9,6 @@ public class UI_OnlineChoice : MonoBehaviour
     private int _index;
     [SerializeField] private UI_ScoreboardManager _scoreboardManager;
 
-    private void Start()
-    {
-        UpdateScoreboard();
-    }
-
     public void ButtonLeft()
     {
         _index--;
