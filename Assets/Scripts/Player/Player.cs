@@ -6,6 +6,9 @@ public class Player : MonoBehaviour
 {
     public PlayerData Data;
     public PlayerDifficultyData DifficultyData;
+    public PlayerDifficultyData EasyDifficultyData;
+    public PlayerDifficultyData NormalDifficultyData;
+    public PlayerDifficultyData HardDifficultyData;
     public PlayerVFXData VFXData;
     public PlayerSoundData SoundData;
 

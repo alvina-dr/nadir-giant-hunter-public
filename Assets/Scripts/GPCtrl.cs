@@ -24,22 +24,6 @@ public class GPCtrl : MonoBehaviour
         {
             Instance = this;
             TargetableSpotList = FindObjectsByType<TargetableSpot>(FindObjectsSortMode.InstanceID).ToList();
-            switch (DataHolder.Instance.CurrentDifficulty) 
-            {
-                case DataHolder.DifficultyMode.Easy:
-                    EnemySpawner.SpawnerData = EasySpawnerData;
-                    Player.DifficultyData = EasyPlayerData;
-                    break;
-                case DataHolder.DifficultyMode.Normal:
-                    EnemySpawner.SpawnerData = NormalSpawnerData;
-                    Player.DifficultyData = NormalPlayerData;
-
-                    break;
-                case DataHolder.DifficultyMode.Hard:
-                    EnemySpawner.SpawnerData = HardSpawnerData;
-                    Player.DifficultyData = HardPlayerData;
-                    break;
-            }
         }
     }
     #endregion
@@ -56,13 +40,10 @@ public class GPCtrl : MonoBehaviour
     [Header("Difficulty")]
     public EnemySpawnerData EasySpawnerData;
     public EnemyData EasyEnemyData;
-    public PlayerDifficultyData EasyPlayerData;
     public EnemySpawnerData NormalSpawnerData;
     public EnemyData NormalEnemyData;
-    public PlayerDifficultyData NormalPlayerData;
     public EnemySpawnerData HardSpawnerData;
     public EnemyData HardEnemyData;
-    public PlayerDifficultyData HardPlayerData;
 
     [ReadOnly]
     public List<TargetableSpot> TargetableSpotList;
@@ -74,6 +55,26 @@ public class GPCtrl : MonoBehaviour
     public bool DashPause = false;
     public CustomPassVolume reliefFX;
     public int NumEnemyKilled = 0;
+
+    private void Start()
+    {
+        switch (DataHolder.Instance.CurrentDifficulty)
+        {
+            case DataHolder.DifficultyMode.Easy:
+                EnemySpawner.SpawnerData = EasySpawnerData;
+                Player.DifficultyData = Player.EasyDifficultyData;
+                break;
+            case DataHolder.DifficultyMode.Normal:
+                EnemySpawner.SpawnerData = NormalSpawnerData;
+                Player.DifficultyData = Player.NormalDifficultyData;
+
+                break;
+            case DataHolder.DifficultyMode.Hard:
+                EnemySpawner.SpawnerData = HardSpawnerData;
+                Player.DifficultyData = Player.HardDifficultyData;
+                break;
+        }
+    }
 
     private void Update()
     {

@@ -18,6 +18,7 @@ public class TargetableSpot : MonoBehaviour
     }
     public SpotType SpotCurrentType;
     public VisualEffect VisualFX;
+    public BoxCollider Collider;
 
     [ShowIf("SpotCurrentType", SpotType.WeakSpot)]
     public EnemyWeakSpotManagement Enemy;
@@ -52,6 +53,7 @@ public class TargetableSpot : MonoBehaviour
                 }).SetUpdate(true); 
                 StartCoroutine(DestroyAfterDelay());
                 GPCtrl.Instance.TargetableSpotList.Remove(this);
+                Collider.enabled = false;
                 Vector3 vector3 = GPCtrl.Instance.Player.PlayerAttack.TargetSpotDistance.normalized;
                 Vector3 newDirection = new Vector3(-vector3.x, vector3.y, -vector3.z) * GPCtrl.Instance.Player.Data.weakSpotReboundForce;
                 GPCtrl.Instance.Player.Rigibody.velocity = Vector3.zero;
