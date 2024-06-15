@@ -24,28 +24,30 @@ MonoBehaviour:
   charaHeight: 1.8
   timeBeforeLookingDownAnim: 0.3
   speedDivisionFactorVFX: 5
-  maxSpeedInAir: 600
+  maxSpeedInAir: 160
+  maxSpeedInAirLerp: 0.05
   speedEffectMin: 300
+  StrafeInfluence: 5000
   swingSpeed: 50
   swingMaxSpeed: 350
-  SwingSpeedLengthMult: 0.003
+  SwingSpeedLengthMult: 0.01
   SwingBaseOrientationSpeed: 0
-  SwingCameraOrientInfluence: 100
+  SwingCameraOrientInfluence: 60
   swingAcceleration: 20
   minSwingDistance: 25
   maxSwingDistance: 5000
-  startCurveSpeedBoost: 10
+  startCurveSpeedBoost: 40
   endCurveSpeedBoost: 50
   radiusDetectionIncreaseSpeed: 1000
-  MaxSwingAngle: -0.5
+  MaxSwingAngle: -0.08
   maxYForceOnRelease: 500
   coneRaycastOnPlayer: 0
   airSlowDown: 500
-  attackDistance: 500
   attackStopDistance: 5
   dragForce: 100
   weakSpotDetectionDistance: 500
   weakSpotReboundForce: 500
+  centerOfScreenSpotPriority: 0.5
   doubleSwingBoost: 500
   doubleSwingLineRendererDuration: 0.1
   dashForce: 1500

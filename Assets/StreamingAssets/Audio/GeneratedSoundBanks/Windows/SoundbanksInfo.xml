@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <SoundBanksInfo Platform="Windows" BasePlatform="Windows" SchemaVersion="16" SoundBankVersion="150">
 	<RootPaths>
-		<ProjectRoot>../../../../../../Documents/WwiseProjects/Nadir_WwiseProject/nadir_wwise</ProjectRoot>
-		<SourceFilesRoot>../../../../../../Documents/WwiseProjects/Nadir_WwiseProject/nadir_wwise/.cache/Windows</SourceFilesRoot>
+		<ProjectRoot>../../../../../../Fork/nadir_wwise</ProjectRoot>
+		<SourceFilesRoot>../../../../../../Fork/nadir_wwise/.cache/Windows</SourceFilesRoot>
 		<SoundBanksRoot>.</SoundBanksRoot>
 		<ExternalSourcesInputFile></ExternalSourcesInputFile>
-		<ExternalSourcesOutputRoot>../../../../../../Documents/WwiseProjects/Nadir_WwiseProject/nadir_wwise/GeneratedSoundBanks/Windows</ExternalSourcesOutputRoot>
+		<ExternalSourcesOutputRoot>../../../../../../Fork/nadir_wwise/GeneratedSoundBanks/Windows</ExternalSourcesOutputRoot>
 	</RootPaths>
 	<DialogueEvents/>
 	<SoundBanks>
-		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{A7522935-AF77-9A30-E081-A9B6A2A73B4C}">
+		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{BBFDD443-CD25-BA87-AD21-8EC0F6D8921E}">
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 			<Plugins>
@@ -202,7 +202,7 @@
 				</AcousticTexture>
 			</AcousticTextures>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{114A0B85-C475-BD77-A1C5-B1A96E5E09D9}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{E7A8B0F3-B380-D24E-33D1-E76BE9334AE1}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
@@ -217,6 +217,10 @@
 				<File Id="52636791" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>UI_General_Hover.wav</ShortName>
 					<CachePath>SFX/UI_General_Hover_818F3B66.wem</CachePath>
+				</File>
+				<File Id="56522291" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>SFX_Hunter_Foley_Run_4.wav</ShortName>
+					<CachePath>SFX/SFX_Hunter_Foley_Run_4_818F3B66.wem</CachePath>
 				</File>
 				<File Id="68204901" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>SFX_Giant_Movement_Grab_A_2.wav</ShortName>
@@ -249,6 +253,10 @@
 				<File Id="144345496" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>SFX_Hunter_Attack_B_01.wav</ShortName>
 					<CachePath>SFX/SFX_Hunter_Attack_B_01_818F3B66.wem</CachePath>
+				</File>
+				<File Id="144870903" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>SFX_Hunter_Footsteps_7.wav</ShortName>
+					<CachePath>SFX/SFX_Hunter_Footsteps_7_818F3B66.wem</CachePath>
 				</File>
 				<File Id="155669719" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>SFX_Hunter_Dash_Release.wav</ShortName>
@@ -286,6 +294,10 @@
 					<ShortName>AMB_DeathZone_Enter.wav</ShortName>
 					<CachePath>SFX/AMB_DeathZone_Enter_FBC78EF0.wem</CachePath>
 				</File>
+				<File Id="223362875" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>SFX_Hunter_Footsteps_4.wav</ShortName>
+					<CachePath>SFX/SFX_Hunter_Footsteps_4_818F3B66.wem</CachePath>
+				</File>
 				<File Id="224828170" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>SFX_Hunter_Attack_A_03.wav</ShortName>
 					<CachePath>SFX/SFX_Hunter_Attack_A_03_818F3B66.wem</CachePath>
@@ -318,9 +330,17 @@
 					<ShortName>SFX_Giant_Movement_Grab_C_4.wav</ShortName>
 					<CachePath>SFX/SFX_Giant_Movement_Grab_C_4_818F3B66.wem</CachePath>
 				</File>
+				<File Id="276420858" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>SFX_Hunter_Foley_Run_1.wav</ShortName>
+					<CachePath>SFX/SFX_Hunter_Foley_Run_1_818F3B66.wem</CachePath>
+				</File>
 				<File Id="283087508" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>AMB_Dashspot.wav</ShortName>
 					<CachePath>SFX/AMB_Dashspot_FBC78EF0.wem</CachePath>
+				</File>
+				<File Id="299386370" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>SFX_Hunter_Footsteps_6.wav</ShortName>
+					<CachePath>SFX/SFX_Hunter_Footsteps_6_818F3B66.wem</CachePath>
 				</File>
 				<File Id="307788563" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>UI_Gameplay_Victory.wav</ShortName>
@@ -337,6 +357,10 @@
 				<File Id="340697339" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>SFX_Hunter_Attack_B_03.wav</ShortName>
 					<CachePath>SFX/SFX_Hunter_Attack_B_03_818F3B66.wem</CachePath>
+				</File>
+				<File Id="351596025" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>SFX_Hunter_Foley_Run_7.wav</ShortName>
+					<CachePath>SFX/SFX_Hunter_Foley_Run_7_818F3B66.wem</CachePath>
 				</File>
 				<File Id="360485385" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>SFX_Giant_Movement_Grab_C_2.wav</ShortName>
@@ -362,13 +386,13 @@
 					<ShortName>SFX_Hunter_Attack_A_05.wav</ShortName>
 					<CachePath>SFX/SFX_Hunter_Attack_A_05_818F3B66.wem</CachePath>
 				</File>
+				<File Id="431362038" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>SFX_Hunter_Footsteps_3.wav</ShortName>
+					<CachePath>SFX/SFX_Hunter_Footsteps_3_818F3B66.wem</CachePath>
+				</File>
 				<File Id="454485006" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>SFX_Hunter_Attack_B_04.wav</ShortName>
 					<CachePath>SFX/SFX_Hunter_Attack_B_04_818F3B66.wem</CachePath>
-				</File>
-				<File Id="483686326" Language="SFX" Streaming="false" Location="Memory">
-					<ShortName>SFX_Hunter_Movement_Footsteps.wav</ShortName>
-					<CachePath>SFX/SFX_Hunter_Movement_Footsteps_818F3B66.wem</CachePath>
 				</File>
 				<File Id="484782692" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>AMB_AirSpeed_02.wav</ShortName>
@@ -378,9 +402,17 @@
 					<ShortName>SFX_Hunter_Grapple_Trigger_4.wav</ShortName>
 					<CachePath>SFX/SFX_Hunter_Grapple_Trigger_4_818F3B66.wem</CachePath>
 				</File>
+				<File Id="530475904" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>SFX_Hunter_Foley_Run_3.wav</ShortName>
+					<CachePath>SFX/SFX_Hunter_Foley_Run_3_818F3B66.wem</CachePath>
+				</File>
 				<File Id="542517301" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>UI_General_Click.wav</ShortName>
 					<CachePath>SFX/UI_General_Click_818F3B66.wem</CachePath>
+				</File>
+				<File Id="548021941" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>SFX_Hunter_Footsteps_2.wav</ShortName>
+					<CachePath>SFX/SFX_Hunter_Footsteps_2_818F3B66.wem</CachePath>
 				</File>
 				<File Id="570129085" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>SFX_Hunter_Bumper_Trigger_04.wav</ShortName>
@@ -389,6 +421,10 @@
 				<File Id="572398160" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>AMB_Slowmo.wav</ShortName>
 					<CachePath>SFX/AMB_Slowmo_FBC78EF0.wem</CachePath>
+				</File>
+				<File Id="573556603" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>SFX_Hunter_Foley_Run_5.wav</ShortName>
+					<CachePath>SFX/SFX_Hunter_Foley_Run_5_818F3B66.wem</CachePath>
 				</File>
 				<File Id="573571160" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>SFX_Hunter_Bumper_Trigger_01.wav</ShortName>
@@ -426,6 +462,10 @@
 					<ShortName>SFX_Hunter_Attack_A_01.wav</ShortName>
 					<CachePath>SFX/SFX_Hunter_Attack_A_01_818F3B66.wem</CachePath>
 				</File>
+				<File Id="638132048" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>SFX_Hunter_Foley_Run_2.wav</ShortName>
+					<CachePath>SFX/SFX_Hunter_Foley_Run_2_818F3B66.wem</CachePath>
+				</File>
 				<File Id="649477524" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>AMB_Bumper.wav</ShortName>
 					<CachePath>SFX/AMB_Bumper_FBC78EF0.wem</CachePath>
@@ -462,9 +502,17 @@
 					<ShortName>SFX_Giant_Hit_IntoAbyss.wav</ShortName>
 					<CachePath>SFX/SFX_Giant_Hit_IntoAbyss_818F3B66.wem</CachePath>
 				</File>
+				<File Id="793117533" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>SFX_Hunter_Foley_Run_6.wav</ShortName>
+					<CachePath>SFX/SFX_Hunter_Foley_Run_6_818F3B66.wem</CachePath>
+				</File>
 				<File Id="812415201" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>SFX_Hunter_Grapple_Release_2.wav</ShortName>
 					<CachePath>SFX/SFX_Hunter_Grapple_Release_2_818F3B66.wem</CachePath>
+				</File>
+				<File Id="814783500" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>SFX_Hunter_Foley_Run_8.wav</ShortName>
+					<CachePath>SFX/SFX_Hunter_Foley_Run_8_818F3B66.wem</CachePath>
 				</File>
 				<File Id="814972489" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>SFX_Hunter_Dash_Trigger.wav</ShortName>
@@ -477,6 +525,10 @@
 				<File Id="858281119" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>SFX_Hunter_Attack_B_02.wav</ShortName>
 					<CachePath>SFX/SFX_Hunter_Attack_B_02_818F3B66.wem</CachePath>
+				</File>
+				<File Id="861575820" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>SFX_Hunter_Footsteps_5.wav</ShortName>
+					<CachePath>SFX/SFX_Hunter_Footsteps_5_818F3B66.wem</CachePath>
 				</File>
 				<File Id="869229850" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>SFX_Giant_Movement_Grab_C_1.wav</ShortName>
@@ -513,6 +565,14 @@
 				<File Id="1026325348" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>SFX_Hunter_Grapple_Release_3.wav</ShortName>
 					<CachePath>SFX/SFX_Hunter_Grapple_Release_3_818F3B66.wem</CachePath>
+				</File>
+				<File Id="1030279783" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>SFX_Hunter_Footsteps_1.wav</ShortName>
+					<CachePath>SFX/SFX_Hunter_Footsteps_1_818F3B66.wem</CachePath>
+				</File>
+				<File Id="1062363121" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>SFX_Hunter_Foley_Run_9.wav</ShortName>
+					<CachePath>SFX/SFX_Hunter_Foley_Run_9_818F3B66.wem</CachePath>
 				</File>
 				<File Id="1064328534" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>UI_Gameplay_GameOver.wav</ShortName>
@@ -642,7 +702,7 @@
 						<AuxBusRef Id="4116390784" Name="RVB_Down"/>
 					</AuxBusRefs>
 				</Event>
-				<Event Id="3245179415" Name="Play_SFX_Giant_Roar_Death" DurationType="OneShot" DurationMin="2.873601" DurationMax="4.1554184">
+				<Event Id="3245179415" Name="Play_SFX_Giant_Roar_Death" DurationType="OneShot" DurationMin="2.5600874" DurationMax="4.6642995">
 					<MediaRefs>
 						<MediaRef Id="178232040"/>
 						<MediaRef Id="675460407"/>
@@ -703,9 +763,24 @@
 						<AuxBusRef Id="4116390784" Name="RVB_Down"/>
 					</AuxBusRefs>
 				</Event>
-				<Event Id="1860495876" Name="Play_SFX_Hunter_Foley_Footsteps" DurationType="OneShot" DurationMin="0.3705509" DurationMax="0.41592938">
+				<Event Id="1860495876" Name="Play_SFX_Hunter_Foley_Footsteps" DurationType="OneShot" DurationMin="0.28855583" DurationMax="0.40252393">
 					<MediaRefs>
-						<MediaRef Id="483686326"/>
+						<MediaRef Id="56522291"/>
+						<MediaRef Id="144870903"/>
+						<MediaRef Id="223362875"/>
+						<MediaRef Id="276420858"/>
+						<MediaRef Id="299386370"/>
+						<MediaRef Id="351596025"/>
+						<MediaRef Id="431362038"/>
+						<MediaRef Id="530475904"/>
+						<MediaRef Id="548021941"/>
+						<MediaRef Id="573556603"/>
+						<MediaRef Id="638132048"/>
+						<MediaRef Id="793117533"/>
+						<MediaRef Id="814783500"/>
+						<MediaRef Id="861575820"/>
+						<MediaRef Id="1030279783"/>
+						<MediaRef Id="1062363121"/>
 					</MediaRefs>
 					<AuxBusRefs>
 						<AuxBusRef Id="2518605955" Name="RVB_Up"/>
@@ -831,5 +906,5 @@
 			</GameParameters>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{9852F57D-0143-4C28-607E-2B6C9C97BE24}</FileHash>
+	<FileHash>{6608A084-DC46-423F-3464-65BC08224E9F}</FileHash>
 </SoundBanksInfo>

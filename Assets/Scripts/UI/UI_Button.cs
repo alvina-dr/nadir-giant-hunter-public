@@ -51,6 +51,7 @@ public class UI_Button : MonoBehaviour, ISelectHandler, IDeselectHandler, IPoint
     public void Activate()
     {
         _image.material.SetInt("_Active", 1);
+        _image.material.SetInt("_Selected", 1);
     }
 
     public void Deactivate()

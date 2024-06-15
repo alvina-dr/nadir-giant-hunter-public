@@ -5,6 +5,7 @@ using UnityEngine.VFX;
 public class Player : MonoBehaviour
 {
     public PlayerData Data;
+    public PlayerDifficultyData DifficultyData;
     public PlayerVFXData VFXData;
     public PlayerSoundData SoundData;
 

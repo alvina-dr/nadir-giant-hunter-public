@@ -163,6 +163,7 @@ public class PlayerSwinging : MonoBehaviour
 
     public void Swinging()
     {
+        if (GPCtrl.Instance.Pause) return;
         Vector3 forceAdded = new Vector3(_swingOriginalDirection.x, 0, _swingOriginalDirection.z);
         Debug.DrawRay(Player.transform.position, _swingOriginalDirection*5, UnityEngine.Color.blue);
 
@@ -218,8 +219,8 @@ public class PlayerSwinging : MonoBehaviour
         Player.SoundData.SFX_Hunter_Grapple_Trigger.Post(gameObject);
         IsSwinging = true;
         EndSwingLinePoint.SetParent(hitTransform);
-        if (EndSwingLinePoint.parent != null)
-            Debug.Log("END SWING LINE POINT PARENT : " + EndSwingLinePoint.parent.name);
+        //if (EndSwingLinePoint.parent != null)
+        //    Debug.Log("END SWING LINE POINT PARENT : " + EndSwingLinePoint.parent.name);
         EndSwingLinePoint.position = hitPoint;
         Player.Animator.SetBool("isSwinging", true);
         DataHolder.Instance.RumbleManager.PulseFor(5f, 5f, .1f);

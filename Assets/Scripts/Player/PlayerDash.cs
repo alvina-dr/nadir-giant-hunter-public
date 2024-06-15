@@ -25,7 +25,7 @@ public class PlayerDash : MonoBehaviour
         Time.timeScale = 1;
         Player.Rigibody.velocity = Vector3.zero;
         Player.Rigibody.useGravity = false;
-        Player.Rigibody.AddForce(Player.Data.dashForce * Camera.main.transform.forward.normalized, ForceMode.Impulse);
+        Player.Rigibody.AddForce(Player.DifficultyData.DashForce * Camera.main.transform.forward.normalized, ForceMode.Impulse);
         StartCoroutine(PrintSpeed());
         Material material = GPCtrl.Instance.GetPostProcessMaterial();
         if (material != null) material.DOFloat(0f, "_strength", .2f).SetUpdate(true);

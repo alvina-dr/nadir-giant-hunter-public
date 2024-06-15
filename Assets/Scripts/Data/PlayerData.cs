@@ -35,7 +35,11 @@ public class PlayerData : ScriptableObject
     [TabGroup("Movement")]
     public float maxSpeedInAir;
     [TabGroup("Movement")]
+    public float maxSpeedInAirLerp;
+    [TabGroup("Movement")]
     public float speedEffectMin;
+    [TabGroup("Movement")]
+    public float StrafeInfluence;
 
     [TabGroup("Swing")]
     public float swingSpeed;
@@ -70,23 +74,21 @@ public class PlayerData : ScriptableObject
     public float airSlowDown;
 
     [TabGroup("Attack")]
-    public float attackDistance;
-    [TabGroup("Attack")]
+    [Tooltip("The distance necessary between the player and the target spot to make the target spot explode")]
     public float attackStopDistance;
     [TabGroup("Attack")]
     public float dragForce;
     [TabGroup("Attack")]
-    public float weakSpotDetectionDistance;
-    [TabGroup("Attack")]
     public float weakSpotReboundForce;
+    [TabGroup("Attack")]
+    [Tooltip("1 = exactly in center of screen, 0 is completely outside, around .8f should be best")]
+    public float centerOfScreenSpotPriority;
 
     [TabGroup("Double swing boost")]
     public float doubleSwingBoost;
     [TabGroup("Double swing boost")]
     public float doubleSwingLineRendererDuration;
 
-    [TabGroup("Dash")]
-    public float dashForce;
     [TabGroup("Dash")]
     public float slowDownTime;
     [TabGroup("Dash")]
