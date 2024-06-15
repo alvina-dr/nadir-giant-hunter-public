@@ -98,7 +98,6 @@ public class GPCtrl : MonoBehaviour
     public void Loose(EnemyMovement enemy = null)
     {
         GameOver = true;
-        Player.SoundData.SFX_Hunter_Death.Post(Player.gameObject);
         UICtrl.OpenEndGameMenu(false);
         if (enemy != null)
         {

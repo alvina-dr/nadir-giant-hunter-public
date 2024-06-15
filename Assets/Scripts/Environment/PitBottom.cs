@@ -21,8 +21,11 @@ public class PitBottom : MonoBehaviour
             {
                 if (GPCtrl.Instance.GeneralData.debugBouncingGround)
                     player.Rigibody.AddForce(Vector3.up * 200, ForceMode.Impulse);
-                else 
+                else
+                {
+                    player.SoundData.SFX_Hunter_Death.Post(player.gameObject);
                     GPCtrl.Instance.Loose();
+                }
             }
         }
     }
