@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 054f681d922a5d942a9e02d64328c744, type: 3}
-  m_Name: PlayerDataHARD
+  m_Name: PlayerData
   m_EditorClassIdentifier: 
   walkRotationSpeed: 15
   airRotationSpeed: 3
@@ -24,22 +24,22 @@ MonoBehaviour:
   charaHeight: 1.8
   timeBeforeLookingDownAnim: 0.3
   speedDivisionFactorVFX: 5
-  maxSpeedInAir: 600
-  maxSpeedInAirLerp: 0
+  maxSpeedInAir: 160
+  maxSpeedInAirLerp: 0.05
   speedEffectMin: 300
-  StrafeInfluence: 0
+  StrafeInfluence: 5000
   swingSpeed: 50
   swingMaxSpeed: 350
-  SwingSpeedLengthMult: 0.003
+  SwingSpeedLengthMult: 0.01
   SwingBaseOrientationSpeed: 0
-  SwingCameraOrientInfluence: 100
+  SwingCameraOrientInfluence: 60
   swingAcceleration: 20
   minSwingDistance: 25
   maxSwingDistance: 5000
-  startCurveSpeedBoost: 10
+  startCurveSpeedBoost: 40
   endCurveSpeedBoost: 50
   radiusDetectionIncreaseSpeed: 1000
-  MaxSwingAngle: -0.5
+  MaxSwingAngle: -0.08
   maxYForceOnRelease: 500
   coneRaycastOnPlayer: 0
   airSlowDown: 500

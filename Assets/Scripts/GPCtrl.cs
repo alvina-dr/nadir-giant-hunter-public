@@ -74,6 +74,10 @@ public class GPCtrl : MonoBehaviour
                 Player.DifficultyData = Player.HardDifficultyData;
                 break;
         }
+        Material postProcess = GetPostProcessMaterial();
+        if (PlayerPrefs.HasKey("enableHitframeFX"))
+            postProcess.SetFloat("_enable_hitrame_FX", PlayerPrefs.GetInt("_enable_hitrame_FX"));
+        else postProcess.SetFloat("_enable_hitrame_FX", 1);
     }
 
     private void Update()
