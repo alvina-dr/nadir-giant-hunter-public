@@ -7,21 +7,24 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Mat_giantV2
-  m_Shader: {fileID: -6465566751694194690, guid: 0e96ac5bcaca1ad4dbf8d6d5699bbfe9,
+  m_Name: MAT_tentacles_giantV2
+  m_Shader: {fileID: -6465566751694194690, guid: 3a6be7df88e2c4e4daf8be0df2309dce,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
-  - _DISABLE_SSR_TRANSPARENT
+  - _ENABLE_FOG_ON_TRANSPARENT
+  - _SURFACE_TYPE_TRANSPARENT
   m_InvalidKeywords:
+  - _DISABLE_SSR_TRANSPARENT
   - _NORMALMAP_TANGENT_SPACE
-  m_LightmapFlags: 4
+  m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2225
+  m_CustomRenderQueue: 3000
   stringTagMap:
     MotionVector: User
+    RenderType: Transparent
   disabledShaderPasses:
   - TransparentDepthPrepass
   - TransparentDepthPostpass
@@ -88,50 +91,6 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_0afc3fe0694a4215a2f70494bb288153_Texture_1_Texture2D:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_0bf78955513743d2b27dae0732c9734d_Texture_1_Texture2D:
-        m_Texture: {fileID: 2800000, guid: e0c74337da7363b458f24dc3cba78406, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_1fe2617a521d4ef0bc371b3b76c0def3_Texture_1_Texture2D:
-        m_Texture: {fileID: 2800000, guid: 269a6fcdfcaece747aa29a81d42e21cc, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_3f0e667f977f459a9447e8db8e60021d_Texture_1_Texture2D:
-        m_Texture: {fileID: 2800000, guid: 3f691c57e37b53649bffd2c7a76ad022, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_4c410fd80aa44c7dbf7860a4af0fce8f_Texture_1_Texture2D:
-        m_Texture: {fileID: 2800000, guid: 1f1283d5e078c6048bb27928bf3b57bf, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_4d1298a95bcd44e3aaba2aa9c0bd868d_Texture_1_Texture2D:
-        m_Texture: {fileID: 2800000, guid: b7b4fa4c1129f9543be59a456a957ee7, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_6c9b5b79269144028dd974b9b3dd0b4c_Texture_1_Texture2D:
-        m_Texture: {fileID: 2800000, guid: 4d37a61d2a5d4c778ca973d88ed0cd28, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_9b910396d1314972a81dbc2ac798e355_Texture_1_Texture2D:
-        m_Texture: {fileID: 2800000, guid: dea438597479c2d4e859a2e9f28b82da, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_d3bfad5346ee491e845adcda1cfeb338_Texture_1_Texture2D:
-        m_Texture: {fileID: 2800000, guid: 88012b71fef9f1949ab84a84331f6524, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_e4f0308558844690ae98a71906c7e3d3_Texture_1_Texture2D:
-        m_Texture: {fileID: 2800000, guid: 380af1ea52d60f64c8fba2bbc2037539, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_e8e233d79f884d61a580dd44053c67c2_Texture_1_Texture2D:
-        m_Texture: {fileID: 2800000, guid: 851238310cddca44dbc93b82a18c5389, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _SpecularColorMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -184,7 +143,7 @@ Material:
     - _AlphaCutoffPostpass: 0.5
     - _AlphaCutoffPrepass: 0.5
     - _AlphaCutoffShadow: 0.5
-    - _AlphaDstBlend: 0
+    - _AlphaDstBlend: 1
     - _AlphaRemapMax: 1
     - _AlphaRemapMin: 0
     - _AlphaSrcBlend: 1
@@ -207,11 +166,11 @@ Material:
     - _DoubleSidedEnable: 0
     - _DoubleSidedGIMode: 0
     - _DoubleSidedNormalMode: 1
-    - _DstBlend: 0
-    - _DstBlend2: 0
+    - _DstBlend: 1
+    - _DstBlend2: 10
     - _EmissiveColorMode: 1
     - _EmissiveExposureWeight: 1
-    - _EmissiveIntensity: 1
+    - _EmissiveIntensity: 21.361256
     - _EmissiveIntensityUnit: 0
     - _EnableBlendModePreserveSpecularLighting: 1
     - _EnableFogOnTransparent: 1
@@ -252,7 +211,7 @@ Material:
     - _ReceivesSSR: 1
     - _ReceivesSSRTransparent: 0
     - _RefractionModel: 0
-    - _RenderQueueType: 1
+    - _RenderQueueType: 4
     - _RequireSplitLighting: 0
     - _Smoothness: 0.5
     - _SmoothnessRemapMax: 1
@@ -262,18 +221,18 @@ Material:
     - _SpecularOcclusionMode: 1
     - _SrcBlend: 1
     - _StencilRef: 0
-    - _StencilRefDepth: 8
+    - _StencilRefDepth: 1
     - _StencilRefDistortionVec: 4
     - _StencilRefGBuffer: 10
-    - _StencilRefMV: 40
+    - _StencilRefMV: 33
     - _StencilWriteMask: 6
     - _StencilWriteMaskDepth: 9
     - _StencilWriteMaskDistortionVec: 4
     - _StencilWriteMaskGBuffer: 15
-    - _StencilWriteMaskMV: 41
+    - _StencilWriteMaskMV: 43
     - _SubsurfaceMask: 1
     - _SupportDecals: 1
-    - _SurfaceType: 0
+    - _SurfaceType: 1
     - _TexWorldScale: 1
     - _TexWorldScaleEmissive: 1
     - _Thickness: 1
@@ -291,10 +250,10 @@ Material:
     - _UVEmissive: 0
     - _UseEmissiveIntensity: 0
     - _UseShadowThreshold: 0
-    - _ZTestDepthEqualForOpaque: 3
+    - _ZTestDepthEqualForOpaque: 4
     - _ZTestGBuffer: 4
     - _ZTestTransparent: 4
-    - _ZWrite: 1
+    - _ZWrite: 0
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}
@@ -302,8 +261,8 @@ Material:
     - _DiffusionProfileAsset: {r: 0, g: 0, b: 0, a: 0}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissiveColor: {r: 0, g: 0, b: 0, a: 1}
-    - _EmissiveColorLDR: {r: 0, g: 0, b: 0, a: 1}
+    - _EmissiveColor: {r: 15.999998, g: 0, b: 0, a: 21.361256}
+    - _EmissiveColorLDR: {r: 0.88031507, g: 0, b: 0, a: 1}
     - _InvPrimScale: {r: 1, g: 1, b: 0, a: 0}
     - _IridescenceThicknessRemap: {r: 0, g: 1, b: 0, a: 0}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
@@ -314,7 +273,7 @@ Material:
     - _UVMappingMaskEmissive: {r: 1, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!114 &2279520195483920474
+--- !u!114 &8563524630164931927
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
