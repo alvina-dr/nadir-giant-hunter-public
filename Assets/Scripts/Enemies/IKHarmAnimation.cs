@@ -154,7 +154,7 @@ namespace Enemies
                     leg.LastPos = leg.Target.position;
                     leg.MaxLength = _maxLengthBeforeUpdate + UnityEngine.Random.Range(_lengthBeforeUpdateOffSet.x, _lengthBeforeUpdateOffSet.y);
                     leg.LastPosTarg = leg.Target.position;
-                    leg.LastPosTargTotDist = 0;
+                    leg.LastPosTargTotDist = Vector3.Distance(leg.LastPos, leg.LastPosTarg);
                     leg.MoveTime = 0;
                     leg.randomizer = UnityEngine.Random.Range(0, 100.0f);
                     
