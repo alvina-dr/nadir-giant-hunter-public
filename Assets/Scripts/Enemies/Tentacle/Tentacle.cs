@@ -271,6 +271,7 @@ namespace Enemies
         {
             //Deactivate everything that will impair ragdoll
             EnemyAnimator.enabled = !isActive;
+            rigidbodies = GetComponentsInChildren<Rigidbody>();
 
             foreach (var rigidbody in rigidbodies)
             {
