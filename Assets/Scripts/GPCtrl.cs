@@ -24,22 +24,6 @@ public class GPCtrl : MonoBehaviour
         {
             Instance = this;
             TargetableSpotList = FindObjectsByType<TargetableSpot>(FindObjectsSortMode.InstanceID).ToList();
-            switch (DataHolder.Instance.CurrentDifficulty) 
-            {
-                case DataHolder.DifficultyMode.Easy:
-                    EnemySpawner.SpawnerData = EasySpawnerData;
-                    Player.Data = EasyPlayerData;
-                    break;
-                case DataHolder.DifficultyMode.Normal:
-                    EnemySpawner.SpawnerData = NormalSpawnerData;
-                    Player.Data = NormalPlayerData;
-
-                    break;
-                case DataHolder.DifficultyMode.Hard:
-                    EnemySpawner.SpawnerData = HardSpawnerData;
-                    Player.Data = HardPlayerData;
-                    break;
-            }
         }
     }
     #endregion
@@ -56,13 +40,10 @@ public class GPCtrl : MonoBehaviour
     [Header("Difficulty")]
     public EnemySpawnerData EasySpawnerData;
     public EnemyData EasyEnemyData;
-    public PlayerData EasyPlayerData;
     public EnemySpawnerData NormalSpawnerData;
     public EnemyData NormalEnemyData;
-    public PlayerData NormalPlayerData;
     public EnemySpawnerData HardSpawnerData;
     public EnemyData HardEnemyData;
-    public PlayerData HardPlayerData;
 
     [ReadOnly]
     public List<TargetableSpot> TargetableSpotList;
@@ -74,6 +55,30 @@ public class GPCtrl : MonoBehaviour
     public bool DashPause = false;
     public CustomPassVolume reliefFX;
     public int NumEnemyKilled = 0;
+
+    private void Start()
+    {
+        switch (DataHolder.Instance.CurrentDifficulty)
+        {
+            case DataHolder.DifficultyMode.Easy:
+                EnemySpawner.SpawnerData = EasySpawnerData;
+                Player.DifficultyData = Player.EasyDifficultyData;
+                break;
+            case DataHolder.DifficultyMode.Normal:
+                EnemySpawner.SpawnerData = NormalSpawnerData;
+                Player.DifficultyData = Player.NormalDifficultyData;
+
+                break;
+            case DataHolder.DifficultyMode.Hard:
+                EnemySpawner.SpawnerData = HardSpawnerData;
+                Player.DifficultyData = Player.HardDifficultyData;
+                break;
+        }
+        Material postProcess = GetPostProcessMaterial();
+        if (PlayerPrefs.HasKey("enableHitframeFX"))
+            postProcess.SetFloat("_enable_hitrame_FX", PlayerPrefs.GetInt("_enable_hitrame_FX"));
+        else postProcess.SetFloat("_enable_hitrame_FX", 1);
+    }
 
     private void Update()
     {
@@ -98,7 +103,6 @@ public class GPCtrl : MonoBehaviour
     public void Loose(EnemyMovement enemy = null)
     {
         GameOver = true;
-        Player.SoundData.SFX_Hunter_Death.Post(Player.gameObject);
         UICtrl.OpenEndGameMenu(false);
         if (enemy != null)
         {

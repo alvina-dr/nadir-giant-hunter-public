@@ -2,15 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
+using Enemies;
 
 public class EnemyWeakSpotManagement : MonoBehaviour
 {
     public EnemyMovement EnemyMovement;
+    public IKHarmAnimation IKHarmAnimation;
+    public IKHarmWiggle IKHarmWiggle;
+    public Waving Waving;
     public List<TargetableSpot> WeakSpotSpawnList;
     [ReadOnly]
     public List<TargetableSpot> WeakSpotList;
     public int WeakSpotNum;
     public EnemyVFXData VFXData;
+    public Rigidbody rigidbody;
+    public List<Tentacle> Tentacles = new List<Tentacle>();
 
     void Start()
     {
@@ -39,6 +45,7 @@ public class EnemyWeakSpotManagement : MonoBehaviour
         }
     }
 
+    [Button]
     public void Death()
     {
         GPCtrl.Instance.AddKilledEnemy();
@@ -50,6 +57,27 @@ public class EnemyWeakSpotManagement : MonoBehaviour
         GPCtrl.Instance.Player.PlayerSwingingLeft.EndSwingLinePoint.parent = null;
         GPCtrl.Instance.Player.PlayerSwingingRight.EndSwingLinePoint.parent = null;
         EnemyMovement.SoundData.SFX_Giant_Roar_Death.Post(gameObject);
+        ActivateRagDoll();
+        StartCoroutine(DestroyAfter(10));
+    }
+
+    [Button]
+    public void ActivateRagDoll()
+    {
+        rigidbody.isKinematic = false;
+        EnemyMovement.enabled = false;
+        IKHarmAnimation.enabled = false;
+        IKHarmWiggle.enabled = false;
+        Waving.enabled = false;
+        foreach (Tentacle tentacle in Tentacles)
+        {
+            tentacle.ActivateRagdoll();
+        }
+    }
+
+    public IEnumerator DestroyAfter(float time)
+    {
+        yield return new WaitForSeconds(time);
         Destroy(gameObject);
     }
 }

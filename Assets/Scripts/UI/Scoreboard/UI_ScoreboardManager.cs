@@ -11,8 +11,6 @@ using Unity.Services.Authentication;
 using Unity.Services.Core;
 using Unity.Services.Leaderboards;
 using Unity.Services.Leaderboards.Models;
-using Unity.VisualScripting;
-using Sirenix.OdinInspector.Editor.GettingStarted;
 
 public class UI_ScoreboardManager : MonoBehaviour
 {
@@ -61,6 +59,12 @@ public class UI_ScoreboardManager : MonoBehaviour
 
     public void ResetMenu()
     {
+        EasyScoreboard.ScoreList.entries.Clear();
+        NormalScoreboard.ScoreList.entries.Clear();
+        HardScoreboard.ScoreList.entries.Clear();
+        EasyScoreboard.DestroyScoreboard();
+        NormalScoreboard.DestroyScoreboard();
+        HardScoreboard.DestroyScoreboard();
         for (int i = 0; i < _subMenuList.Count; i++)
         {
             HideSubMenu(_subMenuList[i]);
@@ -246,7 +250,7 @@ public class UI_ScoreboardManager : MonoBehaviour
                 if (metadata == null) return;
                 
                 var scoreboardEntry = new ScoreboardEntry(metadata.PlayerName, (float)entry.Score);
-                Debug.Log($"(Online Leaderboard) Player {metadata.PlayerName} has a score of {entry.Score} in difficulty {metadata.Difficulty}");
+                //Debug.Log($"(Online Leaderboard) Player {metadata.PlayerName} has a score of {entry.Score} in difficulty {metadata.Difficulty}");
                 
                 // HANDLE THE SCORES HERE HOW YOU WANT
                 // For now the scores are added to the scoreboards and the scoreboard are destroyed/recreated again (not sure if it's the best way to do it)
@@ -272,6 +276,12 @@ public class UI_ScoreboardManager : MonoBehaviour
         {
             Debug.LogError($"Failed to get online leaderboard data, see exception : {e.Message}");
             OnEndOnlineLeaderboardRequest?.Invoke(false);
+            EasyScoreboard.ScoreList.entries.Clear();
+            NormalScoreboard.ScoreList.entries.Clear();
+            HardScoreboard.ScoreList.entries.Clear();
+            EasyScoreboard.DestroyScoreboard();
+            NormalScoreboard.DestroyScoreboard();
+            HardScoreboard.DestroyScoreboard();
         }
     }
 

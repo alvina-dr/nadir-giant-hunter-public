@@ -6,6 +6,7 @@ using UnityEngine;
 public class SwingRopeFX : MonoBehaviour
 {
     [SerializeField] private LineRenderer _lineRenderer;
+    [SerializeField] private LineRenderer _highlightLineRenderer;
     private Spring _spring;
     private Vector3 _currentGrapplePosition;
     public int _quality;
@@ -28,6 +29,7 @@ public class SwingRopeFX : MonoBehaviour
         {
             _spring.SetVelocity(_velocity);
             _lineRenderer.positionCount = _quality + 1;
+            _highlightLineRenderer.positionCount = _quality + 1;
         }
 
         _spring.SetDamper(_damper);
@@ -47,6 +49,7 @@ public class SwingRopeFX : MonoBehaviour
                          _affectCurve.Evaluate(delta);
 
             _lineRenderer.SetPosition(i, Vector3.Lerp(gunTipPosition, _currentGrapplePosition, delta) + offset);
+            _highlightLineRenderer.SetPosition(i, Vector3.Lerp(gunTipPosition, _currentGrapplePosition, delta) + offset + new Vector3(.02f, 0, 0));
         }
     }
 
@@ -56,6 +59,9 @@ public class SwingRopeFX : MonoBehaviour
         _spring.Reset();
 
         if (_lineRenderer.positionCount > 0)
+        {
             _lineRenderer.positionCount = 0;
+            _highlightLineRenderer.positionCount = 0;
+        }
     }
 }

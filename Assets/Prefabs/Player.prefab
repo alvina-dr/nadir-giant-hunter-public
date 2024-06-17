@@ -81,13 +81,13 @@ MonoBehaviour:
   perfectPoint: {fileID: 2295701545593997977}
   layerMask:
     serializedVersion: 2
-    m_Bits: 51
+    m_Bits: 307
   SearchPoint: 0
   MinRadius: 1
-  MaxRadius: 200
+  MaxRadius: 400
   CurrentRadius: 1
-  _anglePrecision: 180
-  _radiusPrecision: 4
+  _anglePrecision: 90
+  _radiusPrecision: 6
 --- !u!1 &2705870311431261049
 GameObject:
   m_ObjectHideFlags: 0
@@ -314,13 +314,13 @@ MonoBehaviour:
   perfectPoint: {fileID: 2994346831801813058}
   layerMask:
     serializedVersion: 2
-    m_Bits: 51
+    m_Bits: 307
   SearchPoint: 0
   MinRadius: 1
-  MaxRadius: 200
+  MaxRadius: 400
   CurrentRadius: 1
-  _anglePrecision: 180
-  _radiusPrecision: 4
+  _anglePrecision: 90
+  _radiusPrecision: 6
 --- !u!1 &5447474520495628610
 GameObject:
   m_ObjectHideFlags: 0
@@ -683,7 +683,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c06c65f504b267e488cc81d7660bb84c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Data: {fileID: 11400000, guid: b0578ea5c1818e44487cc36ca565e02c, type: 2}
+  Data: {fileID: 11400000, guid: 1762678e939f8d04b8b7632b5a354c2e, type: 2}
+  DifficultyData: {fileID: 11400000, guid: 38fa634038856c746aaf6dadc6b22ded, type: 2}
+  EasyDifficultyData: {fileID: 11400000, guid: 38fa634038856c746aaf6dadc6b22ded, type: 2}
+  NormalDifficultyData: {fileID: 11400000, guid: 0da0d697a816d814f93f3f44ba122976,
+    type: 2}
+  HardDifficultyData: {fileID: 11400000, guid: f1b962bf48bdd4c42a057328686b6a28, type: 2}
   VFXData: {fileID: 11400000, guid: 1f5c18fa9d2015a4d9f47693027b0dc1, type: 2}
   SoundData: {fileID: 11400000, guid: 791ec48c8b7607c4bac01270bd699ae2, type: 2}
   PlayerMovement: {fileID: 4012560598477362461}
@@ -814,8 +819,12 @@ MonoBehaviour:
   _targetRigibody: {fileID: 0}
   IsGrappling: 0
   CurrentTargetSpot: {fileID: 0}
+  BestTargetSpotFit: {fileID: 0}
   ClosestTargetableSpotList: []
   TargetSpotDistance: {x: 0, y: 0, z: 0}
+  attackLayer:
+    serializedVersion: 2
+    m_Bits: 257
 --- !u!114 &3422433742143200807
 MonoBehaviour:
   m_ObjectHideFlags: 0

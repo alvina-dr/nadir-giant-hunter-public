@@ -16,6 +16,11 @@ public class UI_Settings : MonoBehaviour
 
     private void Awake()
     {
+        UpdateSettings();
+    }
+
+    public void UpdateSettings()
+    {
         if (PlayerPrefs.HasKey("Volume_Master"))
             AkSoundEngine.SetRTPCValue("Volume_Master", PlayerPrefs.GetInt("Volume_Master") * 5); //VOLUME MASTER
         if (PlayerPrefs.HasKey("Volume_Music"))
