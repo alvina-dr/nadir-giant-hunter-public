@@ -72,6 +72,7 @@ public class UICtrl : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
         Time.timeScale = 1;
         AkSoundEngine.SetState("Music_State", "MainMenu");
+        AkSoundEngine.SetState("Pause", "Unpaused");
     }
 
     public void TryAgain()
