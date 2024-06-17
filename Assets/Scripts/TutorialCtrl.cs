@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using UnityEditor.Overlays;
 using UnityEngine;
+using UnityEngine.Localization.Settings;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -44,7 +44,7 @@ public class TutorialCtrl : MonoBehaviour
 
     private void Update()
     {
-        if (GPCtrl.Instance.Player.PlayerInput.actions["Attack"].WasPerformedThisFrame())
+        if (GPCtrl.Instance.Player.PlayerInput.actions["Jump"].WasPerformedThisFrame())
         {
             NextPage();
             //_timer += Time.unscaledDeltaTime;
@@ -57,7 +57,7 @@ public class TutorialCtrl : MonoBehaviour
             _timer = 0;
         }
 
-        if (GPCtrl.Instance.Player.PlayerInput.actions["Jump"].WasPerformedThisFrame())
+        if (GPCtrl.Instance.Player.PlayerInput.actions["Attack"].WasPerformedThisFrame())
         {
             PreviousPage();
         }
@@ -103,7 +103,7 @@ public class TutorialCtrl : MonoBehaviour
 
     public void UpdatePage()
     {
-        _titleTextMeshPro.text = TutorielData.entries[_tutoIndex].TitleKey;
+        _titleTextMeshPro.text = LocalizationSettings.StringDatabase.GetLocalizedString("StringLocalization", TutorielData.entries[_tutoIndex].TitleKey);
         DestroyExplanationLayout();
         for (int i = 0; i < TutorielData.entries[_tutoIndex].Content.Count; i++)
         {
@@ -125,7 +125,6 @@ public class TutorialCtrl : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         GPCtrl.Instance.CameraThirdPerson.InputProvider.enabled = true;
-        GPCtrl.Instance.EnemySpawner.gameObject.SetActive(true);
     }
 
     public void DestroyExplanationLayout()
@@ -134,5 +133,10 @@ public class TutorialCtrl : MonoBehaviour
         {
             Destroy(_explanationLayout.GetChild(i).gameObject);
         }
+    }
+
+    public void LaunchRealGame()
+    {
+        GPCtrl.Instance.EnemySpawner.gameObject.SetActive(true);
     }
 }

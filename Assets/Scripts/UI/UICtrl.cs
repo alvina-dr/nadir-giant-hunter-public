@@ -31,7 +31,8 @@ public class UICtrl : MonoBehaviour
     [Header("In game UI")]
     public TextMeshProUGUI TimerText;
     public TextMeshProUGUI KillRatioText;
-    //public TextMeshProUGUI SpeedText;
+
+    public AK.Wwise.Event _pauseMenuMusic;
 
     [Header("End Game Menu")]
     [SerializeField] private TextMeshProUGUI _endGameMenuTitle;
@@ -43,6 +44,8 @@ public class UICtrl : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         GPCtrl.Instance.CameraThirdPerson.InputProvider.enabled = false;
+        AkSoundEngine.SetState("Pause", "Paused");
+        _pauseMenuMusic.Post(gameObject);
     }
 
     public void ClosePauseMenu()
@@ -53,6 +56,8 @@ public class UICtrl : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         GPCtrl.Instance.CameraThirdPerson.InputProvider.enabled = true;
+        AkSoundEngine.SetState("Pause", "Unpaused");
+        _pauseMenuMusic.Stop(gameObject);
     }
 
     public void CallPause()
@@ -66,6 +71,7 @@ public class UICtrl : MonoBehaviour
     {
         SceneManager.LoadScene("MainMenu");
         Time.timeScale = 1;
+        AkSoundEngine.SetState("Music_State", "MainMenu");
     }
 
     public void TryAgain()
@@ -83,6 +89,7 @@ public class UICtrl : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         GPCtrl.Instance.CameraThirdPerson.InputProvider.enabled = false;
+        AkSoundEngine.SetState("Music_State", "Silence");
     }
 
     private void Start()
