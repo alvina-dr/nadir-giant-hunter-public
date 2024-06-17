@@ -11,7 +11,7 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
     {
         [SerializeField] ControlerIcons _icons;
         [SerializeField] Image _image;
-        [SerializeField] InputActionReference _action;
+        [SerializeField] public InputActionReference _action;
 
         private void Start()
         {
