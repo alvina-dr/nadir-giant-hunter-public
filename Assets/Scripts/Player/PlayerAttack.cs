@@ -17,6 +17,7 @@ public class PlayerAttack : MonoBehaviour
     public TargetableSpot BestTargetSpotFit;
     public List<TargetableSpot> ClosestTargetableSpotList = new List<TargetableSpot>();
     public Vector3 TargetSpotDistance = Vector3.zero;
+    public LayerMask attackLayer;
 
     public void Attack()
     {
@@ -136,7 +137,7 @@ public class PlayerAttack : MonoBehaviour
                 {
                     Vector3 direction = closeEnoughSpotList[i].transform.position - transform.position;
                     RaycastHit hit;
-                    if (Physics.Raycast(transform.position, direction, out hit, Player.DifficultyData.TargetableSpotDetectionDistance))
+                    if (Physics.Raycast(transform.position, direction, out hit, Player.DifficultyData.TargetableSpotDetectionDistance, attackLayer))
                     {
                         if (hit.transform.gameObject == closeEnoughSpotList[i].gameObject)
                         {
