@@ -126,7 +126,7 @@ public class EnemySpawner : MonoBehaviour
         int enemiesNum = 0;
         foreach (GameObject enemy in _enemies)
         {
-            if (enemy != null)
+            if (enemy != null && enemy.GetComponent<EnemyMovement>().enabled)
             {
                 enemiesNum++;
             }
