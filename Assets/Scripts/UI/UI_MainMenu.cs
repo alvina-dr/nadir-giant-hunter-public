@@ -18,6 +18,7 @@ public class UI_MainMenu : MonoBehaviour
             menuList[i].CloseMenu(false);
         }
         _mainMenu.OpenMenu(true);
+        DataHolder.Instance.Tutorial = true;
     }
 
     public void StartGame(int difficulty)
