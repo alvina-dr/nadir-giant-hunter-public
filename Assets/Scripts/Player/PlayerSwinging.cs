@@ -29,7 +29,6 @@ public class PlayerSwinging : MonoBehaviour
     private Side _side;
     [HideInInspector]
     public bool IsTrySwing = false;
-    public LineRenderer SwingLineRenderer;
     public SwingRopeFX SwingRopeFX;
     [SerializeField] private LayerMask _layerMask;
     private Vector3 _bestSwingPoint;
