@@ -45,7 +45,7 @@ public class TutorialCtrl : MonoBehaviour
 
     private void Update()
     {
-        if (GPCtrl.Instance.Player.PlayerInput.actions["Attack"].WasPerformedThisFrame())
+        if (GPCtrl.Instance.Player.PlayerInput.actions["Jump"].WasPerformedThisFrame())
         {
             NextPage();
             //_timer += Time.unscaledDeltaTime;
@@ -58,7 +58,7 @@ public class TutorialCtrl : MonoBehaviour
             _timer = 0;
         }
 
-        if (GPCtrl.Instance.Player.PlayerInput.actions["Jump"].WasPerformedThisFrame())
+        if (GPCtrl.Instance.Player.PlayerInput.actions["Attack"].WasPerformedThisFrame())
         {
             PreviousPage();
         }
