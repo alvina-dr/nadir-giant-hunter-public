@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <SoundBanksInfo Platform="Windows" BasePlatform="Windows" SchemaVersion="16" SoundBankVersion="150">
 	<RootPaths>
-		<ProjectRoot>../../../../../../Fork/nadir_wwise</ProjectRoot>
-		<SourceFilesRoot>../../../../../../Fork/nadir_wwise/.cache/Windows</SourceFilesRoot>
+		<ProjectRoot>F:/GiantHunter_WwiseProject</ProjectRoot>
+		<SourceFilesRoot>F:/GiantHunter_WwiseProject/.cache/Windows</SourceFilesRoot>
 		<SoundBanksRoot>.</SoundBanksRoot>
 		<ExternalSourcesInputFile></ExternalSourcesInputFile>
-		<ExternalSourcesOutputRoot>../../../../../../Fork/nadir_wwise/GeneratedSoundBanks/Windows</ExternalSourcesOutputRoot>
+		<ExternalSourcesOutputRoot>F:/GiantHunter_WwiseProject/GeneratedSoundBanks/Windows</ExternalSourcesOutputRoot>
 	</RootPaths>
 	<DialogueEvents/>
 	<SoundBanks>
-		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{72DCABBD-41B5-00AB-F301-0573617C219E}">
+		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{FB94C5B5-FA4D-2495-C2E7-8D8780F0E508}">
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 			<Plugins>
@@ -76,6 +76,13 @@
 				<GameParameter Id="4212040332" Name="Volume_UI"/>
 			</GameParameters>
 			<StateGroups>
+				<StateGroup Id="766723505" Name="Game_State">
+					<States>
+						<State Id="748895195" Name="None"/>
+						<State Id="1852808225" Name="Playing"/>
+						<State Id="3677122663" Name="Over"/>
+					</States>
+				</StateGroup>
 				<StateGroup Id="3092587493" Name="Pause">
 					<States>
 						<State Id="319258907" Name="Paused"/>
@@ -228,7 +235,7 @@
 				</AcousticTexture>
 			</AcousticTextures>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{3F5EB9AD-01F8-901C-8BE7-2A3D5A1FF337}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{42FDA43C-E231-CDC6-7E02-2E43816357E6}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
@@ -628,7 +635,7 @@
 				</File>
 				<File Id="1064328534" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>UI_Gameplay_GameOver.wav</ShortName>
-					<CachePath>SFX/UI_Gameplay_GameOver_5CC91306.wem</CachePath>
+					<CachePath>SFX/UI_Gameplay_GameOver_94603FFF.wem</CachePath>
 				</File>
 			</Media>
 			<Plugins>
@@ -1077,5 +1084,5 @@
 			</StateGroups>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{9E7C427E-E61C-728B-7743-119ABEB32769}</FileHash>
+	<FileHash>{4F1EF32F-872E-EF64-1C9C-2CA52330157D}</FileHash>
 </SoundBanksInfo>
