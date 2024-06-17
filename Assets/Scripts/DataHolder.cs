@@ -28,6 +28,8 @@ public class DataHolder : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(this.gameObject);
             Bank.Load();
+            _music.Post(gameObject);
+            AkSoundEngine.SetState("Music_State", "MainMenu");
             //Debug.Log("load bank : " + result.ToString());
         }
     }
@@ -37,6 +39,7 @@ public class DataHolder : MonoBehaviour
 
     [Header("SFX")]
     public AK.Wwise.Event _sfxGoBack;
+    public AK.Wwise.Event _music;
     public AK.Wwise.Bank Bank;
 
     public string ConvertTimeToMinutes(float time)

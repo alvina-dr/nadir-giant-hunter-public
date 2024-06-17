@@ -74,6 +74,7 @@ public class TargetableSpot : MonoBehaviour
                 material.DOFloat(1f, "_strength", .2f).SetUpdate(true);
                 VisualFX.SetFloat("effect strength", 0);
                 GPCtrl.Instance.Player.SoundData.SFX_Hunter_Dash_Trigger.Post(GPCtrl.Instance.Player.gameObject);
+                AkSoundEngine.SetState("SlowMo", "InSlowMo");
                 break;
             case SpotType.Bumper:
                 Time.timeScale = 1;

@@ -27,6 +27,7 @@ public class PlayerDash : MonoBehaviour
         Player.Rigibody.useGravity = false;
         Player.Rigibody.AddForce(Player.DifficultyData.DashForce * Camera.main.transform.forward.normalized, ForceMode.Impulse);
         StartCoroutine(PrintSpeed());
+        AkSoundEngine.SetState("SlowMo", "NoSlowMo");
         Material material = GPCtrl.Instance.GetPostProcessMaterial();
         if (material != null) material.DOFloat(0f, "_strength", .2f).SetUpdate(true);
         if (material != null) material.SetFloat("_Timefactor_Dashspot_Timestop", Time.timeScale);

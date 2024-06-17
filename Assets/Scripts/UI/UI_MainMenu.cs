@@ -20,17 +20,12 @@ public class UI_MainMenu : MonoBehaviour
         _mainMenu.OpenMenu(true);
     }
 
-    public void StartGameWithTuto()
-    {
-        _sfxStartGame.Post(DataHolder.Instance.gameObject);
-        SceneManager.LoadScene("Tutoriel");
-    }
-
     public void StartGame(int difficulty)
     {
         _sfxStartGame.Post(DataHolder.Instance.gameObject);
         DataHolder.Instance.CurrentDifficulty = (DataHolder.DifficultyMode) difficulty;
         SceneManager.LoadScene("Game");
+        AkSoundEngine.SetState("Music_State", "Game");
     }
 
     public void QuitGame()

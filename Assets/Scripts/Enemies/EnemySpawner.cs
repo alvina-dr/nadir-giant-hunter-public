@@ -42,9 +42,12 @@ public class EnemySpawner : MonoBehaviour
         if (EnemyList.Count > 0)
         {
             GPCtrl.Instance.UICtrl.MonsterHighIndicator.ShowIndicatorAt(EnemyList[0].EnemyWeakSpotManagement.WeakSpotList[0].transform.position);
-        } else
+            AkSoundEngine.SetRTPCValue("RTPC_Monster_Depth", EnemyList[0].transform.position.y);
+        }
+        else
         {
             GPCtrl.Instance.UICtrl.MonsterHighIndicator.HideIndicator();
+            AkSoundEngine.SetRTPCValue("RTPC_Monster_Depth", 0);
         }
     }
 
