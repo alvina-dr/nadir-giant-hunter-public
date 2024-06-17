@@ -9,7 +9,7 @@ public class UI_InputIndicator : MonoBehaviour
     public void SetVisible(bool visible)
     {
         byte alpha = 255;
-        if (!visible) alpha = 25;
+        if (!visible) alpha = 0;
         _image.color = new Color32(255, 255, 255, alpha);
     }
 }
