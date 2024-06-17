@@ -47,30 +47,36 @@ public class TutorialCtrl : MonoBehaviour
         if (GPCtrl.Instance.Player.PlayerInput.actions["Jump"].WasPerformedThisFrame())
         {
             NextPage();
-            //_timer += Time.unscaledDeltaTime;
-            //if (_timer > 2.0f)
-            //{
-            //    LaunchGame();
-            //}
-        } else
-        {
-            _timer = 0;
         }
 
         if (GPCtrl.Instance.Player.PlayerInput.actions["Attack"].WasPerformedThisFrame())
         {
             PreviousPage();
         }
+
+        if (GPCtrl.Instance.Player.PlayerInput.actions["Jump"].IsPressed())
+        {
+            _timer += Time.unscaledDeltaTime;
+            if (_timer > 2.0f)
+            {
+                LaunchGame();
+            }
+        } else
+        {
+            _timer = 0;
+        }
     }
 
     public void LaunchGame()
     {
+        DataHolder.Instance.Tutorial = false;
         SceneManager.LoadScene("Game");
     }
 
     public void SetupTutorialScene()
     {
         GPCtrl.Instance.EnemySpawner.gameObject.SetActive(false);
+        GPCtrl.Instance.UICtrl.MonsterHighIndicator.HideIndicator();
         TutoPanel.OpenMenu(true);
         GPCtrl.Instance.UICtrl.TimerText.gameObject.SetActive(false);
         GPCtrl.Instance.UICtrl.KillRatioText.gameObject.SetActive(false);
@@ -119,7 +125,8 @@ public class TutorialCtrl : MonoBehaviour
 
     public void CloseTutorial()
     {
-        TutoPanel.CloseMenu();
+        TutoPanel.CloseMenu(false);
+        gameObject.SetActive(true);
         GPCtrl.Instance.Pause = false;
         Time.timeScale = 1;
         Cursor.lockState = CursorLockMode.Locked;
