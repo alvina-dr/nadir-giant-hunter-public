@@ -41,6 +41,7 @@ public class TutorialCtrl : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _explanationTextMeshPro;
     [SerializeField] private RectTransform _explanationLayout;
     [SerializeField] private UI_ExplanationEntry _explanationPrefab;
+    [SerializeField] private GameObject inputToExitTutorial;
 
     private void Update()
     {
@@ -132,6 +133,7 @@ public class TutorialCtrl : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         GPCtrl.Instance.CameraThirdPerson.InputProvider.enabled = true;
+        inputToExitTutorial.SetActive(true);
     }
 
     public void DestroyExplanationLayout()
