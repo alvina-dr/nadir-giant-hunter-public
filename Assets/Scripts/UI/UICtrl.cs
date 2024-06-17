@@ -71,6 +71,7 @@ public class UICtrl : MonoBehaviour
     {
         SceneManager.LoadScene("MainMenu");
         Time.timeScale = 1;
+        AkSoundEngine.SetState("Music_State", "MainMenu");
     }
 
     public void TryAgain()
