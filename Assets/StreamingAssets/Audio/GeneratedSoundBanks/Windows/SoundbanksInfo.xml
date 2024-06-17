@@ -9,13 +9,14 @@
 	</RootPaths>
 	<DialogueEvents/>
 	<SoundBanks>
-		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{FB94C5B5-FA4D-2495-C2E7-8D8780F0E508}">
+		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{FF0A9D0C-C459-07A6-BF4D-474FCAF5B49D}">
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 			<Plugins>
 				<ShareSets>
 					<Plugin Id="48620415" Name="Have_U_Ever_Been_Outside" LibName="Wwise RoomVerb" LibId="7733251"/>
 					<Plugin Id="1459522457" Name="Brick_Wall_Minus_1dB_Peak_Fast_Release" LibName="Wwise Peak Limiter" LibId="7208963"/>
+					<Plugin Id="1883033791" Name="Sidechain" LibName="Wwise Meter" LibId="8454147"/>
 					<Plugin Id="3164629247" Name="Holy" LibName="Wwise RoomVerb" LibId="7733251"/>
 					<Plugin Id="3487820010" Name="One_Tap_Half_Second" LibName="Wwise Delay" LibId="6946819"/>
 				</ShareSets>
@@ -25,7 +26,13 @@
 				</AudioDevices>
 			</Plugins>
 			<Busses>
-				<Bus Id="393239870" Name="SFX"/>
+				<Bus Id="393239870" Name="SFX">
+					<PluginRefs>
+						<ShareSets>
+							<PluginRef Id="1883033791"/>
+						</ShareSets>
+					</PluginRefs>
+				</Bus>
 				<Bus Id="1117531639" Name="AMB"/>
 				<Bus Id="1551306167" Name="UI"/>
 				<Bus Id="3803692087" Name="Master Audio Bus">
@@ -235,7 +242,7 @@
 				</AcousticTexture>
 			</AcousticTextures>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{42FDA43C-E231-CDC6-7E02-2E43816357E6}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{51334F0C-2060-3E00-89D0-0BFE2863E88D}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
@@ -641,7 +648,6 @@
 			<Plugins>
 				<ShareSets>
 					<Plugin Id="1459522457" Name="Brick_Wall_Minus_1dB_Peak_Fast_Release" LibName="Wwise Peak Limiter" LibId="7208963"/>
-					<Plugin Id="1883033791" Name="Sidechain" LibName="Wwise Meter" LibId="8454147"/>
 					<Plugin Id="3657550167" Name="New_Parametric_EQ" LibName="Wwise Parametric EQ" LibId="6881283"/>
 				</ShareSets>
 			</Plugins>
@@ -724,11 +730,6 @@
 						<MediaRef Id="573571160"/>
 						<MediaRef Id="627464470"/>
 					</MediaRefs>
-					<PluginRefs>
-						<ShareSets>
-							<PluginRef Id="1883033791"/>
-						</ShareSets>
-					</PluginRefs>
 					<AuxBusRefs>
 						<AuxBusRef Id="2518605955" Name="RVB_Up"/>
 						<AuxBusRef Id="4116390784" Name="RVB_Down"/>
@@ -749,11 +750,6 @@
 						<MediaRef Id="706738806"/>
 						<MediaRef Id="858281119"/>
 					</MediaRefs>
-					<PluginRefs>
-						<ShareSets>
-							<PluginRef Id="1883033791"/>
-						</ShareSets>
-					</PluginRefs>
 					<AuxBusRefs>
 						<AuxBusRef Id="2518605955" Name="RVB_Up"/>
 						<AuxBusRef Id="4116390784" Name="RVB_Down"/>
@@ -763,11 +759,6 @@
 					<MediaRefs>
 						<MediaRef Id="785393921"/>
 					</MediaRefs>
-					<PluginRefs>
-						<ShareSets>
-							<PluginRef Id="1883033791"/>
-						</ShareSets>
-					</PluginRefs>
 					<AuxBusRefs>
 						<AuxBusRef Id="2518605955" Name="RVB_Up"/>
 						<AuxBusRef Id="4116390784" Name="RVB_Down"/>
@@ -791,11 +782,6 @@
 						<MediaRef Id="750714594"/>
 						<MediaRef Id="869229850"/>
 					</MediaRefs>
-					<PluginRefs>
-						<ShareSets>
-							<PluginRef Id="1883033791"/>
-						</ShareSets>
-					</PluginRefs>
 					<AuxBusRefs>
 						<AuxBusRef Id="2518605955" Name="RVB_Up"/>
 						<AuxBusRef Id="4116390784" Name="RVB_Down"/>
@@ -807,11 +793,6 @@
 						<MediaRef Id="675460407"/>
 						<MediaRef Id="972901998"/>
 					</MediaRefs>
-					<PluginRefs>
-						<ShareSets>
-							<PluginRef Id="1883033791"/>
-						</ShareSets>
-					</PluginRefs>
 					<AuxBusRefs>
 						<AuxBusRef Id="2518605955" Name="RVB_Up"/>
 						<AuxBusRef Id="4116390784" Name="RVB_Down"/>
@@ -826,11 +807,6 @@
 						<MediaRef Id="972901998"/>
 						<MediaRef Id="1025276776"/>
 					</MediaRefs>
-					<PluginRefs>
-						<ShareSets>
-							<PluginRef Id="1883033791"/>
-						</ShareSets>
-					</PluginRefs>
 					<AuxBusRefs>
 						<AuxBusRef Id="2518605955" Name="RVB_Up"/>
 						<AuxBusRef Id="4116390784" Name="RVB_Down"/>
@@ -846,7 +822,6 @@
 					</MediaRefs>
 					<PluginRefs>
 						<ShareSets>
-							<PluginRef Id="1883033791"/>
 							<PluginRef Id="3657550167"/>
 						</ShareSets>
 					</PluginRefs>
@@ -859,11 +834,6 @@
 					<MediaRefs>
 						<MediaRef Id="155669719"/>
 					</MediaRefs>
-					<PluginRefs>
-						<ShareSets>
-							<PluginRef Id="1883033791"/>
-						</ShareSets>
-					</PluginRefs>
 					<AuxBusRefs>
 						<AuxBusRef Id="2518605955" Name="RVB_Up"/>
 						<AuxBusRef Id="4116390784" Name="RVB_Down"/>
@@ -874,11 +844,6 @@
 						<MediaRef Id="572398160"/>
 						<MediaRef Id="814972489"/>
 					</MediaRefs>
-					<PluginRefs>
-						<ShareSets>
-							<PluginRef Id="1883033791"/>
-						</ShareSets>
-					</PluginRefs>
 					<AuxBusRefs>
 						<AuxBusRef Id="2518605955" Name="RVB_Up"/>
 						<AuxBusRef Id="4116390784" Name="RVB_Down"/>
@@ -889,11 +854,6 @@
 						<MediaRef Id="97425483"/>
 						<MediaRef Id="253426672"/>
 					</MediaRefs>
-					<PluginRefs>
-						<ShareSets>
-							<PluginRef Id="1883033791"/>
-						</ShareSets>
-					</PluginRefs>
 					<AuxBusRefs>
 						<AuxBusRef Id="2518605955" Name="RVB_Up"/>
 						<AuxBusRef Id="4116390784" Name="RVB_Down"/>
@@ -918,11 +878,6 @@
 						<MediaRef Id="1030279783"/>
 						<MediaRef Id="1062363121"/>
 					</MediaRefs>
-					<PluginRefs>
-						<ShareSets>
-							<PluginRef Id="1883033791"/>
-						</ShareSets>
-					</PluginRefs>
 					<AuxBusRefs>
 						<AuxBusRef Id="2518605955" Name="RVB_Up"/>
 						<AuxBusRef Id="4116390784" Name="RVB_Down"/>
@@ -932,11 +887,6 @@
 					<MediaRefs>
 						<MediaRef Id="695124919"/>
 					</MediaRefs>
-					<PluginRefs>
-						<ShareSets>
-							<PluginRef Id="1883033791"/>
-						</ShareSets>
-					</PluginRefs>
 					<AuxBusRefs>
 						<AuxBusRef Id="2518605955" Name="RVB_Up"/>
 						<AuxBusRef Id="4116390784" Name="RVB_Down"/>
@@ -946,11 +896,6 @@
 					<MediaRefs>
 						<MediaRef Id="600920398"/>
 					</MediaRefs>
-					<PluginRefs>
-						<ShareSets>
-							<PluginRef Id="1883033791"/>
-						</ShareSets>
-					</PluginRefs>
 					<AuxBusRefs>
 						<AuxBusRef Id="2518605955" Name="RVB_Up"/>
 						<AuxBusRef Id="4116390784" Name="RVB_Down"/>
@@ -963,11 +908,6 @@
 						<MediaRef Id="812415201"/>
 						<MediaRef Id="1026325348"/>
 					</MediaRefs>
-					<PluginRefs>
-						<ShareSets>
-							<PluginRef Id="1883033791"/>
-						</ShareSets>
-					</PluginRefs>
 					<AuxBusRefs>
 						<AuxBusRef Id="2518605955" Name="RVB_Up"/>
 						<AuxBusRef Id="4116390784" Name="RVB_Down"/>
@@ -980,11 +920,6 @@
 						<MediaRef Id="502669369"/>
 						<MediaRef Id="826332131"/>
 					</MediaRefs>
-					<PluginRefs>
-						<ShareSets>
-							<PluginRef Id="1883033791"/>
-						</ShareSets>
-					</PluginRefs>
 					<AuxBusRefs>
 						<AuxBusRef Id="2518605955" Name="RVB_Up"/>
 						<AuxBusRef Id="4116390784" Name="RVB_Down"/>
@@ -994,11 +929,6 @@
 					<MediaRefs>
 						<MediaRef Id="1021181152"/>
 					</MediaRefs>
-					<PluginRefs>
-						<ShareSets>
-							<PluginRef Id="1883033791"/>
-						</ShareSets>
-					</PluginRefs>
 					<AuxBusRefs>
 						<AuxBusRef Id="2518605955" Name="RVB_Up"/>
 						<AuxBusRef Id="4116390784" Name="RVB_Down"/>
@@ -1084,5 +1014,5 @@
 			</StateGroups>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{4F1EF32F-872E-EF64-1C9C-2CA52330157D}</FileHash>
+	<FileHash>{A3DFAF80-D60C-BDE1-01A1-649A4A826A10}</FileHash>
 </SoundBanksInfo>
