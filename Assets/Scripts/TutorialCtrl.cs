@@ -72,6 +72,9 @@ public class TutorialCtrl : MonoBehaviour
     {
         DataHolder.Instance.Tutorial = false;
         SceneManager.LoadScene("Game");
+        AkSoundEngine.SetState("Music_State", "Game");
+        AkSoundEngine.SetState("Pause", "Unpaused");
+
     }
 
     public void SetupTutorialScene()

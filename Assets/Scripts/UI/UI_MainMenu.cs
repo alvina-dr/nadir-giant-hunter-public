@@ -26,7 +26,14 @@ public class UI_MainMenu : MonoBehaviour
         _sfxStartGame.Post(DataHolder.Instance.gameObject);
         DataHolder.Instance.CurrentDifficulty = (DataHolder.DifficultyMode) difficulty;
         SceneManager.LoadScene("Game");
-        AkSoundEngine.SetState("Music_State", "Game");
+        if (DataHolder.Instance.Tutorial)
+        {
+            AkSoundEngine.SetState("Music_State", "Silence");
+        }
+        else
+        {
+            AkSoundEngine.SetState("Music_State", "Game");
+        }
     }
 
     public void QuitGame()
