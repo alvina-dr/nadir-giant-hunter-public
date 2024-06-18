@@ -241,6 +241,7 @@ public class UI_ScoreboardManager : MonoBehaviour
             {
                 IncludeMetadata = true
             };
+            options.Limit = 1000;
 
             LeaderboardScoresPage leaderboardScoresPage = await LeaderboardsService.Instance.GetScoresAsync("Leaderboard", options);
             leaderboardScoresPage.Results.ForEach(entry =>
@@ -260,13 +261,16 @@ public class UI_ScoreboardManager : MonoBehaviour
                 switch (metadata.Difficulty)
                 {
                     case "Easy":
-                        EasyScoreboard.ScoreList.entries.Add(scoreboardEntry);
+                        if (EasyScoreboard.ScoreList.entries.Count < 10)
+                            EasyScoreboard.ScoreList.entries.Add(scoreboardEntry);
                         break;
                     case "Normal":
-                        NormalScoreboard.ScoreList.entries.Add(scoreboardEntry);
+                        if (NormalScoreboard.ScoreList.entries.Count < 10)
+                            NormalScoreboard.ScoreList.entries.Add(scoreboardEntry);
                         break;
                     case "Hard":
-                        HardScoreboard.ScoreList.entries.Add(scoreboardEntry);
+                        if (HardScoreboard.ScoreList.entries.Count < 10)
+                            HardScoreboard.ScoreList.entries.Add(scoreboardEntry);
                         break;
                 }
             });
