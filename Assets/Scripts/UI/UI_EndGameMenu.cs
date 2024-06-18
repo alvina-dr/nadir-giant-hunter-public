@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Localization.Settings;
 using UnityEngine.UI;
 
 public class UI_EndGameMenu : MonoBehaviour
@@ -19,7 +20,7 @@ public class UI_EndGameMenu : MonoBehaviour
 
     public void Win()
     {
-        _resultText.text = "Victory";
+        _resultText.text = LocalizationSettings.StringDatabase.GetLocalizedString("StringLocalization", "WIN");
         _scoreText.gameObject.SetActive(true);
         _scoreText.text = DataHolder.Instance.ConvertTimeToMinutes(GPCtrl.Instance.Timer);
         _buttonNext.gameObject.SetActive(true);
@@ -34,7 +35,7 @@ public class UI_EndGameMenu : MonoBehaviour
 
     public void Loose()
     {
-        _resultText.text = "Mission failed";
+        _resultText.text = LocalizationSettings.StringDatabase.GetLocalizedString("StringLocalization", "LOOSE");
         _scoreText.gameObject.SetActive(false);
         _buttonNext.gameObject.SetActive(false);
         _nameInputField.gameObject.SetActive(false);

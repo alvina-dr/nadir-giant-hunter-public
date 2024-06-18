@@ -78,6 +78,15 @@ public class UICtrl : MonoBehaviour
     public void TryAgain()
     {
         SceneManager.LoadScene("Game");
+        if (DataHolder.Instance.Tutorial)
+        {
+            AkSoundEngine.SetState("Music_State", "Silence");
+        }
+        else
+        {
+            AkSoundEngine.SetState("Music_State", "Game");
+        }
+        AkSoundEngine.SetState("Pause", "Unpaused");
         Time.timeScale = 1;
     }
 
