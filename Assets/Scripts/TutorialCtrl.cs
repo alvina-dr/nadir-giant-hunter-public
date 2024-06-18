@@ -35,6 +35,8 @@ public class TutorialCtrl : MonoBehaviour
     private float _timer;
     [SerializeField] private TextMeshProUGUI _pageNumber;
     private int _tutoIndex = 0;
+    public bool TutoPanelOpen = false;
+    [SerializeField] private GameObject _tutoMenu;
 
     [Header("Components")]
     [SerializeField] private TextMeshProUGUI _titleTextMeshPro;
@@ -86,10 +88,10 @@ public class TutorialCtrl : MonoBehaviour
         GPCtrl.Instance.UICtrl.KillRatioText.gameObject.SetActive(false);
         UpdatePage();
         GPCtrl.Instance.Pause = true;
-        Time.timeScale = 0;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         GPCtrl.Instance.CameraThirdPerson.InputProvider.enabled = false;
+        TutoPanelOpen = true;
     }
 
     public void NextPage()
@@ -132,11 +134,12 @@ public class TutorialCtrl : MonoBehaviour
         TutoPanel.CloseMenu(false);
         gameObject.SetActive(true);
         GPCtrl.Instance.Pause = false;
-        Time.timeScale = 1;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         GPCtrl.Instance.CameraThirdPerson.InputProvider.enabled = true;
         inputToExitTutorial.SetActive(true);
+        _tutoMenu.SetActive(false);
+        TutoPanelOpen = false;
     }
 
     public void DestroyExplanationLayout()
