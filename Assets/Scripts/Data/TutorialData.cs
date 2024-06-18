@@ -27,11 +27,13 @@ public class TutorialData : ScriptableObject
         public InputActionReference Input; //written before sentence if input needed
         [TextArea]
         public string SimpleTextKey;
+        public Sprite Sprite;
 
-        public TutorielText(InputActionReference input, string simpleTextKey)
+        public TutorielText(InputActionReference input, string simpleTextKey, Sprite sprite)
         {
             Input = input;
             SimpleTextKey = simpleTextKey;
+            Sprite = sprite;
         }
     }
 

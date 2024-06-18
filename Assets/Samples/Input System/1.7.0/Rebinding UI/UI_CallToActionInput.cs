@@ -10,7 +10,7 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
     public class UI_CallToActionInput : MonoBehaviour
     {
         [SerializeField] ControlerIcons _icons;
-        [SerializeField] Image _image;
+        [SerializeField] public Image _image;
         [SerializeField] public InputActionReference _action;
 
         private void Start()
@@ -27,6 +27,7 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
 
         public void SetImage()
         {
+            if (_action == null) return;
             string inputName = string.Empty;
             if (Gamepad.all.Count > 0)
             {
