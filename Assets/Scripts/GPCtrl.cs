@@ -79,6 +79,7 @@ public class GPCtrl : MonoBehaviour
             postProcess.SetFloat("_enable_hitrame_FX", PlayerPrefs.GetInt("_enable_hitrame_FX"));
         else postProcess.SetFloat("_enable_hitrame_FX", 1);
         AkSoundEngine.SetState("Game_State", "Playing");
+        UICtrl.KillRatioText.text = NumEnemyKilled.ToString() + " / " + EnemySpawner.SpawnerData.NumTotalEnemy.ToString();
     }
 
     private void Update()
