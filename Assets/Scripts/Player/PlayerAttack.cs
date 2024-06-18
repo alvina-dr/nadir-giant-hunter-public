@@ -214,7 +214,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void ReachTargetableSpot()
     {
-        GPCtrl.Instance.CameraThirdPerson.CameraShake.ShakeCamera(10f, .1f);
+        GPCtrl.Instance.CameraThirdPerson.CameraShake.ShakeCamera(10f, .3f);
         Destroy(_springJoint);
         _springJoint = null;
         Player.PlayerSwingingLeft.SwingRopeFX.HideRope(Player.PlayerSwingingLeft.StartSwingLinePoint.position);
