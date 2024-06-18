@@ -37,6 +37,8 @@ public class DebugMenu : MonoBehaviour
         DM.Add("Debug/ReloadScene", action => ReloadScene());
         DM.Add("Debug/Win", action => GPCtrl.Instance.Win());
         DM.Add("Debug/Loose", action => GPCtrl.Instance.Loose());
+        DM.Add("Debug/HideUI", action => GPCtrl.Instance.UICtrl.GetComponent<CanvasGroup>().alpha = 0);
+        DM.Add("Debug/ShowUI", action => GPCtrl.Instance.UICtrl.GetComponent<CanvasGroup>().alpha = 1);
         DM.Add("Debug/Reset Scoreboard Easy", action => PlayerPrefs.DeleteKey("scoreboardEasy"));
         DM.Add("Debug/Reset Scoreboard Normal", action => PlayerPrefs.DeleteKey("scoreboardNormal"));
         DM.Add("Debug/Reset Scoreboard Hard", action => PlayerPrefs.DeleteKey("scoreboardHard"));
