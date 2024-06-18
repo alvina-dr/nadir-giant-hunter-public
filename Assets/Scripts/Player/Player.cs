@@ -87,6 +87,8 @@ public class Player : MonoBehaviour
 
     void UpdateInputs()
     {
+        if (TutorialCtrl.Instance.TutoPanelOpen) return;
+
         if (_attackAction.WasPressedThisFrame()) //ATTACK
         {
             if (GPCtrl.Instance.Pause) return;
