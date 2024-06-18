@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <SoundBanksInfo Platform="Windows" BasePlatform="Windows" SchemaVersion="16" SoundBankVersion="150">
 	<RootPaths>
-		<ProjectRoot>F:/GiantHunter_WwiseProject</ProjectRoot>
-		<SourceFilesRoot>F:/GiantHunter_WwiseProject/.cache/Windows</SourceFilesRoot>
+		<ProjectRoot>../../../../../../Fork/nadir_wwise</ProjectRoot>
+		<SourceFilesRoot>../../../../../../Fork/nadir_wwise/.cache/Windows</SourceFilesRoot>
 		<SoundBanksRoot>.</SoundBanksRoot>
 		<ExternalSourcesInputFile></ExternalSourcesInputFile>
-		<ExternalSourcesOutputRoot>F:/GiantHunter_WwiseProject/GeneratedSoundBanks/Windows</ExternalSourcesOutputRoot>
+		<ExternalSourcesOutputRoot>../../../../../../Fork/nadir_wwise/GeneratedSoundBanks/Windows</ExternalSourcesOutputRoot>
 	</RootPaths>
 	<DialogueEvents/>
 	<SoundBanks>
@@ -242,7 +242,7 @@
 				</AcousticTexture>
 			</AcousticTextures>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{F13B92E8-1ED0-2AC7-1C0C-DAC11A7A99AA}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{FB407EC0-113C-8C32-5858-32BB6DE28731}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
@@ -830,9 +830,15 @@
 						<AuxBusRef Id="4116390784" Name="RVB_Down"/>
 					</AuxBusRefs>
 				</Event>
-				<Event Id="2983529901" Name="Play_SFX_Hunter_Dash_Release" DurationType="OneShot" DurationMin="1.570771" DurationMax="1.570771">
+				<Event Id="2983529901" Name="Play_SFX_Hunter_Dash_Release" DurationType="OneShot" DurationMin="2.5139706" DurationMax="3.395664">
 					<MediaRefs>
+						<MediaRef Id="85378799"/>
+						<MediaRef Id="144345496"/>
 						<MediaRef Id="155669719"/>
+						<MediaRef Id="340697339"/>
+						<MediaRef Id="454485006"/>
+						<MediaRef Id="706738806"/>
+						<MediaRef Id="858281119"/>
 					</MediaRefs>
 					<AuxBusRefs>
 						<AuxBusRef Id="2518605955" Name="RVB_Up"/>
@@ -1014,5 +1020,5 @@
 			</StateGroups>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{E94FBF75-D0D7-2B01-59EE-1CC1757EFB3B}</FileHash>
+	<FileHash>{22F38A11-0C91-C440-6045-1D682270A0F1}</FileHash>
 </SoundBanksInfo>
