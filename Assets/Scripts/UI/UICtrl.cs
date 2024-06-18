@@ -100,6 +100,7 @@ public class UICtrl : MonoBehaviour
         Cursor.visible = true;
         GPCtrl.Instance.CameraThirdPerson.InputProvider.enabled = false;
         AkSoundEngine.SetState("Music_State", "Silence");
+        AkSoundEngine.SetState("Game_State", "Over");
     }
 
     private void Start()

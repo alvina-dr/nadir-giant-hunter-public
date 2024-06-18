@@ -78,6 +78,7 @@ public class GPCtrl : MonoBehaviour
         if (PlayerPrefs.HasKey("enableHitframeFX"))
             postProcess.SetFloat("_enable_hitrame_FX", PlayerPrefs.GetInt("_enable_hitrame_FX"));
         else postProcess.SetFloat("_enable_hitrame_FX", 1);
+        AkSoundEngine.SetState("Game_State", "Playing");
     }
 
     private void Update()
@@ -95,7 +96,6 @@ public class GPCtrl : MonoBehaviour
 
     public void Win()
     {
-        Debug.Log("WIN");
         GameOver = true;
         UICtrl.OpenEndGameMenu(true);
     }
@@ -108,7 +108,6 @@ public class GPCtrl : MonoBehaviour
         {
             GameOverCamera.FocusEnemy(enemy);
         }
-        Debug.Log("LOOSE");
     }
 
     public void AddKilledEnemy()
