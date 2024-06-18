@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -32,6 +33,7 @@ public class TutorialCtrl : MonoBehaviour
     #endregion
     public TutorialData TutorielData;
     [SerializeField] private UI_Menu TutoPanel;
+    public Image FadeScreen;
     private float _timer;
     [SerializeField] private TextMeshProUGUI _pageNumber;
     private int _tutoIndex = 0;
@@ -44,6 +46,11 @@ public class TutorialCtrl : MonoBehaviour
     [SerializeField] private RectTransform _explanationLayout;
     [SerializeField] private UI_ExplanationEntry _explanationPrefab;
     [SerializeField] private GameObject inputToExitTutorial;
+
+    private void Start()
+    {
+        FadeIn();
+    }
 
     private void Update()
     {
@@ -72,11 +79,26 @@ public class TutorialCtrl : MonoBehaviour
 
     public void LaunchGame()
     {
-        DataHolder.Instance.Tutorial = false;
-        SceneManager.LoadScene("Game");
-        AkSoundEngine.SetState("Music_State", "Game");
-        AkSoundEngine.SetState("Pause", "Unpaused");
+        FadeOut();
+        DOVirtual.DelayedCall(1, () =>
+        {
+            DataHolder.Instance.Tutorial = false;
+            SceneManager.LoadScene("Game");
+            AkSoundEngine.SetState("Music_State", "Game");
+            AkSoundEngine.SetState("Pause", "Unpaused");
+        });
+    }
 
+    public void FadeIn()
+    {
+        FadeScreen.color = new Color(FadeScreen.color.r, FadeScreen.color.g, FadeScreen.color.b, 1);
+        FadeScreen.DOFade(0, 1);
+    }
+
+    public void FadeOut()
+    {
+        FadeScreen.color = new Color(FadeScreen.color.r, FadeScreen.color.g, FadeScreen.color.b, 0);
+        FadeScreen.DOFade(1, 1);
     }
 
     public void SetupTutorialScene()
