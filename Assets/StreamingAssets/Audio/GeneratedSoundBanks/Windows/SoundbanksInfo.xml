@@ -242,7 +242,7 @@
 				</AcousticTexture>
 			</AcousticTextures>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{CF43E6D8-057F-A480-53D7-C60CDFCD4234}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{01B57C19-A2AA-BC3F-089D-8868F582F672}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
@@ -431,6 +431,11 @@
 					<ShortName>SFX_Hunter_Footsteps_3.wav</ShortName>
 					<CachePath>SFX/SFX_Hunter_Footsteps_3_8E324C96.wem</CachePath>
 				</File>
+				<File Id="452239641" Language="SFX" Streaming="true" Location="Loose">
+					<ShortName>AMB_Sandfall.wav</ShortName>
+					<Path>Media/452239641.wem</Path>
+					<CachePath>SFX/AMB_Sandfall_56CEF360.wem</CachePath>
+				</File>
 				<File Id="454485006" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>SFX_Hunter_Attack_B_04.wav</ShortName>
 					<CachePath>SFX/SFX_Hunter_Attack_B_04_8E324C96.wem</CachePath>
@@ -547,6 +552,10 @@
 				<File Id="785035288" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>SFX_Hunter_Cloth_02.wav</ShortName>
 					<CachePath>SFX/SFX_Hunter_Cloth_02_56CEF360.wem</CachePath>
+				</File>
+				<File Id="785393921" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>SFX_Giant_Hit_IntoAbyss.wav</ShortName>
+					<CachePath>SFX/SFX_Giant_Hit_IntoAbyss_8E324C96.wem</CachePath>
 				</File>
 				<File Id="793117533" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>SFX_Hunter_Foley_Run_6.wav</ShortName>
@@ -681,6 +690,11 @@
 						<MediaRef Id="210764030"/>
 					</MediaRefs>
 				</Event>
+				<Event Id="2582806196" Name="Play_AMB_Sandfall" DurationType="Infinite">
+					<MediaRefs>
+						<MediaRef Id="452239641"/>
+					</MediaRefs>
+				</Event>
 				<Event Id="1988198658" Name="Play_AMB_Slowmo" DurationType="Infinite">
 					<MediaRefs>
 						<MediaRef Id="572398160"/>
@@ -752,7 +766,15 @@
 						<AuxBusRef Id="4116390784" Name="RVB_Down"/>
 					</AuxBusRefs>
 				</Event>
-				<Event Id="3477872352" Name="Play_SFX_Giant_Hit_IntoAbyss" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
+				<Event Id="3477872352" Name="Play_SFX_Giant_Hit_IntoAbyss" DurationType="OneShot" DurationMin="5.7908416" DurationMax="7.2960033">
+					<MediaRefs>
+						<MediaRef Id="785393921"/>
+					</MediaRefs>
+					<AuxBusRefs>
+						<AuxBusRef Id="2518605955" Name="RVB_Up"/>
+						<AuxBusRef Id="4116390784" Name="RVB_Down"/>
+					</AuxBusRefs>
+				</Event>
 				<Event Id="2140781920" Name="Play_SFX_Giant_Movement_Grab" DurationType="OneShot" DurationMin="4.52221" DurationMax="7.4093695">
 					<MediaRefs>
 						<MediaRef Id="22926504"/>
@@ -1000,5 +1022,5 @@
 			</StateGroups>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{0C689E2C-D047-6F33-D215-328C179C90D3}</FileHash>
+	<FileHash>{3C0E50E5-61AA-1B2E-935E-96468C857591}</FileHash>
 </SoundBanksInfo>
