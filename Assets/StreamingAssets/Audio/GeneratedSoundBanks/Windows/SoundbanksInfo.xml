@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <SoundBanksInfo Platform="Windows" BasePlatform="Windows" SchemaVersion="16" SoundBankVersion="150">
 	<RootPaths>
-		<ProjectRoot>F:/GiantHunter_WwiseProject</ProjectRoot>
-		<SourceFilesRoot>F:/GiantHunter_WwiseProject/.cache/Windows</SourceFilesRoot>
+		<ProjectRoot>../../../../../../Fork/nadir_wwise</ProjectRoot>
+		<SourceFilesRoot>../../../../../../Fork/nadir_wwise/.cache/Windows</SourceFilesRoot>
 		<SoundBanksRoot>.</SoundBanksRoot>
 		<ExternalSourcesInputFile></ExternalSourcesInputFile>
-		<ExternalSourcesOutputRoot>F:/GiantHunter_WwiseProject/GeneratedSoundBanks/Windows</ExternalSourcesOutputRoot>
+		<ExternalSourcesOutputRoot>../../../../../../Fork/nadir_wwise/GeneratedSoundBanks/Windows</ExternalSourcesOutputRoot>
 	</RootPaths>
 	<DialogueEvents/>
 	<SoundBanks>
@@ -242,7 +242,7 @@
 				</AcousticTexture>
 			</AcousticTextures>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{4C5D65E9-CBCE-35FF-65D6-EB7F3E8C9D52}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{4FE2FF6D-3C65-7BC2-3186-38B8CD3F11A9}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
@@ -604,6 +604,10 @@
 					<ShortName>AMB_AirSpeed_01.wav</ShortName>
 					<CachePath>SFX/AMB_AirSpeed_01_56CEF360.wem</CachePath>
 				</File>
+				<File Id="957517120" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Designed, Boom, Impact, Dark, Cinematic, Hard Hit 01 SND74842.wav</ShortName>
+					<CachePath>SFX/Designed, Boom, Impact, Dark, Cinematic, Hard Hit 01 SND74842_23B4BF52.wem</CachePath>
+				</File>
 				<File Id="961482243" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>UI_Gameplay_Timer_Critical.wav</ShortName>
 					<CachePath>SFX/UI_Gameplay_Timer_Critical_8E324C96.wem</CachePath>
@@ -675,6 +679,11 @@
 				<Event Id="2718791335" Name="Play_AMB_MainMenu" DurationType="Infinite">
 					<MediaRefs>
 						<MediaRef Id="79153530"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="3564747762" Name="Play_AMB_MainMenu_Trigger" DurationType="OneShot" DurationMin="4.998833" DurationMax="4.998833">
+					<MediaRefs>
+						<MediaRef Id="957517120"/>
 					</MediaRefs>
 				</Event>
 				<Event Id="1648935056" Name="Play_AMB_Rift_Bed" DurationType="Infinite">
@@ -980,7 +989,7 @@
 						<MediaRef Id="52636791"/>
 					</MediaRefs>
 				</Event>
-				<Event Id="1079904799" Name="Play_UI_General_Scroll" DurationType="OneShot" DurationMin="0.21399093" DurationMax="0.21399093">
+				<Event Id="1079904799" Name="Play_UI_General_Scroll" DurationType="OneShot" DurationMin="0.20198052" DurationMax="0.2267155">
 					<MediaRefs>
 						<MediaRef Id="32303396"/>
 					</MediaRefs>
@@ -1020,5 +1029,5 @@
 			</StateGroups>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{BD62CFB9-0C66-A65B-C5A6-559E7C8242B8}</FileHash>
+	<FileHash>{66A3F223-0890-7101-6FE8-A4B043A0CA51}</FileHash>
 </SoundBanksInfo>
