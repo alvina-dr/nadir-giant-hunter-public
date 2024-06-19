@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <SoundBanksInfo Platform="Windows" BasePlatform="Windows" SchemaVersion="16" SoundBankVersion="150">
 	<RootPaths>
-		<ProjectRoot>F:/GiantHunter_WwiseProject</ProjectRoot>
-		<SourceFilesRoot>F:/GiantHunter_WwiseProject/.cache/Windows</SourceFilesRoot>
+		<ProjectRoot>../../../../../../Fork/nadir_wwise</ProjectRoot>
+		<SourceFilesRoot>../../../../../../Fork/nadir_wwise/.cache/Windows</SourceFilesRoot>
 		<SoundBanksRoot>.</SoundBanksRoot>
 		<ExternalSourcesInputFile></ExternalSourcesInputFile>
-		<ExternalSourcesOutputRoot>F:/GiantHunter_WwiseProject/GeneratedSoundBanks/Windows</ExternalSourcesOutputRoot>
+		<ExternalSourcesOutputRoot>../../../../../../Fork/nadir_wwise/GeneratedSoundBanks/Windows</ExternalSourcesOutputRoot>
 	</RootPaths>
 	<DialogueEvents/>
 	<SoundBanks>
@@ -242,7 +242,7 @@
 				</AcousticTexture>
 			</AcousticTextures>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{4C5D65E9-CBCE-35FF-65D6-EB7F3E8C9D52}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{EFD1736D-9AFF-4E68-3B61-18A25A5E6428}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
@@ -274,10 +274,6 @@
 				<File Id="85378799" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>SFX_Hunter_Attack_B_05.wav</ShortName>
 					<CachePath>SFX/SFX_Hunter_Attack_B_05_8E324C96.wem</CachePath>
-				</File>
-				<File Id="97425483" Language="SFX" Streaming="false" Location="Memory">
-					<ShortName>SFX_Hunter_Death_01.wav</ShortName>
-					<CachePath>SFX/SFX_Hunter_Death_01_8E324C96.wem</CachePath>
 				</File>
 				<File Id="106104104" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>SFX_Hunter_Bumper_Trigger_03.wav</ShortName>
@@ -361,10 +357,6 @@
 					<ShortName>AMB_AirSpeed_03.wav</ShortName>
 					<CachePath>SFX/AMB_AirSpeed_03_56CEF360.wem</CachePath>
 				</File>
-				<File Id="253426672" Language="SFX" Streaming="false" Location="Memory">
-					<ShortName>SFX_Hunter_Death_02.wav</ShortName>
-					<CachePath>SFX/SFX_Hunter_Death_02_8E324C96.wem</CachePath>
-				</File>
 				<File Id="262892163" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>SFX_Hunter_Grapple_Release_1.wav</ShortName>
 					<CachePath>SFX/SFX_Hunter_Grapple_Release_1_8E324C96.wem</CachePath>
@@ -438,6 +430,11 @@
 				<File Id="431362038" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>SFX_Hunter_Footsteps_3.wav</ShortName>
 					<CachePath>SFX/SFX_Hunter_Footsteps_3_8E324C96.wem</CachePath>
+				</File>
+				<File Id="452239641" Language="SFX" Streaming="true" Location="Loose">
+					<ShortName>AMB_Sandfall.wav</ShortName>
+					<Path>Media/452239641.wem</Path>
+					<CachePath>SFX/AMB_Sandfall_56CEF360.wem</CachePath>
 				</File>
 				<File Id="454485006" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>SFX_Hunter_Attack_B_04.wav</ShortName>
@@ -604,6 +601,10 @@
 					<ShortName>AMB_AirSpeed_01.wav</ShortName>
 					<CachePath>SFX/AMB_AirSpeed_01_56CEF360.wem</CachePath>
 				</File>
+				<File Id="957517120" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Designed, Boom, Impact, Dark, Cinematic, Hard Hit 01 SND74842.wav</ShortName>
+					<CachePath>SFX/Designed, Boom, Impact, Dark, Cinematic, Hard Hit 01 SND74842_23B4BF52.wem</CachePath>
+				</File>
 				<File Id="961482243" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>UI_Gameplay_Timer_Critical.wav</ShortName>
 					<CachePath>SFX/UI_Gameplay_Timer_Critical_8E324C96.wem</CachePath>
@@ -677,11 +678,21 @@
 						<MediaRef Id="79153530"/>
 					</MediaRefs>
 				</Event>
+				<Event Id="3564747762" Name="Play_AMB_MainMenu_Trigger" DurationType="OneShot" DurationMin="4.998833" DurationMax="4.998833">
+					<MediaRefs>
+						<MediaRef Id="957517120"/>
+					</MediaRefs>
+				</Event>
 				<Event Id="1648935056" Name="Play_AMB_Rift_Bed" DurationType="Infinite">
 					<MediaRefs>
 						<MediaRef Id="79153530"/>
 						<MediaRef Id="123268208"/>
 						<MediaRef Id="210764030"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="2582806196" Name="Play_AMB_Sandfall" DurationType="Infinite">
+					<MediaRefs>
+						<MediaRef Id="452239641"/>
 					</MediaRefs>
 				</Event>
 				<Event Id="1988198658" Name="Play_AMB_Slowmo" DurationType="Infinite">
@@ -855,16 +866,7 @@
 						<AuxBusRef Id="4116390784" Name="RVB_Down"/>
 					</AuxBusRefs>
 				</Event>
-				<Event Id="632899503" Name="Play_SFX_Hunter_Death" DurationType="OneShot" DurationMin="1.8415625" DurationMax="2.1920626">
-					<MediaRefs>
-						<MediaRef Id="97425483"/>
-						<MediaRef Id="253426672"/>
-					</MediaRefs>
-					<AuxBusRefs>
-						<AuxBusRef Id="2518605955" Name="RVB_Up"/>
-						<AuxBusRef Id="4116390784" Name="RVB_Down"/>
-					</AuxBusRefs>
-				</Event>
+				<Event Id="632899503" Name="Play_SFX_Hunter_Death" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
 				<Event Id="1860495876" Name="Play_SFX_Hunter_Foley_Footsteps" DurationType="OneShot" DurationMin="0.28855583" DurationMax="0.40252393">
 					<MediaRefs>
 						<MediaRef Id="56522291"/>
@@ -980,7 +982,7 @@
 						<MediaRef Id="52636791"/>
 					</MediaRefs>
 				</Event>
-				<Event Id="1079904799" Name="Play_UI_General_Scroll" DurationType="OneShot" DurationMin="0.21399093" DurationMax="0.21399093">
+				<Event Id="1079904799" Name="Play_UI_General_Scroll" DurationType="OneShot" DurationMin="0.20198052" DurationMax="0.2267155">
 					<MediaRefs>
 						<MediaRef Id="32303396"/>
 					</MediaRefs>
@@ -999,6 +1001,7 @@
 				<Event Id="1355485359" Name="Stop_AMB_Dash" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
 				<Event Id="689102733" Name="Stop_AMB_MainMenu" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
 				<Event Id="2706217030" Name="Stop_AMB_Rift_Bed" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
+				<Event Id="4243151942" Name="Stop_AMB_Sandfall" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
 				<Event Id="494702947" Name="Stop_AMB_WeakSpot" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
 				<Event Id="2120326816" Name="Stop_SFX_Hunter_AirSpeed" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
 			</Events>
@@ -1020,5 +1023,5 @@
 			</StateGroups>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{BD62CFB9-0C66-A65B-C5A6-559E7C8242B8}</FileHash>
+	<FileHash>{7C1C5B09-2FF7-E543-AED5-E12454DC50ED}</FileHash>
 </SoundBanksInfo>
