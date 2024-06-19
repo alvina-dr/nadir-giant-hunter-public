@@ -23,24 +23,25 @@ public class UI_MainMenu : MonoBehaviour
         }
         _mainMenu.OpenMenu(true);
         DataHolder.Instance.Tutorial = true;
+        Debug.LogError("Open console");
     }
 
     public void StartGame(int difficulty)
     {
         FadeOut();
+        _sfxStartGame.Post(DataHolder.Instance.gameObject);
+        if (DataHolder.Instance.Tutorial)
+        {
+            AkSoundEngine.SetState("Music_State", "Silence");
+        }
+        else
+        {
+            AkSoundEngine.SetState("Music_State", "Game");
+        }
         DOVirtual.DelayedCall(1, () =>
         {
-            _sfxStartGame.Post(DataHolder.Instance.gameObject);
             DataHolder.Instance.CurrentDifficulty = (DataHolder.DifficultyMode) difficulty;
             SceneManager.LoadScene("Game");
-            if (DataHolder.Instance.Tutorial)
-            {
-                AkSoundEngine.SetState("Music_State", "Silence");
-            }
-            else
-            {
-                AkSoundEngine.SetState("Music_State", "Game");
-            }
         });
     }
 

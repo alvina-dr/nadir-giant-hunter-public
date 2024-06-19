@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.Localization.Settings;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Video;
 
 public class TutorialCtrl : MonoBehaviour
 {
@@ -46,6 +47,7 @@ public class TutorialCtrl : MonoBehaviour
     [SerializeField] private RectTransform _explanationLayout;
     [SerializeField] private UI_ExplanationEntry _explanationPrefab;
     [SerializeField] private GameObject inputToExitTutorial;
+    [SerializeField] private VideoPlayer _videoPlayer;
 
     private void Start()
     {
@@ -146,6 +148,7 @@ public class TutorialCtrl : MonoBehaviour
             explanation.SetupExplanation(TutorielData.entries[_tutoIndex].Content[i]);
         }
         _pageNumber.text = "<- " + (_tutoIndex + 1).ToString() + "/" + TutorielData.entries.Count + " ->";
+        _videoPlayer.clip = TutorielData.entries[_tutoIndex].Video;
         Canvas.ForceUpdateCanvases();
         _explanationLayout.gameObject.GetComponent<VerticalLayoutGroup>().enabled = false;
         _explanationLayout.gameObject.GetComponent<VerticalLayoutGroup>().enabled = true;

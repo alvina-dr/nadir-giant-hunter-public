@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 using UnityEngine.InputSystem;
+using UnityEngine.Video;
 
 [CreateAssetMenu(fileName = "TutorielData", menuName = "ScriptableObjects/TutorielData", order = 1)]
 public class TutorialData : ScriptableObject
@@ -12,6 +13,7 @@ public class TutorialData : ScriptableObject
     {
         public string TitleKey;
         public List<TutorielText> Content = new List<TutorielText>();
+        public VideoClip Video;
 
         public TutorielEntry(string titleKey, List<TutorielText> content)
         {
