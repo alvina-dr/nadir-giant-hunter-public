@@ -23,14 +23,43 @@ public class UI_Settings : MonoBehaviour
     {
         if (PlayerPrefs.HasKey("Volume_Master"))
             AkSoundEngine.SetRTPCValue("Volume_Master", PlayerPrefs.GetInt("Volume_Master") * 5); //VOLUME MASTER
+        else
+        {
+            PlayerPrefs.SetInt("Volume_Master", 100); 
+            AkSoundEngine.SetRTPCValue("Volume_Master", 100);
+        }
+
         if (PlayerPrefs.HasKey("Volume_Music"))
             AkSoundEngine.SetRTPCValue("Volume_Music", PlayerPrefs.GetInt("Volume_Music") * 5); //VOLUME MUSIC
+        else
+        {
+            PlayerPrefs.SetInt("Volume_Music", 100);
+            AkSoundEngine.SetRTPCValue("Volume_Music", 100);
+        }
+
         if (PlayerPrefs.HasKey("Volume_SFX"))
             AkSoundEngine.SetRTPCValue("Volume_SFX", PlayerPrefs.GetInt("Volume_SFX") * 5); //VOLUME SFX
+        else
+        {
+            PlayerPrefs.SetInt("Volume_SFX", 100);
+            AkSoundEngine.SetRTPCValue("Volume_SFX", 100);
+        }
+
         if (PlayerPrefs.HasKey("Volume_AMB"))
             AkSoundEngine.SetRTPCValue("Volume_AMB", PlayerPrefs.GetInt("Volume_AMB") * 5); //VOLUME AMB
+        else
+        {
+            PlayerPrefs.SetInt("Volume_AMB", 100);
+            AkSoundEngine.SetRTPCValue("Volume_AMB", 100);
+        }
+
         if (PlayerPrefs.HasKey("Volume_UI"))
             AkSoundEngine.SetRTPCValue("Volume_UI", PlayerPrefs.GetInt("Volume_UI") * 5); //VOLUME UI
+        else
+        {
+            PlayerPrefs.SetInt("Volume_UI", 100);
+            AkSoundEngine.SetRTPCValue("Volume_UI", 100);
+        }
 
         if (PlayerPrefs.HasKey("ScreenResolution")) //SCREEN RESOLUTION
         {

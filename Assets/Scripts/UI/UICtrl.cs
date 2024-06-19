@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
+using Unity.VisualScripting;
 
 public class UICtrl : MonoBehaviour
 {
@@ -12,6 +14,7 @@ public class UICtrl : MonoBehaviour
     public UI_EndGameMenu EndGameMenu;
     public UI_Settings UI_Settings;
     public UI_Menu PauseMenu;
+    public Image FadeScreen;
 
     [Header("Indicators")]
     public UI_MovingIndicator AttackInputIndicator;
@@ -36,6 +39,7 @@ public class UICtrl : MonoBehaviour
 
     [Header("End Game Menu")]
     [SerializeField] private TextMeshProUGUI _endGameMenuTitle;
+
     public void OpenPauseMenu()
     {
         PauseMenu.OpenMenu();
@@ -67,27 +71,49 @@ public class UICtrl : MonoBehaviour
         else OpenPauseMenu();
     }
 
+    public void FadeIn()
+    {
+        FadeScreen.color = new Color(FadeScreen.color.r, FadeScreen.color.g, FadeScreen.color.b, 1);
+        FadeScreen.DOFade(0, 1).SetUpdate(true);
+    }
+
+    public void FadeOut()
+    {
+        FadeScreen.color = new Color(FadeScreen.color.r, FadeScreen.color.g, FadeScreen.color.b, 0);
+        FadeScreen.DOFade(1, 1).SetUpdate(true);
+    }
+
     public void BackToMainMenu()
     {
-        SceneManager.LoadScene("MainMenu");
-        Time.timeScale = 1;
-        AkSoundEngine.SetState("Music_State", "MainMenu");
-        AkSoundEngine.SetState("Pause", "Unpaused");
+        PauseMenu.GetComponent<CanvasGroup>().interactable = false;
+        FadeOut();
+        DOVirtual.DelayedCall(1, () =>
+        {
+            SceneManager.LoadScene("MainMenu");
+            Time.timeScale = 1;
+            AkSoundEngine.SetState("Music_State", "MainMenu");
+            AkSoundEngine.SetState("Pause", "Unpaused");
+        });
     }
 
     public void TryAgain()
     {
-        SceneManager.LoadScene("Game");
-        if (DataHolder.Instance.Tutorial)
+        PauseMenu.GetComponent<CanvasGroup>().interactable = false;
+        FadeOut();
+        DOVirtual.DelayedCall(1, () =>
         {
-            AkSoundEngine.SetState("Music_State", "Silence");
-        }
-        else
-        {
-            AkSoundEngine.SetState("Music_State", "Game");
-        }
-        AkSoundEngine.SetState("Pause", "Unpaused");
-        Time.timeScale = 1;
+            SceneManager.LoadScene("Game");
+            if (DataHolder.Instance.Tutorial)
+            {
+                AkSoundEngine.SetState("Music_State", "Silence");
+            }
+            else
+            {
+                AkSoundEngine.SetState("Music_State", "Game");
+            }
+            AkSoundEngine.SetState("Pause", "Unpaused");
+            Time.timeScale = 1;
+        });
     }
 
     public void OpenEndGameMenu(bool hasWon)
@@ -105,6 +131,7 @@ public class UICtrl : MonoBehaviour
 
     private void Start()
     {
+        FadeIn();
         KillRatioText.text = GPCtrl.Instance.NumEnemyKilled.ToString() + " / " + GPCtrl.Instance.EnemySpawner.SpawnerData.NumTotalEnemy.ToString();
     }
 }
