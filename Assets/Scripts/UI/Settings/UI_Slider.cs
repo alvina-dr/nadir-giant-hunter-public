@@ -13,6 +13,7 @@ public class UI_Slider : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     [SerializeField] public Image _background;
     [SerializeField] public AK.Wwise.Event _sfxHover;
     [SerializeField] public AK.Wwise.Event _sfxClick;
+    [SerializeField] public AK.Wwise.Event _sfxSlider;
 
     private void Awake()
     {
@@ -28,6 +29,7 @@ public class UI_Slider : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     public void SetValue(float value) //for any other value
     {
+        _sfxSlider.Post(DataHolder.Instance.gameObject);
         if (WwiseSlider)
         {
             AkSoundEngine.SetRTPCValue(_parameterName, value * 5);

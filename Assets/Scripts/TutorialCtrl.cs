@@ -69,6 +69,7 @@ public class TutorialCtrl : MonoBehaviour
             _timer += Time.unscaledDeltaTime;
             if (_timer > 2.0f)
             {
+                _timer = -100;
                 LaunchGame();
             }
         } else
