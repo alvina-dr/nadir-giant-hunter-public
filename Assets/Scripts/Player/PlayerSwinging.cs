@@ -65,6 +65,14 @@ public class PlayerSwinging : MonoBehaviour
             GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(1).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = Mathf.Lerp(initialValue, factor * Player.Data.swingCameraDistanceAddition, .3f);
             GPCtrl.Instance.CameraThirdPerson.CinemachineFreeLook.GetRig(2).GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = Mathf.Lerp(initialValue, factor * Player.Data.swingCameraDistanceAddition, .3f);
             float dotVector = Vector3.Dot((EndSwingLinePoint.position - transform.position).normalized, Vector3.up);
+
+            if (IsSwinging)
+            {
+                Vector3 velo = GPCtrl.Instance.Player.Rigibody.velocity;
+                float shakeForce = dotVector * 3f + new Vector3(velo.x, 0, velo.z).magnitude * 0.007f;
+                GPCtrl.Instance.CameraThirdPerson.CameraShake.SetShakeCamera(shakeForce, shakeForce* .1f);
+            }
+
             if (dotVector > .8f)
             {
                 //GPCtrl.Instance.CameraThirdPerson.CameraShake.ShakeCamera(2 * dotVector, .1f);
