@@ -28,6 +28,7 @@ MonoBehaviour:
   maxSpeedInAirLerp: 0.05
   speedEffectMin: 300
   StrafeInfluence: 5000
+  gravityMultiplier: 1.013
   swingSpeed: 50
   swingMaxSpeed: 350
   SwingSpeedLengthMult: 0.01
@@ -45,12 +46,10 @@ MonoBehaviour:
   airSlowDown: 500
   attackStopDistance: 5
   dragForce: 100
-  weakSpotDetectionDistance: 500
   weakSpotReboundForce: 500
   centerOfScreenSpotPriority: 0.5
   doubleSwingBoost: 500
   doubleSwingLineRendererDuration: 0.1
-  dashForce: 1500
   slowDownTime: 0
   timeBeforeAutomaticDash: 10000
   dashTime: 1

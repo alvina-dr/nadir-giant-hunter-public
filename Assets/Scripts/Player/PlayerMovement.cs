@@ -112,6 +112,7 @@ public class PlayerMovement : MonoBehaviour
             if (FallingTimer > Player.Data.timeBeforeLookingDownAnim)
             {
                 Player.Animator.SetBool("LongFall", true);
+                //Player.Rigibody.velocity = new Vector3(Player.Rigibody.velocity.x, Player.Rigibody.velocity.y * Player.Data.gravityMultiplier * Time.fixedDeltaTime * 50, Player.Rigibody.velocity.z);
             }
         } else
         {
@@ -155,9 +156,9 @@ public class PlayerMovement : MonoBehaviour
             Vector3 input = new Vector3(Player.MoveAction.ReadValue<Vector2>().x, 0, Player.MoveAction.ReadValue<Vector2>().y);
             if (input != Vector3.zero && !Grounded)
             {
-                if (input.z > 0 && Camera.main.transform.forward.y < -.3f)
+                if (input.z > 0 && Camera.main.transform.forward.y < -.7f)
                 {
-                    Player.Rigibody.AddForce(Vector3.down * Player.Data.jumpForce * 5, ForceMode.Impulse);
+                    Player.Rigibody.AddForce(Vector3.down * Player.Data.jumpForce, ForceMode.Impulse);
                 } else
                 {
                     Player.Rigibody.AddForce((input + transform.up).normalized * Player.Data.jumpForce, ForceMode.Impulse);
