@@ -91,19 +91,20 @@ public class TutorialCtrl : MonoBehaviour
             AkSoundEngine.SetState("Pause", "Unpaused");
             AkSoundEngine.SetState("SlowMo", "NoSlowMo");
             GPCtrl.Instance.Player.SoundData.AMB_DeathZone_Enter.Stop(GPCtrl.Instance.Player.gameObject);
+            Time.timeScale = 1;
         });
     }
 
     public void FadeIn()
     {
         FadeScreen.color = new Color(FadeScreen.color.r, FadeScreen.color.g, FadeScreen.color.b, 1);
-        FadeScreen.DOFade(0, 1);
+        FadeScreen.DOFade(0, 1).SetUpdate(true);
     }
 
     public void FadeOut()
     {
         FadeScreen.color = new Color(FadeScreen.color.r, FadeScreen.color.g, FadeScreen.color.b, 0);
-        FadeScreen.DOFade(1, 1);
+        FadeScreen.DOFade(1, 1).SetUpdate(true);
     }
 
     public void SetupTutorialScene()
@@ -176,10 +177,5 @@ public class TutorialCtrl : MonoBehaviour
         {
             Destroy(_explanationLayout.GetChild(i).gameObject);
         }
-    }
-
-    public void LaunchRealGame()
-    {
-        GPCtrl.Instance.EnemySpawner.gameObject.SetActive(true);
     }
 }

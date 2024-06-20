@@ -50,13 +50,13 @@ public class UI_MainMenu : MonoBehaviour
     public void FadeIn()
     {
         FadeScreen.color = new Color(FadeScreen.color.r, FadeScreen.color.g, FadeScreen.color.b, 1);
-        FadeScreen.DOFade(0, 1);
+        FadeScreen.DOFade(0, 1).SetUpdate(true);
     }
 
     public void FadeOut()
     {
         FadeScreen.color = new Color(FadeScreen.color.r, FadeScreen.color.g, FadeScreen.color.b, 0);
-        FadeScreen.DOFade(1, 1);
+        FadeScreen.DOFade(1, 1).SetUpdate(true);
     }
 
     public void QuitGame()
