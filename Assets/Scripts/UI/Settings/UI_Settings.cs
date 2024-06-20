@@ -123,6 +123,8 @@ public class UI_Settings : MonoBehaviour
     public void ShowSubMenu(CanvasGroup group)
     {
         group.gameObject.SetActive(true);
+        RectTransform rect = (RectTransform)group.transform;
+        LayoutRebuilder.ForceRebuildLayoutImmediate(rect);
         group.DOFade(1, .3f).OnComplete(() =>
         {
             group.blocksRaycasts = true;

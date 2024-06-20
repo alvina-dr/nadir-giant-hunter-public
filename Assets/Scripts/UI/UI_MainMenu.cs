@@ -24,7 +24,7 @@ public class UI_MainMenu : MonoBehaviour
         }
         _mainMenu.OpenMenu(true);
         DataHolder.Instance.Tutorial = true;
-        Debug.LogError("Open console");
+        //Debug.LogError("Open console");
     }
 
     public void StartGame(int difficulty)

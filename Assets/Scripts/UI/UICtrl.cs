@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
 using Unity.VisualScripting;
+using Palmmedia.ReportGenerator.Core;
 
 public class UICtrl : MonoBehaviour
 {
@@ -55,7 +56,11 @@ public class UICtrl : MonoBehaviour
     public void ClosePauseMenu()
     {
         GPCtrl.Instance.Pause = false;
-        if (!GPCtrl.Instance.DashPause) Time.timeScale = 1;
+        UI_Settings.GetComponent<UI_Menu>().CloseMenu(true);
+        if (!GPCtrl.Instance.DashPause)
+        {
+            Time.timeScale = 1;
+        }
         PauseMenu.CloseMenu();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
