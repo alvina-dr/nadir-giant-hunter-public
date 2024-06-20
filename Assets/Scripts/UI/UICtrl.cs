@@ -93,6 +93,8 @@ public class UICtrl : MonoBehaviour
             Time.timeScale = 1;
             AkSoundEngine.SetState("Music_State", "MainMenu");
             AkSoundEngine.SetState("Pause", "Unpaused");
+            AkSoundEngine.SetState("SlowMo", "NoSlowMo");
+            GPCtrl.Instance.Player.SoundData.AMB_DeathZone_Enter.Stop(GPCtrl.Instance.Player.gameObject);
         });
     }
 
@@ -111,8 +113,10 @@ public class UICtrl : MonoBehaviour
             {
                 AkSoundEngine.SetState("Music_State", "Game");
             }
-            AkSoundEngine.SetState("Pause", "Unpaused");
             Time.timeScale = 1;
+            AkSoundEngine.SetState("Pause", "Unpaused");
+            AkSoundEngine.SetState("SlowMo", "NoSlowMo");
+            GPCtrl.Instance.Player.SoundData.AMB_DeathZone_Enter.Stop(GPCtrl.Instance.Player.gameObject);
         });
     }
 

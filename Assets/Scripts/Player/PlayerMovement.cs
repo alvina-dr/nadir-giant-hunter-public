@@ -157,7 +157,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (input.z > 0 && Camera.main.transform.forward.y < -.3f)
                 {
-                    Player.Rigibody.AddForce(Vector3.down * Player.Data.jumpForce, ForceMode.Impulse);
+                    Player.Rigibody.AddForce(Vector3.down * Player.Data.jumpForce * 5, ForceMode.Impulse);
                 } else
                 {
                     Player.Rigibody.AddForce((input + transform.up).normalized * Player.Data.jumpForce, ForceMode.Impulse);

@@ -89,6 +89,8 @@ public class TutorialCtrl : MonoBehaviour
             SceneManager.LoadScene("Game");
             AkSoundEngine.SetState("Music_State", "Game");
             AkSoundEngine.SetState("Pause", "Unpaused");
+            AkSoundEngine.SetState("SlowMo", "NoSlowMo");
+            GPCtrl.Instance.Player.SoundData.AMB_DeathZone_Enter.Stop(GPCtrl.Instance.Player.gameObject);
         });
     }
 
