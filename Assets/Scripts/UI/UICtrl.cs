@@ -6,8 +6,6 @@ using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
-using Unity.VisualScripting;
-using Palmmedia.ReportGenerator.Core;
 
 public class UICtrl : MonoBehaviour
 {
