@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 054f681d922a5d942a9e02d64328c744, type: 3}
+  m_Name: PlayerData_02
+  m_EditorClassIdentifier: 
+  walkRotationSpeed: 15
+  airRotationSpeed: 3
+  swingCameraFOVAddition: 0
+  swingCameraDistanceAddition: 0
+  walkSpeed: 20
+  jumpForce: 10
+  jumpCooldown: 0.25
+  airMultiplier: 0.1
+  groundDrag: 1
+  charaHeight: 1.8
+  timeBeforeLookingDownAnim: 0.3
+  speedDivisionFactorVFX: 5
+  maxSpeedInAir: 160
+  maxSpeedInAirLerp: 0.05
+  speedEffectMin: 300
+  StrafeInfluence: 5000
+  swingSpeed: 50
+  swingMaxSpeed: 75
+  SwingSpeedLengthMult: 0.01
+  SwingBaseOrientationSpeed: 0
+  SwingCameraOrientInfluence: 60
+  swingAcceleration: 10
+  minSwingDistance: 25
+  maxSwingDistance: 600
+  startCurveSpeedBoost: 10
+  endCurveSpeedBoost: 20
+  radiusDetectionIncreaseSpeed: 1000
+  MaxSwingAngle: -0.08
+  maxYForceOnRelease: 50
+  coneRaycastOnPlayer: 0
+  airSlowDown: 500
+  attackStopDistance: 5
+  dragForce: 100
+  weakSpotReboundForce: 500
+  centerOfScreenSpotPriority: 0.5
+  doubleSwingBoost: 0
+  doubleSwingLineRendererDuration: 0.1
+  slowDownTime: 0
+  timeBeforeAutomaticDash: 10000
+  dashTime: 0.2
+  bumpForce: 1100
+  startCurveBoost: 1
+  endCurveBoost: 1
+  magicSwinging: 0
