@@ -200,7 +200,6 @@ public class PlayerSwinging : MonoBehaviour
     public void TrySwing()
     {
         if (_springJoint) return;
-
         if (Player.Data.magicSwinging) //MAGIC SWINGING
         {
             StartSwing(null, _swingConeRaycast.perfectPoint.position);
@@ -209,6 +208,7 @@ public class PlayerSwinging : MonoBehaviour
 
         if (_bestSwingPoint != Vector3.zero) //NORMAL SWINGING
         {
+            //Debug.Break();
             Vector3 direction = _bestSwingPoint - StartSwingLinePoint.position;
             RaycastHit hit;
             if (Physics.Raycast(StartSwingLinePoint.position, direction, out hit, Player.Data.maxSwingDistance, _layerMask))
@@ -220,6 +220,9 @@ public class PlayerSwinging : MonoBehaviour
 
     public void StartSwing(Transform hitTransform, Vector3 hitPoint)
     {
+        DataHolder.Instance.RumbleManager.StopPulse();
+        Debug.Break();
+        DataHolder.Instance.RumbleManager.StopPulse();
         //swing direction on the y plane
         _swingOriginalDirection = Player.Mesh.forward;
         Player.PlayerMovement.CanJumpOnceInAir = true;

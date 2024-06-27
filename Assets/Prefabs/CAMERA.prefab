@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 688893115547720805}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0016791257, y: -0.95735127, z: -0.28890303, w: 0.003296963}
+  m_LocalRotation: {x: 0.08100791, y: -0, z: 4.656613e-10, w: 0.9967135}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -33,7 +33,7 @@ Transform:
   - {fileID: 522817657904389478}
   - {fileID: 2858002146876802275}
   m_Father: {fileID: 7763139289796435826}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 9.293, y: 0, z: 0}
 --- !u!1 &1839442421751224330
 GameObject:
   m_ObjectHideFlags: 3
@@ -451,7 +451,7 @@ Transform:
   m_GameObject: {fileID: 2714083716183255330}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0000071525574, y: 3.6684892, z: 11.599266}
+  m_LocalPosition: {x: 0.000013589859, y: 3.6685624, z: 11.599311}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -486,7 +486,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8251951536454571249}
   m_Layer: 2
-  m_Name: PerfectPoint
+  m_Name: RightPerfectPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -532,14 +532,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3202252360881553130}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.42101005, y: -0.03683362, z: 0.07898997, w: 0.90285903}
+  m_LocalRotation: {x: 0, y: 0, z: 0.08715578, w: 0.9961947}
   m_LocalPosition: {x: -0.3, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4419826904564590896}
   m_Father: {fileID: 2170923578428922005}
-  m_LocalEulerAnglesHint: {x: 50, y: 0, z: 10}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 10}
 --- !u!114 &7247584283717636759
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -559,10 +559,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 563
   SearchPoint: 0
-  MinRadius: 1
-  MaxRadius: 200
-  CurrentRadius: 1
-  _anglePrecision: 180
+  MinRadius: 2
+  MaxRadius: 50
+  _anglePrecision: 90
   _radiusPrecision: 4
 --- !u!1 &4189449164343400862
 GameObject:
@@ -574,7 +573,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4419826904564590896}
   m_Layer: 2
-  m_Name: PerfectPoint
+  m_Name: LeftPerfectPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -884,8 +883,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5258096268107281352}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.11043057, y: 0.88540626, z: -0.2704188, w: 0.36157227}
-  m_LocalPosition: {x: -38.48519, y: 3997.3599, z: -3355.1892}
+  m_LocalRotation: {x: 0.09827562, y: -0.07251669, z: 0.007180564, w: 0.9924876}
+  m_LocalPosition: {x: -160.92696, y: 1020.99005, z: -926.723}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1112,8 +1111,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5676512092264516563}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.11043057, y: 0.88540626, z: -0.2704188, w: 0.36157227}
-  m_LocalPosition: {x: -48.00431, y: 4006.64, z: -3340.5676}
+  m_LocalRotation: {x: 0.09827562, y: -0.07251669, z: 0.007180564, w: 0.9924876}
+  m_LocalPosition: {x: -160.92696, y: 1020.99005, z: -926.723}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1153,7 +1152,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.01
-  far clip plane: 5000
+  far clip plane: 8000
   field of view: 58.74486
   orthographic: 0
   orthographic size: 10
@@ -1477,14 +1476,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7259512906407627840}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.42101005, y: 0.03683362, z: -0.07898997, w: 0.90285903}
+  m_LocalRotation: {x: 0, y: 0, z: -0.08715578, w: 0.9961947}
   m_LocalPosition: {x: 0.3, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8251951536454571249}
   m_Father: {fileID: 2170923578428922005}
-  m_LocalEulerAnglesHint: {x: 50, y: 0, z: -10}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -10}
 --- !u!114 &3955281233684269443
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1504,10 +1503,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 563
   SearchPoint: 0
-  MinRadius: 1
-  MaxRadius: 200
-  CurrentRadius: 1
-  _anglePrecision: 180
+  MinRadius: 2
+  MaxRadius: 50
+  _anglePrecision: 90
   _radiusPrecision: 4
 --- !u!1 &8045755195893061166
 GameObject:

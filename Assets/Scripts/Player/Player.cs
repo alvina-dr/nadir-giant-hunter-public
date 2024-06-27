@@ -46,33 +46,19 @@ public class Player : MonoBehaviour
     [SerializeField] private Transform CameraConeRaycastParent;
     [SerializeField] private ConeRaycast CameraRightConeRaycast;
     [SerializeField] private ConeRaycast CameraLeftConeRaycast;
-    [SerializeField] private ConeRaycast PlayerRightConeRaycast;
-    [SerializeField] private ConeRaycast PlayerLeftConeRaycast;
 
     private void Awake()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         SetupInputActions();
-        SetConeRaycast(Data.coneRaycastOnPlayer);
+        PlayerSwingingLeft.SetConeRaycast(CameraLeftConeRaycast);
+        PlayerSwingingRight.SetConeRaycast(CameraRightConeRaycast);
     }
 
     private void Update()
     {
         UpdateInputs();
-    }
-
-    public void SetConeRaycast(bool onPlayer)
-    {
-        if (onPlayer)
-        {
-            PlayerSwingingLeft.SetConeRaycast(PlayerLeftConeRaycast);
-            PlayerSwingingRight.SetConeRaycast(PlayerRightConeRaycast);
-        } else
-        {
-            PlayerSwingingLeft.SetConeRaycast(CameraLeftConeRaycast);
-            PlayerSwingingRight.SetConeRaycast(CameraRightConeRaycast);
-        }
     }
 
     void SetupInputActions()

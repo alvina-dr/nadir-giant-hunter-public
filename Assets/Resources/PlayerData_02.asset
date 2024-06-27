@@ -16,8 +16,8 @@ MonoBehaviour:
   airRotationSpeed: 3
   swingCameraFOVAddition: 0
   swingCameraDistanceAddition: 0
-  walkSpeed: 20
-  jumpForce: 10
+  walkSpeed: 10
+  jumpForce: 150
   jumpCooldown: 0.25
   airMultiplier: 0.1
   groundDrag: 1
@@ -35,7 +35,7 @@ MonoBehaviour:
   SwingCameraOrientInfluence: 60
   swingAcceleration: 10
   minSwingDistance: 25
-  maxSwingDistance: 600
+  maxSwingDistance: 150
   startCurveSpeedBoost: 10
   endCurveSpeedBoost: 20
   radiusDetectionIncreaseSpeed: 1000
@@ -44,7 +44,7 @@ MonoBehaviour:
   coneRaycastOnPlayer: 0
   airSlowDown: 500
   attackStopDistance: 5
-  dragForce: 100
+  dragForce: 50
   weakSpotReboundForce: 500
   centerOfScreenSpotPriority: 0.5
   doubleSwingBoost: 0

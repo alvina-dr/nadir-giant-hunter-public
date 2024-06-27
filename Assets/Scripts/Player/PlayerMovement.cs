@@ -168,10 +168,9 @@ public class PlayerMovement : MonoBehaviour
                 Player.Rigibody.AddForce(transform.up * Player.Data.jumpForce, ForceMode.Impulse);
             }
             Invoke(nameof(ResetJump), Player.Data.jumpCooldown);
-            Player.Animator.SetBool("Grounded", false);
+            Player.Animator.SetTrigger("Jump");
             Player.Animator.SetFloat("JumpDirectionX", Mathf.Round(input.x));
             Player.Animator.SetFloat("JumpDirectionY", input.z);
-            Player.Animator.SetTrigger("Jump");
             Player.SoundData.SFX_Hunter_Jump.Post(Player.gameObject);
             Player.SparksVFX.SendEvent("Jump");
             DataHolder.Instance.RumbleManager.PulseFor(5f, 5f, .1f);
