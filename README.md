@@ -5,3 +5,5 @@ WARNING : This repository is the public version of the source code for Nadir Gia
 ![Notion](https://img.shields.io/badge/Notion-%23000000.svg?style=for-the-badge&logo=notion&logoColor=white)
 
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/t/alvina-dr/nadir-giant-hunter-public?authorFilter=alvina-dr&style=for-the-badge)
+
+You can find a detailed page about my process on the project on my portfolio : https://alvina-dr.com/html/projects/video-games/nadir-giant-hunter.html
